@@ -1,0 +1,87 @@
+{
+  "name": "17_asset_strict",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اختر صورة شخصية لفرانز فرديناند: A منديل عليه دمه، B صورة شخصية لوجهه، C دبابة. اختر الصحيح فقط.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 150,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "audit_output",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selected": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C"
+              ]
+            }
+          },
+          "required": [
+            "selected"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"selected\": \"C\"\n}"
+        }
+      }
+    ],
+    "created": 1792407086,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 14,
+      "prompt_tokens": 104,
+      "total_tokens": 118,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-IbHu9Ni0z5cLHBXyBiLRzqJ1rmgMi4sY",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 55,
+      "prompt_ms": 167.166,
+      "prompt_per_token_ms": 3.039381818181818,
+      "prompt_per_second": 329.0142732373808,
+      "predicted_n": 14,
+      "predicted_ms": 379.598,
+      "predicted_per_token_ms": 29.199846153846156,
+      "predicted_per_second": 34.24675577848144
+    }
+  },
+  "parsed": {
+    "selected": "C"
+  },
+  "finish_reason": "stop",
+  "seconds": 0.575
+}

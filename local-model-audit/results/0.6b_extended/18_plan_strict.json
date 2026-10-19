@@ -1,0 +1,299 @@
+{
+  "name": "18_plan_strict",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "أنشئ خطة وايت بورد عربية من 3 مشاهد، canvas [2560,1440] وfps 24 ومدة 15 ثانية لكل مشهد. كل مشهد عنوان قصير ونص شرح واضح وزخرفة اختيارية، بلا صور. النصوص داخل rect كبير مناسب. المصدر فقط: غزت ألمانيا بولندا في 1 سبتمبر 1939. أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939. انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945. أعد الخطة المطابقة للمخطط، بلا اختراع حقائق.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 2300,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "audit_output",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "canvas": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "fps": {
+              "type": "integer"
+            },
+            "scenes": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "duration": {
+                    "type": "number"
+                  },
+                  "narration": {
+                    "type": "string"
+                  },
+                  "elements": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 4,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "highlight",
+                            "underline",
+                            "arrow"
+                          ]
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "font": {
+                          "type": "string",
+                          "enum": [
+                            "cairo",
+                            "amiri",
+                            "arefruqaa"
+                          ]
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "rect": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "minItems": 4,
+                          "maxItems": 4
+                        },
+                        "rtl": {
+                          "type": "boolean"
+                        },
+                        "mode": {
+                          "type": "string",
+                          "enum": [
+                            "skeleton"
+                          ]
+                        },
+                        "color": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "text",
+                        "font",
+                        "size",
+                        "rect",
+                        "rtl",
+                        "mode",
+                        "color"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "duration",
+                  "narration",
+                  "elements"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "canvas",
+            "fps",
+            "scenes"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"canvas\": [\n    2560,\n    1440\n  ],\n  \"fps\": 24,\n  \"scenes\": [\n    {\n      \"id\": 1,\n      \"duration\": 15,\n      \"narration\": \"الحرب العالمية 1939\",\n      \"elements\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"الحرب العالمية 1939\",\n          \"font\": \"cairo\",\n          \"size\": 24,\n          \"rect\": [\n            100,\n            100,\n            200,\n            200\n          ],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"black\"\n        },\n        {\n          \"type\": \"text\",\n          \"text\": \"الحرب العالمية 1939\",\n          \"font\": \"cairo\",\n          \"size\": 24,\n          \"rect\": [\n            100,\n            100,\n            200,\n            200\n          ],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"black\"\n        }\n      ]\n    },\n    {\n      \"id\": 2,\n      \"duration\": 15,\n      \"narration\": \"الحرب العالمية 1939\",\n      \"elements\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"الحرب العالمية 1939\",\n          \"font\": \"cairo\",\n          \"size\": 24,\n          \"rect\": [\n            100,\n            100,\n            200,\n            200\n          ],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"black\"\n        },\n        {\n          \"type\": \"text\",\n          \"text\": \"الحرب العالمية 1939\",\n          \"font\": \"cairo\",\n          \"size\": 24,\n          \"rect\": [\n            100,\n            100,\n            200,\n            200\n          ],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"black\"\n        }\n      ]\n    },\n    {\n      \"id\": 3,\n      \"duration\": 15,\n      \"narration\": \"الحرب العالمية 1945\",\n      \"elements\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"الحرب العالمية 1945\",\n          \"font\": \"cairo\",\n          \"size\": 24,\n          \"rect\": [\n            100,\n            100,\n            200,\n            200\n          ],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"black\"\n        },\n        {\n          \"type\": \"text\",\n          \"text\": \"الحرب العالمية 1945\",\n          \"font\": \"cairo\",\n          \"size\": 24,\n          \"rect\": [\n            100,\n            100,\n            200,\n            200\n          ],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"black\"\n        }\n      ]\n    }\n  ]\n}"
+        }
+      }
+    ],
+    "created": 1792407114,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 745,
+      "prompt_tokens": 238,
+      "total_tokens": 983,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-XnFSy2olssKqLKScV70KoMzIPo4gpvgv",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 189,
+      "prompt_ms": 427.373,
+      "prompt_per_token_ms": 2.261232804232804,
+      "prompt_per_second": 442.2366410606192,
+      "predicted_n": 745,
+      "predicted_ms": 28181.062,
+      "predicted_per_token_ms": 37.877771505376344,
+      "predicted_per_second": 26.400708390620622
+    }
+  },
+  "parsed": {
+    "canvas": [
+      2560,
+      1440
+    ],
+    "fps": 24,
+    "scenes": [
+      {
+        "id": 1,
+        "duration": 15,
+        "narration": "الحرب العالمية 1939",
+        "elements": [
+          {
+            "type": "text",
+            "text": "الحرب العالمية 1939",
+            "font": "cairo",
+            "size": 24,
+            "rect": [
+              100,
+              100,
+              200,
+              200
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "black"
+          },
+          {
+            "type": "text",
+            "text": "الحرب العالمية 1939",
+            "font": "cairo",
+            "size": 24,
+            "rect": [
+              100,
+              100,
+              200,
+              200
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "black"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "duration": 15,
+        "narration": "الحرب العالمية 1939",
+        "elements": [
+          {
+            "type": "text",
+            "text": "الحرب العالمية 1939",
+            "font": "cairo",
+            "size": 24,
+            "rect": [
+              100,
+              100,
+              200,
+              200
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "black"
+          },
+          {
+            "type": "text",
+            "text": "الحرب العالمية 1939",
+            "font": "cairo",
+            "size": 24,
+            "rect": [
+              100,
+              100,
+              200,
+              200
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "black"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "duration": 15,
+        "narration": "الحرب العالمية 1945",
+        "elements": [
+          {
+            "type": "text",
+            "text": "الحرب العالمية 1945",
+            "font": "cairo",
+            "size": 24,
+            "rect": [
+              100,
+              100,
+              200,
+              200
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "black"
+          },
+          {
+            "type": "text",
+            "text": "الحرب العالمية 1945",
+            "font": "cairo",
+            "size": 24,
+            "rect": [
+              100,
+              100,
+              200,
+              200
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "black"
+          }
+        ]
+      }
+    ]
+  },
+  "finish_reason": "stop",
+  "seconds": 28.619
+}

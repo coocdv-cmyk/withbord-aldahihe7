@@ -1,0 +1,88 @@
+{
+  "name": "10_repair",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "الخطة التالية غير صحيحة: {\"canvas\":[2560,1440],\"scenes\":[{\"id\":1,\"duration\":-2,\"narration\":\"بدأت الحرب في أوروبا عام 1939\",\"elements\":[{\"type\":\"text\",\"text\":\"1939\",\"rect\":[2500,1400,500,300]}]}]}. أعد الخطة مصححة بنفس النص وبداخل اللوحة ومدة موجبة من 3 إلى 35 ثانية، دون تعليق.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 650,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"canvas\":[2560,1440],\"scenes\":[{\"id\":1,\"duration\":10,\"narration\":\"بدأت الحرب في أوروبا عام 1939\",\"elements\":[{\"type\":\"text\",\"text\":\"1939\",\"rect\":[2500,1400,500,300]}]}]}"
+        }
+      }
+    ],
+    "created": 1792406151,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 78,
+      "prompt_tokens": 180,
+      "total_tokens": 258,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-HdhO8m7UuxE4vzIPvKSQ3QkdVLHSTeBv",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 131,
+      "prompt_ms": 3597.77,
+      "prompt_per_token_ms": 27.46389312977099,
+      "prompt_per_second": 36.41144375543739,
+      "predicted_n": 78,
+      "predicted_ms": 15514.033,
+      "predicted_per_token_ms": 201.48094805194805,
+      "predicted_per_second": 4.96324843449798
+    }
+  },
+  "parsed": {
+    "canvas": [
+      2560,
+      1440
+    ],
+    "scenes": [
+      {
+        "id": 1,
+        "duration": 10,
+        "narration": "بدأت الحرب في أوروبا عام 1939",
+        "elements": [
+          {
+            "type": "text",
+            "text": "1939",
+            "rect": [
+              2500,
+              1400,
+              500,
+              300
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "finish_reason": "stop",
+  "seconds": 19.318
+}

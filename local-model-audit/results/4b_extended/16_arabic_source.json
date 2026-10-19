@@ -1,0 +1,83 @@
+{
+  "name": "16_arabic_source",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "استخرج الأحداث فقط وأعد {\"events\":[{\"date\":\"...\",\"event\":\"...\"}]}. المصدر: غزت ألمانيا بولندا في 1 سبتمبر 1939. أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939. انتهت الحرب في أوروبا في مايو 1945، بينما انتهت الحرب العالمية في سبتمبر 1945. لا تضف شيئا.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 600,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"events\":[{\"date\":\"1939-09-01\",\"event\":\"غزت ألمانيا بولندا\"},{\"date\":\"1939-09-03\",\"event\":\"أعلنت بريطانيا وفرنسا الحرب على ألمانيا\"},{\"date\":\"1945-05\",\"event\":\"انتهت الحرب في أوروبا\"},{\"date\":\"1945-09\",\"event\":\"انتهت الحرب العالمية\"}]}"
+        }
+      }
+    ],
+    "created": 1792407734,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 99,
+      "prompt_tokens": 167,
+      "total_tokens": 266,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-szmRKc01eKszyNHjDSs8DAmDAfsP6wte",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 118,
+      "prompt_ms": 2178.678,
+      "prompt_per_token_ms": 18.46337288135593,
+      "prompt_per_second": 54.161284962715925,
+      "predicted_n": 99,
+      "predicted_ms": 16820.969,
+      "predicted_per_token_ms": 171.64254081632654,
+      "predicted_per_second": 5.82606150692032
+    }
+  },
+  "parsed": {
+    "events": [
+      {
+        "date": "1939-09-01",
+        "event": "غزت ألمانيا بولندا"
+      },
+      {
+        "date": "1939-09-03",
+        "event": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا"
+      },
+      {
+        "date": "1945-05",
+        "event": "انتهت الحرب في أوروبا"
+      },
+      {
+        "date": "1945-09",
+        "event": "انتهت الحرب العالمية"
+      }
+    ]
+  },
+  "finish_reason": "stop",
+  "seconds": 19.051
+}

@@ -1,0 +1,87 @@
+{
+  "render_plan": {
+    "canvas": {
+      "width": 2560,
+      "height": 1440
+    },
+    "fps": 24,
+    "scenes": [
+      {
+        "id": 1,
+        "duration": 12,
+        "narration": "Arabic explanation",
+        "elements": [
+          {
+            "text": "Germany invaded Poland on 1 September 1939.",
+            "font": "cairo",
+            "size": 110,
+            "rect": [
+              100,
+              100,
+              100,
+              30
+            ]
+          },
+          {
+            "text": "Britain and France declared war on Germany on 3 September 1939.",
+            "font": "cairo",
+            "size": 110,
+            "rect": [
+              200,
+              100,
+              100,
+              30
+            ]
+          },
+          {
+            "text": "Germany invaded the Soviet Union on 22 June 1941.",
+            "font": "cairo",
+            "size": 110,
+            "rect": [
+              300,
+              100,
+              100,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "duration": 12,
+        "narration": "Japan attacked Pearl Harbor on 7 December 1941.",
+        "elements": [
+          {
+            "text": "Japan attacked Pearl Harbor on 7 December 1941.",
+            "font": "cairo",
+            "size": 110,
+            "rect": [
+              400,
+              100,
+              100,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "duration": 12,
+        "narration": "The global war ended in September 1945.",
+        "elements": [
+          {
+            "text": "The global war ended in September 1945.",
+            "font": "cairo",
+            "size": 110,
+            "rect": [
+              500,
+              100,
+              100,
+              30
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

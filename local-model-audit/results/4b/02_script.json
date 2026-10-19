@@ -1,0 +1,67 @@
+{
+  "name": "02_script",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اعتمادا على النص فقط اكتب شرحا مصريا مترابطا من 90 إلى 120 كلمة يشرح توسع الحرب، وافصل انتهاء حرب أوروبا عن انتهاء الحرب العالمية. أعد {\"hook\":\"...\",\"script\":\"...\",\"sources_missing\":[]}.\nGermany invaded Poland on 1 September 1939. Britain and France declared war on Germany on 3 September 1939. Germany invaded the Soviet Union on 22 June 1941. Japan attacked Pearl Harbor on 7 December 1941. German surrender ended the war in Europe in May 1945. The global war ended in September 1945. These statements are a fixed test fixture, not the model's retrieved sources.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 900,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"hook\":\"كيف امتدت الحرب العالمية الثانية؟\",\"script\":\"بدأت الحرب بانخراط ألمانيا في احتلال بولندا في 1 سبتمبر 1939، ثم تبعه تدخل بريطانيا وفرنسا ضد ألمانيا. في 22 يونيو 1941، احتل ألمانيا الاتحاد السوفيتي، بينما اندلعت الحرب في آسيا بانخراط اليابان في هجومها على ميناء بيرل هاربر في 7 ديسمبر 1941. انتهت الحرب في أوروبا بانهاء ألمانيا في مايو 1945، لكن الحرب العالمية استمرت حتى سبتمبر 1945، عندما انتهت بانهاء التوسع في آسيا والشرق الأقصى، مما يُظهر أن انتهاء الحرب في أوروبا لم يُعد انتهاء الحرب العالمية.\"}"
+        }
+      }
+    ],
+    "created": 1792405575,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 212,
+      "prompt_tokens": 225,
+      "total_tokens": 437,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-UbWJswuOtLqTsT7txImy0cjup0MuPWUe",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 176,
+      "prompt_ms": 3294.54,
+      "prompt_per_token_ms": 18.718977272727273,
+      "prompt_per_second": 53.421722000643484,
+      "predicted_n": 212,
+      "predicted_ms": 36141.819,
+      "predicted_per_token_ms": 171.28824170616116,
+      "predicted_per_second": 5.8381123540018836
+    }
+  },
+  "parsed": {
+    "hook": "كيف امتدت الحرب العالمية الثانية؟",
+    "script": "بدأت الحرب بانخراط ألمانيا في احتلال بولندا في 1 سبتمبر 1939، ثم تبعه تدخل بريطانيا وفرنسا ضد ألمانيا. في 22 يونيو 1941، احتل ألمانيا الاتحاد السوفيتي، بينما اندلعت الحرب في آسيا بانخراط اليابان في هجومها على ميناء بيرل هاربر في 7 ديسمبر 1941. انتهت الحرب في أوروبا بانهاء ألمانيا في مايو 1945، لكن الحرب العالمية استمرت حتى سبتمبر 1945، عندما انتهت بانهاء التوسع في آسيا والشرق الأقصى، مما يُظهر أن انتهاء الحرب في أوروبا لم يُعد انتهاء الحرب العالمية."
+  },
+  "finish_reason": "stop",
+  "seconds": 39.473
+}

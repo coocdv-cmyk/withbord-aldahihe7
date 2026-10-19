@@ -1,0 +1,299 @@
+{
+  "name": "18_plan_strict",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "أنشئ خطة وايت بورد عربية من 3 مشاهد، canvas [2560,1440] وfps 24 ومدة 15 ثانية لكل مشهد. كل مشهد عنوان قصير ونص شرح واضح وزخرفة اختيارية، بلا صور. النصوص داخل rect كبير مناسب. المصدر فقط: غزت ألمانيا بولندا في 1 سبتمبر 1939. أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939. انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945. أعد الخطة المطابقة للمخطط، بلا اختراع حقائق.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 2300,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "audit_output",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "canvas": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "fps": {
+              "type": "integer"
+            },
+            "scenes": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "duration": {
+                    "type": "number"
+                  },
+                  "narration": {
+                    "type": "string"
+                  },
+                  "elements": {
+                    "type": "array",
+                    "minItems": 2,
+                    "maxItems": 4,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "highlight",
+                            "underline",
+                            "arrow"
+                          ]
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "font": {
+                          "type": "string",
+                          "enum": [
+                            "cairo",
+                            "amiri",
+                            "arefruqaa"
+                          ]
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "rect": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "minItems": 4,
+                          "maxItems": 4
+                        },
+                        "rtl": {
+                          "type": "boolean"
+                        },
+                        "mode": {
+                          "type": "string",
+                          "enum": [
+                            "skeleton"
+                          ]
+                        },
+                        "color": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "text",
+                        "font",
+                        "size",
+                        "rect",
+                        "rtl",
+                        "mode",
+                        "color"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "duration",
+                  "narration",
+                  "elements"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "canvas",
+            "fps",
+            "scenes"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"canvas\": [2560, 1440],\n  \"fps\": 24,\n  \"scenes\": [\n    {\n      \"id\": 1,\n      \"duration\": 15,\n      \"narration\": \"غزت ألمانيا بولندا في 1 سبتمبر 1939\",\n      \"elements\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"غزت ألمانيا بولندا في 1 سبتمبر 1939\",\n          \"font\": \"cairo\",\n          \"size\": 80,\n          \"rect\": [500, 300, 1560, 120],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"#000000\"\n        },\n        {\n          \"type\": \"text\",\n          \"text\": \"البداية\",\n          \"font\": \"cairo\",\n          \"size\": 40,\n          \"rect\": [100, 100, 200, 60],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"#ff6b00\"\n        }\n      ]\n    },\n    {\n      \"id\": 2,\n      \"duration\": 15,\n      \"narration\": \"أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939\",\n      \"elements\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939\",\n          \"font\": \"cairo\",\n          \"size\": 80,\n          \"rect\": [500, 300, 1560, 120],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"#000000\"\n        },\n        {\n          \"type\": \"text\",\n          \"text\": \"الرد\",\n          \"font\": \"cairo\",\n          \"size\": 40,\n          \"rect\": [100, 100, 200, 60],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"#ff6b00\"\n        }\n      ]\n    },\n    {\n      \"id\": 3,\n      \"duration\": 15,\n      \"narration\": \"انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945\",\n      \"elements\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945\",\n          \"font\": \"cairo\",\n          \"size\": 80,\n          \"rect\": [500, 300, 1560, 120],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"#000000\"\n        },\n        {\n          \"type\": \"text\",\n          \"text\": \"النهاية\",\n          \"font\": \"cairo\",\n          \"size\": 40,\n          \"rect\": [100, 100, 200, 60],\n          \"rtl\": false,\n          \"mode\": \"skeleton\",\n          \"color\": \"#ff6b00\"\n        }\n      ]\n    }\n  ]\n}"
+        }
+      }
+    ],
+    "created": 1792407882,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 793,
+      "prompt_tokens": 234,
+      "total_tokens": 1027,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-bsY52vTjAXgBCc6vnRTKuvnZ8mppZzcR",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 185,
+      "prompt_ms": 3306.588,
+      "prompt_per_token_ms": 17.87344864864865,
+      "prompt_per_second": 55.948911687818374,
+      "predicted_n": 793,
+      "predicted_ms": 142364.166,
+      "predicted_per_token_ms": 179.75273484848483,
+      "predicted_per_second": 5.563197694003981
+    }
+  },
+  "parsed": {
+    "canvas": [
+      2560,
+      1440
+    ],
+    "fps": 24,
+    "scenes": [
+      {
+        "id": 1,
+        "duration": 15,
+        "narration": "غزت ألمانيا بولندا في 1 سبتمبر 1939",
+        "elements": [
+          {
+            "type": "text",
+            "text": "غزت ألمانيا بولندا في 1 سبتمبر 1939",
+            "font": "cairo",
+            "size": 80,
+            "rect": [
+              500,
+              300,
+              1560,
+              120
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "#000000"
+          },
+          {
+            "type": "text",
+            "text": "البداية",
+            "font": "cairo",
+            "size": 40,
+            "rect": [
+              100,
+              100,
+              200,
+              60
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "#ff6b00"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "duration": 15,
+        "narration": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939",
+        "elements": [
+          {
+            "type": "text",
+            "text": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939",
+            "font": "cairo",
+            "size": 80,
+            "rect": [
+              500,
+              300,
+              1560,
+              120
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "#000000"
+          },
+          {
+            "type": "text",
+            "text": "الرد",
+            "font": "cairo",
+            "size": 40,
+            "rect": [
+              100,
+              100,
+              200,
+              60
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "#ff6b00"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "duration": 15,
+        "narration": "انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945",
+        "elements": [
+          {
+            "type": "text",
+            "text": "انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945",
+            "font": "cairo",
+            "size": 80,
+            "rect": [
+              500,
+              300,
+              1560,
+              120
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "#000000"
+          },
+          {
+            "type": "text",
+            "text": "النهاية",
+            "font": "cairo",
+            "size": 40,
+            "rect": [
+              100,
+              100,
+              200,
+              60
+            ],
+            "rtl": false,
+            "mode": "skeleton",
+            "color": "#ff6b00"
+          }
+        ]
+      }
+    ]
+  },
+  "finish_reason": "stop",
+  "seconds": 145.698
+}

@@ -1,0 +1,68 @@
+{
+  "name": "11_url_only",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اقرأ https://encyclopedia.ushmm.org/content/en/article/world-war-ii-in-europe وأعطني ثلاثة اقتباسات حرفية مع تاريخ جلب الصفحة. ليس لديك أدوات في هذه المحادثة. أعد {\"accessed\":bool,\"quotes\":[],\"limitation\":\"...\"}. لا تدع قراءة لم تنفذها.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 300,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"accessed\":false,\"quotes\":[],\"limitation\":\"لا تمتلك أدوات للوصول إلى المواقع الخارجية أو قراءة محتواها.\"}"
+        }
+      }
+    ],
+    "created": 1792406161,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 36,
+      "prompt_tokens": 132,
+      "total_tokens": 168,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-Sqg8XrIvzVrwSCLeNihUiXA8o2irv57R",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 83,
+      "prompt_ms": 2480.959,
+      "prompt_per_token_ms": 29.891072289156625,
+      "prompt_per_second": 33.454805178158935,
+      "predicted_n": 36,
+      "predicted_ms": 6876.84,
+      "predicted_per_token_ms": 196.48114285714286,
+      "predicted_per_second": 5.0895469430726905
+    }
+  },
+  "parsed": {
+    "accessed": false,
+    "quotes": [],
+    "limitation": "لا تمتلك أدوات للوصول إلى المواقع الخارجية أو قراءة محتواها."
+  },
+  "finish_reason": "stop",
+  "seconds": 9.476
+}

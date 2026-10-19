@@ -1,0 +1,49 @@
+{
+  "type": "standard",
+  "title": "World War II",
+  "displaytitle": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">World War II</span></span>",
+  "namespace": {
+    "id": 0,
+    "text": ""
+  },
+  "wikibase_item": "Q362",
+  "titles": {
+    "canonical": "World_War_II",
+    "normalized": "World War II",
+    "display": "<span lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">World War II</span></span>"
+  },
+  "pageid": 32927,
+  "thumbnail": {
+    "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Bundesarchiv_Bild_101I-646-5188-17%2C_Flugzeuge_Junkers_Ju_87.jpg/330px-Bundesarchiv_Bild_101I-646-5188-17%2C_Flugzeuge_Junkers_Ju_87.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "width": 330,
+    "height": 225
+  },
+  "originalimage": {
+    "source": "https://upload.wikimedia.org/wikipedia/commons/1/10/Bundesarchiv_Bild_101I-646-5188-17%2C_Flugzeuge_Junkers_Ju_87.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "width": 798,
+    "height": 544
+  },
+  "lang": "en",
+  "dir": "ltr",
+  "revision": "1379691426",
+  "tid": "4aef7348-c55e-11f1-bf61-67fb99dc543a",
+  "timestamp": "2026-10-11T10:27:00Z",
+  "description": "Global conflict from 1939 to 1945",
+  "description_source": "local",
+  "content_urls": {
+    "desktop": {
+      "page": "https://en.wikipedia.org/wiki/World_War_II",
+      "revisions": "https://en.wikipedia.org/wiki/World_War_II?action=history",
+      "edit": "https://en.wikipedia.org/wiki/World_War_II?action=edit",
+      "talk": "https://en.wikipedia.org/wiki/Talk:World_War_II"
+    },
+    "mobile": {
+      "page": "https://en.wikipedia.org/wiki/World_War_II",
+      "revisions": "https://en.wikipedia.org/wiki/Special:History/World_War_II",
+      "edit": "https://en.wikipedia.org/wiki/World_War_II?action=edit",
+      "talk": "https://en.wikipedia.org/wiki/Talk:World_War_II"
+    }
+  },
+  "extract": "World War II, or the Second World War, was a global conflict between two coalitions: the Allies and the Axis powers. Nearly all of the world's countries participated, with many engaging in total war on an unprecedented scale. World War II was the deadliest conflict in history, causing the deaths of 60 to 75 million people, a majority of whom were civilians. Millions died as a result of massacres, starvation, disease, and genocides, including the Holocaust. After the Allied victory, Germany, Austria, Japan, and Korea were occupied, and German and Japanese leaders were tried for war crimes.",
+  "extract_html": "<p><b>World War II</b>, or the <b>Second World War</b>, was a global conflict between two coalitions: the Allies and the Axis powers. Nearly all of the world's countries participated, with many engaging in total war on an unprecedented scale. World War II was the deadliest conflict in history, causing the deaths of 60 to 75 million people, a majority of whom were civilians. Millions died as a result of massacres, starvation, disease, and genocides, including the Holocaust. After the Allied victory, Germany, Austria, Japan, and Korea were occupied, and German and Japanese leaders were tried for war crimes.</p>"
+}

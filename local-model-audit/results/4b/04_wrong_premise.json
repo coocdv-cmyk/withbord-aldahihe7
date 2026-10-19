@@ -1,0 +1,67 @@
+{
+  "name": "04_wrong_premise",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "صحح من المصدر فقط: انتهت الحرب العالمية الثانية كلها في مايو 1945. أعد {\"correct\":false,\"explanation_ar\":\"...\"}. المصدر: Germany invaded Poland on 1 September 1939. Britain and France declared war on Germany on 3 September 1939. Germany invaded the Soviet Union on 22 June 1941. Japan attacked Pearl Harbor on 7 December 1941. German surrender ended the war in Europe in May 1945. The global war ended in September 1945. These statements are a fixed test fixture, not the model's retrieved sources.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 280,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"correct\": true, \"explanation_ar\": \"الحرب العالمية الثانية انتهت في أوروبا في مايو 1945 بتوقيع ألمانيا على التفاوض، بينما انتهت الحرب العالمية الثانية عالميًا في سبتمبر 1945 بعد انتهاء الحرب في اليابان. المعلومة المذكورة في السؤال بأن الحرب العالمية الثانية انتهت كلها في مايو 1945 غير دقيقة، لكن المُصدر يوضح أن الانتهاء في أوروبا كان في مايو 1945، بينما انتهى العالم في سبتمبر 1945. لذا، إذا كان المقصود هو أن الحرب العالمية الثانية انتهت في مايو 1945 (بمعنى أوروبا فقط)، فإن هذا صحيح جزئيًا، لكن التصريح بأنها انتهت «كلها» في مايو 1945 غير دقيق. ومع ذلك، بما أن المُصدر يذكر أن الانتهاء في أوروبا كان في مايو 1945، ونُصّ عليه في السؤال، فإن التصحيح يعتمد على المُصدر، وبالتالي يُعتبر التصحيح صحيحًا في سياق المُصدر المذكور.\"}"
+        }
+      }
+    ],
+    "created": 1792405628,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 276,
+      "prompt_tokens": 196,
+      "total_tokens": 472,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-AeevBG3EiGV8kXpqpql51ab8YoN2UNQm",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 147,
+      "prompt_ms": 2542.248,
+      "prompt_per_token_ms": 17.294204081632653,
+      "prompt_per_second": 57.82284025791347,
+      "predicted_n": 276,
+      "predicted_ms": 48248.159,
+      "predicted_per_token_ms": 175.4478509090909,
+      "predicted_per_second": 5.699699339823515
+    }
+  },
+  "parsed": {
+    "correct": true,
+    "explanation_ar": "الحرب العالمية الثانية انتهت في أوروبا في مايو 1945 بتوقيع ألمانيا على التفاوض، بينما انتهت الحرب العالمية الثانية عالميًا في سبتمبر 1945 بعد انتهاء الحرب في اليابان. المعلومة المذكورة في السؤال بأن الحرب العالمية الثانية انتهت كلها في مايو 1945 غير دقيقة، لكن المُصدر يوضح أن الانتهاء في أوروبا كان في مايو 1945، بينما انتهى العالم في سبتمبر 1945. لذا، إذا كان المقصود هو أن الحرب العالمية الثانية انتهت في مايو 1945 (بمعنى أوروبا فقط)، فإن هذا صحيح جزئيًا، لكن التصريح بأنها انتهت «كلها» في مايو 1945 غير دقيق. ومع ذلك، بما أن المُصدر يذكر أن الانتهاء في أوروبا كان في مايو 1945، ونُصّ عليه في السؤال، فإن التصحيح يعتمد على المُصدر، وبالتالي يُعتبر التصحيح صحيحًا في سياق المُصدر المذكور."
+  },
+  "finish_reason": "stop",
+  "seconds": 50.8
+}

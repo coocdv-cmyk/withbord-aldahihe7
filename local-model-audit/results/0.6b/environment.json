@@ -1,0 +1,11 @@
+{
+  "model": "D:\\withbord inmation\\studio\\models\\Qwen3-0.6B-Q4_K_M.gguf",
+  "bytes": 396705472,
+  "context": 8192,
+  "threads": 4,
+  "port": 11439,
+  "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+  "mode": "local only, no remote LLM",
+  "tests": "12 tasks + 2 repeat seeds + native integration + model-directed tool loop (15 turns maximum)",
+  "limitations": "finite benchmark, not exhaustive proof; text-only model; fixed prompts disclosed; no model-code execution"
+}

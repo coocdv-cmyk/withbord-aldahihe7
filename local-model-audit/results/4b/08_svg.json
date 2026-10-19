@@ -1,0 +1,66 @@
+{
+  "name": "08_svg",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "أعد {\"svg\":\"...\"} لرسم سفينة تجارية مبسطة أصلية من خطوط ومسارات SVG فقط، viewBox=\"0 0 300 200\". بلا نص أو صور مضمّنة أو روابط أو سكريبتات.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 650,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"svg\": \"<svg viewBox=\\\"0 0 300 200\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\">\\n  <path d=\\\"M50 50 L150 30 L250 50 L250 150 L150 170 L50 150 Z\\\" fill=\\\"black\\\" stroke=\\\"black\\\" stroke-width=\\\"2\\\"/>\\n  <path d=\\\"M100 80 L100 100 L120 100 L120 80 Z\\\" fill=\\\"blue\\\"/>\\n  <path d=\\\"M180 80 L180 100 L200 100 L200 80 Z\\\" fill=\\\"blue\\\"/>\\n  <path d=\\\"M100 120 L100 140 L120 140 L120 120 Z\\\" fill=\\\"blue\\\"/>\\n  <path d=\\\"M180 120 L180 140 L200 140 L200 120 Z\\\" fill=\\\"blue\\\"/>\\n  <path d=\\\"M150 170 L150 180 L150 180 L150 170 Z\\\" fill=\\\"black\\\" stroke=\\\"black\\\" stroke-width=\\\"1\\\"/>\\n</svg>\"\n}"
+        }
+      }
+    ],
+    "created": 1792405712,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 337,
+      "prompt_tokens": 122,
+      "total_tokens": 459,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-ZTTYCa98aPMHsOf8LS4vrlWmNgiX13ki",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 73,
+      "prompt_ms": 1464.212,
+      "prompt_per_token_ms": 20.057698630136986,
+      "prompt_per_second": 49.85616836906131,
+      "predicted_n": 337,
+      "predicted_ms": 58243.588,
+      "predicted_per_token_ms": 173.3440119047619,
+      "predicted_per_second": 5.768875365302014
+    }
+  },
+  "parsed": {
+    "svg": "<svg viewBox=\"0 0 300 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path d=\"M50 50 L150 30 L250 50 L250 150 L150 170 L50 150 Z\" fill=\"black\" stroke=\"black\" stroke-width=\"2\"/>\n  <path d=\"M100 80 L100 100 L120 100 L120 80 Z\" fill=\"blue\"/>\n  <path d=\"M180 80 L180 100 L200 100 L200 80 Z\" fill=\"blue\"/>\n  <path d=\"M100 120 L100 140 L120 140 L120 120 Z\" fill=\"blue\"/>\n  <path d=\"M180 120 L180 140 L200 140 L200 120 Z\" fill=\"blue\"/>\n  <path d=\"M150 170 L150 180 L150 180 L150 170 Z\" fill=\"black\" stroke=\"black\" stroke-width=\"1\"/>\n</svg>"
+  },
+  "finish_reason": "stop",
+  "seconds": 59.722
+}

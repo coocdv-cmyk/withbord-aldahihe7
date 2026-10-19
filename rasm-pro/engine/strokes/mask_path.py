@@ -35,6 +35,7 @@ MAX_STEPS_FACTOR = 4  # حماية من الحلقات اللانهائية (× 
 
 
 def _count_neighbours(pixels: np.ndarray, y: int, x: int) -> int:
+    """العدّ المرجعي البطيء (بايثون) — يُستخدم في اختبار التكافؤ فقط."""
     h, w = pixels.shape
     n = 0
     for _deg, dy, dx in COMPASS:
@@ -44,19 +45,63 @@ def _count_neighbours(pixels: np.ndarray, y: int, x: int) -> int:
     return n
 
 
-def _find_start_point(pixels: np.ndarray, rtl: bool) -> tuple[int, int] | None:
-    ys, xs = np.nonzero(pixels)
-    if len(ys) == 0:
+class _Mask:
+    """قناع ثنائي + عدّاد جوار متزامن (تحديث موضعي O(1)).
+
+    Phase 3.1 (أداء): العدّ داخل حلقة بايثون لكل بكسل كان 87 ثانية من 119 ثانية
+    في تتبّع صورة 900px (47.5 مليون نداء). العدّاد يُبنى متجهيًا مرة واحدة
+    ويُحدَّث عند كل مسح بكسل (8 جيران)، فتبقى القيم مطابقة تمامًا للعدّ المرجعي
+    وبنفس ترتيب المسارات (اختبار تكافؤ: tests/test_mask_path_equiv.py).
+    """
+
+    __slots__ = ("px", "cnt")
+
+    def __init__(self, pixels: np.ndarray):
+        px = pixels.astype(bool).copy()
+        self.px = px
+        h, w = px.shape
+        pad = np.pad(px, 1, constant_values=False)
+        cnt = np.zeros((h, w), dtype=np.int16)
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                if dy or dx:
+                    cnt += pad[1 + dy : 1 + dy + h, 1 + dx : 1 + dx + w]
+        cnt[~px] = 0
+        self.cnt = cnt
+
+    def neighbours(self, y: int, x: int) -> int:
+        return int(self.cnt[y, x])
+
+    def clear(self, y: int, x: int) -> None:
+        """يمسح بكسلًا ويُنقص عدّاد جيرانه الثمانية.
+
+        مهم: عدّاد البكسل نفسه لا يتغيّر (البكسل لا يُعدّ جارًا لنفسه)، ومسحه
+        لا يمسّ قيمته — والتتبّع يقرأ عدّاد ``current`` بعد مسحه فعلًا، فلو
+        صفّرناه لتغيّر قرار ``last_good`` واختلف الناتج.
+        """
+        if not self.px[y, x]:
+            return
+        self.px[y, x] = False
+        h, w = self.px.shape
+        y0, y1 = (y - 1 if y else 0), min(h, y + 2)
+        x0, x1 = (x - 1 if x else 0), min(w, x + 2)
+        self.cnt[y0:y1, x0:x1] -= 1
+        self.cnt[y, x] += 1  # إلغاء إنقاص الذات
+
+
+def _find_start_point(mask: _Mask, rtl: bool) -> tuple[int, int] | None:
+    px, cnt = mask.px, mask.cnt
+    if not px.any():
         return None
-    coords = sorted(zip(ys.tolist(), xs.tolist()))  # Y ثم X (استقرار)
-    terminals = [(y, x) for (y, x) in coords if _count_neighbours(pixels, y, x) == 1]
-    candidates = terminals if terminals else coords
+    term = px & (cnt == 1)
+    ys, xs = np.nonzero(term if term.any() else px)
     if rtl:
-        # For RTL scripts (Arabic), prefer the rightmost terminal, then topmost.
-        # Do NOT pick the bottommost point; that produces incorrect start positions.
-        best = max(candidates, key=lambda pt: (pt[1], -pt[0]))
-        return best
-    return candidates[0]
+        # للنص العربي: أقصى اليمين، ثم الأعلى (لا الأسفل — كان يقلب موضع البداية)
+        mx = int(xs.max())
+        return int(ys[xs == mx].min()), mx
+    # لغير العربي: الأعلى ثم الأيسر (نفس ترتيب sorted(zip(ys, xs)))
+    my = int(ys.min())
+    return my, int(xs[ys == my].min())
 
 
 def _avg_direction(direction_history: list[int]) -> int:
@@ -69,7 +114,8 @@ def _avg_direction(direction_history: list[int]) -> int:
     return right if abs(avg - left) > abs(avg - right) else left
 
 
-def _find_near_point(pixels: np.ndarray, y: int, x: int, last_dir: int | None):
+def _find_near_point(mask: _Mask, y: int, x: int, last_dir: int | None):
+    pixels = mask.px
     h, w = pixels.shape
     directions = list(COMPASS)
     if last_dir is not None:
@@ -91,11 +137,11 @@ def _find_near_point(pixels: np.ndarray, y: int, x: int, last_dir: int | None):
         ref = directions[0][0] if last_dir is not None else neighbours[0][0]
         chosen = min(neighbours, key=lambda nb: abs(ref - nb[0]))
     _, dy, dx = chosen
-    pixels[y + dy, x + dx] = False
+    mask.clear(y + dy, x + dx)
     return (y + dy, x + dx), chosen[0]
 
 
-def _trace_from_point(pixels: np.ndarray, start: tuple[int, int]):
+def _trace_from_point(mask: _Mask, start: tuple[int, int]):
     """يطابق traceFromPoint: يعيد (النقاط، مؤشرات الطفرات).
 
     الطفرة = العودة إلى ``last_good`` بعد انحشار المسار — تُعلَّم هنا لتُصبح
@@ -107,17 +153,17 @@ def _trace_from_point(pixels: np.ndarray, start: tuple[int, int]):
     direction_history: list[int] = []
     direction: int | None = None
     current = start
-    max_steps = pixels.size * MAX_STEPS_FACTOR
+    max_steps = mask.px.size * MAX_STEPS_FACTOR
     steps = 0
 
     while steps < max_steps:
         steps += 1
-        if _count_neighbours(pixels, *current) >= 2:
+        if mask.neighbours(*current) >= 2:
             last_good = current
         if direction_history:
             direction = _avg_direction(direction_history)
 
-        found = _find_near_point(pixels, current[0], current[1], direction)
+        found = _find_near_point(mask, current[0], current[1], direction)
         if found:
             nxt, direction = found
             direction_history.append(direction)
@@ -126,7 +172,7 @@ def _trace_from_point(pixels: np.ndarray, start: tuple[int, int]):
             points.append(nxt)
             current = nxt
         else:
-            if _count_neighbours(pixels, *last_good) > 0 and last_good != current:
+            if mask.neighbours(*last_good) > 0 and last_good != current:
                 current = last_good
                 direction_history.clear()
                 direction = None
@@ -143,14 +189,14 @@ def generate_mask_path(pixels: np.ndarray, rtl: bool = False) -> list[dict]:
     ``moveTo`` يُوضع عند بداية كل مسار فرعي *وعند كل طفرة* — فلا توجد قطعة
     مستقيمة عبر الفراغ (إصلاح Phase 3.1 لعيب «الخط الطويل» المرئي).
     """
-    work = pixels.astype(bool).copy()
+    mask = _Mask(pixels)
     out: list[dict] = []
     while True:
-        start = _find_start_point(work, rtl)
+        start = _find_start_point(mask, rtl)
         if start is None:
             break
-        work[start[0], start[1]] = False
-        pts, teleports = _trace_from_point(work, start)
+        mask.clear(*start)
+        pts, teleports = _trace_from_point(mask, start)
         for i, (y, x) in enumerate(pts):
             out.append({"x": x, "y": y, "moveTo": i == 0 or i in teleports})
     return out

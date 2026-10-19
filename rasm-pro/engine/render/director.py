@@ -81,14 +81,22 @@ def _sig(path) -> str:
         return "0:0"
 
 
+# عدّادات الكاش (لتقرير الأداء: نسبة الإصابة الفعلية) — تكلفتها لا تُذكر.
+CACHE_STATS = {"hit": 0, "miss": 0}
+
+
 def _cached_doc(key: str, build) -> StrokeDoc:
     """يخزّن مسارات الأصل على القرص (أهم تحسين: لا نعيد التتبّع/التشكيل في كل رندر)."""
     p = stroke_cache_path(key)
     if p.exists():
         try:
-            return StrokeDoc.load(p)
+            doc = StrokeDoc.load(p)
+            CACHE_STATS["hit"] += 1
+            return doc
         except Exception:
-            pass
+            CACHE_STATS["miss"] += 1
+    else:
+        CACHE_STATS["miss"] += 1
     doc = build()
     try:
         doc.save(p)

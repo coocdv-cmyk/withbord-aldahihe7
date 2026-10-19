@@ -1,0 +1,7 @@
+{
+  "prompt": "A realistic painting of a commercial ship from World War II, without any historical figures or symbols, with a simple, clear and artistic composition.",
+  "style": "doodle",
+  "steps": 20,
+  "guidance": 7.0,
+  "seed": 42
+}

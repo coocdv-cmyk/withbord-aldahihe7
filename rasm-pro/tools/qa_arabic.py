@@ -380,7 +380,11 @@ def main() -> int:
     j_rows.append({"check": "event_balance", "downs": len(downs), "ups": len(ups), "taps": len(taps), "pass": bool(balanced)})
     j_rows.append({"check": "state_machine_order", "pass": bool(seq_ok)})
 
-    # ملامسة السنّ: إطار منتصف الرسم على دقتين — أقرب بكسل حبر لموضع السنّ
+    # ملامسة السنّ: (أ) داخل اللوحة على دقتين — (ب) عبر كاميرا حقيقية (تصغير/تكبير/إزاحة)
+    # و(ج) مع دوران القلم بزوايا مختلفة: موضع الطرف يجب أن يبقى على الحبر في كل حالة.
+    from engine.render.camera import Viewport, crop_resize  # noqa: E402
+    from engine.render.director import Director  # noqa: E402
+
     contact = []
     for (W, H) in ((1280, 720), (960, 540)):
         # نرسم حتى منتصف الزمن ثم نتحقق أن موضع tip على الحبر
@@ -397,7 +401,81 @@ def main() -> int:
         else:
             contact.append({"res": f"{W}x{H}", "dist_px": None, "pass": False})
     j_rows.extend(contact)
+
+    # (ب+ج) كاميرا حقيقية (نفس دوال المخرج) + دوران القلم حول طرفه
+    pen_dir = Director({"canvas": [2560, 1440], "scenes": []}, canvas=(2560, 1440), out_size=(1280, 720), fps=24)
+    # الكاميرا المكبّرة تُبنى حول موضع الطرف الفعلي (فتُبقيه داخل الإطار) — كما يفعل
+    # fit_viewport في المخرج (قصّ/تحجيم داخل حدود اللوحة).
+    tl_probe = HandTimeline(strokes, words=(doc.stats or {}).get("words"))
+    tl_probe.advance(0.5)
+    tip_probe = tl_probe.tip() or (1280.0, 720.0)
+    zw, zh = 1200.0, 675.0
+    zx = min(max(tip_probe[0] - zw / 2, 0.0), 2560.0 - zw)
+    zy = min(max(tip_probe[1] - zh / 2, 0.0), 1440.0 - zh)
+    cams = [
+        ("لوحة كاملة", Viewport(0.0, 0.0, 2560.0, 1440.0), (1280, 720)),
+        ("لوحة كاملة مصغّرة", Viewport(0.0, 0.0, 2560.0, 1440.0), (960, 540)),
+        ("كاميرا مكبّرة حول الطرف", Viewport(zx, zy, zw, zh), (1280, 720)),
+    ]
+    for cam_name, cam, (W, H) in cams:
+        cw2, ch2 = 2560, 1440
+        wb2 = Whiteboard(cw2, ch2, paper=Image.new("RGB", (cw2, ch2), (248, 244, 234)))
+        tl3 = HandTimeline(strokes, words=(doc.stats or {}).get("words"))
+        wb2.paint(tl3.advance(0.5), ink=(20, 20, 20))
+        tip = tl3.tip()
+        base = crop_resize(wb2.rgb, cam, (W, H)).convert("RGB")
+        barr = np.asarray(base, dtype=np.uint8)
+        dark2 = np.argwhere(barr.mean(axis=2) < 90)
+        if tip is None or not dark2.size:
+            j_rows.append({"check": f"contact|{cam_name}", "res": f"{W}x{H}", "dist_px": None, "pass": False})
+            continue
+        # نفس معادلة إسقاط الطرف المستخدمة في المخرج
+        tipx = (tip[0] - cam.x) * (W / cam.w)
+        tipy = (tip[1] - cam.y) * (H / cam.h)
+        ix, iy = int(round(tipx)), int(round(tipy))
+        dmin = float(np.sqrt((dark2[:, 0] - tipy) ** 2 + (dark2[:, 1] - tipx) ** 2).min())
+        for ang in (35.0, 95.0, 190.0, 300.0):
+            pen_dir.out_size = (W, H)
+            pen_dir.pen_angle = float(ang)
+            pen_dir.pen_prev = None  # زاوية ثابتة: نختبر الدوران حول الطرف نفسه
+            frame = base.copy()
+            pen_dir._draw_pen(frame, {"obj": tl3}, cam)
+            farr = np.asarray(frame, dtype=np.uint8)
+            covered = bool(0 <= ix < W and 0 <= iy < H and not np.array_equal(farr[iy, ix], barr[iy, ix]))
+            j_rows.append({
+                "check": f"contact|{cam_name}|قلم {int(ang)}°",
+                "res": f"{W}x{H}",
+                "dist_px": round(dmin, 2),
+                "tip_covered": covered,
+                "pass": bool(dmin <= 3.0 and covered),
+            })
     report["groups"]["J"] = j_rows
+
+    # ---------- K: نصوص الفيلم v2 حرفيًّا (كما وردت في plan_v2.json بفواصل أسطرها) ----------
+    k_rows = []
+    k_cases = []
+    plan_path = ROOT / "projects" / "ww1" / "storyboard" / "plan_v2.json"
+    if plan_path.exists():
+        plan = json.loads(plan_path.read_text(encoding="utf-8"))
+        seen = set()
+        for sc in plan.get("scenes", []):
+            for el in sc.get("elements", []):
+                txt = el.get("text")
+                if el.get("type") != "text" or not txt:
+                    continue
+                font = el.get("font") or "arefruqaa"
+                size = float(el.get("size") or 200)
+                key = (txt, font, size)
+                if key in seen:
+                    continue
+                seen.add(key)
+                doc_k, m = run_case("K", txt, font=font, size=size, W=1600, H=460, rect=[40, 40, 1520, 380])
+                m.update({"group": "K", "text": txt.replace("\n", " / "), "font": font, "size": size})
+                k_rows.append(m)
+                if len(k_cases) < 12:
+                    k_cases.append((f"K{len(k_rows):02d}: covS={m.get('cov_struct')}", trace_image(doc_k, [40, 40, 1520, 380], 1600, 460)))
+        tile(k_cases, cols=2, cell=(760, 230)).save(OUT / "gK_filmtexts.png")
+    report["groups"]["K"] = k_rows
 
     # ---------- ملخص ----------
     all_cases = []
@@ -436,6 +514,11 @@ def main() -> int:
         rows_g = report["groups"][g]
         if not isinstance(rows_g, list) or not rows_g or not isinstance(rows_g[0], dict):
             continue
+        if not any("pass" in r for r in rows_g):
+            # مجموعة إفادة (مثل إطارات التحريك) — ليست حالة نجاح/فشل
+            lines.append(f"## مجموعة {g}: إفادة ({len(rows_g)} عنصر — بلا حكم)")
+            lines.append("")
+            continue
         n = len(rows_g)
         p = sum(1 for r in rows_g if r.get("pass"))
         lines.append(f"## مجموعة {g}: {p}/{n}")
@@ -457,8 +540,10 @@ def main() -> int:
     lines.append("| فحص | نتيجة | تفصيل |")
     lines.append("|-----|-------|-------|")
     for r in report["groups"]["J"]:
-        if "check" in r:
+        if "downs" in r or r.get("check") == "state_machine_order":
             lines.append(f"| {r['check']} | {'✔' if r.get('pass') else '✘'} | downs={r.get('downs','')} ups={r.get('ups','')} taps={r.get('taps','')} |")
+        elif "check" in r:
+            lines.append(f"| {r['check']} | {'✔' if r.get('pass') else '✘'} | {r.get('res')} · أقرب حبر {r.get('dist_px')}px · القلم يغطي الطرف: {r.get('tip_covered')} |")
         else:
             lines.append(f"| ملامسة {r.get('res')} | {'✔' if r.get('pass') else '✘'} | أقرب حبر {r.get('dist_px')}px |")
     (OUT / "summary.md").write_text("\n".join(lines), encoding="utf-8")

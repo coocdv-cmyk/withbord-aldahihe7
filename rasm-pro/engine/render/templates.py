@@ -229,7 +229,8 @@ def timeline_strokes(rect, events: list[dict], *, font_path: Path, size: float =
         if label:
             _, l_doc = text_strokes(label, font_path, size, rtl=False)
         if sub:
-            _, s_doc = text_strokes(sub, font_path, size * 0.52, rtl=rtl)
+            # التسميات الفرعية: 0.62 من حجم التسمية (0.52 كانت صغيرة القراءة في المخرج 1280×720)
+            _, s_doc = text_strokes(sub, font_path, size * 0.62, rtl=rtl)
         lw = float(getattr(l_doc, "width", 0.0) or 0.0)
         lh = float(getattr(l_doc, "height", 0.0) or 0.0)
         sw2 = float(getattr(s_doc, "width", 0.0) or 0.0)

@@ -1,0 +1,64 @@
+{
+  "project": "ed19ee7ed9cd622b",
+  "lang": "en",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": 30,
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 4.08,
+      "narration": "In 1914 war began. Soldiers fought. Peace came in 1919.",
+      "needs": [
+        "symbol"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "In 1914 war began.\nSoldiers…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            130,
+            220,
+            2300,
+            720
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "In 1914 war began. Soldiers fought.\nPeace came in 1919",
+          "font": "cairo",
+          "size": 128,
+          "rect": [
+            190,
+            940,
+            2180,
+            340
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.4
+        }
+      ]
+    }
+  ],
+  "audio": null,
+  "timing": {
+    "source": "estimated",
+    "method": "words-per-second"
+  },
+  "stats": {
+    "scenes": 1,
+    "elements": 2,
+    "estimated_duration": 4.1
+  }
+}

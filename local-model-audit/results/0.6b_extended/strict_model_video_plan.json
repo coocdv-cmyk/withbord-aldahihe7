@@ -1,0 +1,120 @@
+{
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": 24,
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 15,
+      "narration": "الحرب العالمية 1939",
+      "elements": [
+        {
+          "type": "text",
+          "text": "الحرب العالمية 1939",
+          "font": "cairo",
+          "size": 24,
+          "rect": [
+            100,
+            100,
+            200,
+            200
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "black"
+        },
+        {
+          "type": "text",
+          "text": "الحرب العالمية 1939",
+          "font": "cairo",
+          "size": 24,
+          "rect": [
+            100,
+            100,
+            200,
+            200
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "black"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "duration": 15,
+      "narration": "الحرب العالمية 1939",
+      "elements": [
+        {
+          "type": "text",
+          "text": "الحرب العالمية 1939",
+          "font": "cairo",
+          "size": 24,
+          "rect": [
+            100,
+            100,
+            200,
+            200
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "black"
+        },
+        {
+          "type": "text",
+          "text": "الحرب العالمية 1939",
+          "font": "cairo",
+          "size": 24,
+          "rect": [
+            100,
+            100,
+            200,
+            200
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "black"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "duration": 15,
+      "narration": "الحرب العالمية 1945",
+      "elements": [
+        {
+          "type": "text",
+          "text": "الحرب العالمية 1945",
+          "font": "cairo",
+          "size": 24,
+          "rect": [
+            100,
+            100,
+            200,
+            200
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "black"
+        },
+        {
+          "type": "text",
+          "text": "الحرب العالمية 1945",
+          "font": "cairo",
+          "size": 24,
+          "rect": [
+            100,
+            100,
+            200,
+            200
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "black"
+        }
+      ]
+    }
+  ]
+}

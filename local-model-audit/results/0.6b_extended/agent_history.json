@@ -1,0 +1,14 @@
+[
+  {
+    "turn": 0,
+    "action": null,
+    "args": {},
+    "result": {
+      "error": "TypeError: can only concatenate str (not \"NoneType\") to str"
+    }
+  },
+  {
+    "turn": 1,
+    "error": "invalid action JSON"
+  }
+]

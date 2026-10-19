@@ -1,0 +1,71 @@
+{
+  "name": "06_license",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اختر فقط الأصول المسموحة تجاريا مع الوفاء بالشروط: A CC BY 4.0 credit available; B CC BY-NC; C unknown; D CC0. أعد {\"allowed\":[\"...\"],\"credit_required\":[\"...\"]}.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 250,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"allowed\":[\"D\"],\"credit_required\":[\"A\"]}"
+        }
+      }
+    ],
+    "created": 1792405646,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 112,
+      "total_tokens": 123,
+      "prompt_tokens_details": {
+        "cached_tokens": 51
+      }
+    },
+    "id": "chatcmpl-myDST33RXMWDzuS2r66HhHIts0WX1k2I",
+    "timings": {
+      "cache_n": 51,
+      "prompt_n": 61,
+      "prompt_ms": 1438.059,
+      "prompt_per_token_ms": 23.574737704918032,
+      "prompt_per_second": 42.418287427706375,
+      "predicted_n": 11,
+      "predicted_ms": 2056.917,
+      "predicted_per_token_ms": 205.6917,
+      "predicted_per_second": 4.861644879205141
+    }
+  },
+  "parsed": {
+    "allowed": [
+      "D"
+    ],
+    "credit_required": [
+      "A"
+    ]
+  },
+  "finish_reason": "stop",
+  "seconds": 3.51
+}

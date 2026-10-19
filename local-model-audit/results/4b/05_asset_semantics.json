@@ -1,0 +1,67 @@
+{
+  "name": "05_asset_semantics",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اختر صورة شخصية لفرانز فرديناند. النتائج: A منديل ملطخ بدمه، B صورة وجهه الشخصية، C دبابة سنة 1916. أعد {\"selected\":\"A|B|C\",\"reason\":\"...\"}.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 200,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"selected\":\"B\",\"reason\":\"فرانز فرديناند كان شخصية تاريخية معروفة بوجهه، وصورة وجهه الشخصية تُعتبر الأكثر دقة وموثوقية لتمثيله، بينما منديل دم أو دبابة لا تُعتبر صورًا شخصية مباشرة له.\"}"
+        }
+      }
+    ],
+    "created": 1792405643,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 73,
+      "prompt_tokens": 122,
+      "total_tokens": 195,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-Nr7Gsm1zCIRKQf5QSggPnwdqPxySfXH6",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 73,
+      "prompt_ms": 1432.136,
+      "prompt_per_token_ms": 19.618301369863012,
+      "prompt_per_second": 50.972812637905896,
+      "predicted_n": 73,
+      "predicted_ms": 12771.273,
+      "predicted_per_token_ms": 177.37879166666664,
+      "predicted_per_second": 5.637652566036292
+    }
+  },
+  "parsed": {
+    "selected": "B",
+    "reason": "فرانز فرديناند كان شخصية تاريخية معروفة بوجهه، وصورة وجهه الشخصية تُعتبر الأكثر دقة وموثوقية لتمثيله، بينما منديل دم أو دبابة لا تُعتبر صورًا شخصية مباشرة له."
+  },
+  "finish_reason": "stop",
+  "seconds": 14.228
+}

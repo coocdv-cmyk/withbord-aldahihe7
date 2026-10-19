@@ -1,0 +1,1 @@
+Evaluator stopped the Google-backed agent branch after repeated empty search results. This branch is not a valid end-to-end capability verdict. It is rerun using verified existing-project Wikipedia and Commons tools in the extended phase. Any interrupted pending call is evaluator interruption, not model failure.

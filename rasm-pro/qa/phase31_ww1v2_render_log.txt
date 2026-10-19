@@ -1,0 +1,56 @@
+﻿=== Phase 3.1 render log (rasm.py render) ===
+Note on the last two blocks:
+ - The improved-film block logged "preview_v2.mp4" (relative path): --out was given a relative name, so the
+   engine wrote it into the CWD (rasm-pro\) and the file was then moved to
+   projects\ww1\render\preview_v2.mp4 (final artifact: 29,957,725 bytes, 1956 frames, 81.5 s).
+ - An earlier accidental invocation WITHOUT --out wrote the engine default projects\ww1\render\preview.mp4,
+   overwriting the original v1 baseline MP4 (disclosed: PHASE3_1_REVIEWS.md, incident section).
+ - Both commands below therefore now always pass an explicit --out.
+14:33:14  INFO    rasm.director  ┘à╪┤┘ç╪» 1: 5 ╪╣┘å╪╡╪▒ ┬╖ 18.2╪½
+14:33:51  INFO    rasm.director  ┘à╪┤┘ç╪» 2: 7 ╪╣┘å╪╡╪▒ ┬╖ 17.7╪½
+14:34:35  INFO    rasm.director  ┘à╪┤┘ç╪» 3: 3 ╪╣┘å╪╡╪▒ ┬╖ 13.4╪½
+14:35:01  INFO    rasm.director  ┘à╪┤┘ç╪» 4: 8 ╪╣┘å╪╡╪▒ ┬╖ 16.7╪½
+14:35:36  INFO    rasm.director  ┘à╪┤┘ç╪» 5: 5 ╪╣┘å╪╡╪▒ ┬╖ 15.6╪½
+14:36:06  INFO    rasm.director  ╪ú╪¡╪»╪º╪½ ╪º┘ä┘é┘ä┘à ┘ä┘ä╪╡┘ê╪¬: 2229 ╪¡╪»╪½ ΓåÆ preview_v2.sfx.json
+Γ£ö ╪º┘ä┘ü┘è╪»┘è┘ê: preview_v2.mp4
+  1956 ╪Ñ╪╖╪º╪▒ ┬╖ 81.5╪½ ┬╖ ╪▓┘à┘å ╪º┘ä╪▒┘å╪»╪▒ 173.0╪½
+14:36:06  INFO    rasm.sfx  ┘à╪ñ╪½╪▒╪º╪¬: 1093 ┘é╪╡┘æ╪⌐ ╪▒╪│┘à ┬╖ 27 ┘å┘é╪▒╪⌐ ┬╖ 4 ╪º┘å╪▓┘ä╪º┘é ΓåÆ preview_v2.sfx.wav
+ΓÇó ┘à╪ñ╪½╪▒╪º╪¬: 1093 ╪▒╪│┘à╪⌐ ┬╖ 27 ┘å┘é╪▒╪⌐ ┬╖ 4 ╪º┘å╪▓┘ä╪º┘é ┬╖ ╪¬╪│╪¼┘è┘ä╪º╪¬ ╪¡┘é┘è┘é┘è╪⌐ (┘à┘ä┘â┘è╪⌐ ╪╣╪º┘à╪⌐) ┬╖ ╪»┘à╪¼: sfx-only
+Γ£ö ╪¬╪¡┘é┘é FFprobe: preview_v2.mp4
+   Γ£ö exists: 29957725 ╪¿╪º┘è╪¬
+   Γ£ö video-stream: h264
+   Γ£ö size: 1280x720
+   Γ£ö fps: 24 (┘à╪¬┘ê┘é╪╣ 24)
+   Γ£ö audio-present: aac
+   Γ£ö audio-video-duration: ┘ü╪▒┘é 0.007╪½
+=== v1 plan replay (untouched plan.json, current engine, no sfx) ===
+14:37:35  INFO    rasm.director  ┘à╪┤┘ç╪» 1: 2 ╪╣┘å╪╡╪▒ ┬╖ 10.2╪½
+14:37:54  INFO    rasm.director  ┘à╪┤┘ç╪» 2: 3 ╪╣┘å╪╡╪▒ ┬╖ 7.8╪½
+14:38:13  INFO    rasm.director  ┘à╪┤┘ç╪» 3: 1 ╪╣┘å╪╡╪▒ ┬╖ 9.0╪½
+14:38:29  INFO    rasm.director  ┘à╪┤┘ç╪» 4: 3 ╪╣┘å╪╡╪▒ ┬╖ 8.2╪½
+14:38:47  INFO    rasm.director  ┘à╪┤┘ç╪» 5: 1 ╪╣┘å╪╡╪▒ ┬╖ 8.2╪½
+14:39:00  INFO    rasm.director  ╪ú╪¡╪»╪º╪½ ╪º┘ä┘é┘ä┘à ┘ä┘ä╪╡┘ê╪¬: 1286 ╪¡╪»╪½ ΓåÆ preview_v1_plan_replay.sfx.json
+Γ£ö ╪º┘ä┘ü┘è╪»┘è┘ê: D:\withbord inmation\rasm-pro\projects\ww1\render\preview_v1_plan_replay.mp4
+  1039 ╪Ñ╪╖╪º╪▒ ┬╖ 43.29╪½ ┬╖ ╪▓┘à┘å ╪º┘ä╪▒┘å╪»╪▒ 93.2╪½
+Γ£ö ╪¬╪¡┘é┘é FFprobe: D:\withbord inmation\rasm-pro\projects\ww1\render\preview_v1_plan_replay.mp4
+   Γ£ö exists: 12297217 ╪¿╪º┘è╪¬
+   Γ£ö video-stream: h264
+   Γ£ö size: 1280x720
+   Γ£ö fps: 24 (┘à╪¬┘ê┘é╪╣ 24)
+   Γ£ö audio-present: ┘ä╪º ┘è┘ê╪¼╪»
+=== timeline template clip (regenerated after label-size change) ===
+python.exe : Traceback (most recent call last):
+At line:7 char:1
++ & $py 'D:\withbord inmation\rasm-pro\tools\make_templates_demo.py' ti ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "D:\withbord inmation\rasm-pro\tools\make_templates_demo.py", line 149, in <module>
+    raise SystemExit(main(sys.argv[1:]))
+                     ~~~~^^^^^^^^^^^^^^
+  File "D:\withbord inmation\rasm-pro\tools\make_templates_demo.py", line 133, in main
+    pl = PLANS[name]
+         ~~~~~^^^^^^
+KeyError: 'timeline'
+

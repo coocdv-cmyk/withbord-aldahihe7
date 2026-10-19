@@ -1,0 +1,163 @@
+{
+  "engine": "heuristic",
+  "lang": "en",
+  "tone": "تعليمي",
+  "audience": "عام",
+  "hook": "In the summer of 1914, the First World War began after the assassination of Archduke Franz Ferdinand.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "In the summer of 1914, the First World War began after the assassination of Archduke Franz Ferdinand.",
+      "type": "تاريخي",
+      "risk": "med",
+      "numbers": [
+        "1914",
+        "1914"
+      ],
+      "dates": [
+        "1914"
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "In 1919, the Treaty of Versailles redrew the map of Europe.",
+      "type": "تاريخي",
+      "risk": "med",
+      "numbers": [
+        "1919",
+        "1919"
+      ],
+      "dates": [
+        "1919"
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "type": "concept",
+      "name": "First World War",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "concept",
+      "name": "Archduke Franz Ferdinand",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "concept",
+      "name": "Soldiers",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "concept",
+      "name": "Western Front",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "concept",
+      "name": "Treaty",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "concept",
+      "name": "Versailles",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "concept",
+      "name": "Europe",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "date",
+      "name": "1914",
+      "needs": [],
+      "context": ""
+    },
+    {
+      "type": "date",
+      "name": "1919",
+      "needs": [],
+      "context": ""
+    }
+  ],
+  "timeline": [
+    {
+      "when": "1914",
+      "what": ""
+    },
+    {
+      "when": "1919",
+      "what": ""
+    }
+  ],
+  "quotes": [],
+  "numbers": [
+    "1914",
+    "1919",
+    "1914",
+    "1919"
+  ],
+  "scenes": [
+    {
+      "id": 1,
+      "narration": "In the summer of 1914, the First World War began after the assassination of Archduke Franz Ferdinand.",
+      "duration": 6.94,
+      "needs": [
+        "symbol"
+      ],
+      "keywords": [
+        "summer",
+        "1914",
+        "first",
+        "world",
+        "war",
+        "began"
+      ]
+    },
+    {
+      "id": 2,
+      "narration": "Soldiers dug trenches along the Western Front for four long years. In 1919, the Treaty of Versailles redrew the map of Europe.",
+      "duration": 8.98,
+      "needs": [
+        "symbol"
+      ],
+      "keywords": [
+        "soldiers",
+        "dug",
+        "trenches",
+        "along",
+        "western",
+        "front"
+      ]
+    }
+  ],
+  "stats": {
+    "words": 39,
+    "sentences": 3,
+    "scenes": 2,
+    "estimated_duration": 15.9
+  },
+  "source_hash": "cfa8909318a5be74"
+}

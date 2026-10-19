@@ -1,0 +1,107 @@
+{
+  "engine": "heuristic",
+  "lang": "en",
+  "tone": "تعليمي",
+  "audience": "عام",
+  "hook": "In 1914 war began. Soldiers fought. Peace came in 1919.",
+  "claims": [
+    {
+      "id": "c1",
+      "text": "In 1914 war began.",
+      "type": "تاريخي",
+      "risk": "med",
+      "numbers": [
+        "1914",
+        "1914"
+      ],
+      "dates": [
+        "1914"
+      ]
+    },
+    {
+      "id": "c3",
+      "text": "Peace came in 1919.",
+      "type": "تاريخي",
+      "risk": "med",
+      "numbers": [
+        "1919",
+        "1919"
+      ],
+      "dates": [
+        "1919"
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "type": "concept",
+      "name": "Soldiers",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "concept",
+      "name": "Peace",
+      "needs": [
+        "symbol"
+      ],
+      "context": ""
+    },
+    {
+      "type": "date",
+      "name": "1914",
+      "needs": [],
+      "context": ""
+    },
+    {
+      "type": "date",
+      "name": "1919",
+      "needs": [],
+      "context": ""
+    }
+  ],
+  "timeline": [
+    {
+      "when": "1914",
+      "what": ""
+    },
+    {
+      "when": "1919",
+      "what": ""
+    }
+  ],
+  "quotes": [],
+  "numbers": [
+    "1914",
+    "1919",
+    "1914",
+    "1919"
+  ],
+  "scenes": [
+    {
+      "id": 1,
+      "narration": "In 1914 war began. Soldiers fought. Peace came in 1919.",
+      "duration": 4.08,
+      "needs": [
+        "symbol"
+      ],
+      "keywords": [
+        "1914",
+        "war",
+        "began",
+        "soldiers",
+        "fought",
+        "peace"
+      ]
+    }
+  ],
+  "stats": {
+    "words": 10,
+    "sentences": 3,
+    "scenes": 1,
+    "estimated_duration": 5.0
+  },
+  "source_hash": "ed19ee7ed9cd622b"
+}

@@ -1,0 +1,66 @@
+{
+  "name": "13_image_prompt",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "أعد {\"prompt\":\"English image prompt\"} لوصف رسم وايت بورد أصلي لسفينة تجارية من الحرب العالمية الثانية، بلا كتابات أو أعلام أو ادعاء صورة تاريخية حقيقية. المطلوب شكل بسيط واضح صالح للرسم.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 350,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"prompt\":\"A realistic painting of a commercial ship from World War II, without any historical figures or symbols, with a simple, clear and artistic composition.\"}"
+        }
+      }
+    ],
+    "created": 1792406621,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 37,
+      "prompt_tokens": 122,
+      "total_tokens": 159,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-zoSAA3JJYw7DxDdQ1m8sxBzauswyoDCg",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 122,
+      "prompt_ms": 420.751,
+      "prompt_per_token_ms": 3.44877868852459,
+      "prompt_per_second": 289.9577184605622,
+      "predicted_n": 37,
+      "predicted_ms": 1396.1,
+      "predicted_per_token_ms": 38.78055555555555,
+      "predicted_per_second": 25.786118472888763
+    }
+  },
+  "parsed": {
+    "prompt": "A realistic painting of a commercial ship from World War II, without any historical figures or symbols, with a simple, clear and artistic composition."
+  },
+  "finish_reason": "stop",
+  "seconds": 1.825
+}

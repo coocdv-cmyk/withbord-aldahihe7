@@ -1,0 +1,66 @@
+{
+  "name": "08_svg",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "أعد {\"svg\":\"...\"} لرسم سفينة تجارية مبسطة أصلية من خطوط ومسارات SVG فقط، viewBox=\"0 0 300 200\". بلا نص أو صور مضمّنة أو روابط أو سكريبتات.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 650,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"svg\":\"<svg viewBox=\\\"0 0 300 200\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\">\\n  <path d=\\\"M 100 0 L 150 50 L 200 100 L 150 150 L 100 200 Z\\\" fill=\\\"none\\\" stroke=\\\"black\\\" stroke-width=\\\"2\\\"/>\\n</svg>\"\n}"
+        }
+      }
+    ],
+    "created": 1792405269,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 108,
+      "prompt_tokens": 126,
+      "total_tokens": 234,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-MNeLQouymJtTKxQITzpA4W4v8EoQyAL1",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 77,
+      "prompt_ms": 179.021,
+      "prompt_per_token_ms": 2.3249480519480517,
+      "prompt_per_second": 430.11713709564805,
+      "predicted_n": 108,
+      "predicted_ms": 3995.862,
+      "predicted_per_token_ms": 37.344504672897195,
+      "predicted_per_second": 26.7777015322351
+    }
+  },
+  "parsed": {
+    "svg": "<svg viewBox=\"0 0 300 200\" xmlns=\"http://www.w3.org/2000/svg\">\n  <path d=\"M 100 0 L 150 50 L 200 100 L 150 150 L 100 200 Z\" fill=\"none\" stroke=\"black\" stroke-width=\"2\"/>\n</svg>"
+  },
+  "finish_reason": "stop",
+  "seconds": 4.186
+}

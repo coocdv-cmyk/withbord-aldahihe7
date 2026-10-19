@@ -1,0 +1,52 @@
+{
+  "frames": 1080,
+  "seconds": 45.0,
+  "out": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video.mp4",
+  "render_seconds": 42.1,
+  "scenes": [
+    {
+      "id": 1,
+      "frames": 360,
+      "seconds": 15.0,
+      "start": 0.0
+    },
+    {
+      "id": 2,
+      "frames": 360,
+      "seconds": 15.0,
+      "start": 15.0
+    },
+    {
+      "id": 3,
+      "frames": 360,
+      "seconds": 15.0,
+      "start": 30.0
+    }
+  ],
+  "narration_frames": null,
+  "drift_frames": null,
+  "sfx": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video.sfx.json",
+  "pen_events": 658,
+  "wall_seconds": 42.129,
+  "audio_mode": "SFX only via existing engine functions; no voice invented",
+  "sfx_build": {
+    "out": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video.sfx.wav",
+    "duration": 45.5,
+    "events": 658,
+    "scratches": 285,
+    "taps": 82,
+    "slides": 2,
+    "real_recordings": true,
+    "sources": [
+      {
+        "file": "pen_ink.wav",
+        "license": "Public domain (PDSounds)",
+        "kind": "recording"
+      }
+    ]
+  },
+  "sfx_mux": {
+    "out": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video_sfx.mp4",
+    "mode": "sfx-only"
+  }
+}

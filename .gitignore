@@ -32,7 +32,6 @@ studio/data/*.txt
 studio/data/generations/
 studio/__pycache__/
 rasm-pro/.pytest_cache/
-rasm-pro/projects/
 rasm-pro/**/*.pyc
 
 # VideoScribe reverse engineering (reference, large)
@@ -49,9 +48,27 @@ rasm-pro/library/*.json
 rasm-pro/cache/
 rasm-pro/frames/
 rasm-pro/logs/
-rasm-pro/projects/
-rasm-pro/qa/
 rasm-pro/style_packs/
+
+# rasm-pro scratch renders & intermediate frames
+# (deliverables under projects/ and qa/ are kept in the repo)
+rasm-pro/preview*.mp4
+rasm-pro/pentest.mp4
+rasm-pro/pentest.png
+rasm-pro/contact*.png
+rasm-pro/projects/ww1-llm/
+rasm-pro/projects/*/frames/
+rasm-pro/projects/*/strokes/
+rasm-pro/qa/frames*/
+rasm-pro/qa/phase3_1_frames/
+rasm-pro/qa/review_temp/
+
+# local-model audit — keep code/JSON, skip generated result media
+local-model-audit/results/**/*.mp4
+local-model-audit/results/**/*.wav
+
+# local backup bundles
+backups/
 
 # Logs
 *.log

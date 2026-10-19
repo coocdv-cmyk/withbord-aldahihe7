@@ -1,0 +1,109 @@
+{
+  "project": "cfa8909318a5be74",
+  "lang": "en",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": 30,
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 7.533,
+      "narration": "In the summer of 1914, the First World War began after the assassination of Archduke Franz Ferdinand.",
+      "needs": [
+        "symbol"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "In the summer of\n1914…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            130,
+            220,
+            2300,
+            720
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "In the summer of 1914, the\nFirst World War began after the…",
+          "font": "cairo",
+          "size": 128,
+          "rect": [
+            190,
+            940,
+            2180,
+            340
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.4
+        }
+      ],
+      "duration_frames": 226
+    },
+    {
+      "id": 2,
+      "duration": 9.533,
+      "narration": "Soldiers dug trenches along the Western Front for four long years. In 1919, the Treaty of Versailles redrew the map of Europe.",
+      "needs": [
+        "symbol"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Soldiers dug trenches along the Western Front…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "duration_frames": 286
+    }
+  ],
+  "audio": {
+    "file": "D:\\withbord inmation\\rasm-pro\\projects\\gate_phase1\\audio\\narration-ce46000144.wav",
+    "sha256": "ce4600014488cb790791893046b99901ee6a6f17fa4697b78183131e1372d202",
+    "duration_sec": 17.046168,
+    "sample_rate": 22050,
+    "total_samples": 375868,
+    "codec": "pcm_s16le"
+  },
+  "timing": {
+    "source": "narration",
+    "level": "APPROXIMATE",
+    "method": "proportional-characters-v1",
+    "notes": [
+      "محاذاة تقديرية بنِسَب أطوال النصوص — ليست محاذاة صوتية دقيقة.",
+      "التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق)، لكن توزيعه تقديري.",
+      "وسيط معدل الكلام المقدر ≈ 11.31 حرف/ثانية."
+    ],
+    "sample_rate": 22050,
+    "total_samples": 375868,
+    "alignment": "D:\\withbord inmation\\rasm-pro\\projects\\gate_phase1\\audio\\alignment.json"
+  },
+  "stats": {
+    "scenes": 2,
+    "elements": 3,
+    "estimated_duration": 17.1
+  }
+}

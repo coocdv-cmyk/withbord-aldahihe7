@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "level": "APPROXIMATE",
+  "method": "proportional-characters-v1",
+  "sample_rate": 22050,
+  "total_samples": 375868,
+  "notes": [
+    "محاذاة تقديرية بنِسَب أطوال النصوص — ليست محاذاة صوتية دقيقة.",
+    "التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق)، لكن توزيعه تقديري.",
+    "وسيط معدل الكلام المقدر ≈ 11.31 حرف/ثانية."
+  ],
+  "segments": [
+    {
+      "scene_id": 1,
+      "text": "In the summer of 1914, the First World War began after the assassination of Archduke Franz Ferdinand.",
+      "start_sample": 0,
+      "end_sample": 165772,
+      "confidence": 0.35,
+      "flags": [
+        "proportional-characters"
+      ]
+    },
+    {
+      "scene_id": 2,
+      "text": "Soldiers dug trenches along the Western Front for four long years. In 1919, the Treaty of Versailles redrew the map of Europe.",
+      "start_sample": 165772,
+      "end_sample": 375868,
+      "confidence": 0.35,
+      "flags": [
+        "proportional-characters"
+      ]
+    }
+  ]
+}

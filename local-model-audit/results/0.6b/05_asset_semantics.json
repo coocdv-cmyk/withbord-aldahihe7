@@ -1,0 +1,67 @@
+{
+  "name": "05_asset_semantics",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اختر صورة شخصية لفرانز فرديناند. النتائج: A منديل ملطخ بدمه، B صورة وجهه الشخصية، C دبابة سنة 1916. أعد {\"selected\":\"A|B|C\",\"reason\":\"...\"}.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 200,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"selected\":\"A|B|C\",\"reason\":\"A منديل ملطخ بدمه، B صورة وجهه الشخصية، C دبابة سنة 1916\"}"
+        }
+      }
+    ],
+    "created": 1792405264,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 44,
+      "prompt_tokens": 126,
+      "total_tokens": 170,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-346dTp2ByHtf1UaO4zfdJtC44A6ArIsV",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 77,
+      "prompt_ms": 214.127,
+      "prompt_per_token_ms": 2.78087012987013,
+      "prompt_per_second": 359.5996768273034,
+      "predicted_n": 44,
+      "predicted_ms": 1519.821,
+      "predicted_per_token_ms": 35.34467441860465,
+      "predicted_per_second": 28.292805534335955
+    }
+  },
+  "parsed": {
+    "selected": "A|B|C",
+    "reason": "A منديل ملطخ بدمه، B صورة وجهه الشخصية، C دبابة سنة 1916"
+  },
+  "finish_reason": "stop",
+  "seconds": 1.755
+}

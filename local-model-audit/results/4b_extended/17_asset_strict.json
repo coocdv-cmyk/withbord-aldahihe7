@@ -1,0 +1,87 @@
+{
+  "name": "17_asset_strict",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اختر صورة شخصية لفرانز فرديناند: A منديل عليه دمه، B صورة شخصية لوجهه، C دبابة. اختر الصحيح فقط.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 150,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "audit_output",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "selected": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C"
+              ]
+            }
+          },
+          "required": [
+            "selected"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"selected\": \"B\"}"
+        }
+      }
+    ],
+    "created": 1792407736,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 7,
+      "prompt_tokens": 100,
+      "total_tokens": 107,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-wq8wZsIPe6P6HlzIKVRQetyT2AkTUEiN",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 51,
+      "prompt_ms": 1332.894,
+      "prompt_per_token_ms": 26.135176470588235,
+      "prompt_per_second": 38.26260752918087,
+      "predicted_n": 7,
+      "predicted_ms": 1137.549,
+      "predicted_per_token_ms": 189.5915,
+      "predicted_per_second": 5.274498065577835
+    }
+  },
+  "parsed": {
+    "selected": "B"
+  },
+  "finish_reason": "stop",
+  "seconds": 2.492
+}

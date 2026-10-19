@@ -1,0 +1,7 @@
+{
+  "rendered": false,
+  "validation_errors": [
+    "canvas must be [2560,1440]",
+    "1..8 scenes required"
+  ]
+}

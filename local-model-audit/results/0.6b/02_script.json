@@ -1,0 +1,68 @@
+{
+  "name": "02_script",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اعتمادا على النص فقط اكتب شرحا مصريا مترابطا من 90 إلى 120 كلمة يشرح توسع الحرب، وافصل انتهاء حرب أوروبا عن انتهاء الحرب العالمية. أعد {\"hook\":\"...\",\"script\":\"...\",\"sources_missing\":[]}.\nGermany invaded Poland on 1 September 1939. Britain and France declared war on Germany on 3 September 1939. Germany invaded the Soviet Union on 22 June 1941. Japan attacked Pearl Harbor on 7 December 1941. German surrender ended the war in Europe in May 1945. The global war ended in September 1945. These statements are a fixed test fixture, not the model's retrieved sources.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 900,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"hook\": \"Germany invaded Poland on 1 September 1939. Britain and France declared war on Germany on 3 September 1939. Germany invaded the Soviet Union on 22 June 1941. Japan attacked Pearl Harbor on 7 December 1941. German surrender ended the war in Europe in May 1945. The global war ended in September 1945.\",\n  \"script\": \"Germany invaded Poland on 1 September 1939. Britain and France declared war on Germany on 3 September 1939. Germany invaded the Soviet Union on 22 June 1941. Japan attacked Pearl Harbor on 7 December 1941. The global war ended in September 1945.\",\n  \"sources_missing\": []\n}"
+        }
+      }
+    ],
+    "created": 1792405257,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 182,
+      "prompt_tokens": 229,
+      "total_tokens": 411,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-hGO7xcHFl7F66mDltacOE7BP7kg2xFhL",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 180,
+      "prompt_ms": 401.197,
+      "prompt_per_token_ms": 2.2288722222222224,
+      "prompt_per_second": 448.6573927521891,
+      "predicted_n": 182,
+      "predicted_ms": 6487.521,
+      "predicted_per_token_ms": 35.84265745856354,
+      "predicted_per_second": 27.899717010549946
+    }
+  },
+  "parsed": {
+    "hook": "Germany invaded Poland on 1 September 1939. Britain and France declared war on Germany on 3 September 1939. Germany invaded the Soviet Union on 22 June 1941. Japan attacked Pearl Harbor on 7 December 1941. German surrender ended the war in Europe in May 1945. The global war ended in September 1945.",
+    "script": "Germany invaded Poland on 1 September 1939. Britain and France declared war on Germany on 3 September 1939. Germany invaded the Soviet Union on 22 June 1941. Japan attacked Pearl Harbor on 7 December 1941. The global war ended in September 1945.",
+    "sources_missing": []
+  },
+  "finish_reason": "stop",
+  "seconds": 6.911
+}

@@ -1,0 +1,120 @@
+{
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": 24,
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 15,
+      "narration": "غزت ألمانيا بولندا في 1 سبتمبر 1939",
+      "elements": [
+        {
+          "type": "text",
+          "text": "غزت ألمانيا بولندا في 1 سبتمبر 1939",
+          "font": "cairo",
+          "size": 80,
+          "rect": [
+            500,
+            300,
+            1560,
+            120
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "#000000"
+        },
+        {
+          "type": "text",
+          "text": "البداية",
+          "font": "cairo",
+          "size": 40,
+          "rect": [
+            100,
+            100,
+            200,
+            60
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "#ff6b00"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "duration": 15,
+      "narration": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939",
+      "elements": [
+        {
+          "type": "text",
+          "text": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939",
+          "font": "cairo",
+          "size": 80,
+          "rect": [
+            500,
+            300,
+            1560,
+            120
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "#000000"
+        },
+        {
+          "type": "text",
+          "text": "الرد",
+          "font": "cairo",
+          "size": 40,
+          "rect": [
+            100,
+            100,
+            200,
+            60
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "#ff6b00"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "duration": 15,
+      "narration": "انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945",
+      "elements": [
+        {
+          "type": "text",
+          "text": "انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945",
+          "font": "cairo",
+          "size": 80,
+          "rect": [
+            500,
+            300,
+            1560,
+            120
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "#000000"
+        },
+        {
+          "type": "text",
+          "text": "النهاية",
+          "font": "cairo",
+          "size": 40,
+          "rect": [
+            100,
+            100,
+            200,
+            60
+          ],
+          "rtl": false,
+          "mode": "skeleton",
+          "color": "#ff6b00"
+        }
+      ]
+    }
+  ]
+}

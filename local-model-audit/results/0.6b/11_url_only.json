@@ -1,0 +1,68 @@
+{
+  "name": "11_url_only",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "اقرأ https://encyclopedia.ushmm.org/content/en/article/world-war-ii-in-europe وأعطني ثلاثة اقتباسات حرفية مع تاريخ جلب الصفحة. ليس لديك أدوات في هذه المحادثة. أعد {\"accessed\":bool,\"quotes\":[],\"limitation\":\"...\"}. لا تدع قراءة لم تنفذها.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 300,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"accessed\": false, \"quotes\": [], \"limitation\": \"لا توجد مصادر أو نتائج أدوات\"}"
+        }
+      }
+    ],
+    "created": 1792405301,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 30,
+      "prompt_tokens": 136,
+      "total_tokens": 166,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-5vconX2ZuCPgisUAvALMNgdS0zJc1aKI",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 87,
+      "prompt_ms": 264.442,
+      "prompt_per_token_ms": 3.039563218390805,
+      "prompt_per_second": 328.99463776555916,
+      "predicted_n": 30,
+      "predicted_ms": 1012.432,
+      "predicted_per_token_ms": 34.91144827586207,
+      "predicted_per_second": 28.64389904704711
+    }
+  },
+  "parsed": {
+    "accessed": false,
+    "quotes": [],
+    "limitation": "لا توجد مصادر أو نتائج أدوات"
+  },
+  "finish_reason": "stop",
+  "seconds": 1.298
+}

@@ -1,0 +1,67 @@
+{
+  "name": "03_missing_fact",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "المصدر الوحيد: Germany invaded Poland on 1 September 1939. ما عدد قتلى الحرب؟ أعد {\"answer\":null,\"status\":\"not_in_source\"} إذا غاب الدليل. ممنوع معلومات الذاكرة.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 120,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"answer\":null,\"status\":\"not_in_source\"}"
+        }
+      }
+    ],
+    "created": 1792405578,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 12,
+      "prompt_tokens": 108,
+      "total_tokens": 120,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-hPLtmBwMDaYitIbyPkHKQ9e3PXqpD61s",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 59,
+      "prompt_ms": 1070.581,
+      "prompt_per_token_ms": 18.1454406779661,
+      "prompt_per_second": 55.11026255836785,
+      "predicted_n": 12,
+      "predicted_ms": 1777.209,
+      "predicted_per_token_ms": 161.56445454545454,
+      "predicted_per_second": 6.189480246836473
+    }
+  },
+  "parsed": {
+    "answer": null,
+    "status": "not_in_source"
+  },
+  "finish_reason": "stop",
+  "seconds": 2.87
+}

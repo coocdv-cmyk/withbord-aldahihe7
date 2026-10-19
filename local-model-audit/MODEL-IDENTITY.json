@@ -1,0 +1,57 @@
+[
+  {
+    "file": "D:\\withbord inmation\\studio\\models\\Qwen3-0.6B-Q4_K_M.gguf",
+    "magic": "GGUF",
+    "gguf_version": 3,
+    "tensors": 310,
+    "bytes": 396705472,
+    "metadata": {
+      "general.architecture": "qwen3",
+      "general.type": "model",
+      "general.name": "Qwen3-0.6B",
+      "general.basename": "Qwen3-0.6B",
+      "general.quantized_by": "Unsloth",
+      "general.size_label": "0.6B",
+      "general.repo_url": "https://huggingface.co/unsloth",
+      "qwen3.block_count": 28,
+      "qwen3.context_length": 40960,
+      "qwen3.embedding_length": 1024,
+      "general.quantization_version": 2,
+      "general.file_type": 15
+    }
+  },
+  {
+    "file": "D:\\withbord inmation\\studio\\models\\Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+    "magic": "GGUF",
+    "gguf_version": 3,
+    "tensors": 398,
+    "bytes": 2497281120,
+    "metadata": {
+      "general.architecture": "qwen3",
+      "general.type": "model",
+      "general.name": "Qwen3-4B-Instruct-2507",
+      "general.version": "2507",
+      "general.finetune": "Instruct",
+      "general.basename": "Qwen3-4B-Instruct-2507",
+      "general.quantized_by": "Unsloth",
+      "general.size_label": "4B",
+      "general.license": "apache-2.0",
+      "general.license.link": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/blob/main/LICENSE",
+      "general.repo_url": "https://huggingface.co/unsloth",
+      "general.base_model.count": 1,
+      "general.base_model.0.name": "Qwen3 4B Instruct 2507",
+      "general.base_model.0.version": "2507",
+      "general.base_model.0.organization": "Qwen",
+      "general.base_model.0.repo_url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507",
+      "general.tags": {
+        "array_type": 8,
+        "length": 2
+      },
+      "qwen3.block_count": 36,
+      "qwen3.context_length": 262144,
+      "qwen3.embedding_length": 2560,
+      "general.quantization_version": 2,
+      "general.file_type": 15
+    }
+  }
+]

@@ -1,0 +1,88 @@
+{
+  "name": "10_repair",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "الخطة التالية غير صحيحة: {\"canvas\":[2560,1440],\"scenes\":[{\"id\":1,\"duration\":-2,\"narration\":\"بدأت الحرب في أوروبا عام 1939\",\"elements\":[{\"type\":\"text\",\"text\":\"1939\",\"rect\":[2500,1400,500,300]}]}]}. أعد الخطة مصححة بنفس النص وبداخل اللوحة ومدة موجبة من 3 إلى 35 ثانية، دون تعليق.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 650,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"canvas\": {\n    \"width\": 2560,\n    \"height\": 1440\n  },\n  \"scenes\": [\n    {\n      \"id\": 1,\n      \"duration\": 3,\n      \"narration\": \"بدأت الحرب في أوروبا عام 1939\",\n      \"elements\": [\n        {\n          \"type\": \"text\",\n          \"text\": \"1939\",\n          \"rect\": [2500, 1400, 500, 300]\n        }\n      ]\n    }\n  ]\n}"
+        }
+      }
+    ],
+    "created": 1792405300,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 134,
+      "prompt_tokens": 184,
+      "total_tokens": 318,
+      "prompt_tokens_details": {
+        "cached_tokens": 49
+      }
+    },
+    "id": "chatcmpl-l7AJlJNHx9Sb5pWOuxWTqvQUQaBDNmgh",
+    "timings": {
+      "cache_n": 49,
+      "prompt_n": 135,
+      "prompt_ms": 461.555,
+      "prompt_per_token_ms": 3.418925925925926,
+      "prompt_per_second": 292.4895191255647,
+      "predicted_n": 134,
+      "predicted_ms": 4943.492,
+      "predicted_per_token_ms": 37.16911278195489,
+      "predicted_per_second": 26.904058912202142
+    }
+  },
+  "parsed": {
+    "canvas": {
+      "width": 2560,
+      "height": 1440
+    },
+    "scenes": [
+      {
+        "id": 1,
+        "duration": 3,
+        "narration": "بدأت الحرب في أوروبا عام 1939",
+        "elements": [
+          {
+            "type": "text",
+            "text": "1939",
+            "rect": [
+              2500,
+              1400,
+              500,
+              300
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "finish_reason": "stop",
+  "seconds": 5.467
+}

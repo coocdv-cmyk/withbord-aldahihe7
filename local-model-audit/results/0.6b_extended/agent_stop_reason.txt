@@ -1,0 +1,1 @@
+Evaluator stopped after first tool-loop response reached token limit and contained no valid action. First response preserved. Any next pending call interrupted by evaluator is not scored as a model error. All other extended tasks completed.

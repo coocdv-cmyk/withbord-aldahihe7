@@ -1,0 +1,242 @@
+{
+  "project": "266148524df9ad38",
+  "lang": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": 30,
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 10.2,
+      "narration": "في صيف عام 1914، اشتعلت الحرب العالمية الأولى بعد اغتيال الأرشيدوق فرانز فرديناند في سراييفو. كانت الإمبراطورية الألمانية والنمسا والمجر في مواجهة بريطانيا وفرنسا وروسيا.",
+      "needs": [
+        "portrait",
+        "event"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "في صيف عام 1914، اشتعلت الحرب…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            130,
+            240,
+            2300,
+            620
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "في صيف عام 1914، اشتعلت الحرب العالمية الأولى بعد اغتيال الأرشيدوق فرانز فرديناند في…",
+          "font": "amiri",
+          "size": 96,
+          "rect": [
+            190,
+            940,
+            2180,
+            320
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.4
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "duration": 7.76,
+      "narration": "حفر الجنود الخنادق على الجبهة الغربية في معركة السوم وفردان. استخدمت ألمانيا الغواصات لإغراق السفن التجارية في المحيط الأطلسي.",
+      "needs": [
+        "event"
+      ],
+      "assets_used": [
+        "assets/event-معركة-السوم/c75888b731eb.jpg",
+        "assets/event-معركة-السوم/a21b49758ec5.jpg",
+        "assets/event-معركة-السوم/ac03acc227ed.jpg"
+      ],
+      "elements": [
+        {
+          "type": "text",
+          "text": "معركة السوم",
+          "font": "cairo",
+          "size": 92,
+          "rect": [
+            1450,
+            150,
+            980,
+            200
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.2
+        },
+        {
+          "type": "image",
+          "asset": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معركة-السوم\\c75888b731eb.jpg",
+          "rect": [
+            110,
+            330,
+            1340,
+            900
+          ],
+          "trace_size": 950,
+          "gap": 0.35
+        },
+        {
+          "type": "text",
+          "text": "حفر الجنود الخنادق على الجبهة الغربية في معركة السوم…",
+          "font": "amiri",
+          "size": 112,
+          "rect": [
+            1500,
+            420,
+            940,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "duration": 8.98,
+      "narration": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب الحلفاء بعد رسالة زيمرمان. سقطت الدولة العثمانية بعد الحرب وتفككت الإمبراطوريات الأربع الكبرى.",
+      "needs": [
+        "portrait",
+        "event",
+        "map",
+        "flag",
+        "chart",
+        "document",
+        "object"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "duration": 8.16,
+      "narration": "وقّعت ألمانيا معاهدة فرساي في يونيو 1919، وفرضت عليها تعويضات ضخمة. كانت خسائر الحرب البشرية نحو سبعة عشر مليون قتيل.",
+      "needs": [
+        "event",
+        "chart",
+        "document"
+      ],
+      "assets_used": [
+        "assets/event-معاهدة-فرساي/6aee608a669e.jpg",
+        "assets/event-معاهدة-فرساي/8de7fd17f115.jpg",
+        "assets/event-معاهدة-فرساي/4994e4076a8d.png"
+      ],
+      "elements": [
+        {
+          "type": "text",
+          "text": "معاهدة فرساي",
+          "font": "cairo",
+          "size": 92,
+          "rect": [
+            1450,
+            150,
+            980,
+            200
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.2
+        },
+        {
+          "type": "image",
+          "asset": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معاهدة-فرساي\\6aee608a669e.jpg",
+          "rect": [
+            110,
+            330,
+            1340,
+            900
+          ],
+          "trace_size": 950,
+          "gap": 0.35
+        },
+        {
+          "type": "text",
+          "text": "وقّعت ألمانيا معاهدة فرساي في يونيو 1919، وفرضت عليها…",
+          "font": "amiri",
+          "size": 112,
+          "rect": [
+            1500,
+            420,
+            940,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "duration": 8.16,
+      "narration": "رسمت هذه الحرب خريطة الشرق الأوسط من جديد، وأسست عصبة الأمم. هكذا انتهى عصر الإمبراطوريات وبدأ القرن العشرون بوجه جديد.",
+      "needs": [
+        "portrait",
+        "event",
+        "map"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "رسمت هذه الحرب خريطة الشرق الأوسط من جديد، وأسست…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "scenes": 5,
+    "elements": 10,
+    "estimated_duration": 43.3
+  }
+}

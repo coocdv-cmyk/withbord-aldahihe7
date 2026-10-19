@@ -1,0 +1,13 @@
+{
+  "seconds": 199.07344739999098,
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "\nLoading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]\nLoading pipeline components...:  17%|█▋        | 1/6 [00:00<00:01,  4.69it/s]\nLoading pipeline components...:  33%|███▎      | 2/6 [00:07<00:18,  4.56s/it]\nLoading pipeline components...:  50%|█████     | 3/6 [00:08<00:08,  2.84s/it]\nLoading pipeline components...:  83%|████████▎ | 5/6 [00:08<00:01,  1.33s/it]`torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading pipeline components...: 100%|██████████| 6/6 [00:09<00:00,  1.21s/it]\nLoading pipeline components...: 100%|██████████| 6/6 [00:09<00:00,  1.64s/it]\nToken indices sequence length is longer than the specified maximum sequence length for this model (180 > 77). Running this sequence through the model will result in indexing errors\nThe following part of your input was truncated because CLIP can only handle sequences up to 77 tokens: ['�ي ، بدون كتابات ، أعلام ، أو أي عناصر تدل على صورة تاريخية حقيقية ، صالح للرسم على ورقة بورد , simple hand drawn doodle , bold black marker outline , minimal teal accents , isolated single object , pure white background , no text']\n",
+  "request": {
+    "prompt": "رسم بسيط واضح لسفينة تجارية من الحرب العالمية الثانية، شكل مبسط يُظهر طولها وشكلها الأساسي، بدون كتابات، أعلام، أو أي عناصر تدل على صورة تاريخية حقيقية، صالح للرسم على ورقة بورد",
+    "style": "doodle",
+    "steps": 20,
+    "guidance": 7.0,
+    "seed": 42
+  }
+}

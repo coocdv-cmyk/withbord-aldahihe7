@@ -1,0 +1,13 @@
+{
+  "seconds": 232.90683650001301,
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "\nLoading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]\nLoading pipeline components...:  17%|█▋        | 1/6 [00:05<00:28,  5.62s/it]\nLoading pipeline components...:  50%|█████     | 3/6 [00:06<00:05,  1.71s/it]`torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading pipeline components...:  67%|██████▋   | 4/6 [00:07<00:03,  1.58s/it]\nLoading pipeline components...: 100%|██████████| 6/6 [00:08<00:00,  1.00s/it]\nLoading pipeline components...: 100%|██████████| 6/6 [00:08<00:00,  1.41s/it]\n",
+  "request": {
+    "prompt": "A realistic painting of a commercial ship from World War II, without any historical figures or symbols, with a simple, clear and artistic composition.",
+    "style": "doodle",
+    "steps": 20,
+    "guidance": 7.0,
+    "seed": 42
+  }
+}

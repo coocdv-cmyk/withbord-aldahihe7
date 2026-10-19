@@ -1,0 +1,97 @@
+{
+  "name": "01_source_extract",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "استخرج من النص فقط الأحداث وتواريخها. أعد {\"events\":[{\"date\":\"...\",\"event_ar\":\"...\",\"evidence\":\"exact English quote\"}]}. لا تضف معلومة.\nGermany invaded Poland on 1 September 1939. Britain and France declared war on Germany on 3 September 1939. Germany invaded the Soviet Union on 22 June 1941. Japan attacked Pearl Harbor on 7 December 1941. German surrender ended the war in Europe in May 1945. The global war ended in September 1945. These statements are a fixed test fixture, not the model's retrieved sources.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 1100,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"events\":[{\"date\":\"1 September 1939\",\"event_ar\":\"النمسا احتلت بولندا\",\"evidence\":\"Germany invaded Poland on 1 September 1939\"},{\"date\":\"3 September 1939\",\"event_ar\":\"بريطانيا وفرنسا أعلنتا حربًا على ألمانيا\",\"evidence\":\"Britain and France declared war on Germany on 3 September 1939\"},{\"date\":\"22 June 1941\",\"event_ar\":\"ألمانيا احتلت الاتحاد السوفيتي\",\"evidence\":\"Germany invaded the Soviet Union on 22 June 1941\"},{\"date\":\"7 December 1941\",\"event_ar\":\"اليابان هاجمت بيرل هاربور\",\"evidence\":\"Japan attacked Pearl Harbor on 7 December 1941\"},{\"date\":\"May 1945\",\"event_ar\":\"الانسحاب الألماني انتهى الحرب في أوروبا\",\"evidence\":\"German surrender ended the war in Europe in May 1945\"},{\"date\":\"September 1945\",\"event_ar\":\"انتهت الحرب العالمية\",\"evidence\":\"The global war ended in September 1945\"}]}"
+        }
+      }
+    ],
+    "created": 1792405535,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 256,
+      "prompt_tokens": 203,
+      "total_tokens": 459,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-irsWE7To9Y89k9oQ0K4UVWmUNyRSd4U4",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 203,
+      "prompt_ms": 3463.244,
+      "prompt_per_token_ms": 17.060315270935963,
+      "prompt_per_second": 58.6155639048245,
+      "predicted_n": 256,
+      "predicted_ms": 46921.178,
+      "predicted_per_token_ms": 184.00461960784313,
+      "predicted_per_second": 5.4346461634019505
+    }
+  },
+  "parsed": {
+    "events": [
+      {
+        "date": "1 September 1939",
+        "event_ar": "النمسا احتلت بولندا",
+        "evidence": "Germany invaded Poland on 1 September 1939"
+      },
+      {
+        "date": "3 September 1939",
+        "event_ar": "بريطانيا وفرنسا أعلنتا حربًا على ألمانيا",
+        "evidence": "Britain and France declared war on Germany on 3 September 1939"
+      },
+      {
+        "date": "22 June 1941",
+        "event_ar": "ألمانيا احتلت الاتحاد السوفيتي",
+        "evidence": "Germany invaded the Soviet Union on 22 June 1941"
+      },
+      {
+        "date": "7 December 1941",
+        "event_ar": "اليابان هاجمت بيرل هاربور",
+        "evidence": "Japan attacked Pearl Harbor on 7 December 1941"
+      },
+      {
+        "date": "May 1945",
+        "event_ar": "الانسحاب الألماني انتهى الحرب في أوروبا",
+        "evidence": "German surrender ended the war in Europe in May 1945"
+      },
+      {
+        "date": "September 1945",
+        "event_ar": "انتهت الحرب العالمية",
+        "evidence": "The global war ended in September 1945"
+      }
+    ]
+  },
+  "finish_reason": "stop",
+  "seconds": 50.415
+}

@@ -1,0 +1,43 @@
+{
+  "batchcomplete": "",
+  "continue": {
+    "sroffset": 3,
+    "continue": "-||"
+  },
+  "query": {
+    "searchinfo": {
+      "totalhits": 395890,
+      "suggestion": "world war 2",
+      "suggestionsnippet": "world war 2"
+    },
+    "search": [
+      {
+        "ns": 0,
+        "title": "World War II",
+        "pageid": 32927,
+        "size": 251075,
+        "wordcount": 25789,
+        "snippet": "<span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> <span class=\"searchmatch\">II</span>, or the Second <span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> (1 September 1939 – 2 September 1945), was a global conflict between two coalitions: the Allies and the Axis powers",
+        "timestamp": "2026-10-19T08:06:03Z"
+      },
+      {
+        "ns": 0,
+        "title": "Allies of World War II",
+        "pageid": 2198844,
+        "size": 173581,
+        "wordcount": 17803,
+        "snippet": "Nations from 1942, were an international military coalition formed during <span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> <span class=\"searchmatch\">II</span> (1939–1945) to oppose the Axis powers. Its principal members were the",
+        "timestamp": "2026-10-11T20:32:52Z"
+      },
+      {
+        "ns": 0,
+        "title": "World War II casualties",
+        "pageid": 240900,
+        "size": 351180,
+        "wordcount": 36095,
+        "snippet": "<span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> <span class=\"searchmatch\">II</span> (WWII) was the deadliest military conflict in history. An estimated total of 60–75 million deaths were caused by the conflict, including those",
+        "timestamp": "2026-10-11T12:40:01Z"
+      }
+    ]
+  }
+}

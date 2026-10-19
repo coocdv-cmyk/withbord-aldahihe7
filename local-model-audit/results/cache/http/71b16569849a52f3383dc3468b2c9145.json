@@ -1,0 +1,32 @@
+{
+  "batchcomplete": "",
+  "continue": {
+    "sroffset": 2,
+    "continue": "-||"
+  },
+  "query": {
+    "searchinfo": {
+      "totalhits": 5835
+    },
+    "search": [
+      {
+        "ns": 6,
+        "title": "File:Polish victim of German Luftwaffe action 1939.jpg",
+        "pageid": 5429324,
+        "size": 9956,
+        "wordcount": 12,
+        "snippet": "DescriptionPolish victim <span class=\"searchmatch\">of</span> German Luftwaffe action <span class=\"searchmatch\">1939</span>.jpg Deutsch: Polin Kazimiera Mika (12) trauert um ihre ältere Schwester Andzia (14), die auf",
+        "timestamp": "2026-01-05T23:27:05Z"
+      },
+      {
+        "ns": 6,
+        "title": "File:Military cemetery from World War I and World War II in Dąbrowa Tarnawacka near Tarnawatka (8).jpg",
+        "pageid": 94374433,
+        "size": 3840,
+        "wordcount": 196,
+        "snippet": "Military cemetery from <span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> I and <span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> <span class=\"searchmatch\">II</span> in Dąbrowa Tarnawacka near Tarnawatka. Polish Cmentarz wojskowy z I wojny światowej i <span class=\"searchmatch\">II</span> wojny światowej",
+        "timestamp": "2025-03-16T10:23:29Z"
+      }
+    ]
+  }
+}

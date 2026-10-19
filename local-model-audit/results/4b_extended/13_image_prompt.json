@@ -1,0 +1,66 @@
+{
+  "name": "13_image_prompt",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "أنت مساعد إنتاج فيديو عربي. نفّذ المطلوب بدقة. لا تخترع مصادر أو نتائج أدوات. أعد JSON فقط."
+      },
+      {
+        "role": "user",
+        "content": "أعد {\"prompt\":\"English image prompt\"} لوصف رسم وايت بورد أصلي لسفينة تجارية من الحرب العالمية الثانية، بلا كتابات أو أعلام أو ادعاء صورة تاريخية حقيقية. المطلوب شكل بسيط واضح صالح للرسم.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 350,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"prompt\": \"رسم بسيط واضح لسفينة تجارية من الحرب العالمية الثانية، شكل مبسط يُظهر طولها وشكلها الأساسي، بدون كتابات، أعلام، أو أي عناصر تدل على صورة تاريخية حقيقية، صالح للرسم على ورقة بورد\"\n}"
+        }
+      }
+    ],
+    "created": 1792407403,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 75,
+      "prompt_tokens": 118,
+      "total_tokens": 193,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-vGsJndraCCtJJUTapGhkcaDvHnp6kq2d",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 118,
+      "prompt_ms": 2090.586,
+      "prompt_per_token_ms": 17.716830508474576,
+      "prompt_per_second": 56.44350435715155,
+      "predicted_n": 75,
+      "predicted_ms": 12988.644,
+      "predicted_per_token_ms": 175.5222162162162,
+      "predicted_per_second": 5.697284489435541
+    }
+  },
+  "parsed": {
+    "prompt": "رسم بسيط واضح لسفينة تجارية من الحرب العالمية الثانية، شكل مبسط يُظهر طولها وشكلها الأساسي، بدون كتابات، أعلام، أو أي عناصر تدل على صورة تاريخية حقيقية، صالح للرسم على ورقة بورد"
+  },
+  "finish_reason": "stop",
+  "seconds": 15.085
+}

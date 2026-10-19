@@ -1,0 +1,91 @@
+{
+ "thinning": [
+  {
+   "case": "ring_5px",
+   "px": 2104,
+   "zhang_suen_s": 0.0042,
+   "zhang_suen_iter": 3,
+   "zhang_suen_components": 60,
+   "guo_hall_s": 0.0053,
+   "guo_hall_iter": 4,
+   "guo_hall_components": 1
+  },
+  {
+   "case": "word_الحرب",
+   "px": 9629,
+   "zhang_suen_s": 0.1422,
+   "zhang_suen_iter": 7,
+   "zhang_suen_components": 152,
+   "guo_hall_s": 0.2733,
+   "guo_hall_iter": 10,
+   "guo_hall_components": 1
+  },
+  {
+   "case": "raster_900px_photo",
+   "px": 2609280,
+   "raster_to_strokes_s": 7.388,
+   "strokes": 819
+  }
+ ],
+ "text_pipeline": {
+  "cold": {
+   "phase": "cold",
+   "seconds": 19.06,
+   "peak_mem_mb": 22.5,
+   "cache_hit": 0,
+   "cache_miss": 3,
+   "strokes": [
+    15,
+    15,
+    15
+   ]
+  },
+  "warm": {
+   "phase": "warm",
+   "seconds": 0.35,
+   "peak_mem_mb": 15.4,
+   "cache_hit": 3,
+   "cache_miss": 0,
+   "strokes": [
+    15,
+    15,
+    15
+   ]
+  }
+ },
+ "scene_prep": {
+  "cold": {
+   "per_scene_s": [
+    7.801,
+    22.292,
+    6.056,
+    6.54,
+    5.854
+   ],
+   "total_s": 48.543,
+   "peak_mem_mb": 55.5,
+   "cache_hit": 0,
+   "cache_miss": 13,
+   "cache_hit_rate": 0.0
+  },
+  "warm": {
+   "per_scene_s": [
+    0.336,
+    0.845,
+    1.346,
+    0.272,
+    0.276
+   ],
+   "total_s": 3.075,
+   "peak_mem_mb": 23.9,
+   "cache_hit": 13,
+   "cache_miss": 0,
+   "cache_hit_rate": 1.0
+  }
+ },
+ "render": {
+  "frames": 1956,
+  "render_seconds": 90.9,
+  "fps_effective": 21.52
+ }
+}

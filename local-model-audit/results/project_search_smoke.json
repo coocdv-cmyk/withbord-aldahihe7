@@ -1,0 +1,65 @@
+{
+  "wikipedia": [
+    {
+      "title": "World War II",
+      "snippet": "<span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> <span class=\"searchmatch\">II</span>, or the Second <span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> (1 September 1939",
+      "wordcount": 25789
+    },
+    {
+      "title": "Allies of World War II",
+      "snippet": "Nations from 1942, were an international military coalition formed during <span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> <span class=\"searchmatch\">II</span> (1939–1945) to oppose the Axis pow",
+      "wordcount": 17803
+    },
+    {
+      "title": "World War II casualties",
+      "snippet": "<span class=\"searchmatch\">World</span> <span class=\"searchmatch\">War</span> <span class=\"searchmatch\">II</span> (WWII) was the deadliest military conflict in history. An estimated total of 60–75 million deaths were cause",
+      "wordcount": 36095
+    }
+  ],
+  "commons": [
+    {
+      "title": "File:Military cemetery from World War I and World War II in Dąbrowa Tarnawacka near Tarnawatka (8).jpg",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Military_cemetery_from_World_War_I_and_World_War_II_in_D%C4%85browa_Tarnawacka_near_Tarnawatka_(8).jpg",
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Military_cemetery_from_World_War_I_and_World_War_II_in_D%C4%85browa_Tarnawacka_near_Tarnawatka_%288%29.jpg/960px-Military_cemetery_from_World_War_I_and_World_War_II_in_D%C4%85browa_Tarnawacka_near_Tarnawatka_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Military_cemetery_from_World_War_I_and_World_War_II_in_D%C4%85browa_Tarnawacka_near_Tarnawatka_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Military_cemetery_from_World_War_I_and_World_War_II_in_D%C4%85browa_Tarnawacka_near_Tarnawatka_%288%29.jpg/960px-Military_cemetery_from_World_War_I_and_World_War_II_in_D%C4%85browa_Tarnawacka_near_Tarnawatka_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "width": 3648,
+      "height": 2736,
+      "mime": "image/jpeg",
+      "is_vector": false,
+      "size": 2981593,
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "copyrighted": "True",
+      "attribution_required": "true",
+      "artist": "Pftf",
+      "credit": "Own work",
+      "permission": "",
+      "description": "Military cemetery in Dąbrowa Tarnawacka, located on the main road Zamość - Tomaszów Lubelski, at the edge of the forest, leaving Tarnawatka-Tartak towards Tomaszów Lubelski. The cemetery was established after 1915. The soldiers who died during the First World War are buried in this cemetery. A mound was made on top of the graves, topped with a cross. The cemetery was entered in the register of mon",
+      "date": "2020-08-06 13:17:00",
+      "uploader": "Pftf"
+    },
+    {
+      "title": "File:Polish victim of German Luftwaffe action 1939.jpg",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "width": 627,
+      "height": 939,
+      "mime": "image/jpeg",
+      "is_vector": false,
+      "size": 349493,
+      "license": "Public domain",
+      "license_url": "",
+      "copyrighted": "False",
+      "attribution_required": "false",
+      "artist": "Julien Bryan",
+      "credit": "Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .",
+      "permission": "",
+      "description": "Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i",
+      "date": "1939-09-13",
+      "uploader": "Jarekt"
+    }
+  ]
+}

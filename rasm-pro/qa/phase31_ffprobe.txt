@@ -1,0 +1,42 @@
+# Phase 3.1 — FFprobe evidence
+
+command: ffprobe -v error -show_streams -show_format -of json <file>
+
+## v2 improved film (Phase 3.1 deliverable)
+file: D:\withbord inmation\rasm-pro\projects\ww1\render\preview_v2.mp4
+format: mov,mp4,m4a,3gp,3g2,mj2 · duration=81.500000s · size=29957725 bytes · bit_rate=2940635
+  video: h264 1280x720 fps=24/1 frames=1956 pix=yuv420p dur=81.500000
+  audio: aac 48000Hz ch=1 dur=81.493333 bit_rate=119296
+
+## v2 SFX track (real PD recordings, mixed)
+file: D:\withbord inmation\rasm-pro\projects\ww1\render\preview_v2.sfx.wav
+format: wav · duration=82.000000s · size=7872044 bytes · bit_rate=768004
+  audio: pcm_s16le 48000Hz ch=1 dur=82.000000 bit_rate=768000
+
+## v1 plan replay (untouched plan.json re-rendered with the Phase 3.1 engine)
+file: D:\withbord inmation\rasm-pro\projects\ww1\render\preview_v1_plan_replay.mp4
+format: mov,mp4,m4a,3gp,3g2,mj2 · duration=43.291667s · size=12297217 bytes · bit_rate=2272440
+  video: h264 1280x720 fps=24/1 frames=1039 pix=yuv420p dur=43.291667
+
+## template clip: PREMIUM WHITEBOARD
+file: D:\withbord inmation\rasm-pro\qa\phase31_templates\premium_whiteboard.mp4
+format: mov,mp4,m4a,3gp,3g2,mj2 · duration=28.500000s · size=6253882 bytes · bit_rate=1755475
+  video: h264 1280x720 fps=24/1 frames=684 pix=yuv420p dur=28.500000
+  audio: aac 48000Hz ch=1 dur=28.480000 bit_rate=96054
+
+## template clip: DOCUMENTARY PAPER COLLAGE
+file: D:\withbord inmation\rasm-pro\qa\phase31_templates\documentary_collage.mp4
+format: mov,mp4,m4a,3gp,3g2,mj2 · duration=29.291667s · size=10105550 bytes · bit_rate=2759979
+  video: h264 1280x720 fps=24/1 frames=703 pix=yuv420p dur=29.291667
+  audio: aac 48000Hz ch=1 dur=29.290667 bit_rate=65987
+
+## template clip: TIMELINE / DATA STORY
+file: D:\withbord inmation\rasm-pro\qa\phase31_templates\timeline_data_story.mp4
+format: mov,mp4,m4a,3gp,3g2,mj2 · duration=26.583333s · size=6190888 bytes · bit_rate=1863088
+  video: h264 1280x720 fps=24/1 frames=638 pix=yuv420p dur=26.583333
+  audio: aac 48000Hz ch=1 dur=26.581333 bit_rate=117412
+
+## before/after diagnostic video
+file: D:\withbord inmation\rasm-pro\qa\phase31_diag\before_after.mp4
+format: mov,mp4,m4a,3gp,3g2,mj2 · duration=36.666667s · size=889022 bytes · bit_rate=193968
+  video: h264 1280x720 fps=24/1 frames=880 pix=yuv420p dur=36.666667
