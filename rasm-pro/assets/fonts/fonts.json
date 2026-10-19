@@ -1,0 +1,641 @@
+{
+  "pulledAt": "2026-10-18T11:23:32.919Z",
+  "families": [
+    {
+      "slug": "arefruqaa",
+      "name": "Aref Ruqaa",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "ArefRuqaa-Bold.ttf",
+          "bytes": 123852
+        },
+        {
+          "file": "ArefRuqaa-Regular.ttf",
+          "bytes": 110696
+        }
+      ]
+    },
+    {
+      "slug": "arefruqaaink",
+      "name": "Aref Ruqaa Ink",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "ArefRuqaaInk-Bold.ttf",
+          "bytes": 631016
+        },
+        {
+          "file": "ArefRuqaaInk-Regular.ttf",
+          "bytes": 568056
+        }
+      ]
+    },
+    {
+      "slug": "reemkufi",
+      "name": "Reem Kufi",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "ReemKufi[wght].ttf",
+          "bytes": 127152
+        }
+      ]
+    },
+    {
+      "slug": "notokufiarabic",
+      "name": "Noto Kufi Arabic",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "NotoKufiArabic[wght].ttf",
+          "bytes": 434204
+        }
+      ]
+    },
+    {
+      "slug": "alexandria",
+      "name": "Alexandria",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Alexandria[wght].ttf",
+          "bytes": 332488
+        }
+      ]
+    },
+    {
+      "slug": "kufam",
+      "name": "Kufam",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Kufam-Italic[wght].ttf",
+          "bytes": 437568
+        },
+        {
+          "file": "Kufam[wght].ttf",
+          "bytes": 428544
+        }
+      ]
+    },
+    {
+      "slug": "elmessiri",
+      "name": "El Messiri",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "ElMessiri[wght].ttf",
+          "bytes": 138664
+        }
+      ]
+    },
+    {
+      "slug": "rakkas",
+      "name": "Rakkas",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Rakkas-Regular.ttf",
+          "bytes": 146824
+        }
+      ]
+    },
+    {
+      "slug": "jomhuria",
+      "name": "Jomhuria",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Jomhuria-Regular.ttf",
+          "bytes": 172276
+        }
+      ]
+    },
+    {
+      "slug": "mada",
+      "name": "Mada",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Mada[wght].ttf",
+          "bytes": 181408
+        }
+      ]
+    },
+    {
+      "slug": "amiri",
+      "name": "Amiri",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Amiri-Bold.ttf",
+          "bytes": 413480
+        },
+        {
+          "file": "Amiri-BoldItalic.ttf",
+          "bytes": 409692
+        },
+        {
+          "file": "Amiri-Italic.ttf",
+          "bytes": 428532
+        },
+        {
+          "file": "Amiri-Regular.ttf",
+          "bytes": 431116
+        }
+      ]
+    },
+    {
+      "slug": "notonaskharabic",
+      "name": "Noto Naskh Arabic",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "NotoNaskhArabic[wght].ttf",
+          "bytes": 307592
+        }
+      ]
+    },
+    {
+      "slug": "scheherazadenew",
+      "name": "Scheherazade New",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "ScheherazadeNew-Bold.ttf",
+          "bytes": 593472
+        },
+        {
+          "file": "ScheherazadeNew-Medium.ttf",
+          "bytes": 582492
+        },
+        {
+          "file": "ScheherazadeNew-Regular.ttf",
+          "bytes": 331504
+        },
+        {
+          "file": "ScheherazadeNew-SemiBold.ttf",
+          "bytes": 589896
+        }
+      ]
+    },
+    {
+      "slug": "lateef",
+      "name": "Lateef",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Lateef-Bold.ttf",
+          "bytes": 243260
+        },
+        {
+          "file": "Lateef-ExtraBold.ttf",
+          "bytes": 244116
+        },
+        {
+          "file": "Lateef-ExtraLight.ttf",
+          "bytes": 240832
+        },
+        {
+          "file": "Lateef-Light.ttf",
+          "bytes": 239892
+        },
+        {
+          "file": "Lateef-Medium.ttf",
+          "bytes": 242052
+        },
+        {
+          "file": "Lateef-Regular.ttf",
+          "bytes": 241092
+        },
+        {
+          "file": "Lateef-SemiBold.ttf",
+          "bytes": 242260
+        }
+      ]
+    },
+    {
+      "slug": "harmattan",
+      "name": "Harmattan",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Harmattan-Bold.ttf",
+          "bytes": 559624
+        },
+        {
+          "file": "Harmattan-Medium.ttf",
+          "bytes": 579456
+        },
+        {
+          "file": "Harmattan-Regular.ttf",
+          "bytes": 573500
+        },
+        {
+          "file": "Harmattan-SemiBold.ttf",
+          "bytes": 561880
+        }
+      ]
+    },
+    {
+      "slug": "notosansarabic",
+      "name": "Noto Sans Arabic",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "NotoSansArabic[wdth,wght].ttf",
+          "bytes": 844676
+        }
+      ]
+    },
+    {
+      "slug": "cairo",
+      "name": "Cairo",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Cairo[slnt,wght].ttf",
+          "bytes": 599548
+        }
+      ]
+    },
+    {
+      "slug": "tajawal",
+      "name": "Tajawal",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Tajawal-Black.ttf",
+          "bytes": 59028
+        },
+        {
+          "file": "Tajawal-Bold.ttf",
+          "bytes": 59988
+        },
+        {
+          "file": "Tajawal-ExtraBold.ttf",
+          "bytes": 59648
+        },
+        {
+          "file": "Tajawal-ExtraLight.ttf",
+          "bytes": 55784
+        },
+        {
+          "file": "Tajawal-Light.ttf",
+          "bytes": 61864
+        },
+        {
+          "file": "Tajawal-Medium.ttf",
+          "bytes": 62280
+        },
+        {
+          "file": "Tajawal-Regular.ttf",
+          "bytes": 60364
+        }
+      ]
+    },
+    {
+      "slug": "almarai",
+      "name": "Almarai",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Almarai-Bold.ttf",
+          "bytes": 156672
+        },
+        {
+          "file": "Almarai-ExtraBold.ttf",
+          "bytes": 168292
+        },
+        {
+          "file": "Almarai-Light.ttf",
+          "bytes": 149480
+        },
+        {
+          "file": "Almarai-Regular.ttf",
+          "bytes": 152824
+        }
+      ]
+    },
+    {
+      "slug": "changa",
+      "name": "Changa",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Changa[wght].ttf",
+          "bytes": 132140
+        }
+      ]
+    },
+    {
+      "slug": "lemonada",
+      "name": "Lemonada",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Lemonada[wght].ttf",
+          "bytes": 189204
+        }
+      ]
+    },
+    {
+      "slug": "markazitext",
+      "name": "Markazi Text",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "MarkaziText[wght].ttf",
+          "bytes": 296896
+        }
+      ]
+    },
+    {
+      "slug": "readexpro",
+      "name": "Readex Pro",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "ReadexPro[HEXP,wght].ttf",
+          "bytes": 278544
+        }
+      ]
+    },
+    {
+      "slug": "ibmplexsansarabic",
+      "name": "IBM Plex Sans Arabic",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "IBMPlexSansArabic-Bold.ttf",
+          "bytes": 246992
+        },
+        {
+          "file": "IBMPlexSansArabic-ExtraLight.ttf",
+          "bytes": 241652
+        },
+        {
+          "file": "IBMPlexSansArabic-Light.ttf",
+          "bytes": 238564
+        },
+        {
+          "file": "IBMPlexSansArabic-Medium.ttf",
+          "bytes": 242100
+        },
+        {
+          "file": "IBMPlexSansArabic-Regular.ttf",
+          "bytes": 235924
+        },
+        {
+          "file": "IBMPlexSansArabic-SemiBold.ttf",
+          "bytes": 244616
+        },
+        {
+          "file": "IBMPlexSansArabic-Thin.ttf",
+          "bytes": 242204
+        }
+      ]
+    },
+    {
+      "slug": "baloobhaijaan2",
+      "name": "Baloo Bhaijaan 2",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "BalooBhaijaan2[wght].ttf",
+          "bytes": 285508
+        }
+      ]
+    },
+    {
+      "slug": "marhey",
+      "name": "Marhey",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Marhey[wght].ttf",
+          "bytes": 198704
+        }
+      ]
+    },
+    {
+      "slug": "katibeh",
+      "name": "Katibeh",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Katibeh-Regular.ttf",
+          "bytes": 189124
+        }
+      ]
+    },
+    {
+      "slug": "qahiri",
+      "name": "Qahiri",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Qahiri-Regular.ttf",
+          "bytes": 40728
+        }
+      ]
+    },
+    {
+      "slug": "lalezar",
+      "name": "Lalezar",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Lalezar-Regular.ttf",
+          "bytes": 290016
+        }
+      ]
+    },
+    {
+      "slug": "gulzar",
+      "name": "Gulzar",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Gulzar-Regular.ttf",
+          "bytes": 963496
+        }
+      ]
+    },
+    {
+      "slug": "alkalami",
+      "name": "Alkalami",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Alkalami-Regular.ttf",
+          "bytes": 145540
+        }
+      ]
+    },
+    {
+      "slug": "archivo",
+      "name": "Archivo",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Archivo-Italic[wdth,wght].ttf",
+          "bytes": 741368
+        },
+        {
+          "file": "Archivo[wdth,wght].ttf",
+          "bytes": 658596
+        }
+      ]
+    },
+    {
+      "slug": "oswald",
+      "name": "Oswald",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Oswald[wght].ttf",
+          "bytes": 172088
+        }
+      ]
+    },
+    {
+      "slug": "bebasneue",
+      "name": "Bebas Neue",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "BebasNeue-Regular.ttf",
+          "bytes": 61400
+        }
+      ]
+    },
+    {
+      "slug": "anton",
+      "name": "Anton",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Anton-Regular.ttf",
+          "bytes": 170812
+        }
+      ]
+    },
+    {
+      "slug": "spacegrotesk",
+      "name": "Space Grotesk",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "SpaceGrotesk[wght].ttf",
+          "bytes": 136676
+        }
+      ]
+    },
+    {
+      "slug": "specialelite",
+      "name": "Special Elite",
+      "license": "Apache-2.0",
+      "dir": "apache",
+      "files": [
+        {
+          "file": "SpecialElite-Regular.ttf",
+          "bytes": 166180
+        }
+      ]
+    },
+    {
+      "slug": "courierprime",
+      "name": "Courier Prime",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "CourierPrime-Bold.ttf",
+          "bytes": 72856
+        },
+        {
+          "file": "CourierPrime-BoldItalic.ttf",
+          "bytes": 80872
+        },
+        {
+          "file": "CourierPrime-Italic.ttf",
+          "bytes": 79980
+        },
+        {
+          "file": "CourierPrime-Regular.ttf",
+          "bytes": 71188
+        }
+      ]
+    },
+    {
+      "slug": "sourcecodepro",
+      "name": "Source Code Pro",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "SourceCodePro-Italic[wght].ttf",
+          "bytes": 174852
+        },
+        {
+          "file": "SourceCodePro[wght].ttf",
+          "bytes": 212340
+        }
+      ]
+    },
+    {
+      "slug": "inter",
+      "name": "Inter",
+      "license": "OFL-1.1",
+      "dir": "ofl",
+      "files": [
+        {
+          "file": "Inter-Italic[opsz,wght].ttf",
+          "bytes": 906596
+        },
+        {
+          "file": "Inter[opsz,wght].ttf",
+          "bytes": 876576
+        }
+      ]
+    }
+  ]
+}

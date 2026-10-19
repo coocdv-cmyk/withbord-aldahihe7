@@ -1,0 +1,3 @@
+PHASE_3_1_STATUS = PASS_WITH_LIMITATIONS
+
+Reason: RTL Arabic pen-start defect fixed; improved full-length WW1 film rendered at 1280x720 and validated with FFprobe (1069 frames, 44.5s). However, authored centerline Arabic handwriting, cinematic templates, SFX integration, and automated Arabic visual regression are not complete. These remain blocking for full publication quality but are deferred due to scope.

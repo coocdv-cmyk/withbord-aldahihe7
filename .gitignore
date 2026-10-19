@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+.venv-gen/
+pip-wheel-metadata/
+
+# Models (large binaries)
+*.gguf
+*.bin
+*.safetensors
+*.ckpt
+models/
+studio/models/
+
+# Runtime binaries
+*.exe
+*.dll
+studio/runtime/
+rasm-pro/runtime/
+
+# Outputs & cache (generated)
+studio/outputs/
+studio/cache/
+studio/data/*.json
+studio/data/*.log
+studio/data/*.txt
+studio/data/generations/
+studio/__pycache__/
+rasm-pro/.pytest_cache/
+rasm-pro/projects/
+rasm-pro/**/*.pyc
+
+# VideoScribe reverse engineering (reference, large)
+vs-analysis/app/
+vs-analysis/recovered/
+vs-analysis/extract/
+vs-analysis/installer/
+vs-analysis/assets-sample/
+VideoScribe/
+
+# rasm-pro bulk icon libraries (reference, re-fetchable)
+rasm-pro/library/svg/
+rasm-pro/library/*.json
+rasm-pro/cache/
+rasm-pro/frames/
+rasm-pro/logs/
+rasm-pro/projects/
+rasm-pro/qa/
+rasm-pro/style_packs/
+
+# Logs
+*.log
+studio/data/server*.log
+studio/data/model*.log
+
+# rea (separate reverse-engineering tool, has its own repo)
+rea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Temp
+*.tmp
+*.bak
+
+# Generated images (test/elements)
+test/*.png
+test/*.gif
+test/*.jpg
+elements/**/*.png
+kaggle/*.ipynb
+C:\Users\USER\AppData\Local\Temp\opencode/

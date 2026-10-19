@@ -1,0 +1,11 @@
+# rasm-pro engine — core dependencies (CPU-only, 16GB RAM friendly)
+numpy
+pillow
+requests
+uharfbuzz
+fonttools
+svgelements
+shapely
+pyclipper
+opencv-python-headless
+scikit-image

@@ -1,0 +1,57 @@
+{
+  "idea": "ليه تشتري على الخريطة",
+  "global_style_notes": "clean whiteboard doodle, thick black outlines, flat colors only, pure white background",
+  "image_size": [1280, 720],
+  "regions": [
+    {
+      "label": "title",
+      "role": "title",
+      "object": "العنوان العربي الكبير في أعلى اللوحة",
+      "reveal_order": 1,
+      "box": { "ymin": 56, "xmin": 211, "ymax": 194, "xmax": 789 },
+      "expected_visual": "العنوان العربي: ليه تشتري على الخريطة؟",
+      "annotation": "ليه تشتري على الخريطة؟",
+      "reveal": "stroke"
+    },
+    {
+      "label": "map_pin",
+      "role": "main_concept",
+      "object": "دبوس خريطة برتقالي مسطح",
+      "reveal_order": 2,
+      "box": { "ymin": 514, "xmin": 328, "ymax": 868, "xmax": 453 },
+      "expected_visual": "دبوس خريطة برتقالي بدايرة بيضا جواه",
+      "annotation": "أول حاجة الدبوس يقولك المكان بالظبط",
+      "reveal": "fill"
+    },
+    {
+      "label": "building",
+      "role": "supporting_detail",
+      "object": "مبنى أزرق بأربع شبابيك وباب",
+      "reveal_order": 3,
+      "box": { "ymin": 486, "xmin": 94, "ymax": 875, "xmax": 250 },
+      "expected_visual": "مبنى خطي بسيط بلون أزرق مسطح",
+      "annotation": "وبعدها تشوف المبنى والموقع الحقيقي",
+      "reveal": "fill"
+    },
+    {
+      "label": "coin",
+      "role": "supporting_detail",
+      "object": "عملة خضراء مسطحة",
+      "reveal_order": 4,
+      "box": { "ymin": 542, "xmin": 539, "ymax": 792, "xmax": 680 },
+      "expected_visual": "عملة خضراء بدايرة صغيرة جواها",
+      "annotation": "وتعرف السعر وتقارن",
+      "reveal": "fill"
+    },
+    {
+      "label": "arrow_check",
+      "role": "supporting_detail",
+      "object": "سهم أسود طالع لفوق وعلامة صح",
+      "reveal_order": 5,
+      "box": { "ymin": 569, "xmin": 707, "ymax": 947, "xmax": 827 },
+      "expected_visual": "سهم متجه لفوق وعلامة صح",
+      "annotation": "ولما المعلومات توضح القرار يبقى صح",
+      "reveal": "stroke"
+    }
+  ]
+}

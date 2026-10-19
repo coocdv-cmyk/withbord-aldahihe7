@@ -1,0 +1,13 @@
+17:37:12  INFO    rasm.director  مشهد 1: 2 عنصر · 10.2ث
+17:37:22  INFO    rasm.director  مشهد 2: 3 عنصر · 8.4ث
+17:37:32  INFO    rasm.director  مشهد 3: 1 عنصر · 9.0ث
+17:37:40  INFO    rasm.director  مشهد 4: 3 عنصر · 8.7ث
+17:37:50  INFO    rasm.director  مشهد 5: 1 عنصر · 8.2ث
+✔ الفيديو: D:\withbord inmation\rasm-pro\projects\ww1\render\preview.mp4
+  1069 إطار · 44.54ث · زمن الرندر 44.6ث
+✔ تحقق FFprobe: D:\withbord inmation\rasm-pro\projects\ww1\render\preview.mp4
+   ✔ exists: 11434110 بايت
+   ✔ video-stream: h264
+   ✔ size: 1280x720
+   ✔ fps: 24 (متوقع 24)
+   ✔ audio-present: لا يوجد

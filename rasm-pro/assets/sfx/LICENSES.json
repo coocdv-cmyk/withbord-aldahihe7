@@ -1,0 +1,31 @@
+{
+ "note": "مؤثرات صوتية حقيقية مُسجَّلة — ملكية عامة (PDSounds.org عبر ويكيميديا كومنز). لا قيود تجارية ولا نسبة إلزامية (نذكرها للأمانة).",
+ "files": [
+  {
+   "file": "pen_ink.wav",
+   "source_file": "raw/writing_inkpen.ogg",
+   "title": "writing with inkpen",
+   "artist": "stephan",
+   "year": 2007,
+   "pdsounds_record": 179,
+   "license": "Public domain (PD-Sound)",
+   "license_url": "https://commons.wikimedia.org/wiki/File:Writing_with_inkpen.ogg",
+   "origin": "http://www.pdsounds.org/sounds/writing_with_inkpen",
+   "usage": "قلم حبر على ورق (قصّات لأصوات الرسم/الملامسة)",
+   "downloaded": "2026-10-19"
+  },
+  {
+   "file": "pen_felt.wav",
+   "source_file": "raw/writing_feltpen.ogg",
+   "title": "writing with feltpen",
+   "artist": "stephan",
+   "year": 2007,
+   "pdsounds_record": 180,
+   "license": "Public domain (PD-Sound)",
+   "license_url": "https://commons.wikimedia.org/wiki/File:Writing_with_feltpen.ogg",
+   "origin": "http://www.pdsounds.org/sounds/writing_with_feltpen",
+   "usage": "قلم فلوماستر على ورق (طبقة بديلة أخف)",
+   "downloaded": "2026-10-19"
+  }
+ ]
+}
