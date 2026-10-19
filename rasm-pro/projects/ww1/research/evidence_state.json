@@ -1,0 +1,2732 @@
+{
+  "job_id": "job-cc955d405470dead",
+  "project": "ww1",
+  "created_at": "2026-10-19T14:04:40+00:00",
+  "updated_at": "2026-10-19T14:08:44+00:00",
+  "status": "completed_with_unresolved",
+  "requirements": [
+    {
+      "id": "req-1-portrait-1",
+      "scene_id": "1",
+      "unit_id": "s1",
+      "excerpt": "في صيف عام 1914، اشتعلت الحرب العالمية الأولى بعد اغتيال الأرشيدوق فرانز فرديناند في سراييفو. كانت الإمبراطورية الألمانية والنمسا والمجر في مواجهة بريطانيا وفرنسا وروسيا.",
+      "purpose": "Visual support for scene 1: portrait",
+      "asset_type": "portrait",
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "date of creation distinguished from event date",
+        "depiction vs. subject distinction"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "modern depiction presented as contemporary",
+        "artwork of a different subject"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "high",
+      "priority": 20,
+      "evidence_kind": "contextual",
+      "status": "resolved",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-1-event-2",
+      "scene_id": "1",
+      "unit_id": "s1",
+      "excerpt": "في صيف عام 1914، اشتعلت الحرب العالمية الأولى بعد اغتيال الأرشيدوق فرانز فرديناند في سراييفو. كانت الإمبراطورية الألمانية والنمسا والمجر في مواجهة بريطانيا وفرنسا وروسيا.",
+      "purpose": "Visual support for scene 1: event",
+      "asset_type": "event_image",
+      "entity": "معركة السوم",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "date of creation distinguished from event date",
+        "depiction vs. subject distinction"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "modern depiction presented as contemporary",
+        "artwork of a different subject"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "medium",
+      "priority": 40,
+      "evidence_kind": "contextual",
+      "status": "resolved",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-2-event-1",
+      "scene_id": "2",
+      "unit_id": "s2",
+      "excerpt": "حفر الجنود الخنادق على الجبهة الغربية في معركة السوم وفردان. استخدمت ألمانيا الغواصات لإغراق السفن التجارية في المحيط الأطلسي.",
+      "purpose": "Visual support for scene 2: event",
+      "asset_type": "event_image",
+      "entity": "معركة السوم",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "date of creation distinguished from event date",
+        "depiction vs. subject distinction"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "modern depiction presented as contemporary",
+        "artwork of a different subject"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "medium",
+      "priority": 40,
+      "evidence_kind": "contextual",
+      "status": "unresolved",
+      "selected_asset_id": null,
+      "notes": [
+        "No candidate passed all mandatory verification gates."
+      ],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-3-portrait-1",
+      "scene_id": "3",
+      "unit_id": "s3",
+      "excerpt": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب الحلفاء بعد رسالة زيمرمان. سقطت الدولة العثمانية بعد الحرب وتفككت الإمبراطوريات الأربع الكبرى.",
+      "purpose": "Visual support for scene 3: portrait",
+      "asset_type": "portrait",
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "date of creation distinguished from event date",
+        "depiction vs. subject distinction"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "modern depiction presented as contemporary",
+        "artwork of a different subject"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "high",
+      "priority": 20,
+      "evidence_kind": "contextual",
+      "status": "unresolved",
+      "selected_asset_id": null,
+      "notes": [
+        "request budget exhausted",
+        "No candidate passed all mandatory verification gates."
+      ],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-3-event-2",
+      "scene_id": "3",
+      "unit_id": "s3",
+      "excerpt": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب الحلفاء بعد رسالة زيمرمان. سقطت الدولة العثمانية بعد الحرب وتفككت الإمبراطوريات الأربع الكبرى.",
+      "purpose": "Visual support for scene 3: event",
+      "asset_type": "event_image",
+      "entity": "معركة السوم",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "date of creation distinguished from event date",
+        "depiction vs. subject distinction"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "modern depiction presented as contemporary",
+        "artwork of a different subject"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "medium",
+      "priority": 40,
+      "evidence_kind": "contextual",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-3-map-3",
+      "scene_id": "3",
+      "unit_id": "s3",
+      "excerpt": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب الحلفاء بعد رسالة زيمرمان. سقطت الدولة العثمانية بعد الحرب وتفككت الإمبراطوريات الأربع الكبرى.",
+      "purpose": "Visual support for scene 3: map",
+      "asset_type": "map",
+      "entity": "معركة السوم",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "geographic scope",
+        "date of map"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "medium",
+      "priority": 30,
+      "evidence_kind": "contextual",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-3-flag-4",
+      "scene_id": "3",
+      "unit_id": "s3",
+      "excerpt": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب الحلفاء بعد رسالة زيمرمان. سقطت الدولة العثمانية بعد الحرب وتفككت الإمبراطوريات الأربع الكبرى.",
+      "purpose": "Visual support for scene 3: flag",
+      "asset_type": "flag",
+      "entity": "ألمانيا",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "low",
+      "priority": 60,
+      "evidence_kind": "contextual",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-3-chart-5",
+      "scene_id": "3",
+      "unit_id": "s3",
+      "excerpt": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب الحلفاء بعد رسالة زيمرمان. سقطت الدولة العثمانية بعد الحرب وتفككت الإمبراطوريات الأربع الكبرى.",
+      "purpose": "Visual support for scene 3: chart",
+      "asset_type": "chart",
+      "entity": "بريطانيا",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "low",
+      "priority": 70,
+      "evidence_kind": "broll",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-3-document-6",
+      "scene_id": "3",
+      "unit_id": "s3",
+      "excerpt": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب الحلفاء بعد رسالة زيمرمان. سقطت الدولة العثمانية بعد الحرب وتفككت الإمبراطوريات الأربع الكبرى.",
+      "purpose": "Visual support for scene 3: document",
+      "asset_type": "document",
+      "entity": "معاهدة فرساي",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "edition or translation identity",
+        "source page or catalog record",
+        "access level"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "different edition",
+        "different translation",
+        "cover not title page"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "catalog or page evidence",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "high",
+      "priority": 10,
+      "evidence_kind": "direct",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-4-event-1",
+      "scene_id": "4",
+      "unit_id": "s4",
+      "excerpt": "وقّعت ألمانيا معاهدة فرساي في يونيو 1919، وفرضت عليها تعويضات ضخمة. كانت خسائر الحرب البشرية نحو سبعة عشر مليون قتيل.",
+      "purpose": "Visual support for scene 4: event",
+      "asset_type": "event_image",
+      "entity": "معركة السوم",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "date of creation distinguished from event date",
+        "depiction vs. subject distinction"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "modern depiction presented as contemporary",
+        "artwork of a different subject"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "medium",
+      "priority": 40,
+      "evidence_kind": "contextual",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-4-chart-2",
+      "scene_id": "4",
+      "unit_id": "s4",
+      "excerpt": "وقّعت ألمانيا معاهدة فرساي في يونيو 1919، وفرضت عليها تعويضات ضخمة. كانت خسائر الحرب البشرية نحو سبعة عشر مليون قتيل.",
+      "purpose": "Visual support for scene 4: chart",
+      "asset_type": "chart",
+      "entity": "معركة فردان",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "low",
+      "priority": 70,
+      "evidence_kind": "broll",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-4-document-3",
+      "scene_id": "4",
+      "unit_id": "s4",
+      "excerpt": "وقّعت ألمانيا معاهدة فرساي في يونيو 1919، وفرضت عليها تعويضات ضخمة. كانت خسائر الحرب البشرية نحو سبعة عشر مليون قتيل.",
+      "purpose": "Visual support for scene 4: document",
+      "asset_type": "document",
+      "entity": "معاهدة فرساي",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "edition or translation identity",
+        "source page or catalog record",
+        "access level"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "different edition",
+        "different translation",
+        "cover not title page"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "catalog or page evidence",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "high",
+      "priority": 10,
+      "evidence_kind": "direct",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-5-portrait-1",
+      "scene_id": "5",
+      "unit_id": "s5",
+      "excerpt": "رسمت هذه الحرب خريطة الشرق الأوسط من جديد، وأسست عصبة الأمم. هكذا انتهى عصر الإمبراطوريات وبدأ القرن العشرون بوجه جديد.",
+      "purpose": "Visual support for scene 5: portrait",
+      "asset_type": "portrait",
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "date of creation distinguished from event date",
+        "depiction vs. subject distinction"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "modern depiction presented as contemporary",
+        "artwork of a different subject"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "high",
+      "priority": 20,
+      "evidence_kind": "contextual",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-5-event-2",
+      "scene_id": "5",
+      "unit_id": "s5",
+      "excerpt": "رسمت هذه الحرب خريطة الشرق الأوسط من جديد، وأسست عصبة الأمم. هكذا انتهى عصر الإمبراطوريات وبدأ القرن العشرون بوجه جديد.",
+      "purpose": "Visual support for scene 5: event",
+      "asset_type": "event_image",
+      "entity": "معركة السوم",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "date of creation distinguished from event date",
+        "depiction vs. subject distinction"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location",
+        "modern depiction presented as contemporary",
+        "artwork of a different subject"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "medium",
+      "priority": 40,
+      "evidence_kind": "contextual",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    },
+    {
+      "id": "req-5-map-3",
+      "scene_id": "5",
+      "unit_id": "s5",
+      "excerpt": "رسمت هذه الحرب خريطة الشرق الأوسط من جديد، وأسست عصبة الأمم. هكذا انتهى عصر الإمبراطوريات وبدأ القرن العشرون بوجه جديد.",
+      "purpose": "Visual support for scene 5: map",
+      "asset_type": "map",
+      "entity": "معركة السوم",
+      "alternative_names": [],
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "edition": "",
+      "translator": "",
+      "publisher": "",
+      "collection": "",
+      "mandatory": [
+        "identity of the depicted subject or work",
+        "geographic scope",
+        "date of map"
+      ],
+      "optional": [
+        "higher resolution",
+        "better crop",
+        "contemporary depiction",
+        "additional context"
+      ],
+      "rejection": [
+        "wrong identity",
+        "wrong period",
+        "wrong location"
+      ],
+      "minimum_evidence": [
+        "source URL",
+        "source metadata",
+        "content hash"
+      ],
+      "quality": {
+        "min_width": 640,
+        "readable_at_final_size": true
+      },
+      "importance": "medium",
+      "priority": 30,
+      "evidence_kind": "contextual",
+      "status": "open",
+      "selected_asset_id": null,
+      "notes": [],
+      "chronology": {
+        "raw": "1914",
+        "era": "CE",
+        "start_year": 1914,
+        "end_year": 1914,
+        "precision": "year",
+        "calendar": "gregorian",
+        "approximate": false,
+        "normalised": "1914"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/DC-1914-27-d-Sarajevo-cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/DC-1914-27-d-Sarajevo-cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "unavailable",
+      "retrieved_at": "2026-10-19T14:05:14+00:00",
+      "content_hash": "8ea7da83e3030fe829ac61f9c90ded3acb1052cf401dc4df52c9a6af576e88a4",
+      "byte_size": 2255,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "HTTP 429",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Postcard_for_the_assassination_of_Archduke_Franz_Ferdinand_in_Sarajevo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Postcard_for_the_assassination_of_Archduke_Franz_Ferdinand_in_Sarajevo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "metadata_only",
+      "retrieved_at": "2026-10-19T14:05:15+00:00",
+      "content_hash": "8166dfaee4fe08a8ee73ddc2da86d128c596bb688a30343393dbeb0a564cd678",
+      "byte_size": 370543,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg/1920px-Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg/1920px-Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "metadata_only",
+      "retrieved_at": "2026-10-19T14:05:16+00:00",
+      "content_hash": "37df557f9512f9a1173af4226466eafec571e8cbb8e25ece08b51549b47239c5",
+      "byte_size": 240346,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/1914_Events_Collage_V_1.0.jpg/1920px-1914_Events_Collage_V_1.0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/1914_Events_Collage_V_1.0.jpg/1920px-1914_Events_Collage_V_1.0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "metadata_only",
+      "retrieved_at": "2026-10-19T14:05:17+00:00",
+      "content_hash": "ed453d93997b9d27573a9333fca96cc7972167c8802f3016b1bb8d3f342a3733",
+      "byte_size": 1052112,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''1914_Events_Collage_V_1.0.jpg",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Verhaftung_des_Attent%C3%A4ters_von_Sarajewo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Verhaftung_des_Attent%C3%A4ters_von_Sarajewo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "unavailable",
+      "retrieved_at": "2026-10-19T14:05:19+00:00",
+      "content_hash": "d238f4774b194e47ca62dc959a16d40d800b3a8eea66a1487e475d27b69665e1",
+      "byte_size": 2255,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "HTTP 429",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Wiener_Zeitung_175_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Wiener_Zeitung_175_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "metadata_only",
+      "retrieved_at": "2026-10-19T14:05:19+00:00",
+      "content_hash": "63386c8520820fe97eab14cc042d62a10b95e3efe83ae5a5b269f0fb941edd22",
+      "byte_size": 745344,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/اغتيال_الأرشيدوق_النمساوي_فرانتس_فرديناند",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A7%D8%BA%D8%AA%D9%8A%D8%A7%D9%84_%D8%A7%D9%84%D8%A3%D8%B1%D8%B4%D9%8A%D8%AF%D9%88%D9%82_%D8%A7%D9%84%D9%86%D9%85%D8%B3%D8%A7%D9%88%D9%8A_%D9%81%D8%B1%D8%A7%D9%86%D8%AA%D8%B3_%D9%81%D8%B1%D8%AF%D9%8A%D9%86%D8%A7%D9%86%D8%AF",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:05:21+00:00",
+      "content_hash": "6764f50081f2fdb5e3a75cdf51619cf63c1d7c3f8244760c1a9d949bcb326a20",
+      "byte_size": 560071,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/فرانتس_فردناند",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%D9%86%D8%AA%D8%B3_%D9%81%D8%B1%D8%AF%D9%86%D8%A7%D9%86%D8%AF",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:05:22+00:00",
+      "content_hash": "c29c99b1152b00964033354d32e9b54a310b420f885911f5ca0dbc58ae598548",
+      "byte_size": 509190,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/الأرشيدوق_فرانتس_كارل_النمساوي",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A3%D8%B1%D8%B4%D9%8A%D8%AF%D9%88%D9%82_%D9%81%D8%B1%D8%A7%D9%86%D8%AA%D8%B3_%D9%83%D8%A7%D8%B1%D9%84_%D8%A7%D9%84%D9%86%D9%85%D8%B3%D8%A7%D9%88%D9%8A",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:05:23+00:00",
+      "content_hash": "6ba66f56b8ea74565633604220f4388de619916fe4af43baed22f9ec773fb29f",
+      "byte_size": 394341,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/فرانتس_يوزف_الأول",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%A7%D9%86%D8%AA%D8%B3_%D9%8A%D9%88%D8%B2%D9%81_%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:05:24+00:00",
+      "content_hash": "1dc88f2d0fe1bf7d951d1a4681e9f8829e4c643c8a094965d65ab88812608a34",
+      "byte_size": 606247,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/أرشيدوق",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A3%D8%B1%D8%B4%D9%8A%D8%AF%D9%88%D9%82",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:05:25+00:00",
+      "content_hash": "403d8ed2bfd373209c183a8deb493db396c9827d482cb6ede0e71c82b90ba1fb",
+      "byte_size": 233964,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/فرديناند_الأول_ملك_بلغاريا",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%81%D8%B1%D8%AF%D9%8A%D9%86%D8%A7%D9%86%D8%AF_%D8%A7%D9%84%D8%A3%D9%88%D9%84_%D9%85%D9%84%D9%83_%D8%A8%D9%84%D8%BA%D8%A7%D8%B1%D9%8A%D8%A7",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:05:26+00:00",
+      "content_hash": "10a72f7034c220dc0bffe7d80e4f32d1e76de3dda52ae7f6704ac3606df4020f",
+      "byte_size": 451593,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/أسباب_الحرب_العالمية_الأولى",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A3%D8%B3%D8%A8%D8%A7%D8%A8_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%A3%D9%88%D9%84%D9%89",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:05:27+00:00",
+      "content_hash": "18e2cb160c25e5998958c27fc5fb76ec17c8c204ce03eb2302879e8327ba48be",
+      "byte_size": 498019,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/الأرشيدوق_يوزف،_بالاطين_المجر",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A3%D8%B1%D8%B4%D9%8A%D8%AF%D9%88%D9%82_%D9%8A%D9%88%D8%B2%D9%81%D8%8C_%D8%A8%D8%A7%D9%84%D8%A7%D8%B7%D9%8A%D9%86_%D8%A7%D9%84%D9%85%D8%AC%D8%B1",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:05:28+00:00",
+      "content_hash": "a13e0f04b7a5bbc1a52312393a03edda09e614da25ad92b21eeeb67125aa4e4f",
+      "byte_size": 396082,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/British_Mark_I_male_tank_Somme_25_September_1916.jpg/1920px-British_Mark_I_male_tank_Somme_25_September_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/British_Mark_I_male_tank_Somme_25_September_1916.jpg/1920px-British_Mark_I_male_tank_Somme_25_September_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "metadata_only",
+      "retrieved_at": "2026-10-19T14:06:19+00:00",
+      "content_hash": "c75888b731eb6e7063f3863065fea79aa9335e45421463fdc2be9dc147116a73",
+      "byte_size": 771469,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''British_Mark_I_male_tank_Somme_25_September_1916.jpg",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Gun_Carrier_Miraumont_August_1918_AWM_H04522.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Gun_Carrier_Miraumont_August_1918_AWM_H04522.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "metadata_only",
+      "retrieved_at": "2026-10-19T14:06:21+00:00",
+      "content_hash": "182e196ac2fc497f86475c3a2714ac2c90351452e8f7cf1b767e8f4098aa7264",
+      "byte_size": 60896,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Map_of_German_Somme_offensive_1918.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Map_of_German_Somme_offensive_1918.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "unavailable",
+      "retrieved_at": "2026-10-19T14:06:22+00:00",
+      "content_hash": "26d7d1be5d39ddf0ecd67eadb4060ced2986551eb50313c81122ccbb1d5495b7",
+      "byte_size": 2255,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "HTTP 429",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Map_of_German_Somme_offensive_1918.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Map_of_German_Somme_offensive_1918.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "metadata_only",
+      "retrieved_at": "2026-10-19T14:06:23+00:00",
+      "content_hash": "e43b0e1239d81848f933609d1120b74bf52262b45fc8cc8b9e6deb5475bed957",
+      "byte_size": 392323,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cheshire_Regiment_trench_Somme_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cheshire_Regiment_trench_Somme_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "metadata_only",
+      "retrieved_at": "2026-10-19T14:06:23+00:00",
+      "content_hash": "a21b49758ec5aa57c1635b052530c9d3bb629fb2a7d4bfaa95a5139dd463fb54",
+      "byte_size": 382212,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/33/Pte_Albert_Hill_VC%2C_Royal_Welsh_Fusiliers.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/3/33/Pte_Albert_Hill_VC%2C_Royal_Welsh_Fusiliers.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "unavailable",
+      "retrieved_at": "2026-10-19T14:06:25+00:00",
+      "content_hash": "a87cf61c201db87921106c586e170abaf6574b65e56fa2d6ded47d58aca08c97",
+      "byte_size": 2255,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "HTTP 429",
+      "notes": []
+    },
+    {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/James_Miller_VC%2C_King%27s_Own_%28Royal_Lancaster%29_Regiment.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "normalized_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/James_Miller_VC%2C_King%27s_Own_%28Royal_Lancaster%29_Regiment.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "complete": true,
+      "resource_type": "image",
+      "access_level": "unavailable",
+      "retrieved_at": "2026-10-19T14:06:26+00:00",
+      "content_hash": "1a107332c742cc62fcfcbba2d373b4c5fe277b054730b93c349096ae7fdbe551",
+      "byte_size": 2255,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "HTTP 429",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/The_Somme_.._%28IA_thesomme02cler%29.pdf/page1-500px-The_Somme_.._%28IA_thesomme02cler%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/The_Somme_.._%28IA_thesomme02cler%29.pdf/page1-500px-The_Somme_.._%28IA_thesomme02cler%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:26+00:00",
+      "content_hash": "492f45a07658815306a2d24d529133ac2cd01a2d6ee404f8939ee55bb8d5bfc4",
+      "byte_size": 92487,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''The_Somme_.._%28IA_thesomme02cler%29.pdf.jpg",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/معركة_السوم",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B9%D8%B1%D9%83%D8%A9_%D8%A7%D9%84%D8%B3%D9%88%D9%85",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:27+00:00",
+      "content_hash": "27a54e8437a792e52052ce0bf226adf64e39b441599d7cae466950bd56194960",
+      "byte_size": 299460,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/معركة_سومي",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B9%D8%B1%D9%83%D8%A9_%D8%B3%D9%88%D9%85%D9%8A",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:28+00:00",
+      "content_hash": "8535b4732449ab0f9062cb7328d2aa3c547405a27fef85fe430b8b955de92c5d",
+      "byte_size": 256846,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/معركة_السوم_الثانية",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B9%D8%B1%D9%83%D8%A9_%D8%A7%D9%84%D8%B3%D9%88%D9%85_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:29+00:00",
+      "content_hash": "cd981760996d98dbe8d0e9ef3fd09df19f4690c9c4606b888b2eb7f04e918a37",
+      "byte_size": 135930,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/معركة_فليرز_كورسيليت",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B9%D8%B1%D9%83%D8%A9_%D9%81%D9%84%D9%8A%D8%B1%D8%B2_%D9%83%D9%88%D8%B1%D8%B3%D9%8A%D9%84%D9%8A%D8%AA",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:30+00:00",
+      "content_hash": "c6ba3e78357a0c899e67666b1b23965ca56883bb7dd3a01ec578640c6a325c1b",
+      "byte_size": 107189,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/معركة_دلفيل_وود",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B9%D8%B1%D9%83%D8%A9_%D8%AF%D9%84%D9%81%D9%8A%D9%84_%D9%88%D9%88%D8%AF",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:31+00:00",
+      "content_hash": "f9106a07cad0c72cca178464d60a0fcdd7d0e86e9a0edb2d4fa24b2bc82fdd91",
+      "byte_size": 115893,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/معركة_ألبيرت_1916",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B9%D8%B1%D9%83%D8%A9_%D8%A3%D9%84%D8%A8%D9%8A%D8%B1%D8%AA_1916",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:32+00:00",
+      "content_hash": "648cb14fc2301a20997ac8b18597f3c1b4274a70333ecd4aeb9d678780fe63f2",
+      "byte_size": 119251,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/نهر_السوم",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%86%D9%87%D8%B1_%D8%A7%D9%84%D8%B3%D9%88%D9%85",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:33+00:00",
+      "content_hash": "643ab1c786ff54b322d2412ffb9041c29da6301cb522514d4c4d6e6b42446a53",
+      "byte_size": 318041,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/بادي_روان",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A8%D8%A7%D8%AF%D9%8A_%D8%B1%D9%88%D8%A7%D9%86",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:34+00:00",
+      "content_hash": "6f609b8388fef40fdea222cb2b248134e395d8c058b2f9544d9166371d2e8e59",
+      "byte_size": 152173,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "http://www.wikidata.org/entity/Q132568",
+      "normalized_url": "https://www.wikidata.org/wiki/Special:EntityData/Q132568.json",
+      "complete": true,
+      "resource_type": "json",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:35+00:00",
+      "content_hash": "d3decfa08c646ad007c4b56f1f4308095d01b7d4d6db28f245491f2ecbe4bd62",
+      "byte_size": 44951,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "http://www.wikidata.org/entity/Q1063735",
+      "normalized_url": "https://www.wikidata.org/wiki/Special:EntityData/Q1063735.json",
+      "complete": true,
+      "resource_type": "json",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:06:37+00:00",
+      "content_hash": "ebd800a7ec5c9386ab0280d49236215e0f43db34fffb7240735c0aad8d66bf49",
+      "byte_size": 16751,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/معركة_أراس_(1914)",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B9%D8%B1%D9%83%D8%A9_%D8%A3%D8%B1%D8%A7%D8%B3_(1914)",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:27+00:00",
+      "content_hash": "60f7093265d3eb642fa76d82e33be50ba4487fd8f9b1d6e36e8460e806d065f3",
+      "byte_size": 255260,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/ألمانيا_في_الحرب_العالمية_الأولى",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A3%D9%84%D9%85%D8%A7%D9%86%D9%8A%D8%A7_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%A3%D9%88%D9%84%D9%89",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:27+00:00",
+      "content_hash": "91511bdb0b425ab41742854a1de2c297f2b0050c00566b45185171db230edc3f",
+      "byte_size": 299886,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/أدولف_هتلر",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A3%D8%AF%D9%88%D9%84%D9%81_%D9%87%D8%AA%D9%84%D8%B1",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:28+00:00",
+      "content_hash": "5152f8e055bbcc99ae9d4654c80aaebbc70d5e42771ce9c3ebedef2083280ad1",
+      "byte_size": 1762519,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/الحرب_العالمية_الأولى",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%A3%D9%88%D9%84%D9%89",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:30+00:00",
+      "content_hash": "3ba8dae0ecdbb9fed2f8d0784a10706d70aded389fda6f4c2d74d2a37f85ea43",
+      "byte_size": 2432610,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/الجبهة_الغربية_(الحرب_العالمية_الأولى)",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AC%D8%A8%D9%87%D8%A9_%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9_(%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%A3%D9%88%D9%84%D9%89)",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:31+00:00",
+      "content_hash": "0cac0119fa1280b63cd3d5f0fe5711d1f75a6b19d46eb43703a03af7157c27b6",
+      "byte_size": 826181,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://ar.wikipedia.org/wiki/عدي_صدام_حسين",
+      "normalized_url": "https://ar.wikipedia.org/wiki/%D8%B9%D8%AF%D9%8A_%D8%B5%D8%AF%D8%A7%D9%85_%D8%AD%D8%B3%D9%8A%D9%86",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:32+00:00",
+      "content_hash": "0b7f59c39dfc4a2a8e59ab25045d617a649017c52843a4f7dffd4a99b585422f",
+      "byte_size": 406957,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/World_War_I",
+      "normalized_url": "https://en.wikipedia.org/wiki/World_War_I",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:37+00:00",
+      "content_hash": "203375cb26e1e75ed0df9680a4873672c958cd94626a7a88258e10ffd162884f",
+      "byte_size": 1695467,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/List_of_World_War_I_memorials_and_cemeteries_in_Pas-de-Calais",
+      "normalized_url": "https://en.wikipedia.org/wiki/List_of_World_War_I_memorials_and_cemeteries_in_Pas-de-Calais",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:38+00:00",
+      "content_hash": "e528a9d01b8077aa08f5c398b927ca42886082e808848c30d25b9f7ff4a056ac",
+      "byte_size": 476937,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Tanks_in_World_War_I",
+      "normalized_url": "https://en.wikipedia.org/wiki/Tanks_in_World_War_I",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:39+00:00",
+      "content_hash": "c148d403551d536c02988574138521c1481d0f42ea21d89e196cfd5b444d8976",
+      "byte_size": 227401,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Bayonet",
+      "normalized_url": "https://en.wikipedia.org/wiki/Bayonet",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:40+00:00",
+      "content_hash": "2ac18e0faffac0e7f0342c43e8a98bfca2f9a1188367b9598c75446ca5029842",
+      "byte_size": 629123,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Tank",
+      "normalized_url": "https://en.wikipedia.org/wiki/Tank",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:41+00:00",
+      "content_hash": "5ce80abd2d52215b127e7d373a4ba33b7f9e435bf4f77ff146d4b7ec85c5f8e6",
+      "byte_size": 866323,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/World_War_I_prisoners_of_war_in_Germany",
+      "normalized_url": "https://en.wikipedia.org/wiki/World_War_I_prisoners_of_war_in_Germany",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:42+00:00",
+      "content_hash": "ca3c2a76214c4c2291c3153f655e77e355328b01a800907ace8c1c740f603af2",
+      "byte_size": 483153,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/F._L._Lucas",
+      "normalized_url": "https://en.wikipedia.org/wiki/F._L._Lucas",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:43+00:00",
+      "content_hash": "006945e0eb514dc1cc25747f16fb7e9f1b2f7374528063c238ad7bbef9dc4ca8",
+      "byte_size": 511164,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/America_entangled%3B_the_secret_plotting_of_German_spies_in_the_United_States_and_the_inside_story_of_the_sinking_of_the_Lusitania_%28IA_cu31924027862600%29.pdf/page1-500px-America_entangled%3B_the_secret_plotting_of_German_spies_in_the_United_States_and_the_inside_story_of_the_sinking_of_the_Lusitania_%28IA_cu31924027862600%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/America_entangled%3B_the_secret_plotting_of_German_spies_in_the_United_States_and_the_inside_story_of_the_sinking_of_the_Lusitania_%28IA_cu31924027862600%29.pdf/page1-500px-America_entangled%3B_the_secret_plotting_of_German_spies_in_the_United_States_and_the_inside_story_of_the_sinking_of_the_Lusitania_%28IA_cu31924027862600%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:47+00:00",
+      "content_hash": "d4755ad005eae42ac608ccaf55ea30569af696906fad4c4ad5ee72b2bf8cd987",
+      "byte_size": 216194,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''America_entangled%3B_the_secret_plotting_of_German_spies_in_the_United_States_and_the_inside_sto",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/The_Literary_digest_history_of_the_world_war%2C_compiled_from_original_and_contemporary_sources-_American%2C_British%2C_French%2C_German%2C_and_others_%28IA_cu31924088055128%29.pdf/page1-500px-thumbnail.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/The_Literary_digest_history_of_the_world_war%2C_compiled_from_original_and_contemporary_sources-_American%2C_British%2C_French%2C_German%2C_and_others_%28IA_cu31924088055128%29.pdf/page1-500px-thumbnail.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:49+00:00",
+      "content_hash": "4c22dbb3750bf3569598bce68b87928a58241b08e6931cde51498795c4a83f19",
+      "byte_size": 180030,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''The_Literary_digest_history_of_the_world_war%2C_compiled_from_original_and_contemporary_sources-",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Democracy_and_assimilation%3B_the_blending_of_immigrant_heritages_in_America_%28IA_cu31924020330290%29.pdf/page1-500px-Democracy_and_assimilation%3B_the_blending_of_immigrant_heritages_in_America_%28IA_cu31924020330290%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Democracy_and_assimilation%3B_the_blending_of_immigrant_heritages_in_America_%28IA_cu31924020330290%29.pdf/page1-500px-Democracy_and_assimilation%3B_the_blending_of_immigrant_heritages_in_America_%28IA_cu31924020330290%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:07:59+00:00",
+      "content_hash": "186d8c4ad9050d7a3be2af051cd39e35e3dce3627f85cdad3eece40d2be655db",
+      "byte_size": 98085,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''Democracy_and_assimilation%3B_the_blending_of_immigrant_heritages_in_America_%28IA_cu31924020330",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832603%29.pdf/page1-500px-The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832603%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832603%29.pdf/page1-500px-The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832603%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:01+00:00",
+      "content_hash": "312c2eb4d4417cc08af2eb55ec512727c36cfab40e11ace949dd2c113a4cccfa",
+      "byte_size": 189589,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832603%29.pdf.jpg",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832587%29.pdf/page1-500px-The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832587%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832587%29.pdf/page1-500px-The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832587%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:02+00:00",
+      "content_hash": "2d505d66a440d41ff70c458632c3e5443db5fac601df962609898d8f245ca306",
+      "byte_size": 153457,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832587%29.pdf.jpg",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/American_anniversaries%3B_every_day_in_the_year%2C_presenting_seven_hundred_and_fifty_events_in_United_States_history%2C_from_the_discovery_of_America_to_the_present_day_%28IA_cu31924028760431%29.pdf/page1-500px-thumbnail.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/American_anniversaries%3B_every_day_in_the_year%2C_presenting_seven_hundred_and_fifty_events_in_United_States_history%2C_from_the_discovery_of_America_to_the_present_day_%28IA_cu31924028760431%29.pdf/page1-500px-thumbnail.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:04+00:00",
+      "content_hash": "c09f1e004563954071d63e1847660b77ecf3ec10d7a3395540db81342849cca6",
+      "byte_size": 179038,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''American_anniversaries%3B_every_day_in_the_year%2C_presenting_seven_hundred_and_fifty_events_in_",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Fishermen_in_war_time_%28IA_fishermeninwarti00wood%29.pdf/page1-500px-Fishermen_in_war_time_%28IA_fishermeninwarti00wood%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Fishermen_in_war_time_%28IA_fishermeninwarti00wood%29.pdf/page1-500px-Fishermen_in_war_time_%28IA_fishermeninwarti00wood%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:06+00:00",
+      "content_hash": "d95fa57e0ba377179135a54d8c0d22dd47698c09ff35a2bb8c596e5695955fa8",
+      "byte_size": 42693,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''Fishermen_in_war_time_%28IA_fishermeninwarti00wood%29.pdf.jpg",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/The_British_navy_in_battle_%28IA_cu31924027832728%29.pdf/page1-500px-The_British_navy_in_battle_%28IA_cu31924027832728%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "normalized_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/The_British_navy_in_battle_%28IA_cu31924027832728%29.pdf/page1-500px-The_British_navy_in_battle_%28IA_cu31924027832728%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "complete": true,
+      "resource_type": "pdf",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:07+00:00",
+      "content_hash": "6dc0f3300aaf0869076f10d0753f2cb7303f255ab3e71b2f787654bceda725e3",
+      "byte_size": 145885,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "inline;filename*=UTF-8''The_British_navy_in_battle_%28IA_cu31924027832728%29.pdf.jpg",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Sinking_of_RMS_Lusitania",
+      "normalized_url": "https://en.wikipedia.org/wiki/Sinking_of_RMS_Lusitania",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:08+00:00",
+      "content_hash": "a0fd07998da978e7c7a52dcc9abe4dd22025b539c668a3a9f9929f4feb44abab",
+      "byte_size": 995905,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Blockade_of_Germany_(1914–1919)",
+      "normalized_url": "https://en.wikipedia.org/wiki/Blockade_of_Germany_(1914%E2%80%931919)",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:09+00:00",
+      "content_hash": "b2d830dea5244d18f784597ff63143c042720570356b235c3f48ef2591bca09a",
+      "byte_size": 420229,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Anti-submarine_warfare",
+      "normalized_url": "https://en.wikipedia.org/wiki/Anti-submarine_warfare",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:10+00:00",
+      "content_hash": "fc488f764249ad7a1b1d21088b6c91779dda48fa89323e7a8f01fa62eb48256a",
+      "byte_size": 441024,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/1914",
+      "normalized_url": "https://en.wikipedia.org/wiki/1914",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:12+00:00",
+      "content_hash": "1fd2685afddac72b73d42e9ff83e8dbcd224e95b32f9e951bdb9a077e345d615",
+      "byte_size": 1407674,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Professional_wargaming",
+      "normalized_url": "https://en.wikipedia.org/wiki/Professional_wargaming",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:13+00:00",
+      "content_hash": "808384bb8cb176f106631e14d50a5dd79e62e4740391557257eaffaf47eb7f4e",
+      "byte_size": 371227,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/HMS_Royal_Oak_(08)",
+      "normalized_url": "https://en.wikipedia.org/wiki/HMS_Royal_Oak_(08)",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:14+00:00",
+      "content_hash": "58d6f328d7a8e1456594363d097aba0f56dcd92a687e47914c0024cfd157963c",
+      "byte_size": 659313,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Ottoman_Navy",
+      "normalized_url": "https://en.wikipedia.org/wiki/Ottoman_Navy",
+      "complete": true,
+      "resource_type": "html",
+      "access_level": "full_text",
+      "retrieved_at": "2026-10-19T14:08:16+00:00",
+      "content_hash": "7d5c010edb47672179e0dc20d5a7003fa422aa748689330aa22875c925b1f992",
+      "byte_size": 460967,
+      "page_count": 0,
+      "text_length": 0,
+      "title": "",
+      "error": "",
+      "notes": []
+    }
+  ],
+  "candidates": [
+    {
+      "id": "cand-8fa5686caaa1",
+      "requirement_ids": [
+        "req-1-portrait-1"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:DC-1914-27-d-Sarajevo-cropped.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/DC-1914-27-d-Sarajevo-cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "8ea7da83e3030fe829ac61f9c90ded3acb1052cf401dc4df52c9a6af576e88a4",
+      "retrieved_at": "2026-10-19T14:05:14+00:00",
+      "original_filename": "File:DC-1914-27-d-Sarajevo-cropped.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 2255,
+      "width": null,
+      "height": null,
+      "metadata": {
+        "title": "File:DC-1914-27-d-Sarajevo-cropped.jpg",
+        "description": "The first page of the edition of the Domenica del Corriere, an Italian paper, with a drawing by Achille Beltrame depicting Gavrilo Princip killing Archduke Franz Ferdinand of Austria in Sarajevo.",
+        "provider": "wikimedia_commons",
+        "entity": "الأرشيدوق فرانز فرديناند"
+      },
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": false,
+        "width": null,
+        "height": null,
+        "error": "cannot identify image file <_io.BytesIO object at 0x0000024E16ACD7B0>"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": null,
+        "statement": "Cropped version of Copertina della Domenica del Corriere Anno XVI n. 27 del 5-12.7.1914 illustrata da Achille Beltrame. File:Beltrame Sarajevo.jpg"
+      },
+      "evidence_refs": [
+        "ev-cand-8fa5686caaa1"
+      ],
+      "issues": [
+        "quality"
+      ],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 0.0
+      },
+      "ranking_score": 0.6666666666666666,
+      "derivatives": []
+    },
+    {
+      "id": "cand-31556bafda70",
+      "requirement_ids": [
+        "req-1-portrait-1"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Postcard_for_the_assassination_of_Archduke_Franz_Ferdinand_in_Sarajevo.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Postcard_for_the_assassination_of_Archduke_Franz_Ferdinand_in_Sarajevo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "8166dfaee4fe08a8ee73ddc2da86d128c596bb688a30343393dbeb0a564cd678",
+      "retrieved_at": "2026-10-19T14:05:15+00:00",
+      "original_filename": "File:Postcard for the assassination of Archduke Franz Ferdinand in Sarajevo.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 370543,
+      "width": 1000,
+      "height": 640,
+      "metadata": {
+        "title": "File:Postcard for the assassination of Archduke Franz Ferdinand in Sarajevo.jpg",
+        "description": "Franz Ferdinand and his wife Sophie leave the Sarajevo Guildhall after reading a speech on June 28 1914. They were assassinated five minutes later.",
+        "provider": "wikimedia_commons",
+        "entity": "الأرشيدوق فرانز فرديناند"
+      },
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": true,
+        "width": 1000,
+        "height": 640,
+        "format": "JPEG"
+      },
+      "usage": {
+        "license": "CC BY-SA 3.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "terms": null,
+        "statement": "Europeana 1914-1918"
+      },
+      "evidence_refs": [
+        "ev-cand-31556bafda70"
+      ],
+      "issues": [],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 1.0
+      },
+      "ranking_score": 1.0,
+      "derivatives": []
+    },
+    {
+      "id": "cand-340728682141",
+      "requirement_ids": [
+        "req-1-portrait-1"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg",
+      "file_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg/1920px-Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "content_hash": "37df557f9512f9a1173af4226466eafec571e8cbb8e25ece08b51549b47239c5",
+      "retrieved_at": "2026-10-19T14:05:16+00:00",
+      "original_filename": "File:Batiste handkerchief with blood of Franz Ferdinand d'Este 01.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 240346,
+      "width": 1920,
+      "height": 1440,
+      "metadata": {
+        "title": "File:Batiste handkerchief with blood of Franz Ferdinand d'Este 01.jpg",
+        "description": "A batiste handkerchief with the blood of the heir to the throne Franz Ferdinand d'Este is in the Sarajevo Assassination exhibition at Velké Meziříčí Castle.",
+        "provider": "wikimedia_commons",
+        "entity": "الأرشيدوق فرانز فرديناند"
+      },
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": true,
+        "width": 1920,
+        "height": 1440,
+        "format": "JPEG"
+      },
+      "usage": {
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "terms": null,
+        "statement": "Own work"
+      },
+      "evidence_refs": [
+        "ev-cand-340728682141"
+      ],
+      "issues": [],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 1.0
+      },
+      "ranking_score": 1.0,
+      "derivatives": []
+    },
+    {
+      "id": "cand-d6f617dcf8c1",
+      "requirement_ids": [
+        "req-1-portrait-1"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:1914_Events_Collage_V_1.0.jpg",
+      "file_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/1914_Events_Collage_V_1.0.jpg/1920px-1914_Events_Collage_V_1.0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "content_hash": "ed453d93997b9d27573a9333fca96cc7972167c8802f3016b1bb8d3f342a3733",
+      "retrieved_at": "2026-10-19T14:05:17+00:00",
+      "original_filename": "File:1914 Events Collage V 1.0.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 1052112,
+      "width": 1920,
+      "height": 1735,
+      "metadata": {
+        "title": "File:1914 Events Collage V 1.0.jpg",
+        "description": "Clockwise: RMS Empress of Ireland Hōjō Coal Mine Disaster Panama Canal completed Assassination of Archduke Franz Ferdinand / July Crisis German invasion of Belgium (1914) / Battle of Liège Siege of Tsingtao Battle of Tannenberg First Battle of the Marne",
+        "provider": "wikimedia_commons",
+        "entity": "الأرشيدوق فرانز فرديناند"
+      },
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": true,
+        "width": 1920,
+        "height": 1735,
+        "format": "JPEG"
+      },
+      "usage": {
+        "license": "CC0",
+        "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "terms": null,
+        "statement": "This image includes elements from this file:"
+      },
+      "evidence_refs": [
+        "ev-cand-d6f617dcf8c1"
+      ],
+      "issues": [],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 1.0
+      },
+      "ranking_score": 1.0,
+      "derivatives": []
+    },
+    {
+      "id": "cand-4b5f94fd34d6",
+      "requirement_ids": [
+        "req-1-portrait-1"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Verhaftung_des_Attent%C3%A4ters_von_Sarajewo.png",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Verhaftung_des_Attent%C3%A4ters_von_Sarajewo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "d238f4774b194e47ca62dc959a16d40d800b3a8eea66a1487e475d27b69665e1",
+      "retrieved_at": "2026-10-19T14:05:19+00:00",
+      "original_filename": "File:Verhaftung des Attentäters von Sarajewo.png",
+      "mime": "image/unknown",
+      "size_bytes": 2255,
+      "width": null,
+      "height": null,
+      "metadata": {
+        "title": "File:Verhaftung des Attentäters von Sarajewo.png",
+        "description": "\"Arrest after Murder at Sarajevo 1914\" from \"The World War\" ( Cigarette collection album published by Cigaret Picture Service Dresden ) This picture is often said to depict the arrest of Gavrilo Princip, although several scholars now say that it depicts the arrest of Ferdinand Behr, a bystander who was initially suspected of involvement in the assassination.",
+        "provider": "wikimedia_commons",
+        "entity": "الأرشيدوق فرانز فرديناند"
+      },
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": false,
+        "width": null,
+        "height": null,
+        "error": "cannot identify image file <_io.BytesIO object at 0x0000024E16CFAC00>"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": null,
+        "statement": "Der Weltkrieg ( Zigarettenalbum )"
+      },
+      "evidence_refs": [
+        "ev-cand-4b5f94fd34d6"
+      ],
+      "issues": [
+        "quality"
+      ],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 0.0
+      },
+      "ranking_score": 0.6666666666666666,
+      "derivatives": []
+    },
+    {
+      "id": "cand-9065ab51a720",
+      "requirement_ids": [
+        "req-1-portrait-1"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Wiener_Zeitung_175_01.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Wiener_Zeitung_175_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "63386c8520820fe97eab14cc042d62a10b95e3efe83ae5a5b269f0fb941edd22",
+      "retrieved_at": "2026-10-19T14:05:19+00:00",
+      "original_filename": "File:Wiener Zeitung 175 01.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 745344,
+      "width": 999,
+      "height": 1403,
+      "metadata": {
+        "title": "File:Wiener Zeitung 175 01.jpg",
+        "description": "Kriegserklärung Österreichs an Serbien",
+        "provider": "wikimedia_commons",
+        "entity": "الأرشيدوق فرانز فرديناند"
+      },
+      "entity": "الأرشيدوق فرانز فرديناند",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": true,
+        "width": 999,
+        "height": 1403,
+        "format": "JPEG"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": "Public domain Public domain false false This work is in the public domain in its country of origin and other countries and areas where the copyright term is the author's life plus 70 years or fewer . ",
+        "statement": "Österreichische Nationalbibliothek ANNO"
+      },
+      "evidence_refs": [
+        "ev-cand-9065ab51a720"
+      ],
+      "issues": [],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 1.0
+      },
+      "ranking_score": 1.0,
+      "derivatives": []
+    },
+    {
+      "id": "cand-18dc37119801",
+      "requirement_ids": [
+        "req-1-event-2"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:British_Mark_I_male_tank_Somme_25_September_1916.jpg",
+      "file_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/British_Mark_I_male_tank_Somme_25_September_1916.jpg/1920px-British_Mark_I_male_tank_Somme_25_September_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "content_hash": "c75888b731eb6e7063f3863065fea79aa9335e45421463fdc2be9dc147116a73",
+      "retrieved_at": "2026-10-19T14:06:19+00:00",
+      "original_filename": "File:British Mark I male tank Somme 25 September 1916.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 771469,
+      "width": 1920,
+      "height": 1359,
+      "metadata": {
+        "title": "File:British Mark I male tank Somme 25 September 1916.jpg",
+        "description": "An early model British Mark I \"male\" tank, named C-15, near Thiepval, 25 September 1916. The tank is probably in reserve for the Battle of Thiepval Ridge which began on 26 September. The tank is fitted with the wire \"grenade shield\" and steering tail, both features discarded in the next models.",
+        "provider": "wikimedia_commons",
+        "entity": "معركة السوم"
+      },
+      "entity": "معركة السوم",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": true,
+        "width": 1920,
+        "height": 1359,
+        "format": "JPEG"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": "This file was reviewed on 28 November 2009 by the administrator or trusted user ' NW ' ( Talk ) , who confirmed the Public Domain status on that date.",
+        "statement": "This photograph Q 2486 comes from the collections of the Imperial War Museums (collection no. 1900-09)"
+      },
+      "evidence_refs": [
+        "ev-cand-18dc37119801"
+      ],
+      "issues": [],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 1.0
+      },
+      "ranking_score": 1.0,
+      "derivatives": []
+    },
+    {
+      "id": "cand-977c14cdabec",
+      "requirement_ids": [
+        "req-1-event-2"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Gun_Carrier_Miraumont_August_1918_AWM_H04522.jpeg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Gun_Carrier_Miraumont_August_1918_AWM_H04522.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "182e196ac2fc497f86475c3a2714ac2c90351452e8f7cf1b767e8f4098aa7264",
+      "retrieved_at": "2026-10-19T14:06:21+00:00",
+      "original_filename": "File:Gun Carrier Miraumont August 1918 AWM H04522.jpeg",
+      "mime": "image/unknown",
+      "size_bytes": 60896,
+      "width": 450,
+      "height": 325,
+      "metadata": {
+        "title": "File:Gun Carrier Miraumont August 1918 AWM H04522.jpeg",
+        "description": "From AWM caption : France: Picardie, Somme, Albert Bapaume Area. British soldiers revictualling a Gun Carrier Mark 1 tank, named Kingston, at Miraumont .",
+        "provider": "wikimedia_commons",
+        "entity": "معركة السوم"
+      },
+      "entity": "معركة السوم",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": true,
+        "width": 450,
+        "height": 325,
+        "format": "JPEG"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": "\"Copyright expired - public domain\" Public domain Public domain false false This work is in the public domain in its country of origin and other countries and areas where the copyright term is the aut",
+        "statement": "This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing for more information."
+      },
+      "evidence_refs": [
+        "ev-cand-977c14cdabec"
+      ],
+      "issues": [],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 1.0
+      },
+      "ranking_score": 1.0,
+      "derivatives": []
+    },
+    {
+      "id": "cand-e61b6122001f",
+      "requirement_ids": [
+        "req-1-event-2"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Map_of_German_Somme_offensive_1918.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Map_of_German_Somme_offensive_1918.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "26d7d1be5d39ddf0ecd67eadb4060ced2986551eb50313c81122ccbb1d5495b7",
+      "retrieved_at": "2026-10-19T14:06:22+00:00",
+      "original_filename": "File:Map of German Somme offensive 1918.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 2255,
+      "width": null,
+      "height": null,
+      "metadata": {
+        "title": "File:Map of German Somme offensive 1918.jpg",
+        "description": "Map showing extent of German Somme offensive : Operation Michael : 21 March - 4 April 1918.",
+        "provider": "wikimedia_commons",
+        "entity": "معركة السوم"
+      },
+      "entity": "معركة السوم",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": false,
+        "width": null,
+        "height": null,
+        "error": "cannot identify image file <_io.BytesIO object at 0x0000024E16C73E20>"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": "This work is in the public domain in the United States because it is a work prepared by an officer or employee of the United States Federal Government as part of that person’s official duties under th",
+        "statement": "Downloaded from http://www.dean.usma.edu/history/web03/atlases/WorldWarOne/WWOneJPG/WWOne19.jpg"
+      },
+      "evidence_refs": [
+        "ev-cand-e61b6122001f"
+      ],
+      "issues": [
+        "quality"
+      ],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 0.0
+      },
+      "ranking_score": 0.6666666666666666,
+      "derivatives": []
+    },
+    {
+      "id": "cand-10bcde6f1437",
+      "requirement_ids": [
+        "req-1-event-2"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Map_of_German_Somme_offensive_1918.svg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Map_of_German_Somme_offensive_1918.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "content_hash": "e43b0e1239d81848f933609d1120b74bf52262b45fc8cc8b9e6deb5475bed957",
+      "retrieved_at": "2026-10-19T14:06:23+00:00",
+      "original_filename": "File:Map of German Somme offensive 1918.svg",
+      "mime": "image/unknown",
+      "size_bytes": 392323,
+      "width": null,
+      "height": null,
+      "metadata": {
+        "title": "File:Map of German Somme offensive 1918.svg",
+        "description": "Map of German Somme offensive 1918",
+        "provider": "wikimedia_commons",
+        "entity": "معركة السوم"
+      },
+      "entity": "معركة السوم",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": false,
+        "width": null,
+        "height": null,
+        "error": "cannot identify image file <_io.BytesIO object at 0x0000024E16C72AC0>"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": null,
+        "statement": "Own work"
+      },
+      "evidence_refs": [
+        "ev-cand-10bcde6f1437"
+      ],
+      "issues": [
+        "quality"
+      ],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 0.0
+      },
+      "ranking_score": 0.6666666666666666,
+      "derivatives": []
+    },
+    {
+      "id": "cand-35c46041b75c",
+      "requirement_ids": [
+        "req-1-event-2"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Cheshire_Regiment_trench_Somme_1916.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cheshire_Regiment_trench_Somme_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "a21b49758ec5aa57c1635b052530c9d3bb629fb2a7d4bfaa95a5139dd463fb54",
+      "retrieved_at": "2026-10-19T14:06:23+00:00",
+      "original_filename": "File:Cheshire Regiment trench Somme 1916.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 382212,
+      "width": 1400,
+      "height": 1069,
+      "metadata": {
+        "title": "File:Cheshire Regiment trench Somme 1916.jpg",
+        "description": "A German trench occupied by British Soldiers near the Albert - Bapaume road at Ovillers-la-Boisselle , July 1916 during the Battle of the Somme . The men are from A Company, 11th Battalion, The Cheshire Regiment .",
+        "provider": "wikimedia_commons",
+        "entity": "معركة السوم"
+      },
+      "entity": "معركة السوم",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": true,
+        "width": 1400,
+        "height": 1069,
+        "format": "JPEG"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": "This work created by the United Kingdom Government is in the public domain . This is because it is one of the following : It is a photograph taken prior to 1 June 1957; or It was published prior to 19",
+        "statement": "This photograph Q 3990 comes from the collections of the Imperial War Museums (collection no. 1900-13)"
+      },
+      "evidence_refs": [
+        "ev-cand-35c46041b75c"
+      ],
+      "issues": [],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 1.0
+      },
+      "ranking_score": 1.0,
+      "derivatives": []
+    },
+    {
+      "id": "cand-7a52697d046f",
+      "requirement_ids": [
+        "req-1-event-2"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Pte_Albert_Hill_VC,_Royal_Welsh_Fusiliers.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/33/Pte_Albert_Hill_VC%2C_Royal_Welsh_Fusiliers.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "a87cf61c201db87921106c586e170abaf6574b65e56fa2d6ded47d58aca08c97",
+      "retrieved_at": "2026-10-19T14:06:25+00:00",
+      "original_filename": "File:Pte Albert Hill VC, Royal Welsh Fusiliers.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 2255,
+      "width": null,
+      "height": null,
+      "metadata": {
+        "title": "File:Pte Albert Hill VC, Royal Welsh Fusiliers.jpg",
+        "description": "Gallaher Ltd cigarette card, 'Victoria Cross Heroes' series 1917.",
+        "provider": "wikimedia_commons",
+        "entity": "معركة السوم"
+      },
+      "entity": "معركة السوم",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": false,
+        "width": null,
+        "height": null,
+        "error": "cannot identify image file <_io.BytesIO object at 0x0000024E16C72390>"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": null,
+        "statement": "Cigarette card, 1917"
+      },
+      "evidence_refs": [
+        "ev-cand-7a52697d046f"
+      ],
+      "issues": [
+        "quality"
+      ],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 0.0
+      },
+      "ranking_score": 0.6666666666666666,
+      "derivatives": []
+    },
+    {
+      "id": "cand-d5a82df1073e",
+      "requirement_ids": [
+        "req-1-event-2"
+      ],
+      "scene_ids": [
+        "1"
+      ],
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:James_Miller_VC,_King%27s_Own_(Royal_Lancaster)_Regiment.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/James_Miller_VC%2C_King%27s_Own_%28Royal_Lancaster%29_Regiment.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "content_hash": "1a107332c742cc62fcfcbba2d373b4c5fe277b054730b93c349096ae7fdbe551",
+      "retrieved_at": "2026-10-19T14:06:26+00:00",
+      "original_filename": "File:James Miller VC, King's Own (Royal Lancaster) Regiment.jpg",
+      "mime": "image/unknown",
+      "size_bytes": 2255,
+      "width": null,
+      "height": null,
+      "metadata": {
+        "title": "File:James Miller VC, King's Own (Royal Lancaster) Regiment.jpg",
+        "description": "Gallaher Cigarette card 'Great War' 'Victoria Cross Heroes', 6th series, No 140",
+        "provider": "wikimedia_commons",
+        "entity": "معركة السوم"
+      },
+      "entity": "معركة السوم",
+      "edition": "",
+      "time_context": "1914",
+      "location": "ألمانيا",
+      "quality": {
+        "decoded": false,
+        "width": null,
+        "height": null,
+        "error": "cannot identify image file <_io.BytesIO object at 0x0000024E16C722F0>"
+      },
+      "usage": {
+        "license": "Public domain",
+        "license_url": "",
+        "terms": null,
+        "statement": "Cigarette card, 1917"
+      },
+      "evidence_refs": [
+        "ev-cand-d5a82df1073e"
+      ],
+      "issues": [
+        "quality"
+      ],
+      "review_state": "review_required",
+      "ranking_features": {
+        "identity_gate": 1.0,
+        "provenance_gate": 1.0,
+        "quality_gate": 0.0
+      },
+      "ranking_score": 0.6666666666666666,
+      "derivatives": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-cand-8fa5686caaa1",
+      "requirement_id": "req-1-portrait-1",
+      "source_url": "https://commons.wikimedia.org/wiki/File:DC-1914-27-d-Sarajevo-cropped.jpg",
+      "location": "",
+      "excerpt": "Wikimedia Error\nError\nToo many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)\nIf you report this error to the Wikimedia System Administrators, please include the details below.\nReques",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:05:15+00:00"
+    },
+    {
+      "id": "ev-cand-31556bafda70",
+      "requirement_id": "req-1-portrait-1",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Postcard_for_the_assassination_of_Archduke_Franz_Ferdinand_in_Sarajevo.jpg",
+      "location": "",
+      "excerpt": "����\u0000�\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0002\u0002\u0002\u0002\u0002\u0002\u0002\u0002\u0002\u0002\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0002\u0002\u0001\u0002\u0002\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003\u0003��\u0000\u0011\b\u0002�\u0003�\u0003\u0001\u0011\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000�\u0000\u0000\u0000\u0006\u0003\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0004\u0005\u0006\u0007\b\t\u0002\u0003\n\u0001\u000b\u0000\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0010\u0000\u0001\u0004\u0003\u0000\u0001\u0004\u0003\u0000\u0002\u0002\u0001\u0004\u0002\u0003\u0000\u0004\u0002\u0003\u0005\u0006\u0001\u0007\b\t\u0000\u0012\u0013\u0014\u0011\u0015\n!\u0016\"\u0017#12$\u0018\u0010�0A%\u0011\u0000\u0001\u0004\u0001\u0003\u0002\u0006\u0001\u0002\u0004\u0004\u0003\u0006\u0001\u0002\u0017\u0001\u0002\u0003\u0004\u0005\u0011!\u0012\u0006\u00001A\"\u0013\u0014\u0015\u0007Qa2q#\u0016\b�B$%�R",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:05:16+00:00"
+    },
+    {
+      "id": "ev-cand-340728682141",
+      "requirement_id": "req-1-portrait-1",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg",
+      "location": "",
+      "excerpt": "����\u0000C\u0000\u0004\u0003\u0003\u0004\u0003\u0003\u0004\u0004\u0003\u0004\u0005\u0004\u0004\u0005\u0006\n\u0007\u0006\u0006\u0006\u0006\r\t\n\b\n\u000f\r\u0010\u0010\u000f\r\u000f\u000e\u0011\u0013\u0018\u0014\u0011\u0012\u0017\u0012\u000e\u000f\u0015\u001c\u0015\u0017\u0019\u0019\u001b\u001b\u001b\u0010\u0014\u001d\u001f\u001d\u001a\u001f\u0018\u001a\u001b\u001a��\u0000C\u0001\u0004\u0005\u0005\u0006\u0005\u0006\f\u0007\u0007\f\u001a\u0011\u000f\u0011\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a��\u0000\u0011\b\u0005�\u0007�\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000\u001d\u0000\u0000\u0003\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0000\u0004\u0005\u0006\u0007\b\t��\u0000O\u0010\u0000\u0001\u0003\u0003\u0002\u0004\u0004\u0004\u0004\u0005\u0003\u0002\u0005\u0001\u0000\u0013\u0001\u0000\u0002\u0011\u0003!1\u0012A\u0004\u0005Qa\u0013\"q�\u00062��\u0007���\u0014B���\u0015#R\u0016b\u0017$%3rC\b45S���&c�'s�67ETt���\u0000\u0019\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005��",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:05:17+00:00"
+    },
+    {
+      "id": "ev-cand-d6f617dcf8c1",
+      "requirement_id": "req-1-portrait-1",
+      "source_url": "https://commons.wikimedia.org/wiki/File:1914_Events_Collage_V_1.0.jpg",
+      "location": "",
+      "excerpt": "����\u0000C\u0000\u0004\u0003\u0003\u0004\u0003\u0003\u0004\u0004\u0003\u0004\u0005\u0004\u0004\u0005\u0006\n\u0007\u0006\u0006\u0006\u0006\r\t\n\b\n\u000f\r\u0010\u0010\u000f\r\u000f\u000e\u0011\u0013\u0018\u0014\u0011\u0012\u0017\u0012\u000e\u000f\u0015\u001c\u0015\u0017\u0019\u0019\u001b\u001b\u001b\u0010\u0014\u001d\u001f\u001d\u001a\u001f\u0018\u001a\u001b\u001a��\u0000C\u0001\u0004\u0005\u0005\u0006\u0005\u0006\f\u0007\u0007\f\u001a\u0011\u000f\u0011\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a\u001a��\u0000\u0011\b\u0006�\u0007�\u0003\u0001\"\u0000\u0002\u0011\u0001\u0003\u0011\u0001��\u0000\u001d\u0000\u0000\u0000\u0007\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0000\b\t��\u0000U\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0004\u0003\u0006\u0004\u0005\u0002\u0001\u0001\u0019\u0001\u0002\u0003\u0004\u0005\u0011\u0000\u0012!\u00061\u0013\"AQ\u0007\u0014aq2��\b\u0015#B��R���\u0016$3b�r��\u0017%C4S��\u0018&cs��D����'56T�7d���\u0000\u001b\u0001\u0001\u0000\u0003\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:05:19+00:00"
+    },
+    {
+      "id": "ev-cand-4b5f94fd34d6",
+      "requirement_id": "req-1-portrait-1",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Verhaftung_des_Attent%C3%A4ters_von_Sarajewo.png",
+      "location": "",
+      "excerpt": "Wikimedia Error\nError\nToo many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)\nIf you report this error to the Wikimedia System Administrators, please include the details below.\nReques",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:05:19+00:00"
+    },
+    {
+      "id": "ev-cand-9065ab51a720",
+      "requirement_id": "req-1-portrait-1",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Wiener_Zeitung_175_01.jpg",
+      "location": "",
+      "excerpt": "����\u0000\u0010JFIF\u0000\u0001\u0002\u0001\u0000H\u0000H\u0000\u0000�� \u0010Exif\u0000\u0000MM\u0000*\u0000\u0000\u0000\b\u0000\u0007\u0001\u0012\u0000\u0003\u0000\u0000\u0000\u0001\u0000\u0001\u0000\u0000\u0001\u001a\u0000\u0005\u0000\u0000\u0000\u0001\u0000\u0000\u0000b\u0001\u001b\u0000\u0005\u0000\u0000\u0000\u0001\u0000\u0000\u0000j\u0001(\u0000\u0003\u0000\u0000\u0000\u0001\u0000\u0002\u0000\u0000\u00011\u0000\u0002\u0000\u0000\u0000\u001e\u0000\u0000\u0000r\u00012\u0000\u0002\u0000\u0000\u0000\u0014\u0000\u0000\u0000��i\u0000\u0004\u0000\u0000\u0000\u0001\u0000\u0000\u0000�\u0000\u0000\u0000�\u0000\n��\u0000\u0000'\u0010\u0000\n��\u0000\u0000'\u0010Adobe Photoshop CS3 Macintosh\u00002012:11:04 01:49:32\u0000\u0000\u0003�\u0001\u0000\u0003\u0000\u0000\u0000\u0001��\u0000\u0000�\u0002\u0000\u0004\u0000\u0000\u0000\u0001\u0000\u0000\u0003�\u0003\u0000\u0004\u0000\u0000\u0000\u0001\u0000\u0000\u0005{\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0006\u0001\u0003\u0000\u0003\u0000\u0000\u0000\u0001\u0000\u0006\u0000\u0000\u0001\u001a\u0000\u0005\u0000\u0000\u0000\u0001\u0000\u0000\u0001\u001e\u0001\u001b\u0000\u0005\u0000\u0000\u0000\u0001\u0000\u0000\u0001&\u0001(\u0000\u0003\u0000\u0000\u0000\u0001\u0000\u0002\u0000\u0000\u0002\u0001\u0000\u0004\u0000\u0000\u0000\u0001\u0000\u0000\u0001.\u0002",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:05:21+00:00"
+    },
+    {
+      "id": "ev-cand-18dc37119801",
+      "requirement_id": "req-1-event-2",
+      "source_url": "https://commons.wikimedia.org/wiki/File:British_Mark_I_male_tank_Somme_25_September_1916.jpg",
+      "location": "",
+      "excerpt": "����\u0000C\u0000\u0004\u0003\u0003\u0004\u0003\u0003\u0004\u0004\u0003\u0004\u0005\u0004\u0004\u0005\u0006\n\u0007\u0006\u0006\u0006\u0006\r\t\n\b\n\u000f\r\u0010\u0010\u000f\r\u000f\u000e\u0011\u0013\u0018\u0014\u0011\u0012\u0017\u0012\u000e\u000f\u0015\u001c\u0015\u0017\u0019\u0019\u001b\u001b\u001b\u0010\u0014\u001d\u001f\u001d\u001a\u001f\u0018\u001a\u001b\u001a��\u0000\u000b\b\u0005O\u0007�\u0001\u0001\"\u0000��\u0000\u001d\u0000\u0000\u0000\u0007\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0000\b\t��\u0000K\u0010\u0000\u0001\u0003\u0002\u0005\u0002\u0004\u0004\u0003\u0007\u0003\u0004\u0001\u0002\u0000\u000f\u0001\u0002\u0003\u0004\u0005\u0011\u0000\u0006\u0012!1\u0007A\u0013\"Qa\u00142q�\bB�\u0015#R����\u0016��$3b�Cr\u0017%4S�\u0018&c���5s6DT��\u0000\b\u0001\u0001\u0000\u0000?\u0000� �z~�\r����\u0003���\u000eE�$�؃���lw��a��9)$'�`�\u001aw$\u001b�6�$\u00025&��`\u0014I\u0006���\u0002w�\u000e�l\u0005���A�M�����\u0002\u0012O$\r�R�\u0013�#�/8)YR�����",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:06:21+00:00"
+    },
+    {
+      "id": "ev-cand-977c14cdabec",
+      "requirement_id": "req-1-event-2",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Gun_Carrier_Miraumont_August_1918_AWM_H04522.jpeg",
+      "location": "",
+      "excerpt": "����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0000H\u0000H\u0000\u0000��\u00008Photoshop 3.0\u00008BIM\u0004\u0004\u0000\u0000\u0000\u0000\u0000\u0007\u001c\u0002\u0000\u0000\u0002\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000��\u0000C\u0000\u0002\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0001\u0001\u0002\u0002\u0002\u0002\u0002\u0004\u0003\u0002\u0002\u0002\u0002\u0005\u0004\u0004\u0003\u0004\u0006\u0005\u0006\u0006\u0006\u0005\u0006\u0006\u0006\u0007\t\b\u0006\u0007\t\u0007\u0006\u0006\b\u000b\b\t\n\n\u0006\b\u000b\f\u000b\n\f\t\n\n��\u0000\u000b\b\u0001E\u0001�\u0001\u0001\u0011\u0000��\u0000\u001f\u0000\u0000\u0001\u0005\u0001\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\b\t\n\u000b��\u0000�\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0005\u0005\u0004\u0004\u0000\u0000\u0001}\u0001\u0002\u0003\u0000\u0004\u0011\u0005\u0012!1A\u0006\u0013Qa\u0007\"q\u00142���\b#B��\u0015R��$3br�\t\n\u0016\u0017\u0018\u0019\u001a%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz�",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:06:21+00:00"
+    },
+    {
+      "id": "ev-cand-e61b6122001f",
+      "requirement_id": "req-1-event-2",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Map_of_German_Somme_offensive_1918.jpg",
+      "location": "",
+      "excerpt": "Wikimedia Error\nError\nToo many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)\nIf you report this error to the Wikimedia System Administrators, please include the details below.\nReques",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:06:22+00:00"
+    },
+    {
+      "id": "ev-cand-10bcde6f1437",
+      "requirement_id": "req-1-event-2",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Map_of_German_Somme_offensive_1918.svg",
+      "location": "",
+      "excerpt": "image/svg+xml\nScarpe R\nScarpe R\nScarpe R\nSomme R\nSomme R\nSomme R\nOise R\nCanal du Nord\nCanal du Nord\nEscaut R\nEscaut   Canal\nSt Quentin Canal\nDouai\nDracourt\nMarchiennes\nLens\nVimy\nCroisilles\nRiencourt\nMarquion\nInchy\nBapaume\nMiraumont\nCombles\nAvesnes\nAlbert\nBray\nMt St. Quentin\nMannoncourt\nEquancourt\nVi",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:06:23+00:00"
+    },
+    {
+      "id": "ev-cand-35c46041b75c",
+      "requirement_id": "req-1-event-2",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Cheshire_Regiment_trench_Somme_1916.jpg",
+      "location": "",
+      "excerpt": "����\u0000\u0010JFIF\u0000\u0001\u0001\u0001\u0000H\u0000H\u0000\u0000��\u0000\u0016Exif\u0000\u0000MM\u0000*\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000��\u0000C\u0000\u0005\u0003\u0004\u0004\u0004\u0003\u0005\u0004\u0004\u0004\u0005\u0005\u0005\u0006\u0007\f\b\u0007\u0007\u0007\u0007\u000f\u000b\u000b\t\f\u0011\u000f\u0012\u0012\u0011\u000f\u0011\u0011\u0013\u0016\u001c\u0017\u0013\u0014\u001a\u0015\u0011\u0011\u0018!\u0018\u001a\u001d\u001d\u001f\u001f\u001f\u0013\u0017\"$\"\u001e$\u001c\u001e\u001f\u001e��\u0000\u000b\b\u0004-\u0005x\u0001\u0001\"\u0000��\u0000\u001d\u0000\u0000\u0002\u0003\u0001\u0001\u0001\u0001\u0001\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0004\u0005\u0002\u0003\u0006\u0007\u0001\u0000\b\t��\u0000L\u0010\u0000\u0002\u0001\u0003\u0003\u0002\u0004\u0003\u0006\u0005\u0003\u0004\u0001\u0001\u0000\u0013\u0001\u0002\u0003\u0004\u0005\u0011\u0000\u0012!\u00061\u0013\"AQ\u0014aq\u00072����\u0015#B��R��\u0016$3�b\bCr\u0017%4S��c��5��Es�����\u0000\b\u0001\u0001\u0000\u0000?\u0000�#\u0002fS��㾏\\6N\u000e}u$$�Bs�}�lg\u000f��\u001e4RnL����tD2�\u0005�nڻ��.\u0006F=Ƨ�\u0015bN",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:06:25+00:00"
+    },
+    {
+      "id": "ev-cand-7a52697d046f",
+      "requirement_id": "req-1-event-2",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pte_Albert_Hill_VC,_Royal_Welsh_Fusiliers.jpg",
+      "location": "",
+      "excerpt": "Wikimedia Error\nError\nToo many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)\nIf you report this error to the Wikimedia System Administrators, please include the details below.\nReques",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:06:26+00:00"
+    },
+    {
+      "id": "ev-cand-d5a82df1073e",
+      "requirement_id": "req-1-event-2",
+      "source_url": "https://commons.wikimedia.org/wiki/File:James_Miller_VC,_King%27s_Own_(Royal_Lancaster)_Regiment.jpg",
+      "location": "",
+      "excerpt": "Wikimedia Error\nError\nToo many requests - please contact noc@wikimedia.org to discuss a less disruptive approach or instead use thumbnail images in sizes listed on https://w.wiki/GHai. (0c640b1)\nIf you report this error to the Wikimedia System Administrators, please include the details below.\nReques",
+      "kind": "supporting",
+      "confidence_note": "source metadata and deterministic checks only",
+      "created_at": "2026-10-19T14:06:26+00:00"
+    }
+  ],
+  "claims": [],
+  "queries": [
+    {
+      "requirement_id": "req-1-portrait-1",
+      "query": "الأرشيدوق فرانز فرديناند",
+      "at": "2026-10-19T14:05:14+00:00"
+    },
+    {
+      "requirement_id": "req-1-event-2",
+      "query": "معركة السوم",
+      "at": "2026-10-19T14:06:19+00:00"
+    },
+    {
+      "requirement_id": "req-2-event-1",
+      "query": "معركة السوم",
+      "at": "2026-10-19T14:07:26+00:00"
+    },
+    {
+      "requirement_id": "req-2-event-1",
+      "query": "معركة السوم ألمانيا",
+      "at": "2026-10-19T14:07:26+00:00"
+    },
+    {
+      "requirement_id": "req-2-event-1",
+      "query": "search for images depicting trench digging on the western front during the Battle of the Somme in 1914",
+      "at": "2026-10-19T14:07:33+00:00"
+    },
+    {
+      "requirement_id": "req-2-event-1",
+      "query": "find images of German submarines used in Atlantic commerce raiding during 1914",
+      "at": "2026-10-19T14:07:45+00:00"
+    }
+  ],
+  "visited_urls": [
+    "https://upload.wikimedia.org/wikipedia/commons/e/ea/DC-1914-27-d-Sarajevo-cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://upload.wikimedia.org/wikipedia/commons/b/b7/Postcard_for_the_assassination_of_Archduke_Franz_Ferdinand_in_Sarajevo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg/1920px-Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/1914_Events_Collage_V_1.0.jpg/1920px-1914_Events_Collage_V_1.0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://upload.wikimedia.org/wikipedia/commons/1/18/Verhaftung_des_Attent%C3%A4ters_von_Sarajewo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://upload.wikimedia.org/wikipedia/commons/2/24/Wiener_Zeitung_175_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://ar.wikipedia.org/wiki/اغتيال_الأرشيدوق_النمساوي_فرانتس_فرديناند",
+    "https://ar.wikipedia.org/wiki/فرانتس_فردناند",
+    "https://ar.wikipedia.org/wiki/الأرشيدوق_فرانتس_كارل_النمساوي",
+    "https://ar.wikipedia.org/wiki/فرانتس_يوزف_الأول",
+    "https://ar.wikipedia.org/wiki/أرشيدوق",
+    "https://ar.wikipedia.org/wiki/فرديناند_الأول_ملك_بلغاريا",
+    "https://ar.wikipedia.org/wiki/أسباب_الحرب_العالمية_الأولى",
+    "https://ar.wikipedia.org/wiki/الأرشيدوق_يوزف،_بالاطين_المجر",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/British_Mark_I_male_tank_Somme_25_September_1916.jpg/1920px-British_Mark_I_male_tank_Somme_25_September_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://upload.wikimedia.org/wikipedia/commons/5/52/Gun_Carrier_Miraumont_August_1918_AWM_H04522.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://upload.wikimedia.org/wikipedia/commons/0/00/Map_of_German_Somme_offensive_1918.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://upload.wikimedia.org/wikipedia/commons/3/30/Map_of_German_Somme_offensive_1918.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cheshire_Regiment_trench_Somme_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://upload.wikimedia.org/wikipedia/commons/3/33/Pte_Albert_Hill_VC%2C_Royal_Welsh_Fusiliers.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://upload.wikimedia.org/wikipedia/commons/a/a4/James_Miller_VC%2C_King%27s_Own_%28Royal_Lancaster%29_Regiment.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/The_Somme_.._%28IA_thesomme02cler%29.pdf/page1-500px-The_Somme_.._%28IA_thesomme02cler%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://ar.wikipedia.org/wiki/معركة_السوم",
+    "https://ar.wikipedia.org/wiki/معركة_سومي",
+    "https://ar.wikipedia.org/wiki/معركة_السوم_الثانية",
+    "https://ar.wikipedia.org/wiki/معركة_فليرز_كورسيليت",
+    "https://ar.wikipedia.org/wiki/معركة_دلفيل_وود",
+    "https://ar.wikipedia.org/wiki/معركة_ألبيرت_1916",
+    "https://ar.wikipedia.org/wiki/نهر_السوم",
+    "https://ar.wikipedia.org/wiki/بادي_روان",
+    "http://www.wikidata.org/entity/Q132568",
+    "http://www.wikidata.org/entity/Q1063735",
+    "https://ar.wikipedia.org/wiki/معركة_أراس_(1914)",
+    "https://ar.wikipedia.org/wiki/ألمانيا_في_الحرب_العالمية_الأولى",
+    "https://ar.wikipedia.org/wiki/أدولف_هتلر",
+    "https://ar.wikipedia.org/wiki/الحرب_العالمية_الأولى",
+    "https://ar.wikipedia.org/wiki/الجبهة_الغربية_(الحرب_العالمية_الأولى)",
+    "https://ar.wikipedia.org/wiki/عدي_صدام_حسين",
+    "https://en.wikipedia.org/wiki/World_War_I",
+    "https://en.wikipedia.org/wiki/List_of_World_War_I_memorials_and_cemeteries_in_Pas-de-Calais",
+    "https://en.wikipedia.org/wiki/Tanks_in_World_War_I",
+    "https://en.wikipedia.org/wiki/Bayonet",
+    "https://en.wikipedia.org/wiki/Tank",
+    "https://en.wikipedia.org/wiki/World_War_I_prisoners_of_war_in_Germany",
+    "https://en.wikipedia.org/wiki/F._L._Lucas",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/America_entangled%3B_the_secret_plotting_of_German_spies_in_the_United_States_and_the_inside_story_of_the_sinking_of_the_Lusitania_%28IA_cu31924027862600%29.pdf/page1-500px-America_entangled%3B_the_secret_plotting_of_German_spies_in_the_United_States_and_the_inside_story_of_the_sinking_of_the_Lusitania_%28IA_cu31924027862600%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/The_Literary_digest_history_of_the_world_war%2C_compiled_from_original_and_contemporary_sources-_American%2C_British%2C_French%2C_German%2C_and_others_%28IA_cu31924088055128%29.pdf/page1-500px-thumbnail.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Democracy_and_assimilation%3B_the_blending_of_immigrant_heritages_in_America_%28IA_cu31924020330290%29.pdf/page1-500px-Democracy_and_assimilation%3B_the_blending_of_immigrant_heritages_in_America_%28IA_cu31924020330290%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832603%29.pdf/page1-500px-The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832603%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832587%29.pdf/page1-500px-The_achievement_of_the_British_navy_in_the_world-war_%28IA_cu31924027832587%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/American_anniversaries%3B_every_day_in_the_year%2C_presenting_seven_hundred_and_fifty_events_in_United_States_history%2C_from_the_discovery_of_America_to_the_present_day_%28IA_cu31924028760431%29.pdf/page1-500px-thumbnail.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Fishermen_in_war_time_%28IA_fishermeninwarti00wood%29.pdf/page1-500px-Fishermen_in_war_time_%28IA_fishermeninwarti00wood%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/The_British_navy_in_battle_%28IA_cu31924027832728%29.pdf/page1-500px-The_British_navy_in_battle_%28IA_cu31924027832728%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "https://en.wikipedia.org/wiki/Sinking_of_RMS_Lusitania",
+    "https://en.wikipedia.org/wiki/Blockade_of_Germany_(1914–1919)",
+    "https://en.wikipedia.org/wiki/Anti-submarine_warfare",
+    "https://en.wikipedia.org/wiki/1914",
+    "https://en.wikipedia.org/wiki/Professional_wargaming",
+    "https://en.wikipedia.org/wiki/HMS_Royal_Oak_(08)",
+    "https://en.wikipedia.org/wiki/Ottoman_Navy"
+  ],
+  "decisions": [],
+  "budget": {
+    "max_seconds": 240.0,
+    "max_requests": 60,
+    "max_pages": 60,
+    "max_downloads": 12,
+    "max_download_bytes": 25000000,
+    "max_depth": 2,
+    "max_llm_calls": 12,
+    "max_llm_tokens": 1200,
+    "concurrency": 2,
+    "resume": false,
+    "requests_used": 6,
+    "pages_used": 60,
+    "downloads_used": 0,
+    "llm_calls_used": 4,
+    "tokens_used": 0,
+    "started_at": "2026-10-19T14:04:40+00:00"
+  },
+  "assistant_status": "available",
+  "assistant_model": "studio\\models\\Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+  "assistant_backend": "local",
+  "errors": [],
+  "warnings": [
+    "Research time budget exhausted; remaining requirements are unresolved."
+  ]
+}

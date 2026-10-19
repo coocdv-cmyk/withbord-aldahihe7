@@ -38,10 +38,14 @@ def build_index(force: bool = False, max_per_token: int = 40) -> dict:
 
     # مجموعة الملفات الموجودة فعلًا (52 ألف SVG) — مرة واحدة
     existing: set[str] = set()
+    existing_paths: dict[str, str] = {}
     if SVG_DIR.exists():
         for p in SVG_DIR.rglob("*.svg"):
-            existing.add(p.relative_to(SVG_DIR).as_posix().lower())
+            rel = p.relative_to(SVG_DIR).as_posix().lower()
+            existing.add(rel)
             existing.add(p.name.lower())
+            existing_paths.setdefault(rel, str(p.resolve()))
+            existing_paths.setdefault(p.name.lower(), str(p.resolve()))
 
     def resolve_file(rec: dict) -> str | None:
         raw = rec.get("file")
@@ -49,22 +53,20 @@ def build_index(force: bool = False, max_per_token: int = 40) -> dict:
             rel = str(raw).replace("\\", "/")
             if rel.lower().startswith("svg/"):
                 rel = rel[4:]
-            if rel.lower() in existing:
-                return str((SVG_DIR / rel).resolve())
+            low_rel = rel.lower()
+            if low_rel in existing_paths:
+                return existing_paths[low_rel]
             base = rel.split("/")[-1].lower()
-            if base in existing:
-                for p in SVG_DIR.rglob(rel.split("/")[-1]):
-                    return str(p)
+            if base in existing_paths:
+                return existing_paths[base]
         prefix = rec.get("prefix", "")
         name = rec.get("name", "")
         cand = f"{prefix}/{name}.svg".lower()
-        if cand in existing:
-            return str((SVG_DIR / prefix / f"{name}.svg").resolve())
+        if cand in existing_paths:
+            return existing_paths[cand]
         cand2 = f"{name}.svg".lower()
-        if cand2 in existing:
-            for p in SVG_DIR.rglob(f"{name}.svg"):
-                if p.parent.name == prefix:
-                    return str(p)
+        if cand2 in existing_paths:
+            return existing_paths[cand2]
         return None
 
     index: dict[str, list[dict]] = {}

@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-10-19T14:08:44+00:00",
+  "project": "ww1",
+  "assistant_status": "available",
+  "requirements_total": 15,
+  "requirements_resolved": 2,
+  "requirements_unresolved": 13,
+  "candidates_total": 13,
+  "sources_total": 60,
+  "budget": {
+    "max_seconds": 240.0,
+    "max_requests": 60,
+    "max_pages": 60,
+    "max_downloads": 12,
+    "max_download_bytes": 25000000,
+    "max_depth": 2,
+    "max_llm_calls": 12,
+    "max_llm_tokens": 1200,
+    "concurrency": 2,
+    "resume": false,
+    "requests_used": 6,
+    "pages_used": 60,
+    "downloads_used": 0,
+    "llm_calls_used": 4,
+    "tokens_used": 0,
+    "started_at": "2026-10-19T14:04:40+00:00"
+  }
+}

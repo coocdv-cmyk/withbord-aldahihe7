@@ -61,6 +61,84 @@ def cmd_research(args) -> int:
     return 0
 
 
+def cmd_evidence(args) -> int:
+    from engine.research.assistant import load_assistant_config, ResearchAssistant
+    from engine.research.workflow import ResearchWorkflow
+    from engine.research.evidence import ResearchBudget
+
+    pd = project_dir(args.project)
+    script_text = None
+    srt_text = None
+    if args.script:
+        script_text = Path(args.script).read_text(encoding="utf-8")
+    elif args.srt:
+        srt_text = Path(args.srt).read_text(encoding="utf-8")
+    else:
+        script_path = pd / "script" / "script.txt"
+        if script_path.exists():
+            script_text = script_path.read_text(encoding="utf-8")
+        else:
+            graph = read_json(pd / "script" / "scriptgraph.json")
+            if graph:
+                script_text = "\n".join(s.get("narration", "") for s in graph.get("scenes", []))
+
+    budget = ResearchBudget(
+        max_seconds=args.max_seconds,
+        max_requests=args.max_requests,
+        max_pages=args.max_pages,
+        max_downloads=args.max_downloads,
+        max_download_bytes=args.max_download_bytes,
+        max_depth=args.max_depth,
+        max_llm_calls=args.max_llm_calls,
+        max_llm_tokens=args.max_llm_tokens,
+        concurrency=args.concurrency,
+        resume=not args.no_resume,
+    )
+    store = None
+    if args.download:
+        from engine.research.store import AssetStore
+        from engine.research.http import HttpClient
+
+        store = AssetStore(pd, HttpClient("rasm-pro research (local)", timeout=45))
+    assistant = ResearchAssistant(load_assistant_config())
+    workflow = ResearchWorkflow(
+        pd,
+        budget=budget,
+        assistant=assistant,
+        download=args.download,
+        resume=not args.no_resume,
+        store=store,
+    )
+    state = workflow.run(
+        script_text=script_text,
+        srt_text=srt_text,
+        source_urls=list(args.source_url or []),
+        local_documents=list(args.doc or []),
+        language=args.language,
+        download=args.download,
+    )
+    print("EVIDENCE STATUS:", state.status)
+    print("requirements:", len(state.requirements), "resolved:", sum(1 for r in state.requirements if r.status == "resolved"), "unresolved:", sum(1 for r in state.requirements if r.status != "resolved"))
+    print("sources:", len(state.sources), "candidates:", len(state.candidates), "assistant:", state.assistant_status)
+    print("output:", pd / "research" / "evidence.json")
+    if state.warnings:
+        for w in state.warnings[:10]:
+            print("WARNING:", w)
+    if state.errors:
+        for e in state.errors[:10]:
+            print("ERROR:", e, file=sys.stderr)
+    return 0 if state.status == "completed" else 2
+
+
+def cmd_llm_status(args) -> int:
+    from engine.research.assistant import load_assistant_config, ResearchAssistant
+
+    assistant = ResearchAssistant(load_assistant_config())
+    status = assistant.probe()
+    print(json.dumps(status, ensure_ascii=False, indent=2))
+    return 0 if status.get("available") else 2
+
+
 def cmd_strokes(args) -> int:
     out = Path(args.out) if args.out else ROOT / "cache" / "preview.png"
     if args.text:
@@ -376,6 +454,29 @@ def main() -> int:
     p2.add_argument("--max-entities", type=int, default=14)
     p2.add_argument("--no-download", action="store_true")
     p2.set_defaults(func=cmd_research)
+
+    pe = sub.add_parser("evidence", help="بحث مسنّد: متطلبات + مصادر + مرشحات + أدلة")
+    pe.add_argument("project")
+    pe.add_argument("--script", help="ملف سكريبت (اختياري)")
+    pe.add_argument("--srt", help="ملف SRT مع timestamps")
+    pe.add_argument("--source-url", action="append", default=[], help="رابط مصدر كامل (قابل للتكرار)")
+    pe.add_argument("--doc", action="append", default=[], help="مستند محلي (قابل للتكرار)")
+    pe.add_argument("--language", default=None, help="ar أو en")
+    pe.add_argument("--download", action="store_true", help="تنزيل المرشحات المسموح بها")
+    pe.add_argument("--no-resume", action="store_true")
+    pe.add_argument("--max-seconds", type=float, default=300.0)
+    pe.add_argument("--max-requests", type=int, default=40)
+    pe.add_argument("--max-pages", type=int, default=25)
+    pe.add_argument("--max-downloads", type=int, default=12)
+    pe.add_argument("--max-download-bytes", type=int, default=25000000)
+    pe.add_argument("--max-depth", type=int, default=2)
+    pe.add_argument("--max-llm-calls", type=int, default=12)
+    pe.add_argument("--max-llm-tokens", type=int, default=1200)
+    pe.add_argument("--concurrency", type=int, default=2)
+    pe.set_defaults(func=cmd_evidence)
+
+    pl = sub.add_parser("llm-status", help="فحص Qwen 4B (auth/model/backend)")
+    pl.set_defaults(func=cmd_llm_status)
 
     p3 = sub.add_parser("strokes", help="مساراً: SVG/صورة/نص → معاينة رسم")
     p3.add_argument("path", nargs="?")

@@ -11,7 +11,24 @@
     "langs": ["ar", "en"],
     "max_assets_per_need": 3,
     "min_image_width": 640,
-    "allow_sharealike": true
+    "allow_sharealike": true,
+    "assistant": {
+      "base_url": "http://127.0.0.1:11435/v1",
+      "model": "studio\\\\models\\\\Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+      "model_path": "D:/withbord inmation/studio/models/Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+      "context_size": 8192,
+      "max_tokens": 900,
+      "timeout": 120,
+      "retries": 2,
+      "temperature": 0.1
+    },
+    "budgets": {
+      "max_seconds": 300,
+      "max_requests": 60,
+      "max_pages": 60,
+      "max_downloads": 20,
+      "max_llm_calls": 24
+    }
   },
   "render": {
     "fps": 60,
