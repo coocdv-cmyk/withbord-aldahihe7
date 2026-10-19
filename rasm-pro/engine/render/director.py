@@ -107,7 +107,7 @@ def _cached_doc(key: str, build) -> StrokeDoc:
 
 # نسخة أنبوب النص: يُرفع الرقم عند أي تغيير في Bidi/التشكيل/التخانة/الترتيب.
 # بدون هذا، كاش القرص يعيد مسارات قديمة (حدث فعلًا: نص مقلوب من نسخة سابقة).
-TEXT_PIPELINE_V = 5  # Phase 3.1: تخفيف Guo-Hall + ترتيب يمين→يسار + هيكل الكلمة الموحّد
+TEXT_PIPELINE_V = 6  # Phase 3.2: LTR خطي حقيقي + اتجاه الفقرة + أوزان الخط المتغيّرة
 
 
 def load_doc(el: dict) -> StrokeDoc | None:
@@ -117,9 +117,12 @@ def load_doc(el: dict) -> StrokeDoc | None:
         text = el.get("text", "")
         size = float(el.get("size") or 120)
         mode = el.get("mode", "skeleton")
-        rtl = bool(el.get("rtl", True))
-        key = f"text|v{TEXT_PIPELINE_V}|{text}|{size}|{mode}|{rtl}|{font}|{_sig(font)}"
-        return _cached_doc(key, lambda: text_to_strokes(text, font, size, mode=mode, rtl=rtl))
+        rtl_raw = el.get("rtl")
+        rtl = None if rtl_raw is None else bool(rtl_raw)
+        weight_raw = el.get("weight")
+        weight = int(weight_raw) if weight_raw else None
+        key = f"text|v{TEXT_PIPELINE_V}|{text}|{size}|{mode}|{rtl}|{weight}|{font}|{_sig(font)}"
+        return _cached_doc(key, lambda: text_to_strokes(text, font, size, mode=mode, rtl=rtl, weight=weight))
     if t == "svg":
         path = el["asset"]
         return _cached_doc(f"svg|{path}|{_sig(path)}", lambda: scan_svg(path))
@@ -176,7 +179,17 @@ def _template_decor(el: dict):
         seed = int(el.get("seed", 3))
         tape = bool(el.get("tape", True))
         shadow = float(el.get("shadow", 0.35))
-        return lambda wb: T.draw_paper_card(wb, rect, seed=seed, style=style, tilt=tilt, tape=tape, shadow=shadow)
+        border = int(el.get("border", 14))
+        texture = el.get("texture")
+        return lambda wb: T.draw_paper_card(wb, rect, seed=seed, style=style, tilt=tilt, tape=tape,
+                                            shadow=shadow, border=border, texture=texture)
+    if t in ("texture", "background"):
+        path = el.get("asset") or el.get("texture")
+        if not path:
+            return None
+        opacity = float(el.get("opacity", 1.0))
+        fit = str(el.get("fit", "cover"))
+        return lambda wb: T.draw_texture(wb, rect, path, opacity=opacity, fit=fit)
     if t == "torn_strip":
         seed = int(el.get("seed", 5))
         tilt = float(el.get("tilt", 0.0))
@@ -281,7 +294,7 @@ class Director:
                               "el": el, "gap": gap, "nat": tl.natural,
                               "events": bool(el.get("events", True)), "_prev": 0.0})
                 t += dur + gap
-            elif etype in ("paper_card", "torn_strip"):
+            elif etype in ("paper_card", "torn_strip", "texture", "background"):
                 fn = _template_decor(el)
                 if fn is None:
                     continue

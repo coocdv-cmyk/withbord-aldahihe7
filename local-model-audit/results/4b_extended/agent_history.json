@@ -1,0 +1,275 @@
+[
+  {
+    "turn": 0,
+    "action": "search_web",
+    "args": {
+      "query": "بداية الحرب العالمية الثانية في أوروبا مصدر موثوق"
+    },
+    "result": {
+      "query": "بداية الحرب العالمية الثانية في أوروبا مصدر موثوق",
+      "provider": "existing project Wikipedia.search",
+      "results": [
+        {
+          "title": "الحرب العالمية الثانية",
+          "snippet": "<span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> هي <span class=\"searchmatch\">حرب</span> دولية بدأت <span class=\"searchmatch\">في</span> الأول من سب",
+          "wordcount": 13132,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        },
+        {
+          "title": "الطائفية والعرقية في الحرب الأهلية السورية",
+          "snippet": "الطائفي والعرقي <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">الحرب</span> الأهلية السورية بين أتباع الطوائف الدينية وأبناء الجماعات العرقية المختلفة. من الممكن النظر إلى بعض أجزاء الصراع <span class=\"sea",
+          "wordcount": 23856,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B7%D8%A7%D8%A6%D9%81%D9%8A%D8%A9_%D9%88%D8%A7%D9%84%D8%B9%D8%B1%D9%82%D9%8A%D8%A9_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A3%D9%87%D9%84%D9%8A%D8%A9_%D8%A7%D9%84%D8%B3%D9%88%D8%B1%D9%8A%D8%A9"
+        },
+        {
+          "title": "الإشراف والرقابة على الإنترنت حسب البلد",
+          "snippet": "تصفية الإنترنت <span class=\"searchmatch\">العالمية</span> لـ ONI. ينص الدستور والقانون على حرية الكلام والصحافة. لا توجد قيود حكومية على الوصول إلى الإنترنت أو تقارير <span class=\"searchmatch\">موثوقة</span> تفيد بأن الحكو",
+          "wordcount": 53590,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A5%D8%B4%D8%B1%D8%A7%D9%81_%D9%88%D8%A7%D9%84%D8%B1%D9%82%D8%A7%D8%A8%D8%A9_%D8%B9%D9%84%D9%89_%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA_%D8%AD%D8%B3%D8%A8_%D8%A7%D9%84%D8%A8%D9%84%D8%AF"
+        },
+        {
+          "title": "الحرب الباردة",
+          "snippet": "القوتين اختلفتا <span class=\"searchmatch\">في</span> كيفية إدارة ما بعد <span class=\"searchmatch\">الحرب</span> وإعادة بناء <span class=\"searchmatch\">العالم</span>. خلال السنوات التالية <span class=\"searchmatch\">للحرب</spa",
+          "wordcount": 6784,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A8%D8%A7%D8%B1%D8%AF%D8%A9"
+        },
+        {
+          "title": "حصار كابوا",
+          "snippet": "بسبب العدد الكبير من الشخصيات التي شهدته وعسكريًا بسبب التعاون بين قوات النورمان والمسلمين الذي استلزمه الحصار. بوابة إيطاليا بوابة التاريخ بوابة <span class=\"searchmatch\">الحرب</span>",
+          "wordcount": 45,
+          "url": "https://ar.wikipedia.org/wiki/%D8%AD%D8%B5%D8%A7%D8%B1_%D9%83%D8%A7%D8%A8%D9%88%D8%A7"
+        }
+      ]
+    }
+  },
+  {
+    "turn": 1,
+    "action": "read_page",
+    "args": {
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+    },
+    "result": {
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+      "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+    }
+  },
+  {
+    "turn": 2,
+    "action": "search_web",
+    "args": {
+      "query": "توسع الحرب العالمية الثانية في أوروبا مصدر موثوق"
+    },
+    "result": {
+      "query": "توسع الحرب العالمية الثانية في أوروبا مصدر موثوق",
+      "provider": "existing project Wikipedia.search",
+      "results": [
+        {
+          "title": "الحرب العالمية الثانية",
+          "snippet": "<span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> هي <span class=\"searchmatch\">حرب</span> دولية بدأت <span class=\"searchmatch\">في</span> الأول من سب",
+          "wordcount": 13132,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        },
+        {
+          "title": "التوسع الاقتصادي بعد الحرب العالمية الثانية",
+          "snippet": "كان <span class=\"searchmatch\">التوسع</span> الاقتصادي <span class=\"searchmatch\">في</span> مرحلة ما بعد <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</s",
+          "wordcount": 1334,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AA%D9%88%D8%B3%D8%B9_%D8%A7%D9%84%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%D9%8A_%D8%A8%D8%B9%D8%AF_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        },
+        {
+          "title": "جرائم الحرب الإسرائيلية في الحرب الفلسطينية الإسرائيلية",
+          "snippet": "منذ اندلاع <span class=\"searchmatch\">الحرب</span> الفلسطينية الإسرائيلية بتاريخ 7 أكتوبر 2023، وُجهت اتهامات متزايدة للجيش والسلطات الإسرائيلية بارتكاب جرائم <span class=\"searchmatch\">حرب</span> وانتهاكات جسيمة للقانون",
+          "wordcount": 39725,
+          "url": "https://ar.wikipedia.org/wiki/%D8%AC%D8%B1%D8%A7%D8%A6%D9%85_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A5%D8%B3%D8%B1%D8%A7%D8%A6%D9%8A%D9%84%D9%8A%D8%A9_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D9%81%D9%84%D8%B3%D8%B7%D9%8A%D9%86%D9%8A%D8%A9_%D8%A7%D9%84%D8%A5%D8%B3%D8%B1%D8%A7%D8%A6%D9%8A%D9%84%D9%8A%D8%A9"
+        },
+        {
+          "title": "الإشراف والرقابة على الإنترنت حسب البلد",
+          "snippet": "تصفية الإنترنت <span class=\"searchmatch\">العالمية</span> لـ ONI. ينص الدستور والقانون على حرية الكلام والصحافة. لا توجد قيود حكومية على الوصول إلى الإنترنت أو تقارير <span class=\"searchmatch\">موثوقة</span> تفيد بأن الحكو",
+          "wordcount": 53590,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A5%D8%B4%D8%B1%D8%A7%D9%81_%D9%88%D8%A7%D9%84%D8%B1%D9%82%D8%A7%D8%A8%D8%A9_%D8%B9%D9%84%D9%89_%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA_%D8%AD%D8%B3%D8%A8_%D8%A7%D9%84%D8%A8%D9%84%D8%AF"
+        },
+        {
+          "title": "الخيول في الحرب العالمية الثانية",
+          "snippet": "الخيول <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> كانت وسيلةً أساسيةً استخدمتها الدول المتحاربة <span cla",
+          "wordcount": 8577,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AE%D9%8A%D9%88%D9%84_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        }
+      ]
+    }
+  },
+  {
+    "turn": 3,
+    "action": "read_page",
+    "args": {
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+    },
+    "result": {
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+      "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+    }
+  },
+  {
+    "turn": 4,
+    "action": "search_web",
+    "args": {
+      "query": "نهاية الحرب العالمية الثانية في أوروبا مصدر موثوق"
+    },
+    "result": {
+      "query": "نهاية الحرب العالمية الثانية في أوروبا مصدر موثوق",
+      "provider": "existing project Wikipedia.search",
+      "results": [
+        {
+          "title": "الحرب العالمية الثانية",
+          "snippet": "<span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> هي <span class=\"searchmatch\">حرب</span> دولية بدأت <span class=\"searchmatch\">في</span> الأول من سب",
+          "wordcount": 13132,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        },
+        {
+          "title": "الحرب الباردة",
+          "snippet": "القوتين اختلفتا <span class=\"searchmatch\">في</span> كيفية إدارة ما بعد <span class=\"searchmatch\">الحرب</span> وإعادة بناء <span class=\"searchmatch\">العالم</span>. خلال السنوات التالية <span class=\"searchmatch\">للحرب</spa",
+          "wordcount": 6784,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A8%D8%A7%D8%B1%D8%AF%D8%A9"
+        },
+        {
+          "title": "الطائفية والعرقية في الحرب الأهلية السورية",
+          "snippet": "المتطرّفة دينيًا، متورطة <span class=\"searchmatch\">في</span> ارتكاب انتهاكات بحق المسيحيين، الأمر الذي أدّى لانخفاض عددهم إلى حوالي 450000 <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">نهاية</span> <span ",
+          "wordcount": 23856,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B7%D8%A7%D8%A6%D9%81%D9%8A%D8%A9_%D9%88%D8%A7%D9%84%D8%B9%D8%B1%D9%82%D9%8A%D8%A9_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A3%D9%87%D9%84%D9%8A%D8%A9_%D8%A7%D9%84%D8%B3%D9%88%D8%B1%D9%8A%D8%A9"
+        },
+        {
+          "title": "تاريخ ألمانيا خلال الحرب العالمية الثانية",
+          "snippet": "تاريخ ألمانيا خلال <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> تعديل - تعديل <span class=\"searchmatch\">مصدري</span> - تعديل ويكي بيانات تاريخ ",
+          "wordcount": 407,
+          "url": "https://ar.wikipedia.org/wiki/%D8%AA%D8%A7%D8%B1%D9%8A%D8%AE_%D8%A3%D9%84%D9%85%D8%A7%D9%86%D9%8A%D8%A7_%D8%AE%D9%84%D8%A7%D9%84_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        },
+        {
+          "title": "الإشراف والرقابة على الإنترنت حسب البلد",
+          "snippet": "2011. بحلول <span class=\"searchmatch\">نهاية</span> عام 2012 كان استخدام الإنترنت قد ارتفع إلى 1.7٪ من السكان. لا توجد قيود حكومية على الوصول إلى الإنترنت أو تقارير <span class=\"searchmatch\">موثوقة</span> تفيد بأن الحكومة",
+          "wordcount": 53590,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A5%D8%B4%D8%B1%D8%A7%D9%81_%D9%88%D8%A7%D9%84%D8%B1%D9%82%D8%A7%D8%A8%D8%A9_%D8%B9%D9%84%D9%89_%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA_%D8%AD%D8%B3%D8%A8_%D8%A7%D9%84%D8%A8%D9%84%D8%AF"
+        }
+      ]
+    }
+  },
+  {
+    "turn": 5,
+    "action": "read_page",
+    "args": {
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+    },
+    "result": {
+      "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+      "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+    }
+  },
+  {
+    "turn": 6,
+    "action": "search_assets",
+    "args": {
+      "query": "أصل ورقي أرشيفي خط زمني متنوع مخصص للتعليم"
+    },
+    "result": {
+      "query": "أصل ورقي أرشيفي خط زمني متنوع مخصص للتعليم",
+      "assets": []
+    }
+  },
+  {
+    "turn": 7,
+    "action": "search_icons",
+    "args": {
+      "query": "أيقونات حرب عالمية ثانية أوروبا مختصرة"
+    },
+    "result": {
+      "error": "Tool requires English keywords as documented; request was not executed."
+    }
+  },
+  {
+    "turn": 8,
+    "action": "search_web",
+    "args": {
+      "query": "أيقونات بداية الحرب العالمية الثانية في أوروبا مصادر موثوقة"
+    },
+    "result": {
+      "query": "أيقونات بداية الحرب العالمية الثانية في أوروبا مصادر موثوقة",
+      "provider": "existing project Wikipedia.search",
+      "results": [
+        {
+          "title": "قائمة أفلام مبنية على أحداث حقيقية",
+          "snippet": "الأولى كرئيس للوزراء خلال <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> وأزمة خزانة <span class=\"searchmatch\">الحرب</span> <span class=\"searchma",
+          "wordcount": 37014,
+          "url": "https://ar.wikipedia.org/wiki/%D9%82%D8%A7%D8%A6%D9%85%D8%A9_%D8%A3%D9%81%D9%84%D8%A7%D9%85_%D9%85%D8%A8%D9%86%D9%8A%D8%A9_%D8%B9%D9%84%D9%89_%D8%A3%D8%AD%D8%AF%D8%A7%D8%AB_%D8%AD%D9%82%D9%8A%D9%82%D9%8A%D8%A9"
+        },
+        {
+          "title": "التأثير الحضاري للمسيحية",
+          "snippet": "&quot;محفزين لتطوير اقتصاد السوق&quot; <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">أوروبا</span> القرن <span class=\"searchmatch\">الثاني</span> عشر. حتى الثورة الصناعية، كانت معظم التطورات التكنولوجية <s",
+          "wordcount": 33110,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AA%D8%A3%D8%AB%D9%8A%D8%B1_%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D9%8A_%D9%84%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9"
+        },
+        {
+          "title": "جول فيرن",
+          "snippet": "راي برادبري تأثير فيرن على الأدب <span class=\"searchmatch\">وعالم</span> العلوم قائلاً: &quot;كلنا، بطريقة أو بأخرى، أطفال جول فيرن.&quot; تُعد شخصياته <span class=\"searchmatch\">أيقونات</span> <span class=\"searchmatch\">في",
+          "wordcount": 25143,
+          "url": "https://ar.wikipedia.org/wiki/%D8%AC%D9%88%D9%84_%D9%81%D9%8A%D8%B1%D9%86"
+        },
+        {
+          "title": "المسيحية في لبنان",
+          "snippet": "أعضاء المجمع ستة وأربعين عضوًا. <span class=\"searchmatch\">بدأ</span> الكنيسة المارونية <span class=\"searchmatch\">في</span> القرن التاسع عشر وتفاقهم خلال <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">ال",
+          "wordcount": 21593,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9_%D9%81%D9%8A_%D9%84%D8%A8%D9%86%D8%A7%D9%86"
+        },
+        {
+          "title": "المسيحية في سوريا",
+          "snippet": "الآخر. إن أول  مصور <span class=\"searchmatch\">أيقونات</span> «كاتب <span class=\"searchmatch\">أيقونات</span>» <span class=\"searchmatch\">في</span> التاريخ الحديث للتصوير الكنسي <span class=\"searchmatch\">في</span> سورية هو ",
+          "wordcount": 28325,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9_%D9%81%D9%8A_%D8%B3%D9%88%D8%B1%D9%8A%D8%A7"
+        }
+      ]
+    }
+  },
+  {
+    "turn": 9,
+    "action": "search_web",
+    "args": {
+      "query": "أيقونات توسع الحرب العالمية الثانية في أوروبا مصادر موثوقة"
+    },
+    "result": {
+      "query": "أيقونات توسع الحرب العالمية الثانية في أوروبا مصادر موثوقة",
+      "provider": "existing project Wikipedia.search",
+      "results": [
+        {
+          "title": "التأثير الحضاري للمسيحية",
+          "snippet": "&quot;محفزين لتطوير اقتصاد السوق&quot; <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">أوروبا</span> القرن <span class=\"searchmatch\">الثاني</span> عشر. حتى الثورة الصناعية، كانت معظم التطورات التكنولوجية <s",
+          "wordcount": 33110,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AA%D8%A3%D8%AB%D9%8A%D8%B1_%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D9%8A_%D9%84%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9"
+        },
+        {
+          "title": "المسيحية في سوريا",
+          "snippet": "الآخر. إن أول  مصور <span class=\"searchmatch\">أيقونات</span> «كاتب <span class=\"searchmatch\">أيقونات</span>» <span class=\"searchmatch\">في</span> التاريخ الحديث للتصوير الكنسي <span class=\"searchmatch\">في</span> سورية هو ",
+          "wordcount": 28325,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9_%D9%81%D9%8A_%D8%B3%D9%88%D8%B1%D9%8A%D8%A7"
+        },
+        {
+          "title": "جول فيرن",
+          "snippet": "راي برادبري تأثير فيرن على الأدب <span class=\"searchmatch\">وعالم</span> العلوم قائلاً: &quot;كلنا، بطريقة أو بأخرى، أطفال جول فيرن.&quot; تُعد شخصياته <span class=\"searchmatch\">أيقونات</span> <span class=\"searchmatch\">في",
+          "wordcount": 25143,
+          "url": "https://ar.wikipedia.org/wiki/%D8%AC%D9%88%D9%84_%D9%81%D9%8A%D8%B1%D9%86"
+        },
+        {
+          "title": "أمية",
+          "snippet": "يشمل معدلات معرفة القراءة والكتابة لمختلف <span class=\"searchmatch\">الفئات</span> العمرية. مخططات لجميع البلدان وخرائط <span class=\"searchmatch\">العالم</span> وروابط لمزيد من <span class=\"searchmatch\">مصادر</span> البيان",
+          "wordcount": 21120,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A3%D9%85%D9%8A%D8%A9"
+        },
+        {
+          "title": "الإمبراطورية البيزنطية",
+          "snippet": "الفقر المدقع، فإن انتصار مؤيدي <span class=\"searchmatch\">الأيقونات</span> <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">حرب</span> <span class=\"searchmatch\">الأيقونات</span> البيزنطية أدّى إلى تدفق الثروة",
+          "wordcount": 39712,
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A5%D9%85%D8%A8%D8%B1%D8%A7%D8%B7%D9%88%D8%B1%D9%8A%D8%A9_%D8%A7%D9%84%D8%A8%D9%8A%D8%B2%D9%86%D8%B7%D9%8A%D8%A9"
+        }
+      ]
+    }
+  },
+  {
+    "turn": 10,
+    "error": "invalid action JSON"
+  }
+]

@@ -16,7 +16,7 @@ import random
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
 from ..strokes.model import Stroke
 
@@ -326,9 +326,46 @@ def _tape_layer(w: float, h: float, *, seed: int = 7) -> Image.Image:
     return im
 
 
+def _texture_path(path: str | Path) -> Path | None:
+    p = Path(path)
+    candidates = [p]
+    if not p.is_absolute():
+        candidates += [Path.cwd() / p, Path(__file__).resolve().parents[2] / p]
+    for c in candidates:
+        if c.exists() and c.is_file():
+            return c
+    return None
+
+
+def draw_texture(wb, rect, path: str | Path, *, opacity: float = 1.0,
+                 fit: str = "cover") -> None:
+    """Paint a generated paper/texture as a static scene background."""
+    x, y, w, h = [float(v) for v in rect]
+    w, h = max(1, int(w)), max(1, int(h))
+    p = _texture_path(path)
+    if not p:
+        return
+    try:
+        img = Image.open(p).convert("RGB")
+        if fit == "contain":
+            img = ImageOps.contain(img, (w, h), method=Image.LANCZOS)
+            canvas = Image.new("RGB", (w, h), (244, 235, 221))
+            canvas.paste(img, ((w - img.width) // 2, (h - img.height) // 2))
+            img = canvas
+        else:
+            img = ImageOps.fit(img, (w, h), method=Image.LANCZOS)
+        if opacity < 0.999:
+            base = wb.rgb.crop((int(x), int(y), int(x) + w, int(y) + h)).convert("RGB")
+            img = Image.blend(base, img, max(0.0, min(1.0, float(opacity))))
+        wb.rgb.paste(img, (int(x), int(y)))
+    except Exception:
+        return
+
+
 def draw_paper_card(wb, rect, *, seed: int = 3, style: str = "photo", tilt: float = 1.4,
                     tape: bool = True, shadow: float = 0.35, border: int = 14,
-                    card_color=(252, 250, 243), band_color=(249, 243, 224)) -> None:
+                    card_color=(252, 250, 243), band_color=(249, 243, 224),
+                    texture: str | Path | None = None) -> None:
     """بطاقة ورق خلف صورة/نص: بولارويد بظل وشريط لاصق (تُرسم مرة عند بدء العنصر).
 
     style: "photo" إطار بولارويد | "band" بطاقة بشريط علوي | "plain" بطاقة فقط.
@@ -336,10 +373,22 @@ def draw_paper_card(wb, rect, *, seed: int = 3, style: str = "photo", tilt: floa
     x, y, w, h = [float(v) for v in rect]
     pad = border + 6
     cw, chh = int(w + pad * 2), int(h + pad * 2)
-    card = Image.new("RGBA", (cw, chh), (0, 0, 0, 0))
-    d = ImageDraw.Draw(card)
-    d.rectangle([0, 0, cw - 1, chh - 1], fill=tuple(card_color) + (255,))
-    d.rectangle([2, 2, cw - 3, chh - 3], outline=(214, 208, 194, 255), width=1)
+    card = None
+    if texture:
+        tp = _texture_path(texture)
+        if tp:
+            try:
+                tex = ImageOps.fit(Image.open(tp).convert("RGB"), (cw, chh), method=Image.LANCZOS)
+                card = tex.convert("RGBA")
+            except Exception:
+                card = None
+    if card is None:
+        card = Image.new("RGBA", (cw, chh), (0, 0, 0, 0))
+        d = ImageDraw.Draw(card)
+        d.rectangle([0, 0, cw - 1, chh - 1], fill=tuple(card_color) + (255,))
+        d.rectangle([2, 2, cw - 3, chh - 3], outline=(214, 208, 194, 255), width=1)
+    else:
+        d = ImageDraw.Draw(card)
     # مساحة الصورة (تُترك فارغة — الصورة تُرسم فوقها لاحقًا)
     d.rectangle([border, border, border + int(w) - 1, border + int(h) - 1], outline=(228, 222, 208, 255), width=1)
     if style == "band":

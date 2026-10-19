@@ -77,14 +77,22 @@ def find_font(name_part: str, prefer_bold: bool = False) -> Path:
     fonts = list_fonts()
     for slug, files in fonts.items():
         if name_part in slug.lower():
-            if prefer_bold:
-                for f in files:
-                    if "bold" in f.name.lower():
-                        return f
-            for f in files:
-                if "italic" not in f.name.lower() and "[" not in f.name:  # مثبّت مفضّل
-                    return f
-            return files[0]
+            def _score(f: Path) -> int:
+                n = f.name.lower()
+                score = 0
+                if "italic" not in n and "oblique" not in n:
+                    score += 10
+                if "[" not in n:
+                    score += 4
+                if "regular" in n:
+                    score += 3
+                if prefer_bold:
+                    if "bold" in n:
+                        score += 8
+                elif "bold" in n:
+                    score -= 2
+                return score
+            return max(files, key=_score)
     raise FileNotFoundError(f"لم يُعثر على خط يطابق: {name_part}")
 
 
@@ -235,6 +243,22 @@ def _char_class(ch: str) -> str:
     return "N"
 
 
+def _first_strong_rtl(text: str) -> bool | None:
+    """Return the paragraph direction from the first strong character.
+
+    This is the practical UAX#9 rule for mixed lines: an English sentence that
+    quotes an Arabic name stays LTR; an Arabic sentence with an English acronym
+    stays RTL.
+    """
+    for ch in text:
+        cls = _char_class(ch)
+        if cls == "R":
+            return True
+        if cls == "L":
+            return False
+    return None
+
+
 def _resolve_neutrals(classes: list[str], base_rtl: bool) -> list[str]:
     """محايد بين قويّين متجانسين يأخذ اتجاههما، وإلا فاتجاه الفقرة."""
     out = list(classes)
@@ -274,7 +298,7 @@ def _bidi_runs(text: str, base_rtl: bool) -> list[tuple[str, str]]:
 class _FontShaper:
     """مُشكّل خط واحد: يخزّن face/font مرة واحدة ويشكّل المقاطع باتجاهاتها."""
 
-    def __init__(self, font_path: Path):
+    def __init__(self, font_path: Path, weight: int | None = None):
         if hb is None:
             raise RuntimeError("uharfbuzz غير مثبّت")
         self.font_path = Path(font_path)
@@ -283,6 +307,12 @@ class _FontShaper:
         self.font = hb.Font(self.face)
         self.upem = self.face.upem or 1000
         self.font.scale = (self.upem, self.upem)
+        self.weight = int(weight) if weight else None
+        if self.weight:
+            try:
+                self.font.set_variations({"wght": float(self.weight)})
+            except Exception:
+                pass
 
     def _shape_run(self, text: str, size: float, direction: str, *, mirror: bool) -> tuple[list[dict], float]:
         if mirror:
@@ -313,7 +343,8 @@ class _FontShaper:
         """يعيد (الحروف بمواضعها المطلقة، عرض السطر، اتجاه الفقرة). [توافق خلفي]"""
         has_rtl = any(_char_class(ch) == "R" for ch in text)
         if force_rtl is None:
-            base_rtl = has_rtl  # أول حرف قوي عمليًا
+            first = _first_strong_rtl(text)
+            base_rtl = first if first is not None else has_rtl
         else:
             base_rtl = bool(force_rtl) and has_rtl
         if not has_rtl and not any(_char_class(ch) == "L" for ch in text):
@@ -342,9 +373,10 @@ class _FontShaper:
         return glyphs, total, base_rtl
 
 
-def _shape_line(text: str, font_path: Path, size: float, force_rtl: bool | None = None):
+def _shape_line(text: str, font_path: Path, size: float, force_rtl: bool | None = None,
+                weight: int | None = None):
     """توافق خلفي للأدوات: (حروف، عرض، rtl، upem، scale)."""
-    sh = _FontShaper(Path(font_path))
+    sh = _FontShaper(Path(font_path), weight=weight)
     glyphs, width, base_rtl = sh.shape_line(text, size, force_rtl=force_rtl)
     return glyphs, width, base_rtl, sh.upem, size / sh.upem
 
@@ -399,13 +431,14 @@ def _label8(mask: np.ndarray) -> list[dict]:
     return [{"y0": y0, "x0": x0, "sub": sub, "area": int(len(ys))}]
 
 
-def _glyph_raster(font_path: Path, glyph_set, glyph_order, gid: int, size: float, s: float):
+def _glyph_raster(font_path: Path, glyph_set, glyph_order, gid: int, size: float, s: float,
+                  weight: int | None = None):
     """قناع حرف واحدة بإحداثيات محلية (مخزّن مؤقتًا لكل خط/حجم/gid).
 
     الاتفاقية: بكسل القناع (mx,my) ↔ محلي (x0 + mx/RS, y0 + my/RS)،
     ثم التوضّع النهائي: (g.x + x0 + mx/RS, (baseline - g.y) + y0 + my/RS).
     """
-    key = (str(font_path), round(float(size), 4), int(gid))
+    key = (str(font_path), int(weight or 0), round(float(size), 4), int(gid))
     if key in _GLYPH_MEMO:
         return _GLYPH_MEMO[key]
 
@@ -558,10 +591,18 @@ def text_to_strokes(
     line_spacing: float = 1.45,
     color: str | None = None,
     asset: str | None = None,
+    weight: int | None = None,
 ) -> StrokeDoc:
     """النص → StrokeDoc (متجهي حقيقي) بأسلوب كتابة متصلة يمين→يسار للعربية."""
     font_path = Path(font_path)
     tt = TTFont(str(font_path), fontNumber=0, lazy=True)
+    if weight:
+        try:
+            from fontTools.varLib.instancer import instantiateVariableFont
+            if "fvar" in tt:
+                tt = instantiateVariableFont(tt, {"wght": float(weight)}, inplace=False)
+        except Exception:
+            pass
     upem = tt["head"].unitsPerEm
     ascent = getattr(tt["hhea"], "ascent", int(upem * 0.8))
     descent = abs(getattr(tt["hhea"], "descent", int(upem * 0.2)))
@@ -573,7 +614,7 @@ def text_to_strokes(
     ascent_px = ascent / upem * size
     s = size / upem
     space_w = _space_advance(tt, upem, size)
-    shaper = _FontShaper(font_path)
+    shaper = _FontShaper(font_path, weight=weight)
 
     all_strokes: list[Stroke] = []
     words: list[dict] = []
@@ -589,7 +630,8 @@ def text_to_strokes(
 
         has_rtl = any(_char_class(ch) == "R" for ch in line)
         if rtl is None:
-            base_rtl = has_rtl
+            first = _first_strong_rtl(line)
+            base_rtl = first if first is not None else has_rtl
         else:
             base_rtl = bool(rtl) and has_rtl
         if not has_rtl and not any(_char_class(ch) == "L" for ch in line):
@@ -603,11 +645,20 @@ def text_to_strokes(
                 gs, wd = shaper._shape_run(rt, size, d, mirror=(d == "rtl"))
                 runs.append((rt, d, gs, wd))
             tok_w = sum(wd for _, _, _, wd in runs)
-            tok_left = cursor - tok_w
+            # Layout direction is a line-level property. RTL lines advance
+            # right-to-left; LTR lines advance left-to-right. A token may have
+            # the opposite direction (Arabic inside English, English inside
+            # Arabic), so it is placed as one unit and shaped internally.
+            if base_rtl:
+                tok_right = cursor - spaces_before * space_w
+                tok_left = tok_right - tok_w
+            else:
+                tok_left = cursor + spaces_before * space_w
+                tok_right = tok_left + tok_w
 
             if tok_rtl:
                 # المقاطع تُوضع يمين→يسار داخل الكلمة (الأول منطقيًا أيمن بصريًا)
-                rcursor = cursor
+                rcursor = tok_right
                 for _rt, _d, gs, wd in runs:
                     run_left = rcursor - wd
                     for gg in gs:
@@ -626,7 +677,7 @@ def text_to_strokes(
                 glyph_iter = list(reversed(gs)) if d == "rtl" else list(gs)
                 for g in glyph_iter:
                     gid = g["gid"]
-                    raster = _glyph_raster(font_path, glyph_set, glyph_order, gid, size, s)
+                    raster = _glyph_raster(font_path, glyph_set, glyph_order, gid, size, s, weight=weight)
                     if raster is None:
                         continue
                     placements.append(
@@ -668,10 +719,12 @@ def text_to_strokes(
                         "end": len(all_strokes),
                         "rtl": tok_rtl,
                         "punct": bool(_PUNCT_END.search(tok)),
+                        "x0": round(tok_left, 2),
+                        "x1": round(tok_right, 2),
                         "text": tok,
                     }
                 )
-                cursor = tok_left - spaces_before * space_w
+                cursor = tok_left if base_rtl else tok_right
                 continue
 
             word_start = len(all_strokes)
@@ -755,11 +808,13 @@ def text_to_strokes(
                     "end": len(all_strokes),
                     "rtl": tok_rtl,
                     "punct": bool(_PUNCT_END.search(tok)),
+                    "x0": round(tok_left, 2),
+                    "x1": round(tok_right, 2),
                     "text": tok,
                 }
             )
-            cursor = tok_left - spaces_before * space_w
-        max_w = max(max_w, -cursor)
+            cursor = tok_left if base_rtl else tok_right
+        max_w = max(max_w, -cursor if base_rtl else cursor)
 
     # تطبيع الإحداثيات: أصل المستند عند (0,0) وأبعاد مشدودة على الحبر
     width = 0.0
@@ -780,6 +835,10 @@ def text_to_strokes(
                 rings = st.meta.get("rings")
                 if rings:
                     st.meta["rings"] = [[[p[0] - min_x, p[1] - min_y] for p in c] for c in rings]
+        for w in words:
+            if "x0" in w:
+                w["x0"] = round(float(w["x0"]) - min_x, 2)
+                w["x1"] = round(float(w["x1"]) - min_x, 2)
         width = float(max_x - min_x)
         height = float(max_y - min_y)
     else:

@@ -1,0 +1,154 @@
+{
+  "english-three-styles": {
+    "ok": true,
+    "path": "D:\\withbord inmation\\engine-review-20261019\\english-three-styles.mp4",
+    "size_bytes": 4834149,
+    "video": {
+      "codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "fps": "24",
+      "frames": 729,
+      "duration_sec": 30.375
+    },
+    "audio": {},
+    "checks": [
+      {
+        "check": "exists",
+        "ok": true,
+        "detail": "4834149 بايت"
+      },
+      {
+        "check": "video-stream",
+        "ok": true,
+        "detail": "h264"
+      },
+      {
+        "check": "size",
+        "ok": true,
+        "detail": "1280x720"
+      },
+      {
+        "check": "fps",
+        "ok": true,
+        "detail": "24 (متوقع 24)"
+      },
+      {
+        "check": "duration",
+        "ok": true,
+        "detail": "30.375ث (متوقع 30.375ث ± 0.042ث)"
+      },
+      {
+        "check": "audio-present",
+        "ok": true,
+        "detail": "لا يوجد"
+      }
+    ],
+    "full_decode_returncode": 0,
+    "full_decode_errors": "",
+    "events_after_video": 86,
+    "max_event_time": 38.7633
+  },
+  "ten-minute-reduced-load": {
+    "ok": true,
+    "path": "D:\\withbord inmation\\engine-review-20261019\\ten-minute-reduced-load.mp4",
+    "size_bytes": 5643409,
+    "video": {
+      "codec": "h264",
+      "width": 640,
+      "height": 360,
+      "fps": "2",
+      "frames": 1200,
+      "duration_sec": 600.0
+    },
+    "audio": {},
+    "checks": [
+      {
+        "check": "exists",
+        "ok": true,
+        "detail": "5643409 بايت"
+      },
+      {
+        "check": "video-stream",
+        "ok": true,
+        "detail": "h264"
+      },
+      {
+        "check": "size",
+        "ok": true,
+        "detail": "640x360"
+      },
+      {
+        "check": "fps",
+        "ok": true,
+        "detail": "2 (متوقع 2)"
+      },
+      {
+        "check": "duration",
+        "ok": true,
+        "detail": "600.000ث (متوقع 600.000ث ± 0.500ث)"
+      },
+      {
+        "check": "audio-present",
+        "ok": true,
+        "detail": "لا يوجد"
+      }
+    ],
+    "full_decode_returncode": 0,
+    "full_decode_errors": "",
+    "events_after_video": 29,
+    "max_event_time": 602.9954
+  },
+  "english_word_geometry": {
+    "input": "Read the sequence",
+    "rtl": false,
+    "words_in_logical_order": [
+      {
+        "text": "Read",
+        "min_x": 566.0,
+        "max_x": 758.0
+      },
+      {
+        "text": "the",
+        "min_x": 420.5,
+        "max_x": 547.5
+      },
+      {
+        "text": "sequence",
+        "min_x": 0.0,
+        "max_x": 386.0
+      }
+    ],
+    "visual_left_to_right": [
+      "sequence",
+      "the",
+      "Read"
+    ]
+  },
+  "sfx_memory_calculation": [
+    {
+      "minutes": 10,
+      "float32_buffer_bytes": 115296000,
+      "pcm16_bytes": 57648000,
+      "frames_at_24fps": 14400
+    },
+    {
+      "minutes": 20,
+      "float32_buffer_bytes": 230496000,
+      "pcm16_bytes": 115248000,
+      "frames_at_24fps": 28800
+    },
+    {
+      "minutes": 60,
+      "float32_buffer_bytes": 691296000,
+      "pcm16_bytes": 345648000,
+      "frames_at_24fps": 86400
+    },
+    {
+      "minutes": 120,
+      "float32_buffer_bytes": 1382496000,
+      "pcm16_bytes": 691248000,
+      "frames_at_24fps": 172800
+    }
+  ]
+}

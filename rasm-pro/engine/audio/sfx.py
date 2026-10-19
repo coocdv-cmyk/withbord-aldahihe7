@@ -146,6 +146,7 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
     events = [e for e in (data.get("events") or []) if isinstance(e, dict)]
     if duration is None:
         duration = max([float(e.get("t", 0.0)) for e in events] + [0.0]) + 1.2
+    duration = max(0.0, float(duration))
     lib = SfxLibrary(which=which)
     g = PRESETS.get(preset, PRESETS["paper"])
     rng = random.Random(20261019)
@@ -161,17 +162,29 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
     downs: list[dict] = []
     scratch_count = 0
     tap_count = 0
+    dropped = 0
     for e in sorted(events, key=lambda x: float(x.get("t", 0.0))):
         kind = e.get("kind")
-        t = float(e.get("t", 0.0))
+        try:
+            t = float(e.get("t", 0.0))
+        except (TypeError, ValueError):
+            dropped += 1
+            continue
+        if not math.isfinite(t) or t < -0.001 or t > duration:
+            # لا نسمح لخط زمني قديم/جزئي بإنتاج صوت خارج الفيلم.
+            dropped += 1
+            continue
+        t = max(0.0, min(t, duration))
         if kind == "down":
-            downs.append(e)
+            downs.append({"t": t, "e": e})
         elif kind == "up":
             # اربط بآخر down معلّق: مدة الضغطة = الفرق الزمني
             if downs:
                 d = downs.pop(0)
-                dur = max(0.03, min(1.6, t - float(d.get("t", 0.0))))
-                put(lib.scratch(dur, gain=g["scratch"] * rng.uniform(0.85, 1.15), rng=rng), float(d.get("t", 0.0)))
+                start = float(d["t"])
+                end = min(t, duration)
+                dur = max(0.03, min(1.6, end - start))
+                put(lib.scratch(dur, gain=g["scratch"] * rng.uniform(0.85, 1.15), rng=rng), start)
                 scratch_count += 1
         elif kind == "tap":
             put(lib.tick(gain=g["tick"] * rng.uniform(0.85, 1.2), rng=rng), t)
@@ -179,10 +192,25 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
         elif kind == "complete":
             pass
 
+    # A partial render can end while the pen is still down. Close those strokes
+    # at the film boundary instead of silently dropping the sound or extending it.
+    open_closed = 0
+    for d in downs:
+        start = float(d["t"])
+        end = min(duration, start + 0.25)
+        if end <= start:
+            continue
+        put(lib.scratch(max(0.03, end - start), gain=g["scratch"] * 0.8, rng=rng), start)
+        scratch_count += 1
+        open_closed += 1
+
     slide_count = 0
     for sc in data.get("scenes") or []:
-        st = float(sc.get("start") or 0.0)
-        if st > 0.05:
+        try:
+            st = float(sc.get("start") or 0.0)
+        except (TypeError, ValueError):
+            continue
+        if 0.05 < st <= duration:
             put(lib.paper_slide(0.45, gain=g["slide"] * rng.uniform(0.9, 1.1), rng=rng), st - 0.22)
             slide_count += 1
 
@@ -201,10 +229,13 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
     info = {
         "out": str(out),
         "duration": round(len(buf) / SR, 3),
+        "requested_duration": round(duration, 3),
         "events": len(events),
         "scratches": scratch_count,
         "taps": tap_count,
         "slides": slide_count,
+        "dropped_events": dropped,
+        "closed_open_strokes": open_closed,
         "real_recordings": lib.real,
         "sources": lib.sources,
     }
@@ -237,6 +268,7 @@ def mux_into(video: str | Path, sfx_wav: str | Path, out: str | Path, *,
 
     from ..render.video import ffmpeg_path
 
+    sfx_weight = max(0.0, min(1.0, float(sfx_weight)))
     ff = ffmpeg_path()
     ffprobe = str(Path(ff).with_name("ffprobe.exe")) if Path(ff).with_name("ffprobe.exe").exists() else "ffprobe"
     video = Path(video)

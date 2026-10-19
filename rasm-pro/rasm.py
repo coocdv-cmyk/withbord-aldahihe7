@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -19,6 +20,7 @@ from engine.render import Director  # noqa: E402
 from engine.stages import plan as plan_stage  # noqa: E402
 from engine.stages import research as research_stage  # noqa: E402
 from engine.stages import understanding as understanding_stage  # noqa: E402
+from engine.stages.validate_plan import validate_plan  # noqa: E402
 from engine.strokes import (  # noqa: E402
     find_font,
     raster_to_strokes,
@@ -139,8 +141,16 @@ def cmd_plan(args) -> int:
         return 1
     research = read_json(pd / "research" / "research.json", default={}) or {}
     plan = plan_stage.build_plan(graph, research, project_dir=pd, max_scenes=args.max_scenes)
+    report = validate_plan(plan, project_dir=pd)
     out = plan_stage.save_plan(plan, pd)
     print(f"✔ الخطة محفوظة: {out}")
+    for warning in report["warnings"][:8]:
+        print(f"⚠ {warning}")
+    if not report["ok"]:
+        for error in report["errors"][:12]:
+            print(f"✘ {error}", file=sys.stderr)
+        print(f"✘ الخطة المبنية غير صالحة ({len(report['errors'])} خطأ)", file=sys.stderr)
+        return 2
     timing = plan.get("timing") or {}
     if timing.get("source"):
         lvl = timing.get("level") or "-"
@@ -165,6 +175,16 @@ def cmd_render(args) -> int:
         plan = plan_stage.build_plan(graph, research, project_dir=pd)
         plan_stage.save_plan(plan, pd)
         print("• تم بناء الخطة تلقائيًا")
+
+    if not getattr(args, "skip_validate", False):
+        report = validate_plan(plan, project_dir=pd)
+        for warning in report["warnings"][:10]:
+            print(f"⚠ {warning}")
+        if not report["ok"]:
+            for error in report["errors"][:20]:
+                print(f"✘ {error}", file=sys.stderr)
+            print(f"✘ الخطة غير صالحة ({len(report['errors'])} خطأ) — لم يبدأ الرندر", file=sys.stderr)
+            return 2
 
     out = Path(args.out) if args.out else pd / "render" / "preview.mp4"
     size = (1280, 720)
@@ -267,6 +287,80 @@ def cmd_learn(args) -> int:
     return 0
 
 
+def cmd_validate(args) -> int:
+    p = Path(args.plan)
+    plan = read_json(p)
+    if not plan:
+        print(f"✘ تعذّر قراءة الخطة: {p}")
+        return 1
+    if args.project:
+        pd = project_dir(args.project)
+    elif p.parent.name == "storyboard":
+        pd = p.parent.parent
+    else:
+        pd = p.parent
+    report = validate_plan(plan, project_dir=pd)
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    if report["warnings"]:
+        for warning in report["warnings"][:20]:
+            print(f"⚠ {warning}", file=sys.stderr)
+    if not report["ok"]:
+        print(f"✘ خطة غير صالحة: {len(report['errors'])} خطأ", file=sys.stderr)
+        return 2
+    if args.strict and report["warnings"]:
+        print("✘ --strict: التحذيرات تُعدّ أخطاء", file=sys.stderr)
+        return 2
+    print(f"✔ خطة صالحة: {report['stats']['scenes']} مشهد · {report['stats']['elements']} عنصر · {report['stats']['duration']}ث")
+    return 0
+
+
+def cmd_assets(args) -> int:
+    """Dispatch to the Asset Studio CLI without duplicating its logic."""
+    from engine.assets import studio as asset_studio
+
+    argv = [args.assets_cmd]
+    if args.assets_cmd == "generate":
+        argv += [args.kind]
+        if args.purpose:
+            argv += ["--purpose", args.purpose]
+        argv += ["--size", args.size, "--count", str(args.count), "--seed", str(args.seed),
+                 "--style", args.style, "--method", args.method, "--steps", str(args.steps),
+                 "--guidance", str(args.guidance)]
+        if args.text_zone:
+            argv += ["--text-zone", args.text_zone]
+        if args.no_clean:
+            argv += ["--no-clean"]
+        if args.seamless:
+            argv += ["--seamless"]
+        if args.out:
+            argv += ["--out", args.out]
+        if args.prompt:
+            argv += ["--prompt", args.prompt]
+        if args.negative:
+            argv += ["--negative", args.negative]
+        if args.max_candidates:
+            argv += ["--max-candidates", str(args.max_candidates)]
+        if args.timeout:
+            argv += ["--timeout", str(args.timeout)]
+        if args.force:
+            argv += ["--force"]
+        if args.allow_fail:
+            argv += ["--allow-fail"]
+    elif args.assets_cmd == "list":
+        argv += ["--style", args.style]
+        if args.kind:
+            argv += ["--kind", args.kind]
+        if args.approved:
+            argv += ["--approved", args.approved]
+    elif args.assets_cmd in ("approve", "reject"):
+        argv += [args.id, "--style", args.style, "--note", args.note]
+    elif args.assets_cmd in ("kinds", "doctor"):
+        argv += ["--style", args.style]
+    elif args.assets_cmd == "brain":
+        argv += [args.text, "--purpose", args.purpose]
+    return asset_studio.main(argv)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(prog="rasm", description="محرك راسم: فيديو وايت بورد عربي بالذكاء الاصطناعي")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -303,6 +397,12 @@ def main() -> int:
     p5.add_argument("--max-scenes", type=int, default=None)
     p5.set_defaults(func=cmd_plan)
 
+    pv = sub.add_parser("validate", help="فحص خطة JSON قبل الرندر")
+    pv.add_argument("plan")
+    pv.add_argument("--project", default=None, help="مجلد المشروع لحل مسارات الأصول النسبية")
+    pv.add_argument("--strict", action="store_true", help="التحذيرات تُعدّ أخطاء")
+    pv.set_defaults(func=cmd_validate)
+
     p6 = sub.add_parser("render", help="رندر الفيديو من الخطة")
     p6.add_argument("project")
     p6.add_argument("--out")
@@ -315,6 +415,7 @@ def main() -> int:
     p6.add_argument("--no-sfx", dest="sfx", action="store_false", help="تعطيل مؤثرات القلم (مفعّلة افتراضيًا)")
     p6.add_argument("--sfx-preset", choices=["paper", "subtle", "bold"], default="paper", help="شدة المؤثرات")
     p6.add_argument("--audio", help="ملف تعليق صوتي (وإلا يُستخدم صوت المشروع تلقائيًا)")
+    p6.add_argument("--skip-validate", action="store_true", help="تجاوز فحص الخطة (للملفات القديمة فقط)")
     p6.set_defaults(func=cmd_render)
 
     p8 = sub.add_parser("audio", help="استيراد تعليق صوتي + فحص دقيق + محاذاة تقديرية صريحة")
@@ -330,6 +431,61 @@ def main() -> int:
     p7.add_argument("value", help="القيمة الجديدة (للاحتياجات: فصل بفواصل)")
     p7.add_argument("--note", default="", help="سبب التصحيح (للتوثيق)")
     p7.set_defaults(func=cmd_learn)
+
+    p9 = sub.add_parser("assets", help="توليد ومراجعة أصول ورقية/كولاج بالاستايل المقفول")
+    asub = p9.add_subparsers(dest="assets_cmd", required=True)
+    ag = asub.add_parser("generate", help="توليد أصل جديد (إجرائي أو SD1.5)")
+    ag.add_argument("kind")
+    ag.add_argument("--purpose", choices=["background", "card", "scrap", "overlay"], default=None)
+    ag.add_argument("--size", default="2560x1440")
+    ag.add_argument("--count", type=int, default=3)
+    ag.add_argument("--seed", type=int, default=42)
+    ag.add_argument("--style", default="paper_ink_v1")
+    ag.add_argument("--method", choices=["auto", "procedural", "sd15"], default="auto")
+    ag.add_argument("--text-zone", default=None)
+    ag.add_argument("--no-clean", action="store_true")
+    ag.add_argument("--seamless", action="store_true")
+    ag.add_argument("--out", default=None)
+    ag.add_argument("--prompt", default=None)
+    ag.add_argument("--negative", default=None)
+    ag.add_argument("--steps", type=int, default=20)
+    ag.add_argument("--guidance", type=float, default=7.0)
+    ag.add_argument("--max-candidates", type=int, default=None)
+    ag.add_argument("--timeout", type=int, default=None)
+    ag.add_argument("--force", action="store_true")
+    ag.add_argument("--allow-fail", action="store_true")
+    ag.set_defaults(func=cmd_assets)
+
+    ak = asub.add_parser("kinds", help="عرض أنواع الأصول")
+    ak.add_argument("--style", default="paper_ink_v1")
+    ak.set_defaults(func=cmd_assets)
+
+    al = asub.add_parser("list", help="عرض الأصول المولدة")
+    al.add_argument("--kind", default=None)
+    al.add_argument("--approved", choices=["yes", "no"], default=None)
+    al.add_argument("--style", default="paper_ink_v1")
+    al.set_defaults(func=cmd_assets)
+
+    aa = asub.add_parser("approve", help="اعتماد أصل")
+    aa.add_argument("id")
+    aa.add_argument("--note", default="")
+    aa.add_argument("--style", default="paper_ink_v1")
+    aa.set_defaults(func=cmd_assets)
+
+    ar = asub.add_parser("reject", help="رفض أصل")
+    ar.add_argument("id")
+    ar.add_argument("--note", default="")
+    ar.add_argument("--style", default="paper_ink_v1")
+    ar.set_defaults(func=cmd_assets)
+
+    ad = asub.add_parser("doctor", help="فحص الاستوديو وSD1.5")
+    ad.add_argument("--style", default="paper_ink_v1")
+    ad.set_defaults(func=cmd_assets)
+
+    ab = asub.add_parser("brain", help="اقتراح نوع الأصل من وصف المشهد")
+    ab.add_argument("text")
+    ab.add_argument("--purpose", choices=["background", "card", "scrap", "overlay"], default="background")
+    ab.set_defaults(func=cmd_assets)
 
     args = ap.parse_args()
     return args.func(args)

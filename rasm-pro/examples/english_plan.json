@@ -1,0 +1,45 @@
+{
+  "lang": "en",
+  "canvas": [2560, 1440],
+  "fps": 30,
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 5.0,
+      "elements": [
+        {
+          "type": "text",
+          "text": "The First World War",
+          "font": "inter",
+          "size": 220,
+          "weight": 650,
+          "rect": [220, 280, 2120, 700],
+          "mode": "skeleton",
+          "rtl": false,
+          "color": "#211E1A",
+          "gap": 0.25
+        },
+        {
+          "type": "underline",
+          "rect": [240, 780, 1200, 80],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.0,
+          "offset": 14
+        },
+        {
+          "type": "text",
+          "text": "1914 - 1918",
+          "font": "inter",
+          "size": 130,
+          "weight": 600,
+          "rect": [260, 1040, 1600, 180],
+          "mode": "skeleton",
+          "rtl": false,
+          "color": "#8C2F1F",
+          "gap": 0.2
+        }
+      ]
+    }
+  ]
+}

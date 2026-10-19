@@ -1,0 +1,59 @@
+{
+  "batchcomplete": "",
+  "continue": {
+    "sroffset": 5,
+    "continue": "-||"
+  },
+  "query": {
+    "searchinfo": {
+      "totalhits": 302
+    },
+    "search": [
+      {
+        "ns": 0,
+        "title": "الحرب العالمية الثانية",
+        "pageid": 1855,
+        "size": 180121,
+        "wordcount": 13132,
+        "snippet": "<span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> هي <span class=\"searchmatch\">حرب</span> دولية بدأت <span class=\"searchmatch\">في</span> الأول من سبتمبر من عام 1939 <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">أوروبا</span> وانتهت <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">الثاني</span> من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية",
+        "timestamp": "2026-09-06T19:09:59Z"
+      },
+      {
+        "ns": 0,
+        "title": "التوسع الاقتصادي بعد الحرب العالمية الثانية",
+        "pageid": 7377583,
+        "size": 17351,
+        "wordcount": 1334,
+        "snippet": "كان <span class=\"searchmatch\">التوسع</span> الاقتصادي <span class=\"searchmatch\">في</span> مرحلة ما بعد <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span>، والذي عُرِف أيضًا بالعصر الذهبي للرأسمالية والازدهار الاقتصادي ما بعد <span class=\"searchmatch\">الحرب</span>، أو ببساطة الازدهار",
+        "timestamp": "2026-07-18T21:59:45Z"
+      },
+      {
+        "ns": 0,
+        "title": "جرائم الحرب الإسرائيلية في الحرب الفلسطينية الإسرائيلية",
+        "pageid": 9954338,
+        "size": 671402,
+        "wordcount": 39725,
+        "snippet": "منذ اندلاع <span class=\"searchmatch\">الحرب</span> الفلسطينية الإسرائيلية بتاريخ 7 أكتوبر 2023، وُجهت اتهامات متزايدة للجيش والسلطات الإسرائيلية بارتكاب جرائم <span class=\"searchmatch\">حرب</span> وانتهاكات جسيمة للقانون",
+        "timestamp": "2026-09-14T21:17:25Z"
+      },
+      {
+        "ns": 0,
+        "title": "الإشراف والرقابة على الإنترنت حسب البلد",
+        "pageid": 4757261,
+        "size": 727363,
+        "wordcount": 53590,
+        "snippet": "تصفية الإنترنت <span class=\"searchmatch\">العالمية</span> لـ ONI. ينص الدستور والقانون على حرية الكلام والصحافة. لا توجد قيود حكومية على الوصول إلى الإنترنت أو تقارير <span class=\"searchmatch\">موثوقة</span> تفيد بأن الحكومة",
+        "timestamp": "2026-08-05T21:41:02Z"
+      },
+      {
+        "ns": 0,
+        "title": "الخيول في الحرب العالمية الثانية",
+        "pageid": 10069309,
+        "size": 117434,
+        "wordcount": 8577,
+        "snippet": "الخيول <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> كانت وسيلةً أساسيةً استخدمتها الدول المتحاربة <span class=\"searchmatch\">في</span> نقل القوات، المدفعية، العتاد والرسائل، وباقي التجهيزات العسكرية غير الحية،",
+        "timestamp": "2026-08-11T19:04:45Z"
+      }
+    ]
+  }
+}

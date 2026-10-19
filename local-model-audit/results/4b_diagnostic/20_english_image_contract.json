@@ -1,0 +1,85 @@
+{
+  "name": "20_english_image_contract",
+  "request": {
+    "model": "qwen3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write concise English-only prompts for the existing local Stable Diffusion 1.5 tool. Use plain ASCII. No Arabic. Do not claim historical authenticity."
+      },
+      {
+        "role": "user",
+        "content": "Create an original simple World War II era merchant ship whiteboard asset. Write one English image prompt, at most 20 words, no artist names. JSON only.\n/no_think"
+      }
+    ],
+    "temperature": 0.1,
+    "seed": 42,
+    "max_tokens": 160,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "audit_output",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "prompt": {
+              "type": "string",
+              "minLength": 20,
+              "maxLength": 160,
+              "pattern": "^[ -~]+$"
+            }
+          },
+          "required": [
+            "prompt"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"prompt\": \"Simple whiteboard sketch of a WWII merchant ship with basic lines and labels\"}"
+        }
+      }
+    ],
+    "created": 1792408525,
+    "model": "qwen3",
+    "system_fingerprint": "b11718-547208dca",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 20,
+      "prompt_tokens": 82,
+      "total_tokens": 102,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-ZAE5ILeEjrfopj2PfUNSaC11pDGV4NxZ",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 82,
+      "prompt_ms": 2182.965,
+      "prompt_per_token_ms": 26.621524390243906,
+      "prompt_per_second": 37.56358897187999,
+      "predicted_n": 20,
+      "predicted_ms": 3441.204,
+      "predicted_per_token_ms": 181.116,
+      "predicted_per_second": 5.521323350780715
+    }
+  },
+  "parsed": {
+    "prompt": "Simple whiteboard sketch of a WWII merchant ship with basic lines and labels"
+  },
+  "finish_reason": "stop",
+  "seconds": 5.734
+}

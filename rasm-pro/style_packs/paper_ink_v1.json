@@ -1,0 +1,198 @@
+{
+  "id": "paper_ink_v1",
+  "name": "Paper & Ink — cinematic documentary",
+  "description": "Locked palette and material language for backgrounds, cards, scraps and overlays. Paper is warm, ink is soft black, accents are oxblood/ochre/sage.",
+  "palette": {
+    "paper": ["#F4EBDD", "#E8DCC8", "#D9C7A8", "#C9B896"],
+    "ink": ["#211E1A", "#3A342C", "#5A5145"],
+    "accent": ["#8C2F1F", "#C9A227", "#5B6E5A"],
+    "highlight": ["#F3D57C", "#FFF8E7"]
+  },
+  "text_safe_zone": [0.16, 0.16, 0.68, 0.58],
+  "prompt_max_tokens": 72,
+  "prompt_prefix": "vintage documentary paper asset, warm cream paper, muted oxblood and ochre, soft print grain, flat scan, no text, no letters",
+  "negative": "text, letters, words, typography, watermark, signature, logo, caption, people, faces, hands, modern objects, glossy, neon, 3d render, photorealistic, busy background",
+  "qa": {
+    "max_palette_distance": 46.0,
+    "max_saturation": 0.52,
+    "max_text_zone_busy": 0.20,
+    "min_text_zone_contrast": 0.0,
+    "min_resolution": [768, 512],
+    "max_faces": 0,
+    "min_alpha_coverage": 0.015,
+    "min_score": 52.0
+  },
+  "kinds": {
+    "aged_paper": {
+      "method": "procedural",
+      "purpose": "background",
+      "description": "Warm aged paper for full-frame backgrounds and text cards.",
+      "params": {"base": "#EFE3CF", "stains": 8, "stain_strength": 0.14, "foxing": 80, "folds": 2, "edge": 0.13, "vignette": 0.16, "fibers": 0.6, "mottle": 0.8}
+    },
+    "parchment": {
+      "method": "procedural",
+      "purpose": "background",
+      "description": "Warmer, older parchment with heavier mottling.",
+      "params": {"base": "#E8D3A8", "stains": 12, "stain_strength": 0.18, "foxing": 120, "folds": 1, "edge": 0.20, "vignette": 0.22, "fibers": 0.7, "mottle": 0.95}
+    },
+    "kraft_paper": {
+      "method": "procedural",
+      "purpose": "background",
+      "description": "Brown kraft paper for craft/collage scenes.",
+      "params": {"base": "#C9A77A", "stains": 5, "stain_strength": 0.10, "foxing": 50, "folds": 3, "edge": 0.16, "vignette": 0.14, "fibers": 0.9, "mottle": 0.9}
+    },
+    "newsprint": {
+      "method": "procedural",
+      "purpose": "background",
+      "description": "Greyish newsprint with a subtle halftone screen.",
+      "params": {"base": "#D8D2C4", "stains": 6, "stain_strength": 0.12, "halftone_step": 7, "halftone_radius": 1, "halftone_alpha": 0.10, "edge": 0.12, "vignette": 0.12, "fibers": 0.85, "mottle": 0.9}
+    },
+    "grid_paper": {
+      "method": "procedural",
+      "purpose": "background",
+      "description": "Cream graph paper for data, maps and technical explanations.",
+      "params": {"base": "#F2EBDD", "step": 90, "grid_alpha": 0.14}
+    },
+    "lined_paper": {
+      "method": "procedural",
+      "purpose": "background",
+      "description": "Cream ruled paper for notes and letters.",
+      "params": {"base": "#F2EBDD", "step": 86, "line_alpha": 0.13}
+    },
+    "torn_paper": {
+      "method": "procedural",
+      "purpose": "card",
+      "description": "Torn paper card with transparent edges and a soft shadow.",
+      "requires_alpha": true,
+      "params": {"base": "#F4EBDD", "tear": 14, "stains": 3, "folds": 1, "shadow": true}
+    },
+    "paper_scrap": {
+      "method": "procedural",
+      "purpose": "scrap",
+      "description": "Small irregular paper scrap for collage.",
+      "requires_alpha": true,
+      "params": {"base": "#EFE3CF", "tear": 10, "stains": 2, "folds": 1, "shadow": true}
+    },
+    "tape_strip": {
+      "method": "procedural",
+      "purpose": "overlay",
+      "description": "Translucent aged tape strip.",
+      "requires_alpha": true,
+      "params": {"base": "#D9C79A", "alpha": 0.55}
+    },
+    "ink_stain": {
+      "method": "procedural",
+      "purpose": "overlay",
+      "description": "Soft ink stain overlay.",
+      "requires_alpha": true,
+      "params": {"color": "#3A2A1E", "blobs": 5, "alpha": 0.55}
+    },
+    "postcard": {
+      "method": "procedural",
+      "purpose": "card",
+      "description": "Aged postcard with border, stamp box and postmark rings.",
+      "params": {"base": "#F4EBDD", "border": 36, "stains": 4}
+    },
+    "poster": {
+      "method": "procedural",
+      "purpose": "card",
+      "description": "Textless vintage poster background with geometric blocks.",
+      "tone_strength": 0.30,
+      "saturation_scale": 0.82,
+      "vignette_strength": 0.10,
+      "params": {"base": "#E8D8B8"}
+    },
+    "photo_frame": {
+      "method": "procedural",
+      "purpose": "overlay",
+      "description": "White photo frame with transparent centre.",
+      "requires_alpha": true,
+      "params": {"border": 28}
+    },
+    "halftone": {
+      "method": "procedural",
+      "purpose": "overlay",
+      "description": "Transparent halftone dot screen.",
+      "requires_alpha": true,
+      "params": {"dot": 7, "radius": 1}
+    },
+    "fold_lines": {
+      "method": "procedural",
+      "purpose": "overlay",
+      "description": "Transparent fold/crease lines.",
+      "requires_alpha": true,
+      "params": {"lines": 3}
+    },
+    "vignette_overlay": {
+      "method": "procedural",
+      "purpose": "overlay",
+      "description": "Transparent dark vignette.",
+      "requires_alpha": true,
+      "params": {"strength": 0.45}
+    },
+    "seamless_paper": {
+      "method": "procedural",
+      "purpose": "background",
+      "description": "Low-contrast paper for tiled backgrounds.",
+      "params": {"base": "#EFE3CF", "stains": 5}
+    },
+    "sticker": {
+      "method": "procedural",
+      "purpose": "scrap",
+      "description": "Die-cut paper sticker with a white border.",
+      "requires_alpha": true,
+      "params": {"base": "#F4EBDD"}
+    },
+    "label_tag": {
+      "method": "procedural",
+      "purpose": "scrap",
+      "description": "Paper label tag with a punched hole.",
+      "requires_alpha": true,
+      "params": {"base": "#E8D8B8"}
+    },
+    "blueprint": {
+      "method": "procedural",
+      "purpose": "background",
+      "description": "Blue engineering grid paper.",
+      "params": {"step": 80}
+    },
+    "vintage_poster": {
+      "method": "sd15",
+      "purpose": "card",
+      "description": "SD1.5-generated textless poster background; falls back to procedural poster.",
+      "prompt": "1930s vintage poster background, geometric blocks, muted oxblood, ochre and cream, screenprint grain, flat scan, no text, no letters",
+      "fallback": "poster",
+      "tone_strength": 0.28,
+      "saturation_scale": 0.82
+    },
+    "collage_element": {
+      "method": "sd15",
+      "purpose": "scrap",
+      "description": "SD1.5-generated collage element isolated on paper; falls back to paper scrap.",
+      "prompt": "vintage botanical illustration, single plant, muted sage and ochre, isolated on plain cream paper, flat scan, no text, no letters, no shadow",
+      "fallback": "paper_scrap",
+      "requires_alpha": true,
+      "tone_strength": 0.40,
+      "saturation_scale": 0.80
+    },
+    "map_fragment": {
+      "method": "sd15",
+      "purpose": "background",
+      "description": "SD1.5-generated antique map fragment; falls back to parchment.",
+      "prompt": "antique map fragment, sepia ink coastlines and hatching, muted cream paper, aged edges, flat scan, no text, no letters",
+      "fallback": "parchment",
+      "tone_strength": 0.45,
+      "saturation_scale": 0.70
+    },
+    "botanical_print": {
+      "method": "sd15",
+      "purpose": "scrap",
+      "description": "SD1.5-generated antique botanical print; falls back to paper scrap.",
+      "prompt": "antique botanical print, single plant, muted colors, cream paper, flat scan, no text, no letters",
+      "fallback": "paper_scrap",
+      "requires_alpha": true,
+      "tone_strength": 0.35,
+      "saturation_scale": 0.80
+    }
+  }
+}

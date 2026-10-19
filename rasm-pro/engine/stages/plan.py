@@ -90,6 +90,14 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
     index = _index_assets(research)
     scenes = list(graph.get("scenes", []))[: (max_scenes or 10_000)]
     out_scenes: list[dict] = []
+    english = str(graph.get("lang") or "ar").lower().startswith("en")
+    title_font = "inter" if english else "arefruqaa"
+    body_font = "inter" if english else "cairo"
+    title_size = 220 if english else 260
+    sub_size = 112 if english else 128
+    label_size = 86 if english else 96
+    caption_size = 140 if english else 150
+    headline_size = 180 if english else 190
 
     for i, s in enumerate(scenes, 1):
         narration = (s.get("narration") or "").strip()
@@ -111,11 +119,12 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
                     {
                         "type": "text",
                         "text": _wrap(title, 4),
-                        "font": "arefruqaa",
-                        "size": 260,
+                        "font": title_font,
+                        "size": title_size,
                         "rect": [SAFE, 220, CANVAS[0] - 2 * SAFE, 720],
                         "mode": "skeleton",
-                        "rtl": True,
+                        "rtl": not english,
+                        **({"weight": 650} if english else {}),
                         "color": INK,
                         "gap": 0.3,
                     }
@@ -126,11 +135,12 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
                     {
                         "type": "text",
                         "text": _wrap(sub, 6),
-                        "font": "cairo",
-                        "size": 128,
+                        "font": body_font,
+                        "size": sub_size,
                         "rect": [SAFE + 60, 940, CANVAS[0] - 2 * SAFE - 120, 340],
                         "mode": "skeleton",
-                        "rtl": True,
+                        "rtl": not english,
+                        **({"weight": 500} if english else {}),
                         "color": ACCENT,
                         "gap": 0.4,
                     }
@@ -144,11 +154,12 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
                         {
                             "type": "text",
                             "text": label,
-                            "font": "cairo",
-                            "size": 96,
+                            "font": body_font,
+                            "size": label_size,
                             "rect": [1450, 150, 980, 190],
                             "mode": "skeleton",
-                            "rtl": True,
+                            "rtl": not english,
+                            **({"weight": 500} if english else {}),
                             "color": ACCENT,
                             "gap": 0.2,
                         }
@@ -171,11 +182,12 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
                         {
                             "type": "text",
                             "text": _wrap(caption, 4),
-                            "font": "cairo",
-                            "size": 150,
+                            "font": body_font,
+                            "size": caption_size,
                             "rect": [1520, 400, 920, 740],
                             "mode": "skeleton",
-                            "rtl": True,
+                            "rtl": not english,
+                            **({"weight": 500} if english else {}),
                             "color": INK,
                             "gap": 0.3,
                         }
@@ -185,11 +197,12 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
                     {
                         "type": "text",
                         "text": caption,
-                        "font": "arefruqaa",
-                        "size": 190,
+                        "font": title_font,
+                        "size": headline_size,
                         "rect": [SAFE, 380, CANVAS[0] - 2 * SAFE, 700],
                         "mode": "skeleton",
-                        "rtl": True,
+                        "rtl": not english,
+                        **({"weight": 600} if english else {}),
                         "color": INK,
                         "gap": 0.3,
                     }

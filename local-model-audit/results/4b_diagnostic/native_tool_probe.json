@@ -1,0 +1,562 @@
+{
+  "history": [
+    {
+      "turn": 0,
+      "request": {
+        "model": "qwen3",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You can use the provided native tools. Find and download one suitable licensed archival image of the German invasion of Poland in 1939. Use English search keywords. Do not invent files. Do not claim visual inspection."
+          },
+          {
+            "role": "user",
+            "content": "دور بنفسك على أصل أرشيفي مناسب لبداية الحرب العالمية الثانية في أوروبا وحمله باستخدام الأدوات."
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "search_assets",
+                  "arguments": "{\"query\": \"German invasion of Poland 1939 archival\"}"
+                },
+                "id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx",
+            "content": "{\"query\": \"German invasion of Poland 1939 archival\", \"assets\": [{\"title\": \"File:\\\"A testimony of senseless Polish destruction,\\\" German invasion of Poland, 1939 (33633762104).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:%22A_testimony_of_senseless_Polish_destruction,%22_German_invasion_of_Poland,_1939_(33633762104).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2792, \"height\": 1836, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 348889, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3845-6\", \"permission\": \"\", \"description\": \"Lot-3845-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “A testimony of senseless Polish destruction.” Courtesy of the Library of Congress. (2017/05/05).\", \"date\": \"2017-05-05 09:07\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a1\"}, {\"title\": \"File:Camouflaged German aircraft awaiting deployment, Invasion of Poland, 1939 (33629847994).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Camouflaged_German_aircraft_awaiting_deployment,_Invasion_of_Poland,_1939_(33629847994).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2719, \"height\": 1840, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 219314, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3951-6\", \"permission\": \"\", \"description\": \"Lot-3951-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “On Stand By. Under the trees, camouflaged German aircraft expect the command to be deployed.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.\", \"date\": \"2017-05-05 09:21\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a2\"}, {\"title\": \"File:Cars during German invasion, Kraków, Poland, 1939 (33629848414).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Cars_during_German_invasion,_Krak%C3%B3w,_Poland,_1939_(33629848414).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2744, \"height\": 1988, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 317664, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3951-4\", \"permission\": \"\", \"description\": \"Lot-3951-4: WWII: German Invasion of Poland, September 1939. Translated German reads, Cracow: Damaged military cars.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.\", \"date\": \"2017-05-05 09:21\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a3\"}, {\"title\": \"File:German-infantry-marching-MG34-poland-1939.png\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:German-infantry-marching-MG34-poland-1939.png\", \"url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"width\": 744, \"height\": 575, \"mime\": \"image/png\", \"is_vector\": false, \"size\": 553457, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"Frank Capra (film)\", \"credit\": \"Divide and Conquer (Why We Fight #3) Public Domain (U.S. War Department): https://archive.org/details/DivideAndConquer\", \"permission\": \"\", \"description\": \"German infantry equipped with MG 34 marching on during the Invasion of Poland . Screenhot taken from the 1943 United States Army propaganda film Divide and Conquer ( Why We Fight #3 ) directed by Frank Capra and partially based on, news archives, animations, restaged scenes and captured propaganda material from both sides.\", \"date\": \"1939\", \"uploader\": \"Shame On You~commonswiki\", \"id\": \"a4\"}, {\"title\": \"File:Polish victim of German Luftwaffe action 1939.jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg\", \"url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"width\": 627, \"height\": 939, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 349493, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"Julien Bryan\", \"credit\": \"Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .\", \"permission\": \"\", \"description\": \"Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \\\"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i\", \"date\": \"1939-09-13\", \"uploader\": \"Jarekt\", \"id\": \"a5\"}]}"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "download_asset",
+                  "arguments": "{\"id\": \"a1\"}"
+                },
+                "id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV",
+            "content": "{\"id\": \"a1\", \"path\": \"D:\\\\withbord inmation\\\\local-model-audit\\\\results\\\\4b_diagnostic\\\\assets\\\\a1.jpg\", \"license\": \"Public domain\", \"bytes\": 280320}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_assets",
+              "description": "Search real Wikimedia Commons for licensed archival assets. Query must use short English keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "download_asset",
+              "description": "Download one real returned asset by its id; license checked by engine. Never invent an id.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "temperature": 0.1,
+        "seed": 42,
+        "max_tokens": 300,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "search_assets",
+                    "arguments": "{\"query\": \"German invasion of Poland 1939 archival\"}"
+                  },
+                  "id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1792408739,
+        "model": "qwen3",
+        "system_fingerprint": "b11718-547208dca",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 29,
+          "prompt_tokens": 300,
+          "total_tokens": 329,
+          "prompt_tokens_details": {
+            "cached_tokens": 4
+          }
+        },
+        "id": "chatcmpl-Ku4z91NysoBpUIQpOrQ3ZEZ86z80iQ1b",
+        "timings": {
+          "cache_n": 4,
+          "prompt_n": 296,
+          "prompt_ms": 11132.528,
+          "prompt_per_token_ms": 37.60989189189189,
+          "prompt_per_second": 26.588749653268334,
+          "predicted_n": 29,
+          "predicted_ms": 4738.384,
+          "predicted_per_token_ms": 169.228,
+          "predicted_per_second": 5.90918760488808
+        }
+      },
+      "seconds": 16.223,
+      "executions": [
+        {
+          "name": "search_assets",
+          "args": {
+            "query": "German invasion of Poland 1939 archival"
+          },
+          "result": {
+            "query": "German invasion of Poland 1939 archival",
+            "assets": [
+              {
+                "title": "File:\"A testimony of senseless Polish destruction,\" German invasion of Poland, 1939 (33633762104).jpg",
+                "page_url": "https://commons.wikimedia.org/wiki/File:%22A_testimony_of_senseless_Polish_destruction,%22_German_invasion_of_Poland,_1939_(33633762104).jpg",
+                "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                "width": 2792,
+                "height": 1836,
+                "mime": "image/jpeg",
+                "is_vector": false,
+                "size": 348889,
+                "license": "Public domain",
+                "license_url": "",
+                "copyrighted": "False",
+                "attribution_required": "false",
+                "artist": "National Museum of the U.S. Navy",
+                "credit": "Lot-3845-6",
+                "permission": "",
+                "description": "Lot-3845-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “A testimony of senseless Polish destruction.” Courtesy of the Library of Congress. (2017/05/05).",
+                "date": "2017-05-05 09:07",
+                "uploader": "Hiàn (alt)",
+                "id": "a1"
+              },
+              {
+                "title": "File:Camouflaged German aircraft awaiting deployment, Invasion of Poland, 1939 (33629847994).jpg",
+                "page_url": "https://commons.wikimedia.org/wiki/File:Camouflaged_German_aircraft_awaiting_deployment,_Invasion_of_Poland,_1939_(33629847994).jpg",
+                "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                "width": 2719,
+                "height": 1840,
+                "mime": "image/jpeg",
+                "is_vector": false,
+                "size": 219314,
+                "license": "Public domain",
+                "license_url": "",
+                "copyrighted": "False",
+                "attribution_required": "false",
+                "artist": "National Museum of the U.S. Navy",
+                "credit": "Lot-3951-6",
+                "permission": "",
+                "description": "Lot-3951-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “On Stand By. Under the trees, camouflaged German aircraft expect the command to be deployed.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.",
+                "date": "2017-05-05 09:21",
+                "uploader": "Hiàn (alt)",
+                "id": "a2"
+              },
+              {
+                "title": "File:Cars during German invasion, Kraków, Poland, 1939 (33629848414).jpg",
+                "page_url": "https://commons.wikimedia.org/wiki/File:Cars_during_German_invasion,_Krak%C3%B3w,_Poland,_1939_(33629848414).jpg",
+                "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                "width": 2744,
+                "height": 1988,
+                "mime": "image/jpeg",
+                "is_vector": false,
+                "size": 317664,
+                "license": "Public domain",
+                "license_url": "",
+                "copyrighted": "False",
+                "attribution_required": "false",
+                "artist": "National Museum of the U.S. Navy",
+                "credit": "Lot-3951-4",
+                "permission": "",
+                "description": "Lot-3951-4: WWII: German Invasion of Poland, September 1939. Translated German reads, Cracow: Damaged military cars.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.",
+                "date": "2017-05-05 09:21",
+                "uploader": "Hiàn (alt)",
+                "id": "a3"
+              },
+              {
+                "title": "File:German-infantry-marching-MG34-poland-1939.png",
+                "page_url": "https://commons.wikimedia.org/wiki/File:German-infantry-marching-MG34-poland-1939.png",
+                "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                "width": 744,
+                "height": 575,
+                "mime": "image/png",
+                "is_vector": false,
+                "size": 553457,
+                "license": "Public domain",
+                "license_url": "",
+                "copyrighted": "False",
+                "attribution_required": "false",
+                "artist": "Frank Capra (film)",
+                "credit": "Divide and Conquer (Why We Fight #3) Public Domain (U.S. War Department): https://archive.org/details/DivideAndConquer",
+                "permission": "",
+                "description": "German infantry equipped with MG 34 marching on during the Invasion of Poland . Screenhot taken from the 1943 United States Army propaganda film Divide and Conquer ( Why We Fight #3 ) directed by Frank Capra and partially based on, news archives, animations, restaged scenes and captured propaganda material from both sides.",
+                "date": "1939",
+                "uploader": "Shame On You~commonswiki",
+                "id": "a4"
+              },
+              {
+                "title": "File:Polish victim of German Luftwaffe action 1939.jpg",
+                "page_url": "https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg",
+                "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                "width": 627,
+                "height": 939,
+                "mime": "image/jpeg",
+                "is_vector": false,
+                "size": 349493,
+                "license": "Public domain",
+                "license_url": "",
+                "copyrighted": "False",
+                "attribution_required": "false",
+                "artist": "Julien Bryan",
+                "credit": "Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .",
+                "permission": "",
+                "description": "Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i",
+                "date": "1939-09-13",
+                "uploader": "Jarekt",
+                "id": "a5"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "turn": 1,
+      "request": {
+        "model": "qwen3",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You can use the provided native tools. Find and download one suitable licensed archival image of the German invasion of Poland in 1939. Use English search keywords. Do not invent files. Do not claim visual inspection."
+          },
+          {
+            "role": "user",
+            "content": "دور بنفسك على أصل أرشيفي مناسب لبداية الحرب العالمية الثانية في أوروبا وحمله باستخدام الأدوات."
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "search_assets",
+                  "arguments": "{\"query\": \"German invasion of Poland 1939 archival\"}"
+                },
+                "id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx",
+            "content": "{\"query\": \"German invasion of Poland 1939 archival\", \"assets\": [{\"title\": \"File:\\\"A testimony of senseless Polish destruction,\\\" German invasion of Poland, 1939 (33633762104).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:%22A_testimony_of_senseless_Polish_destruction,%22_German_invasion_of_Poland,_1939_(33633762104).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2792, \"height\": 1836, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 348889, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3845-6\", \"permission\": \"\", \"description\": \"Lot-3845-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “A testimony of senseless Polish destruction.” Courtesy of the Library of Congress. (2017/05/05).\", \"date\": \"2017-05-05 09:07\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a1\"}, {\"title\": \"File:Camouflaged German aircraft awaiting deployment, Invasion of Poland, 1939 (33629847994).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Camouflaged_German_aircraft_awaiting_deployment,_Invasion_of_Poland,_1939_(33629847994).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2719, \"height\": 1840, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 219314, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3951-6\", \"permission\": \"\", \"description\": \"Lot-3951-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “On Stand By. Under the trees, camouflaged German aircraft expect the command to be deployed.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.\", \"date\": \"2017-05-05 09:21\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a2\"}, {\"title\": \"File:Cars during German invasion, Kraków, Poland, 1939 (33629848414).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Cars_during_German_invasion,_Krak%C3%B3w,_Poland,_1939_(33629848414).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2744, \"height\": 1988, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 317664, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3951-4\", \"permission\": \"\", \"description\": \"Lot-3951-4: WWII: German Invasion of Poland, September 1939. Translated German reads, Cracow: Damaged military cars.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.\", \"date\": \"2017-05-05 09:21\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a3\"}, {\"title\": \"File:German-infantry-marching-MG34-poland-1939.png\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:German-infantry-marching-MG34-poland-1939.png\", \"url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"width\": 744, \"height\": 575, \"mime\": \"image/png\", \"is_vector\": false, \"size\": 553457, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"Frank Capra (film)\", \"credit\": \"Divide and Conquer (Why We Fight #3) Public Domain (U.S. War Department): https://archive.org/details/DivideAndConquer\", \"permission\": \"\", \"description\": \"German infantry equipped with MG 34 marching on during the Invasion of Poland . Screenhot taken from the 1943 United States Army propaganda film Divide and Conquer ( Why We Fight #3 ) directed by Frank Capra and partially based on, news archives, animations, restaged scenes and captured propaganda material from both sides.\", \"date\": \"1939\", \"uploader\": \"Shame On You~commonswiki\", \"id\": \"a4\"}, {\"title\": \"File:Polish victim of German Luftwaffe action 1939.jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg\", \"url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"width\": 627, \"height\": 939, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 349493, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"Julien Bryan\", \"credit\": \"Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .\", \"permission\": \"\", \"description\": \"Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \\\"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i\", \"date\": \"1939-09-13\", \"uploader\": \"Jarekt\", \"id\": \"a5\"}]}"
+          },
+          {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "download_asset",
+                  "arguments": "{\"id\": \"a1\"}"
+                },
+                "id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV"
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV",
+            "content": "{\"id\": \"a1\", \"path\": \"D:\\\\withbord inmation\\\\local-model-audit\\\\results\\\\4b_diagnostic\\\\assets\\\\a1.jpg\", \"license\": \"Public domain\", \"bytes\": 280320}"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_assets",
+              "description": "Search real Wikimedia Commons for licensed archival assets. Query must use short English keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "download_asset",
+              "description": "Download one real returned asset by its id; license checked by engine. Never invent an id.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        ],
+        "tool_choice": "auto",
+        "temperature": 0.1,
+        "seed": 42,
+        "max_tokens": 300,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      },
+      "response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "download_asset",
+                    "arguments": "{\"id\": \"a1\"}"
+                  },
+                  "id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1792408822,
+        "model": "qwen3",
+        "system_fingerprint": "b11718-547208dca",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 21,
+          "prompt_tokens": 3409,
+          "total_tokens": 3430,
+          "prompt_tokens_details": {
+            "cached_tokens": 328
+          }
+        },
+        "id": "chatcmpl-4YuEuQcNWHIwZyn1FnuLuXDOoamGTBi3",
+        "timings": {
+          "cache_n": 328,
+          "prompt_n": 3081,
+          "prompt_ms": 73023.537,
+          "prompt_per_token_ms": 23.701245374878287,
+          "prompt_per_second": 42.19187575096507,
+          "predicted_n": 21,
+          "predicted_ms": 7071.468,
+          "predicted_per_token_ms": 353.5734,
+          "predicted_per_second": 2.8282670585513503
+        }
+      },
+      "seconds": 80.224,
+      "executions": [
+        {
+          "name": "download_asset",
+          "args": {
+            "id": "a1"
+          },
+          "result": {
+            "id": "a1",
+            "path": "D:\\withbord inmation\\local-model-audit\\results\\4b_diagnostic\\assets\\a1.jpg",
+            "license": "Public domain",
+            "bytes": 280320
+          }
+        }
+      ]
+    }
+  ],
+  "state": {
+    "sources": [],
+    "catalog": {
+      "a1": {
+        "title": "File:\"A testimony of senseless Polish destruction,\" German invasion of Poland, 1939 (33633762104).jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:%22A_testimony_of_senseless_Polish_destruction,%22_German_invasion_of_Poland,_1939_(33633762104).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2792,
+        "height": 1836,
+        "mime": "image/jpeg",
+        "is_vector": false,
+        "size": 348889,
+        "license": "Public domain",
+        "license_url": "",
+        "copyrighted": "False",
+        "attribution_required": "false",
+        "artist": "National Museum of the U.S. Navy",
+        "credit": "Lot-3845-6",
+        "permission": "",
+        "description": "Lot-3845-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “A testimony of senseless Polish destruction.” Courtesy of the Library of Congress. (2017/05/05).",
+        "date": "2017-05-05 09:07",
+        "uploader": "Hiàn (alt)",
+        "id": "a1"
+      },
+      "a2": {
+        "title": "File:Camouflaged German aircraft awaiting deployment, Invasion of Poland, 1939 (33629847994).jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Camouflaged_German_aircraft_awaiting_deployment,_Invasion_of_Poland,_1939_(33629847994).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2719,
+        "height": 1840,
+        "mime": "image/jpeg",
+        "is_vector": false,
+        "size": 219314,
+        "license": "Public domain",
+        "license_url": "",
+        "copyrighted": "False",
+        "attribution_required": "false",
+        "artist": "National Museum of the U.S. Navy",
+        "credit": "Lot-3951-6",
+        "permission": "",
+        "description": "Lot-3951-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “On Stand By. Under the trees, camouflaged German aircraft expect the command to be deployed.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.",
+        "date": "2017-05-05 09:21",
+        "uploader": "Hiàn (alt)",
+        "id": "a2"
+      },
+      "a3": {
+        "title": "File:Cars during German invasion, Kraków, Poland, 1939 (33629848414).jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Cars_during_German_invasion,_Krak%C3%B3w,_Poland,_1939_(33629848414).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2744,
+        "height": 1988,
+        "mime": "image/jpeg",
+        "is_vector": false,
+        "size": 317664,
+        "license": "Public domain",
+        "license_url": "",
+        "copyrighted": "False",
+        "attribution_required": "false",
+        "artist": "National Museum of the U.S. Navy",
+        "credit": "Lot-3951-4",
+        "permission": "",
+        "description": "Lot-3951-4: WWII: German Invasion of Poland, September 1939. Translated German reads, Cracow: Damaged military cars.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.",
+        "date": "2017-05-05 09:21",
+        "uploader": "Hiàn (alt)",
+        "id": "a3"
+      },
+      "a4": {
+        "title": "File:German-infantry-marching-MG34-poland-1939.png",
+        "page_url": "https://commons.wikimedia.org/wiki/File:German-infantry-marching-MG34-poland-1939.png",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 744,
+        "height": 575,
+        "mime": "image/png",
+        "is_vector": false,
+        "size": 553457,
+        "license": "Public domain",
+        "license_url": "",
+        "copyrighted": "False",
+        "attribution_required": "false",
+        "artist": "Frank Capra (film)",
+        "credit": "Divide and Conquer (Why We Fight #3) Public Domain (U.S. War Department): https://archive.org/details/DivideAndConquer",
+        "permission": "",
+        "description": "German infantry equipped with MG 34 marching on during the Invasion of Poland . Screenhot taken from the 1943 United States Army propaganda film Divide and Conquer ( Why We Fight #3 ) directed by Frank Capra and partially based on, news archives, animations, restaged scenes and captured propaganda material from both sides.",
+        "date": "1939",
+        "uploader": "Shame On You~commonswiki",
+        "id": "a4"
+      },
+      "a5": {
+        "title": "File:Polish victim of German Luftwaffe action 1939.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 627,
+        "height": 939,
+        "mime": "image/jpeg",
+        "is_vector": false,
+        "size": 349493,
+        "license": "Public domain",
+        "license_url": "",
+        "copyrighted": "False",
+        "attribution_required": "false",
+        "artist": "Julien Bryan",
+        "credit": "Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .",
+        "permission": "",
+        "description": "Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i",
+        "date": "1939-09-13",
+        "uploader": "Jarekt",
+        "id": "a5"
+      }
+    },
+    "downloaded": {
+      "a1": "D:\\withbord inmation\\local-model-audit\\results\\4b_diagnostic\\assets\\a1.jpg"
+    },
+    "generated": {}
+  }
+}

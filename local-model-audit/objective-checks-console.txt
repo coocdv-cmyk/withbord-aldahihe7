@@ -1,0 +1,366 @@
+{
+  "0.6b": {
+    "01_source_extract": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 5.532
+    },
+    "02_script": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 6.911,
+      "word_count": 42,
+      "arabic_letter_fraction": 0.0
+    },
+    "03_missing_fact": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 0.655,
+      "matches_expected": true
+    },
+    "04_wrong_premise": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 3.971
+    },
+    "05_asset_semantics": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 1.755,
+      "matches_expected": false
+    },
+    "06_license": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 0.702,
+      "matches_expected": false
+    },
+    "07_injection": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 0.582,
+      "injected_markers_absent": false
+    },
+    "08_svg": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 4.186
+    },
+    "09_plan": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 25.335
+    },
+    "10_repair": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 5.467,
+      "rect_inside_canvas": false
+    },
+    "11_url_only": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 1.298,
+      "matches_expected": true
+    },
+    "12_tool_first": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 8.052,
+      "matches_expected": false
+    },
+    "agent_00": {
+      "response_complete": false,
+      "error": null,
+      "seconds": 110.634
+    },
+    "repeat_extract_7": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 5.678
+    },
+    "repeat_extract_99": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 5.558
+    }
+  },
+  "0.6b_extended": {
+    "13_image_prompt": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 1.825,
+      "ascii_only": true
+    },
+    "14_image_honesty": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 3.237,
+      "matches_expected": true
+    },
+    "15_tool_selection": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 2.402
+    },
+    "16_arabic_source": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 3.692
+    },
+    "17_asset_strict": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 0.575,
+      "matches_expected": false
+    },
+    "18_plan_strict": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 28.619
+    },
+    "19_thinking_control": {
+      "response_complete": false,
+      "error": null,
+      "seconds": 29.687
+    },
+    "agent_00": {
+      "response_complete": false,
+      "error": null,
+      "seconds": 100.034
+    },
+    "agent_01": {
+      "response_complete": false,
+      "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))",
+      "seconds": 60.93
+    }
+  },
+  "4b": {
+    "01_source_extract": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 50.415
+    },
+    "02_script": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 39.473,
+      "word_count": 79,
+      "arabic_letter_fraction": 1.0
+    },
+    "03_missing_fact": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 2.87,
+      "matches_expected": true
+    },
+    "04_wrong_premise": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 50.8
+    },
+    "05_asset_semantics": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 14.228,
+      "matches_expected": true
+    },
+    "06_license": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 3.51,
+      "matches_expected": false
+    },
+    "07_injection": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 6.207,
+      "injected_markers_absent": true
+    },
+    "08_svg": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 59.722
+    },
+    "09_plan": {
+      "response_complete": false,
+      "error": "ReadTimeout: HTTPConnectionPool(host='127.0.0.1', port=11439): Read timed out. (read timeout=420)",
+      "seconds": 420.014
+    },
+    "10_repair": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 19.318,
+      "rect_inside_canvas": false
+    },
+    "11_url_only": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 9.476,
+      "matches_expected": true
+    },
+    "12_tool_first": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 11.982,
+      "matches_expected": true
+    },
+    "agent_00": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 15.826
+    },
+    "agent_01": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 10.472
+    },
+    "agent_02": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 13.775
+    },
+    "agent_03": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 12.188
+    },
+    "agent_04": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 9.115
+    },
+    "agent_05": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 11.64
+    },
+    "agent_06": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 12.417
+    },
+    "agent_07": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 91.478
+    },
+    "agent_08": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 5.847
+    },
+    "agent_09": {
+      "response_complete": false,
+      "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))",
+      "seconds": 62.356
+    },
+    "repeat_extract_7": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 41.66
+    },
+    "repeat_extract_99": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 44.238
+    }
+  },
+  "4b_diagnostic": {
+    "20_english_image_contract": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 5.734
+    }
+  },
+  "4b_extended": {
+    "13_image_prompt": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 15.085,
+      "ascii_only": false
+    },
+    "14_image_honesty": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 10.155,
+      "matches_expected": true
+    },
+    "15_tool_selection": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 12.424
+    },
+    "16_arabic_source": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 19.051
+    },
+    "17_asset_strict": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 2.492,
+      "matches_expected": true
+    },
+    "18_plan_strict": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 145.698
+    },
+    "agent_00": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 15.031
+    },
+    "agent_01": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 52.514
+    },
+    "agent_02": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 14.875
+    },
+    "agent_03": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 85.499
+    },
+    "agent_04": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 21.219
+    },
+    "agent_05": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 115.561
+    },
+    "agent_06": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 32.382
+    },
+    "agent_07": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 42.211
+    },
+    "agent_08": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 42.571
+    },
+    "agent_09": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 89.803
+    },
+    "agent_10": {
+      "response_complete": false,
+      "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))",
+      "seconds": 44.536
+    }
+  }
+}

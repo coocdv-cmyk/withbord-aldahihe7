@@ -1,0 +1,7 @@
+{
+  "prompt": "Simple whiteboard sketch of a WWII merchant ship with basic lines and labels",
+  "style": "doodle",
+  "steps": 20,
+  "guidance": 7.0,
+  "seed": 42
+}

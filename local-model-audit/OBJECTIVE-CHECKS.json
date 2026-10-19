@@ -266,6 +266,13 @@
       "seconds": 44.238
     }
   },
+  "4b_diagnostic": {
+    "20_english_image_contract": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 5.734
+    }
+  },
   "4b_extended": {
     "13_image_prompt": {
       "response_complete": true,
@@ -283,6 +290,77 @@
       "response_complete": true,
       "error": null,
       "seconds": 12.424
+    },
+    "16_arabic_source": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 19.051
+    },
+    "17_asset_strict": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 2.492,
+      "matches_expected": true
+    },
+    "18_plan_strict": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 145.698
+    },
+    "agent_00": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 15.031
+    },
+    "agent_01": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 52.514
+    },
+    "agent_02": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 14.875
+    },
+    "agent_03": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 85.499
+    },
+    "agent_04": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 21.219
+    },
+    "agent_05": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 115.561
+    },
+    "agent_06": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 32.382
+    },
+    "agent_07": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 42.211
+    },
+    "agent_08": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 42.571
+    },
+    "agent_09": {
+      "response_complete": true,
+      "error": null,
+      "seconds": 89.803
+    },
+    "agent_10": {
+      "response_complete": false,
+      "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))",
+      "seconds": 44.536
     }
   }
 }

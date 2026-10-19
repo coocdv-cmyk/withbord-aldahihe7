@@ -1,0 +1,148 @@
+{
+  "lang": "en",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": 24,
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 10,
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            180,
+            230,
+            2100,
+            230
+          ],
+          "events": false
+        },
+        {
+          "type": "text",
+          "text": "Why did the war spread?",
+          "font": "cairo",
+          "size": 100,
+          "rtl": false,
+          "rect": [
+            180,
+            230,
+            2100,
+            230
+          ],
+          "gap": 0.15
+        },
+        {
+          "type": "underline",
+          "rect": [
+            180,
+            230,
+            2100,
+            230
+          ]
+        },
+        {
+          "type": "text",
+          "text": "One event. Several alliances.\nA chain of decisions.",
+          "font": "cairo",
+          "size": 100,
+          "rtl": false,
+          "rect": [
+            250,
+            750,
+            2060,
+            350
+          ],
+          "gap": 0.15
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "duration": 10,
+      "elements": [
+        {
+          "type": "paper_card",
+          "rect": [
+            230,
+            260,
+            2100,
+            850
+          ]
+        },
+        {
+          "type": "text",
+          "text": "ARCHIVE / 1939–1945",
+          "font": "cairo",
+          "size": 100,
+          "rtl": false,
+          "rect": [
+            400,
+            380,
+            1760,
+            200
+          ],
+          "gap": 0.15
+        },
+        {
+          "type": "text",
+          "text": "An image needs context:\nwho, where, when, and why.",
+          "font": "cairo",
+          "size": 100,
+          "rtl": false,
+          "rect": [
+            400,
+            770,
+            1760,
+            300
+          ],
+          "gap": 0.15
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "duration": 10,
+      "elements": [
+        {
+          "type": "text",
+          "text": "Read the sequence",
+          "font": "cairo",
+          "size": 100,
+          "rtl": false,
+          "rect": [
+            300,
+            120,
+            1960,
+            220
+          ],
+          "gap": 0.15
+        },
+        {
+          "type": "timeline",
+          "font": "cairo",
+          "rtl": false,
+          "size": 100,
+          "rect": [
+            250,
+            600,
+            2060,
+            420
+          ],
+          "events": [
+            {
+              "label": "1939",
+              "sub": "War begins"
+            },
+            {
+              "label": "1945",
+              "sub": "War ends"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

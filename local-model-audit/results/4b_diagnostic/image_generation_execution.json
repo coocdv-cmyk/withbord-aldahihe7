@@ -1,0 +1,13 @@
+{
+  "seconds": 197.85208310000598,
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "\nLoading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]\nLoading pipeline components...:  17%|█▋        | 1/6 [00:00<00:00,  5.84it/s]`torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading pipeline components...:  33%|███▎      | 2/6 [00:01<00:02,  1.43it/s]\nLoading pipeline components...:  50%|█████     | 3/6 [00:11<00:15,  5.28s/it]\nLoading pipeline components...:  67%|██████▋   | 4/6 [00:12<00:06,  3.46s/it]\nLoading pipeline components...: 100%|██████████| 6/6 [00:12<00:00,  1.71s/it]\nLoading pipeline components...: 100%|██████████| 6/6 [00:12<00:00,  2.16s/it]\n",
+  "request": {
+    "prompt": "Simple whiteboard sketch of a WWII merchant ship with basic lines and labels",
+    "style": "doodle",
+    "steps": 20,
+    "guidance": 7.0,
+    "seed": 42
+  }
+}

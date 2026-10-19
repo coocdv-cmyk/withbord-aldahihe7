@@ -48,7 +48,11 @@ rasm-pro/library/*.json
 rasm-pro/cache/
 rasm-pro/frames/
 rasm-pro/logs/
-rasm-pro/style_packs/
+rasm-pro/style_packs/*
+!rasm-pro/style_packs/paper_ink_v1.json
+
+# asset samples are reproducible from the locked style pack
+rasm-pro/assets/generated/
 
 # rasm-pro scratch renders & intermediate frames
 # (deliverables under projects/ and qa/ are kept in the repo)
@@ -66,6 +70,13 @@ rasm-pro/qa/review_temp/
 # local-model audit — keep code/JSON, skip generated result media
 local-model-audit/results/**/*.mp4
 local-model-audit/results/**/*.wav
+local-model-audit/results/**/*.png
+
+# engine review evidence — keep report/code/JSON, skip large media/snapshots
+engine-review-20261019/*.mp4
+engine-review-20261019/*.png
+engine-review-20261019/snapshot/
+engine-review-20261019/cache/
 
 # local backup bundles
 backups/

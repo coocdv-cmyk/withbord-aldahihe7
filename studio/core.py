@@ -88,14 +88,15 @@ def model_status():
     try:
         with urllib.request.urlopen('http://127.0.0.1:11434/api/tags', timeout=1) as r:
             models = json.load(r).get('models', [])
-        if any(m['name'].startswith('qwen3:0.6b') for m in models):
-            return {'ready': True, 'provider':'ollama', 'name':'qwen3:0.6b'}
+        qwen = next((m['name'] for m in models if m['name'].startswith('qwen3:4b')), None)
+        if qwen:
+            return {'ready': True, 'provider':'ollama', 'name':qwen}
     except Exception:
         pass
     try:
         with urllib.request.urlopen('http://127.0.0.1:11435/health', timeout=1) as r:
             if json.load(r).get('status') == 'ok':
-                return {'ready': True, 'provider':'llama', 'name':'Qwen3 0.6B Q4'}
+                return {'ready': True, 'provider':'llama', 'name':'Qwen3 4B Q4'}
     except Exception:
         pass
     return {'ready':False, 'name':'المخطط المحلي بالقواعد'}
@@ -125,7 +126,7 @@ def llm_batch(batch,ids,status):
               json.dumps([s['text'] for s in batch],ensure_ascii=False))
     if status['provider'] == 'ollama':
         url = 'http://127.0.0.1:11434/api/chat'
-        payload = {'model':'qwen3:0.6b','messages':[{'role':'user','content':prompt}],
+        payload = {'model':'qwen3:4b','messages':[{'role':'user','content':prompt}],
                    'stream':False, 'think':False,'format':schema,'options':{'num_predict':4096,'temperature':0.2}}
     else:
         url = 'http://127.0.0.1:11435/v1/chat/completions'

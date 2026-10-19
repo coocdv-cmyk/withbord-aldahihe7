@@ -334,6 +334,36 @@ def image_diagnostic():
     state={'sources':[],'catalog':{},'downloaded':{},'generated':{}}
     if isinstance(r.get('parsed',{}).get('prompt'),str):
         save(CURRENT/'controlled_image_result.json',tool('generate_image',r['parsed'],state))
+    native_tool_probe()
+
+def native_tool_probe():
+    """Small separate probe of the model's native function-call interface, not JSON ReAct."""
+    state={'sources':[],'catalog':{},'downloaded':{},'generated':{}}
+    definitions=[{'type':'function','function':{'name':'search_assets','description':'Search real Wikimedia Commons for licensed archival assets. Query must use short English keywords.','parameters':{'type':'object','properties':{'query':{'type':'string'}},'required':['query']}}},
+                 {'type':'function','function':{'name':'download_asset','description':'Download one real returned asset by its id; license checked by engine. Never invent an id.','parameters':{'type':'object','properties':{'id':{'type':'string'}},'required':['id']}}}]
+    messages=[{'role':'system','content':'You can use the provided native tools. Find and download one suitable licensed archival image of the German invasion of Poland in 1939. Use English search keywords. Do not invent files. Do not claim visual inspection.'},{'role':'user','content':'دور بنفسك على أصل أرشيفي مناسب لبداية الحرب العالمية الثانية في أوروبا وحمله باستخدام الأدوات.'}]
+    history=[]
+    for turn in range(4):
+        payload={'model':'qwen3','messages':messages,'tools':definitions,'tool_choice':'auto','temperature':0.1,'seed':42,'max_tokens':300,'chat_template_kwargs':{'enable_thinking':False}}
+        t=time.perf_counter(); entry={'turn':turn,'request':payload}
+        try:
+            r=requests.post(URL+'/v1/chat/completions',json=payload,timeout=300); r.raise_for_status(); obj=r.json(); entry['response']=obj
+            msg=obj['choices'][0]['message']; calls=msg.get('tool_calls') or []
+            entry['seconds']=round(time.perf_counter()-t,3)
+            if not calls: history.append(entry); break
+            messages.append(msg); entry['executions']=[]
+            for c in calls:
+                name=c['function']['name']; args=json.loads(c['function']['arguments'])
+                try: result=tool(name,args,state)
+                except Exception as e: result={'error':str(e)}
+                entry['executions'].append({'name':name,'args':args,'result':result})
+                messages.append({'role':'tool','tool_call_id':c['id'],'content':json.dumps(result,ensure_ascii=False)})
+            history.append(entry)
+            save(CURRENT/'native_tool_probe.json',{'history':history,'state':state})
+            if state['downloaded']: break
+        except Exception as e:
+            entry['error']=str(e); history.append(entry); break
+    save(CURRENT/'native_tool_probe.json',{'history':history,'state':state})
 
 def main():
     global CURRENT,RESUME
@@ -345,6 +375,10 @@ def main():
     model=ROOT/'studio/models'/('Qwen3-0.6B-Q4_K_M.gguf' if args.model=='0.6b' else 'Qwen3-4B-Instruct-2507-Q4_K_M.gguf')
     save(CURRENT/'environment.json',{'model':str(model),'bytes':model.stat().st_size,'context':8192,'threads':args.threads,'logical_cpus':os.cpu_count(),'port':PORT,'python':sys.version,'mode':'local only, no remote LLM','phase':args.phase,'engine_source':str(SNAPSHOT if (SNAPSHOT/'engine').exists() else ROOT/'rasm-pro'),'tests':'12 tasks + 2 repeat seeds + native integration + model-directed tool loop (15 turns maximum)' if args.phase=='baseline' else 'image generation + local icons + Arabic source + strict schema planning + existing-project search agent','limitations':'finite benchmark, not exhaustive proof; text-only model; fixed prompts disclosed; no model-code execution'})
     env=dict(os.environ); env.pop('OPENAI_API_KEY',None); env.pop('GEMINI_API_KEY',None); env['RASM_LLM_BACKEND']='local'
+    try:
+        requests.get(URL+'/health',timeout=1)
+    except requests.RequestException: pass
+    else: raise RuntimeError('Audit port is already occupied; no server launched or reused.')
     log=open(CURRENT/'server.log','a' if RESUME else 'w',encoding='utf-8')
     cmd=[str(ROOT/'studio/runtime/llama-server.exe'),'-m',str(model),'--host','127.0.0.1','--port',str(PORT),'-c','8192','-t',str(args.threads),'--jinja','--parallel','1','--alias','qwen3']
     proc=subprocess.Popen(cmd,stdout=log,stderr=log,env=env,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))

@@ -2148,7 +2148,1458 @@
       "added": []
     }
   },
+  "4b_diagnostic": {
+    "cases": [
+      {
+        "case": "20_english_image_contract",
+        "seconds": 5.734,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "prompt": "Simple whiteboard sketch of a WWII merchant ship with basic lines and labels"
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 20,
+          "prompt_tokens": 82,
+          "total_tokens": 102,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      }
+    ],
+    "production_integrity": {
+      "unchanged": true,
+      "changed": [],
+      "added": []
+    },
+    "controlled_image_result": {
+      "path": "D:\\withbord inmation\\local-model-audit\\results\\4b_diagnostic\\assets\\local_image_request.png",
+      "generator": "existing local SD1.5, not the text model",
+      "semantic_visual_review": "not available to text-only model"
+    },
+    "image_generation_execution": {
+      "seconds": 197.85208310000598,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "\nLoading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]\nLoading pipeline components...:  17%|█▋        | 1/6 [00:00<00:00,  5.84it/s]`torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading pipeline components...:  33%|███▎      | 2/6 [00:01<00:02,  1.43it/s]\nLoading pipeline components...:  50%|█████     | 3/6 [00:11<00:15,  5.28s/it]\nLoading pipeline components...:  67%|██████▋   | 4/6 [00:12<00:06,  3.46s/it]\nLoading pipeline components...: 100%|██████████| 6/6 [00:12<00:00,  1.71s/it]\nLoading pipeline components...: 100%|██████████| 6/6 [00:12<00:00,  2.16s/it]\n",
+      "request": {
+        "prompt": "Simple whiteboard sketch of a WWII merchant ship with basic lines and labels",
+        "style": "doodle",
+        "steps": 20,
+        "guidance": 7.0,
+        "seed": 42
+      }
+    },
+    "native_tool_probe": {
+      "history": [
+        {
+          "turn": 0,
+          "request": {
+            "model": "qwen3",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You can use the provided native tools. Find and download one suitable licensed archival image of the German invasion of Poland in 1939. Use English search keywords. Do not invent files. Do not claim visual inspection."
+              },
+              {
+                "role": "user",
+                "content": "دور بنفسك على أصل أرشيفي مناسب لبداية الحرب العالمية الثانية في أوروبا وحمله باستخدام الأدوات."
+              },
+              {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "type": "function",
+                    "function": {
+                      "name": "search_assets",
+                      "arguments": "{\"query\": \"German invasion of Poland 1939 archival\"}"
+                    },
+                    "id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx"
+                  }
+                ]
+              },
+              {
+                "role": "tool",
+                "tool_call_id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx",
+                "content": "{\"query\": \"German invasion of Poland 1939 archival\", \"assets\": [{\"title\": \"File:\\\"A testimony of senseless Polish destruction,\\\" German invasion of Poland, 1939 (33633762104).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:%22A_testimony_of_senseless_Polish_destruction,%22_German_invasion_of_Poland,_1939_(33633762104).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2792, \"height\": 1836, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 348889, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3845-6\", \"permission\": \"\", \"description\": \"Lot-3845-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “A testimony of senseless Polish destruction.” Courtesy of the Library of Congress. (2017/05/05).\", \"date\": \"2017-05-05 09:07\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a1\"}, {\"title\": \"File:Camouflaged German aircraft awaiting deployment, Invasion of Poland, 1939 (33629847994).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Camouflaged_German_aircraft_awaiting_deployment,_Invasion_of_Poland,_1939_(33629847994).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2719, \"height\": 1840, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 219314, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3951-6\", \"permission\": \"\", \"description\": \"Lot-3951-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “On Stand By. Under the trees, camouflaged German aircraft expect the command to be deployed.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.\", \"date\": \"2017-05-05 09:21\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a2\"}, {\"title\": \"File:Cars during German invasion, Kraków, Poland, 1939 (33629848414).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Cars_during_German_invasion,_Krak%C3%B3w,_Poland,_1939_(33629848414).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2744, \"height\": 1988, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 317664, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3951-4\", \"permission\": \"\", \"description\": \"Lot-3951-4: WWII: German Invasion of Poland, September 1939. Translated German reads, Cracow: Damaged military cars.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.\", \"date\": \"2017-05-05 09:21\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a3\"}, {\"title\": \"File:German-infantry-marching-MG34-poland-1939.png\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:German-infantry-marching-MG34-poland-1939.png\", \"url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"width\": 744, \"height\": 575, \"mime\": \"image/png\", \"is_vector\": false, \"size\": 553457, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"Frank Capra (film)\", \"credit\": \"Divide and Conquer (Why We Fight #3) Public Domain (U.S. War Department): https://archive.org/details/DivideAndConquer\", \"permission\": \"\", \"description\": \"German infantry equipped with MG 34 marching on during the Invasion of Poland . Screenhot taken from the 1943 United States Army propaganda film Divide and Conquer ( Why We Fight #3 ) directed by Frank Capra and partially based on, news archives, animations, restaged scenes and captured propaganda material from both sides.\", \"date\": \"1939\", \"uploader\": \"Shame On You~commonswiki\", \"id\": \"a4\"}, {\"title\": \"File:Polish victim of German Luftwaffe action 1939.jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg\", \"url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"width\": 627, \"height\": 939, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 349493, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"Julien Bryan\", \"credit\": \"Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .\", \"permission\": \"\", \"description\": \"Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \\\"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i\", \"date\": \"1939-09-13\", \"uploader\": \"Jarekt\", \"id\": \"a5\"}]}"
+              },
+              {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "type": "function",
+                    "function": {
+                      "name": "download_asset",
+                      "arguments": "{\"id\": \"a1\"}"
+                    },
+                    "id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV"
+                  }
+                ]
+              },
+              {
+                "role": "tool",
+                "tool_call_id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV",
+                "content": "{\"id\": \"a1\", \"path\": \"D:\\\\withbord inmation\\\\local-model-audit\\\\results\\\\4b_diagnostic\\\\assets\\\\a1.jpg\", \"license\": \"Public domain\", \"bytes\": 280320}"
+              }
+            ],
+            "tools": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "search_assets",
+                  "description": "Search real Wikimedia Commons for licensed archival assets. Query must use short English keywords.",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "query": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "query"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "function",
+                "function": {
+                  "name": "download_asset",
+                  "description": "Download one real returned asset by its id; license checked by engine. Never invent an id.",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ]
+                  }
+                }
+              }
+            ],
+            "tool_choice": "auto",
+            "temperature": 0.1,
+            "seed": 42,
+            "max_tokens": 300,
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            }
+          },
+          "response": {
+            "choices": [
+              {
+                "finish_reason": "tool_calls",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "",
+                  "tool_calls": [
+                    {
+                      "type": "function",
+                      "function": {
+                        "name": "search_assets",
+                        "arguments": "{\"query\": \"German invasion of Poland 1939 archival\"}"
+                      },
+                      "id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx"
+                    }
+                  ]
+                }
+              }
+            ],
+            "created": 1792408739,
+            "model": "qwen3",
+            "system_fingerprint": "b11718-547208dca",
+            "object": "chat.completion",
+            "usage": {
+              "completion_tokens": 29,
+              "prompt_tokens": 300,
+              "total_tokens": 329,
+              "prompt_tokens_details": {
+                "cached_tokens": 4
+              }
+            },
+            "id": "chatcmpl-Ku4z91NysoBpUIQpOrQ3ZEZ86z80iQ1b",
+            "timings": {
+              "cache_n": 4,
+              "prompt_n": 296,
+              "prompt_ms": 11132.528,
+              "prompt_per_token_ms": 37.60989189189189,
+              "prompt_per_second": 26.588749653268334,
+              "predicted_n": 29,
+              "predicted_ms": 4738.384,
+              "predicted_per_token_ms": 169.228,
+              "predicted_per_second": 5.90918760488808
+            }
+          },
+          "seconds": 16.223,
+          "executions": [
+            {
+              "name": "search_assets",
+              "args": {
+                "query": "German invasion of Poland 1939 archival"
+              },
+              "result": {
+                "query": "German invasion of Poland 1939 archival",
+                "assets": [
+                  {
+                    "title": "File:\"A testimony of senseless Polish destruction,\" German invasion of Poland, 1939 (33633762104).jpg",
+                    "page_url": "https://commons.wikimedia.org/wiki/File:%22A_testimony_of_senseless_Polish_destruction,%22_German_invasion_of_Poland,_1939_(33633762104).jpg",
+                    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "width": 2792,
+                    "height": 1836,
+                    "mime": "image/jpeg",
+                    "is_vector": false,
+                    "size": 348889,
+                    "license": "Public domain",
+                    "license_url": "",
+                    "copyrighted": "False",
+                    "attribution_required": "false",
+                    "artist": "National Museum of the U.S. Navy",
+                    "credit": "Lot-3845-6",
+                    "permission": "",
+                    "description": "Lot-3845-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “A testimony of senseless Polish destruction.” Courtesy of the Library of Congress. (2017/05/05).",
+                    "date": "2017-05-05 09:07",
+                    "uploader": "Hiàn (alt)",
+                    "id": "a1"
+                  },
+                  {
+                    "title": "File:Camouflaged German aircraft awaiting deployment, Invasion of Poland, 1939 (33629847994).jpg",
+                    "page_url": "https://commons.wikimedia.org/wiki/File:Camouflaged_German_aircraft_awaiting_deployment,_Invasion_of_Poland,_1939_(33629847994).jpg",
+                    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "width": 2719,
+                    "height": 1840,
+                    "mime": "image/jpeg",
+                    "is_vector": false,
+                    "size": 219314,
+                    "license": "Public domain",
+                    "license_url": "",
+                    "copyrighted": "False",
+                    "attribution_required": "false",
+                    "artist": "National Museum of the U.S. Navy",
+                    "credit": "Lot-3951-6",
+                    "permission": "",
+                    "description": "Lot-3951-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “On Stand By. Under the trees, camouflaged German aircraft expect the command to be deployed.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.",
+                    "date": "2017-05-05 09:21",
+                    "uploader": "Hiàn (alt)",
+                    "id": "a2"
+                  },
+                  {
+                    "title": "File:Cars during German invasion, Kraków, Poland, 1939 (33629848414).jpg",
+                    "page_url": "https://commons.wikimedia.org/wiki/File:Cars_during_German_invasion,_Krak%C3%B3w,_Poland,_1939_(33629848414).jpg",
+                    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+                    "width": 2744,
+                    "height": 1988,
+                    "mime": "image/jpeg",
+                    "is_vector": false,
+                    "size": 317664,
+                    "license": "Public domain",
+                    "license_url": "",
+                    "copyrighted": "False",
+                    "attribution_required": "false",
+                    "artist": "National Museum of the U.S. Navy",
+                    "credit": "Lot-3951-4",
+                    "permission": "",
+                    "description": "Lot-3951-4: WWII: German Invasion of Poland, September 1939. Translated German reads, Cracow: Damaged military cars.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.",
+                    "date": "2017-05-05 09:21",
+                    "uploader": "Hiàn (alt)",
+                    "id": "a3"
+                  },
+                  {
+                    "title": "File:German-infantry-marching-MG34-poland-1939.png",
+                    "page_url": "https://commons.wikimedia.org/wiki/File:German-infantry-marching-MG34-poland-1939.png",
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                    "width": 744,
+                    "height": 575,
+                    "mime": "image/png",
+                    "is_vector": false,
+                    "size": 553457,
+                    "license": "Public domain",
+                    "license_url": "",
+                    "copyrighted": "False",
+                    "attribution_required": "false",
+                    "artist": "Frank Capra (film)",
+                    "credit": "Divide and Conquer (Why We Fight #3) Public Domain (U.S. War Department): https://archive.org/details/DivideAndConquer",
+                    "permission": "",
+                    "description": "German infantry equipped with MG 34 marching on during the Invasion of Poland . Screenhot taken from the 1943 United States Army propaganda film Divide and Conquer ( Why We Fight #3 ) directed by Frank Capra and partially based on, news archives, animations, restaged scenes and captured propaganda material from both sides.",
+                    "date": "1939",
+                    "uploader": "Shame On You~commonswiki",
+                    "id": "a4"
+                  },
+                  {
+                    "title": "File:Polish victim of German Luftwaffe action 1939.jpg",
+                    "page_url": "https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg",
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                    "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+                    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+                    "width": 627,
+                    "height": 939,
+                    "mime": "image/jpeg",
+                    "is_vector": false,
+                    "size": 349493,
+                    "license": "Public domain",
+                    "license_url": "",
+                    "copyrighted": "False",
+                    "attribution_required": "false",
+                    "artist": "Julien Bryan",
+                    "credit": "Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .",
+                    "permission": "",
+                    "description": "Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i",
+                    "date": "1939-09-13",
+                    "uploader": "Jarekt",
+                    "id": "a5"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "turn": 1,
+          "request": {
+            "model": "qwen3",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You can use the provided native tools. Find and download one suitable licensed archival image of the German invasion of Poland in 1939. Use English search keywords. Do not invent files. Do not claim visual inspection."
+              },
+              {
+                "role": "user",
+                "content": "دور بنفسك على أصل أرشيفي مناسب لبداية الحرب العالمية الثانية في أوروبا وحمله باستخدام الأدوات."
+              },
+              {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "type": "function",
+                    "function": {
+                      "name": "search_assets",
+                      "arguments": "{\"query\": \"German invasion of Poland 1939 archival\"}"
+                    },
+                    "id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx"
+                  }
+                ]
+              },
+              {
+                "role": "tool",
+                "tool_call_id": "u4hu4nklEKB6mByej9CXuCuL81FLeuqx",
+                "content": "{\"query\": \"German invasion of Poland 1939 archival\", \"assets\": [{\"title\": \"File:\\\"A testimony of senseless Polish destruction,\\\" German invasion of Poland, 1939 (33633762104).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:%22A_testimony_of_senseless_Polish_destruction,%22_German_invasion_of_Poland,_1939_(33633762104).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2792, \"height\": 1836, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 348889, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3845-6\", \"permission\": \"\", \"description\": \"Lot-3845-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “A testimony of senseless Polish destruction.” Courtesy of the Library of Congress. (2017/05/05).\", \"date\": \"2017-05-05 09:07\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a1\"}, {\"title\": \"File:Camouflaged German aircraft awaiting deployment, Invasion of Poland, 1939 (33629847994).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Camouflaged_German_aircraft_awaiting_deployment,_Invasion_of_Poland,_1939_(33629847994).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2719, \"height\": 1840, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 219314, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3951-6\", \"permission\": \"\", \"description\": \"Lot-3951-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “On Stand By. Under the trees, camouflaged German aircraft expect the command to be deployed.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.\", \"date\": \"2017-05-05 09:21\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a2\"}, {\"title\": \"File:Cars during German invasion, Kraków, Poland, 1939 (33629848414).jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Cars_during_German_invasion,_Krak%C3%B3w,_Poland,_1939_(33629848414).jpg\", \"url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\", \"width\": 2744, \"height\": 1988, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 317664, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"National Museum of the U.S. Navy\", \"credit\": \"Lot-3951-4\", \"permission\": \"\", \"description\": \"Lot-3951-4: WWII: German Invasion of Poland, September 1939. Translated German reads, Cracow: Damaged military cars.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.\", \"date\": \"2017-05-05 09:21\", \"uploader\": \"Hiàn (alt)\", \"id\": \"a3\"}, {\"title\": \"File:German-infantry-marching-MG34-poland-1939.png\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:German-infantry-marching-MG34-poland-1939.png\", \"url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"width\": 744, \"height\": 575, \"mime\": \"image/png\", \"is_vector\": false, \"size\": 553457, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"Frank Capra (film)\", \"credit\": \"Divide and Conquer (Why We Fight #3) Public Domain (U.S. War Department): https://archive.org/details/DivideAndConquer\", \"permission\": \"\", \"description\": \"German infantry equipped with MG 34 marching on during the Invasion of Poland . Screenhot taken from the 1943 United States Army propaganda film Divide and Conquer ( Why We Fight #3 ) directed by Frank Capra and partially based on, news archives, animations, restaged scenes and captured propaganda material from both sides.\", \"date\": \"1939\", \"uploader\": \"Shame On You~commonswiki\", \"id\": \"a4\"}, {\"title\": \"File:Polish victim of German Luftwaffe action 1939.jpg\", \"page_url\": \"https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg\", \"url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"original_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original\", \"thumb_url\": \"https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled\", \"width\": 627, \"height\": 939, \"mime\": \"image/jpeg\", \"is_vector\": false, \"size\": 349493, \"license\": \"Public domain\", \"license_url\": \"\", \"copyrighted\": \"False\", \"attribution_required\": \"false\", \"artist\": \"Julien Bryan\", \"credit\": \"Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .\", \"permission\": \"\", \"description\": \"Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \\\"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i\", \"date\": \"1939-09-13\", \"uploader\": \"Jarekt\", \"id\": \"a5\"}]}"
+              },
+              {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                  {
+                    "type": "function",
+                    "function": {
+                      "name": "download_asset",
+                      "arguments": "{\"id\": \"a1\"}"
+                    },
+                    "id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV"
+                  }
+                ]
+              },
+              {
+                "role": "tool",
+                "tool_call_id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV",
+                "content": "{\"id\": \"a1\", \"path\": \"D:\\\\withbord inmation\\\\local-model-audit\\\\results\\\\4b_diagnostic\\\\assets\\\\a1.jpg\", \"license\": \"Public domain\", \"bytes\": 280320}"
+              }
+            ],
+            "tools": [
+              {
+                "type": "function",
+                "function": {
+                  "name": "search_assets",
+                  "description": "Search real Wikimedia Commons for licensed archival assets. Query must use short English keywords.",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "query": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "query"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "function",
+                "function": {
+                  "name": "download_asset",
+                  "description": "Download one real returned asset by its id; license checked by engine. Never invent an id.",
+                  "parameters": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ]
+                  }
+                }
+              }
+            ],
+            "tool_choice": "auto",
+            "temperature": 0.1,
+            "seed": 42,
+            "max_tokens": 300,
+            "chat_template_kwargs": {
+              "enable_thinking": false
+            }
+          },
+          "response": {
+            "choices": [
+              {
+                "finish_reason": "tool_calls",
+                "index": 0,
+                "message": {
+                  "role": "assistant",
+                  "content": "",
+                  "tool_calls": [
+                    {
+                      "type": "function",
+                      "function": {
+                        "name": "download_asset",
+                        "arguments": "{\"id\": \"a1\"}"
+                      },
+                      "id": "y2rtBL7SRiwcVukB8dAU6flOvnqPN9HV"
+                    }
+                  ]
+                }
+              }
+            ],
+            "created": 1792408822,
+            "model": "qwen3",
+            "system_fingerprint": "b11718-547208dca",
+            "object": "chat.completion",
+            "usage": {
+              "completion_tokens": 21,
+              "prompt_tokens": 3409,
+              "total_tokens": 3430,
+              "prompt_tokens_details": {
+                "cached_tokens": 328
+              }
+            },
+            "id": "chatcmpl-4YuEuQcNWHIwZyn1FnuLuXDOoamGTBi3",
+            "timings": {
+              "cache_n": 328,
+              "prompt_n": 3081,
+              "prompt_ms": 73023.537,
+              "prompt_per_token_ms": 23.701245374878287,
+              "prompt_per_second": 42.19187575096507,
+              "predicted_n": 21,
+              "predicted_ms": 7071.468,
+              "predicted_per_token_ms": 353.5734,
+              "predicted_per_second": 2.8282670585513503
+            }
+          },
+          "seconds": 80.224,
+          "executions": [
+            {
+              "name": "download_asset",
+              "args": {
+                "id": "a1"
+              },
+              "result": {
+                "id": "a1",
+                "path": "D:\\withbord inmation\\local-model-audit\\results\\4b_diagnostic\\assets\\a1.jpg",
+                "license": "Public domain",
+                "bytes": 280320
+              }
+            }
+          ]
+        }
+      ],
+      "state": {
+        "sources": [],
+        "catalog": {
+          "a1": {
+            "title": "File:\"A testimony of senseless Polish destruction,\" German invasion of Poland, 1939 (33633762104).jpg",
+            "page_url": "https://commons.wikimedia.org/wiki/File:%22A_testimony_of_senseless_Polish_destruction,%22_German_invasion_of_Poland,_1939_(33633762104).jpg",
+            "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg/1280px-%22A_testimony_of_senseless_Polish_destruction%2C%22_German_invasion_of_Poland%2C_1939_%2833633762104%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "width": 2792,
+            "height": 1836,
+            "mime": "image/jpeg",
+            "is_vector": false,
+            "size": 348889,
+            "license": "Public domain",
+            "license_url": "",
+            "copyrighted": "False",
+            "attribution_required": "false",
+            "artist": "National Museum of the U.S. Navy",
+            "credit": "Lot-3845-6",
+            "permission": "",
+            "description": "Lot-3845-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “A testimony of senseless Polish destruction.” Courtesy of the Library of Congress. (2017/05/05).",
+            "date": "2017-05-05 09:07",
+            "uploader": "Hiàn (alt)",
+            "id": "a1"
+          },
+          "a2": {
+            "title": "File:Camouflaged German aircraft awaiting deployment, Invasion of Poland, 1939 (33629847994).jpg",
+            "page_url": "https://commons.wikimedia.org/wiki/File:Camouflaged_German_aircraft_awaiting_deployment,_Invasion_of_Poland,_1939_(33629847994).jpg",
+            "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg/1280px-Camouflaged_German_aircraft_awaiting_deployment%2C_Invasion_of_Poland%2C_1939_%2833629847994%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "width": 2719,
+            "height": 1840,
+            "mime": "image/jpeg",
+            "is_vector": false,
+            "size": 219314,
+            "license": "Public domain",
+            "license_url": "",
+            "copyrighted": "False",
+            "attribution_required": "false",
+            "artist": "National Museum of the U.S. Navy",
+            "credit": "Lot-3951-6",
+            "permission": "",
+            "description": "Lot-3951-6: WWII: German Invasion of Poland, September 1939. Translated German reads, “On Stand By. Under the trees, camouflaged German aircraft expect the command to be deployed.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.",
+            "date": "2017-05-05 09:21",
+            "uploader": "Hiàn (alt)",
+            "id": "a2"
+          },
+          "a3": {
+            "title": "File:Cars during German invasion, Kraków, Poland, 1939 (33629848414).jpg",
+            "page_url": "https://commons.wikimedia.org/wiki/File:Cars_during_German_invasion,_Krak%C3%B3w,_Poland,_1939_(33629848414).jpg",
+            "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg/1280px-Cars_during_German_invasion%2C_Krak%C3%B3w%2C_Poland%2C_1939_%2833629848414%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "width": 2744,
+            "height": 1988,
+            "mime": "image/jpeg",
+            "is_vector": false,
+            "size": 317664,
+            "license": "Public domain",
+            "license_url": "",
+            "copyrighted": "False",
+            "attribution_required": "false",
+            "artist": "National Museum of the U.S. Navy",
+            "credit": "Lot-3951-4",
+            "permission": "",
+            "description": "Lot-3951-4: WWII: German Invasion of Poland, September 1939. Translated German reads, Cracow: Damaged military cars.” Courtesy of the Library of Congress. (2017/05/05). Photographed through Mylar sleeve.",
+            "date": "2017-05-05 09:21",
+            "uploader": "Hiàn (alt)",
+            "id": "a3"
+          },
+          "a4": {
+            "title": "File:German-infantry-marching-MG34-poland-1939.png",
+            "page_url": "https://commons.wikimedia.org/wiki/File:German-infantry-marching-MG34-poland-1939.png",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/German-infantry-marching-MG34-poland-1939.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "width": 744,
+            "height": 575,
+            "mime": "image/png",
+            "is_vector": false,
+            "size": 553457,
+            "license": "Public domain",
+            "license_url": "",
+            "copyrighted": "False",
+            "attribution_required": "false",
+            "artist": "Frank Capra (film)",
+            "credit": "Divide and Conquer (Why We Fight #3) Public Domain (U.S. War Department): https://archive.org/details/DivideAndConquer",
+            "permission": "",
+            "description": "German infantry equipped with MG 34 marching on during the Invasion of Poland . Screenhot taken from the 1943 United States Army propaganda film Divide and Conquer ( Why We Fight #3 ) directed by Frank Capra and partially based on, news archives, animations, restaged scenes and captured propaganda material from both sides.",
+            "date": "1939",
+            "uploader": "Shame On You~commonswiki",
+            "id": "a4"
+          },
+          "a5": {
+            "title": "File:Polish victim of German Luftwaffe action 1939.jpg",
+            "page_url": "https://commons.wikimedia.org/wiki/File:Polish_victim_of_German_Luftwaffe_action_1939.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Polish_victim_of_German_Luftwaffe_action_1939.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "width": 627,
+            "height": 939,
+            "mime": "image/jpeg",
+            "is_vector": false,
+            "size": 349493,
+            "license": "Public domain",
+            "license_url": "",
+            "copyrighted": "False",
+            "attribution_required": "false",
+            "artist": "Julien Bryan",
+            "credit": "Jerzy Piorkowski (1957) Miasto Nieujarzmione , Warsaw : Iskry, pp. 14 no ISBN Julien Bryan (1959) Warsaw: 1939 Siege; 1959 Warsaw Revisited. , Warsaw : Polonia Publishing House, p. 120 OCLC : 8990324 . ASIN : B000O2AEBY United States Holocaust Memorial Museum , Photograph 50897 Instytut Pamięci Narodowej Julien Bryan (September 1959). Poland in 1939 and in 1959 . Look magazine . Archived from the original on 2005-10-28 .",
+            "permission": "",
+            "description": "Kazimiera Mika, a 12 years old Polish girl, mourns the death of her older sister Anna (Andzia is diminutive of the name) (14), who was killed in a field near Jana Ostroroga Street in Warsaw during a German air raid by Luftwaffe . Photographer Julien Bryan described the scene: \"As we drove by a small field at the edge of town we were just a few minutes too late to witness a tragic event, the most i",
+            "date": "1939-09-13",
+            "uploader": "Jarekt",
+            "id": "a5"
+          }
+        },
+        "downloaded": {
+          "a1": "D:\\withbord inmation\\local-model-audit\\results\\4b_diagnostic\\assets\\a1.jpg"
+        },
+        "generated": {}
+      }
+    }
+  },
   "4b_extended": {
-    "cases": []
+    "cases": [
+      {
+        "case": "13_image_prompt",
+        "seconds": 15.085,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "prompt": "رسم بسيط واضح لسفينة تجارية من الحرب العالمية الثانية، شكل مبسط يُظهر طولها وشكلها الأساسي، بدون كتابات، أعلام، أو أي عناصر تدل على صورة تاريخية حقيقية، صالح للرسم على ورقة بورد"
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 75,
+          "prompt_tokens": 118,
+          "total_tokens": 193,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        }
+      },
+      {
+        "case": "14_image_honesty",
+        "seconds": 10.155,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "can_inspect_pixels": false,
+          "limitation": "لا يمكن رؤية الصورة أو تحليلها إذا كان الملف المُعرف فقط باسمه دون وجود الصورة نفسها"
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 40,
+          "prompt_tokens": 106,
+          "total_tokens": 146,
+          "prompt_tokens_details": {
+            "cached_tokens": 49
+          }
+        }
+      },
+      {
+        "case": "15_tool_selection",
+        "seconds": 12.424,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "search_icons",
+          "args": {
+            "query": "ship icon outline"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 15,
+          "prompt_tokens": 561,
+          "total_tokens": 576,
+          "prompt_tokens_details": {
+            "cached_tokens": 49
+          }
+        }
+      },
+      {
+        "case": "16_arabic_source",
+        "seconds": 19.051,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "events": [
+            {
+              "date": "1939-09-01",
+              "event": "غزت ألمانيا بولندا"
+            },
+            {
+              "date": "1939-09-03",
+              "event": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا"
+            },
+            {
+              "date": "1945-05",
+              "event": "انتهت الحرب في أوروبا"
+            },
+            {
+              "date": "1945-09",
+              "event": "انتهت الحرب العالمية"
+            }
+          ]
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 99,
+          "prompt_tokens": 167,
+          "total_tokens": 266,
+          "prompt_tokens_details": {
+            "cached_tokens": 49
+          }
+        }
+      },
+      {
+        "case": "17_asset_strict",
+        "seconds": 2.492,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "selected": "B"
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 7,
+          "prompt_tokens": 100,
+          "total_tokens": 107,
+          "prompt_tokens_details": {
+            "cached_tokens": 49
+          }
+        }
+      },
+      {
+        "case": "18_plan_strict",
+        "seconds": 145.698,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "canvas": [
+            2560,
+            1440
+          ],
+          "fps": 24,
+          "scenes": [
+            {
+              "id": 1,
+              "duration": 15,
+              "narration": "غزت ألمانيا بولندا في 1 سبتمبر 1939",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "غزت ألمانيا بولندا في 1 سبتمبر 1939",
+                  "font": "cairo",
+                  "size": 80,
+                  "rect": [
+                    500,
+                    300,
+                    1560,
+                    120
+                  ],
+                  "rtl": false,
+                  "mode": "skeleton",
+                  "color": "#000000"
+                },
+                {
+                  "type": "text",
+                  "text": "البداية",
+                  "font": "cairo",
+                  "size": 40,
+                  "rect": [
+                    100,
+                    100,
+                    200,
+                    60
+                  ],
+                  "rtl": false,
+                  "mode": "skeleton",
+                  "color": "#ff6b00"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "duration": 15,
+              "narration": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939",
+                  "font": "cairo",
+                  "size": 80,
+                  "rect": [
+                    500,
+                    300,
+                    1560,
+                    120
+                  ],
+                  "rtl": false,
+                  "mode": "skeleton",
+                  "color": "#000000"
+                },
+                {
+                  "type": "text",
+                  "text": "الرد",
+                  "font": "cairo",
+                  "size": 40,
+                  "rect": [
+                    100,
+                    100,
+                    200,
+                    60
+                  ],
+                  "rtl": false,
+                  "mode": "skeleton",
+                  "color": "#ff6b00"
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "duration": 15,
+              "narration": "انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945",
+              "elements": [
+                {
+                  "type": "text",
+                  "text": "انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945",
+                  "font": "cairo",
+                  "size": 80,
+                  "rect": [
+                    500,
+                    300,
+                    1560,
+                    120
+                  ],
+                  "rtl": false,
+                  "mode": "skeleton",
+                  "color": "#000000"
+                },
+                {
+                  "type": "text",
+                  "text": "النهاية",
+                  "font": "cairo",
+                  "size": 40,
+                  "rect": [
+                    100,
+                    100,
+                    200,
+                    60
+                  ],
+                  "rtl": false,
+                  "mode": "skeleton",
+                  "color": "#ff6b00"
+                }
+              ]
+            }
+          ]
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 793,
+          "prompt_tokens": 234,
+          "total_tokens": 1027,
+          "prompt_tokens_details": {
+            "cached_tokens": 49
+          }
+        }
+      },
+      {
+        "case": "agent_00",
+        "seconds": 15.031,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "search_web",
+          "args": {
+            "query": "بداية الحرب العالمية الثانية في أوروبا مصدر موثوق"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 25,
+          "prompt_tokens": 604,
+          "total_tokens": 629,
+          "prompt_tokens_details": {
+            "cached_tokens": 3
+          }
+        }
+      },
+      {
+        "case": "agent_01",
+        "seconds": 52.514,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "read_page",
+          "args": {
+            "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 109,
+          "prompt_tokens": 1724,
+          "total_tokens": 1833,
+          "prompt_tokens_details": {
+            "cached_tokens": 628
+          }
+        }
+      },
+      {
+        "case": "agent_02",
+        "seconds": 14.875,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "search_web",
+          "args": {
+            "query": "توسع الحرب العالمية الثانية في أوروبا مصدر موثوق"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 25,
+          "prompt_tokens": 2134,
+          "total_tokens": 2159,
+          "prompt_tokens_details": {
+            "cached_tokens": 1832
+          }
+        }
+      },
+      {
+        "case": "agent_03",
+        "seconds": 85.499,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "read_page",
+          "args": {
+            "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 109,
+          "prompt_tokens": 3544,
+          "total_tokens": 3653,
+          "prompt_tokens_details": {
+            "cached_tokens": 2158
+          }
+        }
+      },
+      {
+        "case": "agent_04",
+        "seconds": 21.219,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "search_web",
+          "args": {
+            "query": "نهاية الحرب العالمية الثانية في أوروبا مصدر موثوق"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 26,
+          "prompt_tokens": 3954,
+          "total_tokens": 3980,
+          "prompt_tokens_details": {
+            "cached_tokens": 3652
+          }
+        }
+      },
+      {
+        "case": "agent_05",
+        "seconds": 115.561,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "read_page",
+          "args": {
+            "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 109,
+          "prompt_tokens": 5238,
+          "total_tokens": 5347,
+          "prompt_tokens_details": {
+            "cached_tokens": 3979
+          }
+        }
+      },
+      {
+        "case": "agent_06",
+        "seconds": 32.382,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "search_assets",
+          "args": {
+            "query": "أصل ورقي أرشيفي خط زمني متنوع مخصص للتعليم"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 5648,
+          "total_tokens": 5678,
+          "prompt_tokens_details": {
+            "cached_tokens": 5346
+          }
+        }
+      },
+      {
+        "case": "agent_07",
+        "seconds": 42.211,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "search_icons",
+          "args": {
+            "query": "أيقونات حرب عالمية ثانية أوروبا مختصرة"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 5732,
+          "total_tokens": 5762,
+          "prompt_tokens_details": {
+            "cached_tokens": 5677
+          }
+        }
+      },
+      {
+        "case": "agent_08",
+        "seconds": 42.571,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "search_web",
+          "args": {
+            "query": "أيقونات بداية الحرب العالمية الثانية في أوروبا مصادر موثوقة"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 31,
+          "prompt_tokens": 5805,
+          "total_tokens": 5836,
+          "prompt_tokens_details": {
+            "cached_tokens": 5761
+          }
+        }
+      },
+      {
+        "case": "agent_09",
+        "seconds": 89.803,
+        "finish_reason": "stop",
+        "json_valid": true,
+        "output": {
+          "action": "search_web",
+          "args": {
+            "query": "أيقونات توسع الحرب العالمية الثانية في أوروبا مصادر موثوقة"
+          }
+        },
+        "raw_if_invalid": null,
+        "usage": {
+          "completion_tokens": 32,
+          "prompt_tokens": 6879,
+          "total_tokens": 6911,
+          "prompt_tokens_details": {
+            "cached_tokens": 5835
+          }
+        }
+      },
+      {
+        "case": "agent_10",
+        "seconds": 44.536,
+        "finish_reason": null,
+        "json_valid": false,
+        "output": null,
+        "raw_if_invalid": "",
+        "usage": null
+      }
+    ],
+    "strict_plan_execution": {
+      "rendered": true,
+      "path": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video_sfx.mp4",
+      "seconds": 45.0,
+      "audio_mode": "SFX only via existing engine functions; no voice invented"
+    },
+    "strict_model_video_result": {
+      "frames": 1080,
+      "seconds": 45.0,
+      "out": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video.mp4",
+      "render_seconds": 42.1,
+      "scenes": [
+        {
+          "id": 1,
+          "frames": 360,
+          "seconds": 15.0,
+          "start": 0.0
+        },
+        {
+          "id": 2,
+          "frames": 360,
+          "seconds": 15.0,
+          "start": 15.0
+        },
+        {
+          "id": 3,
+          "frames": 360,
+          "seconds": 15.0,
+          "start": 30.0
+        }
+      ],
+      "narration_frames": null,
+      "drift_frames": null,
+      "sfx": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video.sfx.json",
+      "pen_events": 658,
+      "wall_seconds": 42.129,
+      "audio_mode": "SFX only via existing engine functions; no voice invented",
+      "sfx_build": {
+        "out": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video.sfx.wav",
+        "duration": 45.5,
+        "events": 658,
+        "scratches": 285,
+        "taps": 82,
+        "slides": 2,
+        "real_recordings": true,
+        "sources": [
+          {
+            "file": "pen_ink.wav",
+            "license": "Public domain (PDSounds)",
+            "kind": "recording"
+          }
+        ]
+      },
+      "sfx_mux": {
+        "out": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\strict_model_video_sfx.mp4",
+        "mode": "sfx-only"
+      }
+    },
+    "agent_history": [
+      {
+        "turn": 0,
+        "action": "search_web",
+        "args": {
+          "query": "بداية الحرب العالمية الثانية في أوروبا مصدر موثوق"
+        },
+        "result": {
+          "query": "بداية الحرب العالمية الثانية في أوروبا مصدر موثوق",
+          "provider": "existing project Wikipedia.search",
+          "results": [
+            {
+              "title": "الحرب العالمية الثانية",
+              "snippet": "<span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> هي <span class=\"searchmatch\">حرب</span> دولية بدأت <span class=\"searchmatch\">في</span> الأول من سب",
+              "wordcount": 13132,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+            },
+            {
+              "title": "الطائفية والعرقية في الحرب الأهلية السورية",
+              "snippet": "الطائفي والعرقي <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">الحرب</span> الأهلية السورية بين أتباع الطوائف الدينية وأبناء الجماعات العرقية المختلفة. من الممكن النظر إلى بعض أجزاء الصراع <span class=\"sea",
+              "wordcount": 23856,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B7%D8%A7%D8%A6%D9%81%D9%8A%D8%A9_%D9%88%D8%A7%D9%84%D8%B9%D8%B1%D9%82%D9%8A%D8%A9_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A3%D9%87%D9%84%D9%8A%D8%A9_%D8%A7%D9%84%D8%B3%D9%88%D8%B1%D9%8A%D8%A9"
+            },
+            {
+              "title": "الإشراف والرقابة على الإنترنت حسب البلد",
+              "snippet": "تصفية الإنترنت <span class=\"searchmatch\">العالمية</span> لـ ONI. ينص الدستور والقانون على حرية الكلام والصحافة. لا توجد قيود حكومية على الوصول إلى الإنترنت أو تقارير <span class=\"searchmatch\">موثوقة</span> تفيد بأن الحكو",
+              "wordcount": 53590,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A5%D8%B4%D8%B1%D8%A7%D9%81_%D9%88%D8%A7%D9%84%D8%B1%D9%82%D8%A7%D8%A8%D8%A9_%D8%B9%D9%84%D9%89_%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA_%D8%AD%D8%B3%D8%A8_%D8%A7%D9%84%D8%A8%D9%84%D8%AF"
+            },
+            {
+              "title": "الحرب الباردة",
+              "snippet": "القوتين اختلفتا <span class=\"searchmatch\">في</span> كيفية إدارة ما بعد <span class=\"searchmatch\">الحرب</span> وإعادة بناء <span class=\"searchmatch\">العالم</span>. خلال السنوات التالية <span class=\"searchmatch\">للحرب</spa",
+              "wordcount": 6784,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A8%D8%A7%D8%B1%D8%AF%D8%A9"
+            },
+            {
+              "title": "حصار كابوا",
+              "snippet": "بسبب العدد الكبير من الشخصيات التي شهدته وعسكريًا بسبب التعاون بين قوات النورمان والمسلمين الذي استلزمه الحصار. بوابة إيطاليا بوابة التاريخ بوابة <span class=\"searchmatch\">الحرب</span>",
+              "wordcount": 45,
+              "url": "https://ar.wikipedia.org/wiki/%D8%AD%D8%B5%D8%A7%D8%B1_%D9%83%D8%A7%D8%A8%D9%88%D8%A7"
+            }
+          ]
+        }
+      },
+      {
+        "turn": 1,
+        "action": "read_page",
+        "args": {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        },
+        "result": {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+          "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+        }
+      },
+      {
+        "turn": 2,
+        "action": "search_web",
+        "args": {
+          "query": "توسع الحرب العالمية الثانية في أوروبا مصدر موثوق"
+        },
+        "result": {
+          "query": "توسع الحرب العالمية الثانية في أوروبا مصدر موثوق",
+          "provider": "existing project Wikipedia.search",
+          "results": [
+            {
+              "title": "الحرب العالمية الثانية",
+              "snippet": "<span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> هي <span class=\"searchmatch\">حرب</span> دولية بدأت <span class=\"searchmatch\">في</span> الأول من سب",
+              "wordcount": 13132,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+            },
+            {
+              "title": "التوسع الاقتصادي بعد الحرب العالمية الثانية",
+              "snippet": "كان <span class=\"searchmatch\">التوسع</span> الاقتصادي <span class=\"searchmatch\">في</span> مرحلة ما بعد <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</s",
+              "wordcount": 1334,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AA%D9%88%D8%B3%D8%B9_%D8%A7%D9%84%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%D9%8A_%D8%A8%D8%B9%D8%AF_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+            },
+            {
+              "title": "جرائم الحرب الإسرائيلية في الحرب الفلسطينية الإسرائيلية",
+              "snippet": "منذ اندلاع <span class=\"searchmatch\">الحرب</span> الفلسطينية الإسرائيلية بتاريخ 7 أكتوبر 2023، وُجهت اتهامات متزايدة للجيش والسلطات الإسرائيلية بارتكاب جرائم <span class=\"searchmatch\">حرب</span> وانتهاكات جسيمة للقانون",
+              "wordcount": 39725,
+              "url": "https://ar.wikipedia.org/wiki/%D8%AC%D8%B1%D8%A7%D8%A6%D9%85_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A5%D8%B3%D8%B1%D8%A7%D8%A6%D9%8A%D9%84%D9%8A%D8%A9_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D9%81%D9%84%D8%B3%D8%B7%D9%8A%D9%86%D9%8A%D8%A9_%D8%A7%D9%84%D8%A5%D8%B3%D8%B1%D8%A7%D8%A6%D9%8A%D9%84%D9%8A%D8%A9"
+            },
+            {
+              "title": "الإشراف والرقابة على الإنترنت حسب البلد",
+              "snippet": "تصفية الإنترنت <span class=\"searchmatch\">العالمية</span> لـ ONI. ينص الدستور والقانون على حرية الكلام والصحافة. لا توجد قيود حكومية على الوصول إلى الإنترنت أو تقارير <span class=\"searchmatch\">موثوقة</span> تفيد بأن الحكو",
+              "wordcount": 53590,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A5%D8%B4%D8%B1%D8%A7%D9%81_%D9%88%D8%A7%D9%84%D8%B1%D9%82%D8%A7%D8%A8%D8%A9_%D8%B9%D9%84%D9%89_%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA_%D8%AD%D8%B3%D8%A8_%D8%A7%D9%84%D8%A8%D9%84%D8%AF"
+            },
+            {
+              "title": "الخيول في الحرب العالمية الثانية",
+              "snippet": "الخيول <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> كانت وسيلةً أساسيةً استخدمتها الدول المتحاربة <span cla",
+              "wordcount": 8577,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AE%D9%8A%D9%88%D9%84_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+            }
+          ]
+        }
+      },
+      {
+        "turn": 3,
+        "action": "read_page",
+        "args": {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        },
+        "result": {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+          "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+        }
+      },
+      {
+        "turn": 4,
+        "action": "search_web",
+        "args": {
+          "query": "نهاية الحرب العالمية الثانية في أوروبا مصدر موثوق"
+        },
+        "result": {
+          "query": "نهاية الحرب العالمية الثانية في أوروبا مصدر موثوق",
+          "provider": "existing project Wikipedia.search",
+          "results": [
+            {
+              "title": "الحرب العالمية الثانية",
+              "snippet": "<span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> هي <span class=\"searchmatch\">حرب</span> دولية بدأت <span class=\"searchmatch\">في</span> الأول من سب",
+              "wordcount": 13132,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+            },
+            {
+              "title": "الحرب الباردة",
+              "snippet": "القوتين اختلفتا <span class=\"searchmatch\">في</span> كيفية إدارة ما بعد <span class=\"searchmatch\">الحرب</span> وإعادة بناء <span class=\"searchmatch\">العالم</span>. خلال السنوات التالية <span class=\"searchmatch\">للحرب</spa",
+              "wordcount": 6784,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A8%D8%A7%D8%B1%D8%AF%D8%A9"
+            },
+            {
+              "title": "الطائفية والعرقية في الحرب الأهلية السورية",
+              "snippet": "المتطرّفة دينيًا، متورطة <span class=\"searchmatch\">في</span> ارتكاب انتهاكات بحق المسيحيين، الأمر الذي أدّى لانخفاض عددهم إلى حوالي 450000 <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">نهاية</span> <span ",
+              "wordcount": 23856,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%B7%D8%A7%D8%A6%D9%81%D9%8A%D8%A9_%D9%88%D8%A7%D9%84%D8%B9%D8%B1%D9%82%D9%8A%D8%A9_%D9%81%D9%8A_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%A3%D9%87%D9%84%D9%8A%D8%A9_%D8%A7%D9%84%D8%B3%D9%88%D8%B1%D9%8A%D8%A9"
+            },
+            {
+              "title": "تاريخ ألمانيا خلال الحرب العالمية الثانية",
+              "snippet": "تاريخ ألمانيا خلال <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> تعديل - تعديل <span class=\"searchmatch\">مصدري</span> - تعديل ويكي بيانات تاريخ ",
+              "wordcount": 407,
+              "url": "https://ar.wikipedia.org/wiki/%D8%AA%D8%A7%D8%B1%D9%8A%D8%AE_%D8%A3%D9%84%D9%85%D8%A7%D9%86%D9%8A%D8%A7_%D8%AE%D9%84%D8%A7%D9%84_%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+            },
+            {
+              "title": "الإشراف والرقابة على الإنترنت حسب البلد",
+              "snippet": "2011. بحلول <span class=\"searchmatch\">نهاية</span> عام 2012 كان استخدام الإنترنت قد ارتفع إلى 1.7٪ من السكان. لا توجد قيود حكومية على الوصول إلى الإنترنت أو تقارير <span class=\"searchmatch\">موثوقة</span> تفيد بأن الحكومة",
+              "wordcount": 53590,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A5%D8%B4%D8%B1%D8%A7%D9%81_%D9%88%D8%A7%D9%84%D8%B1%D9%82%D8%A7%D8%A8%D8%A9_%D8%B9%D9%84%D9%89_%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA_%D8%AD%D8%B3%D8%A8_%D8%A7%D9%84%D8%A8%D9%84%D8%AF"
+            }
+          ]
+        }
+      },
+      {
+        "turn": 5,
+        "action": "read_page",
+        "args": {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+        },
+        "result": {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+          "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+        }
+      },
+      {
+        "turn": 6,
+        "action": "search_assets",
+        "args": {
+          "query": "أصل ورقي أرشيفي خط زمني متنوع مخصص للتعليم"
+        },
+        "result": {
+          "query": "أصل ورقي أرشيفي خط زمني متنوع مخصص للتعليم",
+          "assets": []
+        }
+      },
+      {
+        "turn": 7,
+        "action": "search_icons",
+        "args": {
+          "query": "أيقونات حرب عالمية ثانية أوروبا مختصرة"
+        },
+        "result": {
+          "error": "Tool requires English keywords as documented; request was not executed."
+        }
+      },
+      {
+        "turn": 8,
+        "action": "search_web",
+        "args": {
+          "query": "أيقونات بداية الحرب العالمية الثانية في أوروبا مصادر موثوقة"
+        },
+        "result": {
+          "query": "أيقونات بداية الحرب العالمية الثانية في أوروبا مصادر موثوقة",
+          "provider": "existing project Wikipedia.search",
+          "results": [
+            {
+              "title": "قائمة أفلام مبنية على أحداث حقيقية",
+              "snippet": "الأولى كرئيس للوزراء خلال <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">العالمية</span> <span class=\"searchmatch\">الثانية</span> وأزمة خزانة <span class=\"searchmatch\">الحرب</span> <span class=\"searchma",
+              "wordcount": 37014,
+              "url": "https://ar.wikipedia.org/wiki/%D9%82%D8%A7%D8%A6%D9%85%D8%A9_%D8%A3%D9%81%D9%84%D8%A7%D9%85_%D9%85%D8%A8%D9%86%D9%8A%D8%A9_%D8%B9%D9%84%D9%89_%D8%A3%D8%AD%D8%AF%D8%A7%D8%AB_%D8%AD%D9%82%D9%8A%D9%82%D9%8A%D8%A9"
+            },
+            {
+              "title": "التأثير الحضاري للمسيحية",
+              "snippet": "&quot;محفزين لتطوير اقتصاد السوق&quot; <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">أوروبا</span> القرن <span class=\"searchmatch\">الثاني</span> عشر. حتى الثورة الصناعية، كانت معظم التطورات التكنولوجية <s",
+              "wordcount": 33110,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AA%D8%A3%D8%AB%D9%8A%D8%B1_%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D9%8A_%D9%84%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9"
+            },
+            {
+              "title": "جول فيرن",
+              "snippet": "راي برادبري تأثير فيرن على الأدب <span class=\"searchmatch\">وعالم</span> العلوم قائلاً: &quot;كلنا، بطريقة أو بأخرى، أطفال جول فيرن.&quot; تُعد شخصياته <span class=\"searchmatch\">أيقونات</span> <span class=\"searchmatch\">في",
+              "wordcount": 25143,
+              "url": "https://ar.wikipedia.org/wiki/%D8%AC%D9%88%D9%84_%D9%81%D9%8A%D8%B1%D9%86"
+            },
+            {
+              "title": "المسيحية في لبنان",
+              "snippet": "أعضاء المجمع ستة وأربعين عضوًا. <span class=\"searchmatch\">بدأ</span> الكنيسة المارونية <span class=\"searchmatch\">في</span> القرن التاسع عشر وتفاقهم خلال <span class=\"searchmatch\">الحرب</span> <span class=\"searchmatch\">ال",
+              "wordcount": 21593,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9_%D9%81%D9%8A_%D9%84%D8%A8%D9%86%D8%A7%D9%86"
+            },
+            {
+              "title": "المسيحية في سوريا",
+              "snippet": "الآخر. إن أول  مصور <span class=\"searchmatch\">أيقونات</span> «كاتب <span class=\"searchmatch\">أيقونات</span>» <span class=\"searchmatch\">في</span> التاريخ الحديث للتصوير الكنسي <span class=\"searchmatch\">في</span> سورية هو ",
+              "wordcount": 28325,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9_%D9%81%D9%8A_%D8%B3%D9%88%D8%B1%D9%8A%D8%A7"
+            }
+          ]
+        }
+      },
+      {
+        "turn": 9,
+        "action": "search_web",
+        "args": {
+          "query": "أيقونات توسع الحرب العالمية الثانية في أوروبا مصادر موثوقة"
+        },
+        "result": {
+          "query": "أيقونات توسع الحرب العالمية الثانية في أوروبا مصادر موثوقة",
+          "provider": "existing project Wikipedia.search",
+          "results": [
+            {
+              "title": "التأثير الحضاري للمسيحية",
+              "snippet": "&quot;محفزين لتطوير اقتصاد السوق&quot; <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">أوروبا</span> القرن <span class=\"searchmatch\">الثاني</span> عشر. حتى الثورة الصناعية، كانت معظم التطورات التكنولوجية <s",
+              "wordcount": 33110,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AA%D8%A3%D8%AB%D9%8A%D8%B1_%D8%A7%D9%84%D8%AD%D8%B6%D8%A7%D8%B1%D9%8A_%D9%84%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9"
+            },
+            {
+              "title": "المسيحية في سوريا",
+              "snippet": "الآخر. إن أول  مصور <span class=\"searchmatch\">أيقونات</span> «كاتب <span class=\"searchmatch\">أيقونات</span>» <span class=\"searchmatch\">في</span> التاريخ الحديث للتصوير الكنسي <span class=\"searchmatch\">في</span> سورية هو ",
+              "wordcount": 28325,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D8%B3%D9%8A%D8%AD%D9%8A%D8%A9_%D9%81%D9%8A_%D8%B3%D9%88%D8%B1%D9%8A%D8%A7"
+            },
+            {
+              "title": "جول فيرن",
+              "snippet": "راي برادبري تأثير فيرن على الأدب <span class=\"searchmatch\">وعالم</span> العلوم قائلاً: &quot;كلنا، بطريقة أو بأخرى، أطفال جول فيرن.&quot; تُعد شخصياته <span class=\"searchmatch\">أيقونات</span> <span class=\"searchmatch\">في",
+              "wordcount": 25143,
+              "url": "https://ar.wikipedia.org/wiki/%D8%AC%D9%88%D9%84_%D9%81%D9%8A%D8%B1%D9%86"
+            },
+            {
+              "title": "أمية",
+              "snippet": "يشمل معدلات معرفة القراءة والكتابة لمختلف <span class=\"searchmatch\">الفئات</span> العمرية. مخططات لجميع البلدان وخرائط <span class=\"searchmatch\">العالم</span> وروابط لمزيد من <span class=\"searchmatch\">مصادر</span> البيان",
+              "wordcount": 21120,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A3%D9%85%D9%8A%D8%A9"
+            },
+            {
+              "title": "الإمبراطورية البيزنطية",
+              "snippet": "الفقر المدقع، فإن انتصار مؤيدي <span class=\"searchmatch\">الأيقونات</span> <span class=\"searchmatch\">في</span> <span class=\"searchmatch\">حرب</span> <span class=\"searchmatch\">الأيقونات</span> البيزنطية أدّى إلى تدفق الثروة",
+              "wordcount": 39712,
+              "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A5%D9%85%D8%A8%D8%B1%D8%A7%D8%B7%D9%88%D8%B1%D9%8A%D8%A9_%D8%A7%D9%84%D8%A8%D9%8A%D8%B2%D9%86%D8%B7%D9%8A%D8%A9"
+            }
+          ]
+        }
+      },
+      {
+        "turn": 10,
+        "error": "invalid action JSON"
+      }
+    ],
+    "agent_state": {
+      "sources": [
+        {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+          "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+        },
+        {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+          "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+        },
+        {
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+          "text": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي."
+        }
+      ],
+      "catalog": {},
+      "downloaded": {},
+      "generated": {}
+    },
+    "production_integrity": {
+      "unchanged": true,
+      "changed": [],
+      "added": []
+    },
+    "local_image_tool_result": {
+      "path": "D:\\withbord inmation\\local-model-audit\\results\\4b_extended\\assets\\local_image_request.png",
+      "generator": "existing local SD1.5, not the text model",
+      "semantic_visual_review": "not available to text-only model"
+    },
+    "image_generation_execution": {
+      "seconds": 199.07344739999098,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "\nLoading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]\nLoading pipeline components...:  17%|█▋        | 1/6 [00:00<00:01,  4.69it/s]\nLoading pipeline components...:  33%|███▎      | 2/6 [00:07<00:18,  4.56s/it]\nLoading pipeline components...:  50%|█████     | 3/6 [00:08<00:08,  2.84s/it]\nLoading pipeline components...:  83%|████████▎ | 5/6 [00:08<00:01,  1.33s/it]`torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading pipeline components...: 100%|██████████| 6/6 [00:09<00:00,  1.21s/it]\nLoading pipeline components...: 100%|██████████| 6/6 [00:09<00:00,  1.64s/it]\nToken indices sequence length is longer than the specified maximum sequence length for this model (180 > 77). Running this sequence through the model will result in indexing errors\nThe following part of your input was truncated because CLIP can only handle sequences up to 77 tokens: ['�ي ، بدون كتابات ، أعلام ، أو أي عناصر تدل على صورة تاريخية حقيقية ، صالح للرسم على ورقة بورد , simple hand drawn doodle , bold black marker outline , minimal teal accents , isolated single object , pure white background , no text']\n",
+      "request": {
+        "prompt": "رسم بسيط واضح لسفينة تجارية من الحرب العالمية الثانية، شكل مبسط يُظهر طولها وشكلها الأساسي، بدون كتابات، أعلام، أو أي عناصر تدل على صورة تاريخية حقيقية، صالح للرسم على ورقة بورد",
+        "style": "doodle",
+        "steps": 20,
+        "guidance": 7.0,
+        "seed": 42
+      }
+    },
+    "icon_tool_result": {
+      "error": "native icon cold-index build exceeded 90s; worker stopped; infrastructure timeout, not model verdict"
+    }
   }
 }

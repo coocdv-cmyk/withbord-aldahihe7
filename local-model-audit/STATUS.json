@@ -1,0 +1,24 @@
+{
+  "audit_status": "COMPLETE",
+  "date": "2026-10-19",
+  "local_only_inference": true,
+  "new_model_downloads": false,
+  "production_source_modified_by_evaluator": false,
+  "concurrent_external_project_work_confirmed_by_user": true,
+  "frozen_engine_source_files": 47,
+  "frozen_engine_integrity": "UNCHANGED",
+  "qwen_0_6b_readiness": "NOT_RECOMMENDED_AS_PRIMARY_DIRECTOR",
+  "qwen_4b_readiness": "CONDITIONAL_CANDIDATE_FOR_BOUNDED_VALIDATED_TASKS",
+  "general_autonomous_topic_to_professional_film": "NOT_COMPLETED_IN_TEST",
+  "strict_schema_films_produced": 2,
+  "strict_schema_film_seconds_each": 45,
+  "local_diffusion_images_produced": 3,
+  "native_function_call_asset_search_and_download": "SUCCEEDED_IN_TWO_TURNS_FOR_A_NARROW_TASK",
+  "limits": [
+    "Finite task benchmark; no claim of exhaustive testing or universal inability",
+    "Evaluator interruptions and infrastructure timeouts are disclosed separately",
+    "Native function-call probe does not establish a complete autonomous film workflow",
+    "No full human audio listening review or local vision model validation",
+    "CPU timings observed while other work was running"
+  ]
+}

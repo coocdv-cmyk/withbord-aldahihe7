@@ -1,0 +1,62 @@
+{
+  "project": "",
+  "lang": "en",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": 30,
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 10.0,
+      "narration": "Why did the war spread across several continents after a chain of political decisions?",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Why did the war\nspread…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            130,
+            220,
+            2300,
+            720
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "Why did the war spread across\nseveral continents after a chain of…",
+          "font": "cairo",
+          "size": 128,
+          "rect": [
+            190,
+            940,
+            2180,
+            340
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.4
+        }
+      ]
+    }
+  ],
+  "audio": null,
+  "timing": {
+    "source": "estimated",
+    "method": "words-per-second"
+  },
+  "stats": {
+    "scenes": 1,
+    "elements": 2,
+    "estimated_duration": 10.0
+  }
+}

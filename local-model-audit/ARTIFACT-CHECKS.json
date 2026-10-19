@@ -1,16 +1,4 @@
 {
-  "0.6b": {
-    "09_plan.json": {
-      "scenes": 0,
-      "texts": [],
-      "issues": []
-    },
-    "direct_model_video_plan.json": {
-      "scenes": 0,
-      "texts": [],
-      "issues": []
-    }
-  },
   "0.6b_extended": {
     "strict_model_video_plan.json": {
       "scenes": 3,
@@ -91,11 +79,60 @@
       "clipped_samples": 0
     }
   },
-  "4b": {
-    "09_plan.json": {
-      "scenes": 0,
-      "texts": [],
-      "issues": []
+  "4b_extended": {
+    "strict_model_video_plan.json": {
+      "scenes": 3,
+      "texts": [
+        "غزت ألمانيا بولندا في 1 سبتمبر 1939",
+        "البداية",
+        "أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939",
+        "الرد",
+        "انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945",
+        "النهاية"
+      ],
+      "issues": [
+        {
+          "scene": 1,
+          "issue": "Arabic text has rtl=false",
+          "text": "غزت ألمانيا بولندا في 1 سبتمبر 1939"
+        },
+        {
+          "scene": 1,
+          "issue": "Arabic text has rtl=false",
+          "text": "البداية"
+        },
+        {
+          "scene": 2,
+          "issue": "Arabic text has rtl=false",
+          "text": "أعلنت بريطانيا وفرنسا الحرب على ألمانيا في 3 سبتمبر 1939"
+        },
+        {
+          "scene": 2,
+          "issue": "Arabic text has rtl=false",
+          "text": "الرد"
+        },
+        {
+          "scene": 3,
+          "issue": "Arabic text has rtl=false",
+          "text": "انتهت الحرب في أوروبا في مايو 1945، والعالمية في سبتمبر 1945"
+        },
+        {
+          "scene": 3,
+          "issue": "Arabic text has rtl=false",
+          "text": "النهاية"
+        }
+      ]
+    },
+    "strict_model_video.sfx.json": {
+      "duration": 45.0,
+      "events": 658,
+      "event_max_t": 45.8092,
+      "events_after_duration": 13
+    },
+    "strict_model_video.sfx.wav": {
+      "seconds": 45.5,
+      "sample_peak": 22936,
+      "clipped_samples": 0
     }
   },
   "frozen_engine_integrity": {

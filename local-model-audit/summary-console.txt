@@ -1,0 +1,86 @@
+{
+  "0.6b": {
+    "calls": 15,
+    "json_valid": 14,
+    "seconds": 186.3,
+    "integrity": {
+      "unchanged": true,
+      "changed": [],
+      "added": []
+    },
+    "agent_actions": []
+  },
+  "0.6b_extended": {
+    "calls": 9,
+    "json_valid": 7,
+    "seconds": 231.0,
+    "integrity": {
+      "unchanged": true,
+      "changed": [],
+      "added": []
+    },
+    "agent_actions": [
+      null,
+      "invalid action JSON"
+    ]
+  },
+  "4b": {
+    "calls": 24,
+    "json_valid": 22,
+    "seconds": 1019.0,
+    "integrity": {
+      "unchanged": false,
+      "changed": [
+        "rasm-pro\\engine\\render\\templates.py",
+        "rasm-pro\\tools\\ffprobe_report.py"
+      ],
+      "added": []
+    },
+    "agent_actions": [
+      "search_web",
+      "search_web",
+      "search_web",
+      "search_web",
+      "search_assets",
+      "search_web",
+      "search_web",
+      "make_svg",
+      "download_asset",
+      "invalid action JSON"
+    ]
+  },
+  "4b_diagnostic": {
+    "calls": 1,
+    "json_valid": 1,
+    "seconds": 5.7,
+    "integrity": {
+      "unchanged": true,
+      "changed": [],
+      "added": []
+    },
+    "agent_actions": []
+  },
+  "4b_extended": {
+    "calls": 17,
+    "json_valid": 16,
+    "seconds": 761.1,
+    "integrity": {
+      "unchanged": true,
+      "changed": [],
+      "added": []
+    },
+    "agent_actions": [
+      "search_web",
+      "read_page",
+      "search_web",
+      "read_page",
+      "search_web",
+      "read_page",
+      "search_assets",
+      "search_icons",
+      "search_web",
+      "search_web",
+      "invalid action JSON"
+    ]
+  }
+}

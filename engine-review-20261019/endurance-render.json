@@ -1,0 +1,374 @@
+{
+  "frames": 1200,
+  "seconds": 600.0,
+  "out": "D:\\withbord inmation\\engine-review-20261019\\ten-minute-reduced-load.mp4",
+  "render_seconds": 52.4,
+  "scenes": [
+    {
+      "id": 1,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 0.0
+    },
+    {
+      "id": 2,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 10.0
+    },
+    {
+      "id": 3,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 20.0
+    },
+    {
+      "id": 4,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 30.0
+    },
+    {
+      "id": 5,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 40.0
+    },
+    {
+      "id": 6,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 50.0
+    },
+    {
+      "id": 7,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 60.0
+    },
+    {
+      "id": 8,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 70.0
+    },
+    {
+      "id": 9,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 80.0
+    },
+    {
+      "id": 10,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 90.0
+    },
+    {
+      "id": 11,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 100.0
+    },
+    {
+      "id": 12,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 110.0
+    },
+    {
+      "id": 13,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 120.0
+    },
+    {
+      "id": 14,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 130.0
+    },
+    {
+      "id": 15,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 140.0
+    },
+    {
+      "id": 16,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 150.0
+    },
+    {
+      "id": 17,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 160.0
+    },
+    {
+      "id": 18,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 170.0
+    },
+    {
+      "id": 19,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 180.0
+    },
+    {
+      "id": 20,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 190.0
+    },
+    {
+      "id": 21,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 200.0
+    },
+    {
+      "id": 22,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 210.0
+    },
+    {
+      "id": 23,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 220.0
+    },
+    {
+      "id": 24,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 230.0
+    },
+    {
+      "id": 25,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 240.0
+    },
+    {
+      "id": 26,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 250.0
+    },
+    {
+      "id": 27,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 260.0
+    },
+    {
+      "id": 28,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 270.0
+    },
+    {
+      "id": 29,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 280.0
+    },
+    {
+      "id": 30,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 290.0
+    },
+    {
+      "id": 31,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 300.0
+    },
+    {
+      "id": 32,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 310.0
+    },
+    {
+      "id": 33,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 320.0
+    },
+    {
+      "id": 34,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 330.0
+    },
+    {
+      "id": 35,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 340.0
+    },
+    {
+      "id": 36,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 350.0
+    },
+    {
+      "id": 37,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 360.0
+    },
+    {
+      "id": 38,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 370.0
+    },
+    {
+      "id": 39,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 380.0
+    },
+    {
+      "id": 40,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 390.0
+    },
+    {
+      "id": 41,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 400.0
+    },
+    {
+      "id": 42,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 410.0
+    },
+    {
+      "id": 43,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 420.0
+    },
+    {
+      "id": 44,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 430.0
+    },
+    {
+      "id": 45,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 440.0
+    },
+    {
+      "id": 46,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 450.0
+    },
+    {
+      "id": 47,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 460.0
+    },
+    {
+      "id": 48,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 470.0
+    },
+    {
+      "id": 49,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 480.0
+    },
+    {
+      "id": 50,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 490.0
+    },
+    {
+      "id": 51,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 500.0
+    },
+    {
+      "id": 52,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 510.0
+    },
+    {
+      "id": 53,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 520.0
+    },
+    {
+      "id": 54,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 530.0
+    },
+    {
+      "id": 55,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 540.0
+    },
+    {
+      "id": 56,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 550.0
+    },
+    {
+      "id": 57,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 560.0
+    },
+    {
+      "id": 58,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 570.0
+    },
+    {
+      "id": 59,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 580.0
+    },
+    {
+      "id": 60,
+      "frames": 20,
+      "seconds": 10.0,
+      "start": 590.0
+    }
+  ],
+  "narration_frames": null,
+  "drift_frames": null,
+  "sfx": "D:\\withbord inmation\\engine-review-20261019\\ten-minute-reduced-load.sfx.json",
+  "pen_events": 6466,
+  "scope": "600 seconds, 2 fps, 640x360, 60 text scenes; no narration or mux; not production-quality endurance proof",
+  "wall_seconds": 52.49408809999295
+}

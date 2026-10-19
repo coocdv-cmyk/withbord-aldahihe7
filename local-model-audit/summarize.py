@@ -12,7 +12,7 @@ for run in (BASE/'results').iterdir():
         obj=r.get('parsed'); text=(r.get('response',{}).get('choices') or [{}])[0].get('message',{}).get('content','')
         items.append({'case':r['name'],'seconds':r['seconds'],'finish_reason':r.get('finish_reason'),'json_valid':isinstance(obj,dict),'output':obj,'raw_if_invalid':text[:4000] if not obj else None,'usage':r.get('response',{}).get('usage')})
     summary[run.name]={'cases':items}
-    for name in ('native_integration','direct_plan_execution','strict_plan_execution','strict_model_video_result','agent_history','agent_state','production_integrity','local_image_tool_result','image_generation_execution','icon_tool_result'):
+    for name in ('native_integration','direct_plan_execution','strict_plan_execution','strict_model_video_result','agent_history','agent_state','production_integrity','local_image_tool_result','controlled_image_result','image_generation_execution','icon_tool_result','native_tool_probe'):
         p=run/(name+'.json')
         if p.exists(): summary[run.name][name]=json.loads(p.read_text(encoding='utf-8'))
 (BASE/'RESULTS.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')

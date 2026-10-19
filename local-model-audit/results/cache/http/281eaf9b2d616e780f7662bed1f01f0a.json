@@ -1,0 +1,49 @@
+{
+  "type": "standard",
+  "title": "الحرب العالمية الثانية",
+  "displaytitle": "<span lang=\"ar\" dir=\"rtl\"><span class=\"mw-page-title-main\">الحرب العالمية الثانية</span></span>",
+  "namespace": {
+    "id": 0,
+    "text": ""
+  },
+  "wikibase_item": "Q362",
+  "titles": {
+    "canonical": "الحرب_العالمية_الثانية",
+    "normalized": "الحرب العالمية الثانية",
+    "display": "<span lang=\"ar\" dir=\"rtl\"><span class=\"mw-page-title-main\">الحرب العالمية الثانية</span></span>"
+  },
+  "pageid": 1855,
+  "thumbnail": {
+    "source": "https://thumb.wikimedia.org/wikipedia/ar/thumb/1/10/%D9%85%D9%84%D8%B5%D9%82_%D9%84%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9.jpg/330px-%D9%85%D9%84%D8%B5%D9%82_%D9%84%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9.jpg?utm_source=ar.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "width": 330,
+    "height": 312
+  },
+  "originalimage": {
+    "source": "https://upload.wikimedia.org/wikipedia/ar/1/10/%D9%85%D9%84%D8%B5%D9%82_%D9%84%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9.jpg?utm_source=ar.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "width": 370,
+    "height": 350
+  },
+  "lang": "ar",
+  "dir": "rtl",
+  "revision": "76455895",
+  "tid": "8dd19daa-aa26-11f1-a46d-e8b355b78c0a",
+  "timestamp": "2026-09-06T19:09:59Z",
+  "description": "حرب دولية بدأت عام 1939 وانتهت عام 1945",
+  "description_source": "central",
+  "content_urls": {
+    "desktop": {
+      "page": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+      "revisions": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9?action=history",
+      "edit": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9?action=edit",
+      "talk": "https://ar.wikipedia.org/wiki/%D9%86%D9%82%D8%A7%D8%B4:%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+    },
+    "mobile": {
+      "page": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+      "revisions": "https://ar.wikipedia.org/wiki/Special:History/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9",
+      "edit": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9?action=edit",
+      "talk": "https://ar.wikipedia.org/wiki/%D9%86%D9%82%D8%A7%D8%B4:%D8%A7%D9%84%D8%AD%D8%B1%D8%A8_%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9_%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9"
+    }
+  },
+  "extract": "الحرب العالمية الثانية هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي.",
+  "extract_html": "<p><b>الحرب العالمية الثانية</b> هي حرب دولية بدأت في الأول من سبتمبر من عام 1939 في أوروبا وانتهت في الثاني من سبتمبر عام 1945 شاركت فيها أو تأثَّرت بها الغالبية العظمى من دول العالم منها الدول العظمى في حِلفَين عسكريَّين متنازعين هما: قوات الحلفاء ودول المحور، كما أنَّها الحرب الأوسع في التاريخ، وشارك فيها بصورة مباشرة أكثر من 100 مليون شخص من أكثر من 30 بلدًا، وقد وضعت الدول الرئيسية كافَّة قدراتها العسكرية والاقتصادية والصناعية والعلمية في خدمة المجهود الحربي.</p>"
+}

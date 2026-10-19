@@ -1,0 +1,30 @@
+{
+  "frames": 729,
+  "seconds": 30.38,
+  "out": "D:\\withbord inmation\\engine-review-20261019\\english-three-styles.mp4",
+  "render_seconds": 37.8,
+  "scenes": [
+    {
+      "id": 1,
+      "frames": 241,
+      "seconds": 10.042,
+      "start": 0.0
+    },
+    {
+      "id": 2,
+      "frames": 248,
+      "seconds": 10.333,
+      "start": 10.042
+    },
+    {
+      "id": 3,
+      "frames": 240,
+      "seconds": 10.0,
+      "start": 20.375
+    }
+  ],
+  "narration_frames": null,
+  "drift_frames": null,
+  "sfx": "D:\\withbord inmation\\engine-review-20261019\\english-three-styles.sfx.json",
+  "pen_events": 511
+}
