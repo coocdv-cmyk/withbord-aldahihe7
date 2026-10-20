@@ -71,6 +71,17 @@ class FrameRate:
     def __str__(self) -> str:
         return f"{self.num}/{self.den}"
 
+    @property
+    def ffmpeg(self) -> str:
+        """Exact string accepted by ffmpeg's ``-r`` option (never a float)."""
+        return f"{self.num}/{self.den}"
+
+    def time_of_frames(self, frames: int) -> Fraction:
+        """Duration of N frames in seconds (exact)."""
+        if frames < 0:
+            raise TimebaseError(f"عدد إطارات سالب: {frames}")
+        return Fraction(frames * self.den, self.num)
+
     def frames_for_duration(self, seconds, *, mode: str = "round") -> int:
         """عدد الإطارات لمدة (ثانية كسرية مسموحة)."""
         return _round_fraction(Fraction(seconds) * self.value, mode)
@@ -195,6 +206,10 @@ def coerce_frame_rate(value) -> FrameRate:
     """
     if isinstance(value, FrameRate):
         return value
+    if isinstance(value, Fraction):
+        if value <= 0:
+            raise TimebaseError(f"معدل إطارات غير صالح: {value!r}")
+        return FrameRate(value.numerator, value.denominator)
     if isinstance(value, bool) or value is None:
         raise TimebaseError(f"معدل إطارات غير صالح: {value!r}")
     if isinstance(value, dict):

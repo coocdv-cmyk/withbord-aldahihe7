@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/coocdv-cmyk/withbord-aldahihe7/rasm-pro/engine/core/schema/plan.schema.json",
+  "title": "rasm-pro storyboard plan",
+  "description": "Canonical plan contract. New plans write rational fps and absolute start_frame/end_frame; legacy numeric fps and duration-only plans are accepted for migration.",
+  "type": "object",
+  "required": ["canvas", "fps", "scenes"],
+  "properties": {
+    "project": { "type": "string" },
+    "lang": { "type": "string" },
+    "canvas": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "integer", "minimum": 1 },
+        { "type": "integer", "minimum": 1 }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "fps": {
+      "oneOf": [
+        { "$ref": "#/$defs/frameRate" },
+        { "type": "integer", "minimum": 1 }
+      ]
+    },
+    "timebase": {
+      "type": "object",
+      "required": ["source", "fps", "start_frame", "end_frame", "frames"],
+      "properties": {
+        "source": {
+          "enum": ["estimated", "estimated-with-narration", "narration"]
+        },
+        "method": { "type": "string" },
+        "rounding": { "type": "string" },
+        "fps": { "$ref": "#/$defs/frameRate" },
+        "sample_rate": { "type": ["integer", "null"], "minimum": 1 },
+        "total_samples": { "type": ["integer", "null"], "minimum": 1 },
+        "start_frame": { "type": "integer", "minimum": 0 },
+        "end_frame": { "type": "integer", "minimum": 0 },
+        "frames": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "elements"],
+        "properties": {
+          "id": { "type": ["string", "integer"] },
+          "narration": { "type": ["string", "null"] },
+          "needs": { "type": "array", "items": { "type": "string" } },
+          "assets_used": { "type": "array", "items": { "type": "string" } },
+          "duration": { "type": "number", "exclusiveMinimum": 0 },
+          "duration_frames": { "type": "integer", "minimum": 1 },
+          "start_frame": { "type": "integer", "minimum": 0 },
+          "end_frame": { "type": "integer", "minimum": 1 },
+          "start_sample": { "type": "integer", "minimum": 0 },
+          "end_sample": { "type": "integer", "minimum": 1 },
+          "duration_samples": { "type": "integer", "minimum": 1 },
+          "start_pause": { "type": "number", "minimum": 0 },
+          "elements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type"],
+              "properties": {
+                "type": { "type": "string", "minLength": 1 },
+                "rect": {
+                  "type": "array",
+                  "minItems": 4,
+                  "maxItems": 4,
+                  "items": { "type": "number" }
+                },
+                "text": { "type": "string" },
+                "font": { "type": "string" },
+                "size": { "type": "number", "exclusiveMinimum": 0 },
+                "mode": { "type": "string" },
+                "rtl": { "type": "boolean" },
+                "color": { "type": "string" },
+                "asset": { "type": "string" },
+                "texture": { "type": "string" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "audio": {
+      "type": ["object", "null"],
+      "properties": {
+        "file": { "type": "string" },
+        "sha256": { "type": "string" },
+        "duration_sec": { "type": "number", "minimum": 0 },
+        "duration_exact": { "type": "string" },
+        "sample_rate": { "type": "integer", "minimum": 1 },
+        "total_samples": { "type": "integer", "minimum": 1 },
+        "codec": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "timing": { "type": "object" },
+    "stats": {
+      "type": "object",
+      "properties": {
+        "scenes": { "type": "integer", "minimum": 0 },
+        "elements": { "type": "integer", "minimum": 0 },
+        "estimated_duration": { "type": "number", "minimum": 0 },
+        "duration": { "type": "number", "minimum": 0 },
+        "frames": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "frameRate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["num", "den"],
+      "properties": {
+        "num": { "type": "integer", "minimum": 1 },
+        "den": { "type": "integer", "minimum": 1 }
+      }
+    }
+  },
+  "additionalProperties": true
+}

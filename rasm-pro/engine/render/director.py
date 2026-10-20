@@ -15,6 +15,7 @@ import numpy as np
 from PIL import Image
 
 from ..core.log import get_logger
+from ..core.plan_time import scene_frame_bounds
 from ..core.timebase import (
     FrameRate,
     SampleRate,
@@ -253,7 +254,7 @@ class Director:
         self.sfx_events: list[dict] = []
 
     # ---------- تجهيز ----------
-    def _prepare_scene(self, scene: dict) -> list[dict]:
+    def _prepare_scene(self, scene: dict, planned_seconds: float | None = None) -> tuple[list[dict], float]:
         items: list[dict] = []
         t = float(scene.get("start_pause", 0.35))
         for el in scene.get("elements", []):
@@ -320,17 +321,20 @@ class Director:
                               "bbox": (x - pad, y - pad, x + w + pad, y + h + pad), "el": el,
                               "gap": float(el.get("gap", 0.08))})
                 t += float(el.get("reveal_time", 0.12)) + float(el.get("gap", 0.08))
-        return self._fit_timings(items, scene)
+        natural_end = max((it["start"] + it["dur"] for it in items), default=0.0)
+        self._fit_timings(items, planned_seconds)
+        return items, natural_end
 
-    def _fit_timings(self, items: list[dict], scene: dict) -> list[dict]:
+    def _fit_timings(self, items: list[dict], planned_seconds: float | None) -> list[dict]:
         """يضبط توقيت العناصر داخل مدة المشهد المخططة (بلا مدد منفجرة).
 
         القاعدة: كل العناصر تنتهي قبل نهاية المشهد بـ0.6ث، مع حد أدنى 0.45ث للعنصر.
         """
         if not items:
             return items
-        start = float(scene.get("start_pause", 0.35))
-        planned = float(scene.get("duration") or 0.0)
+        # The first item's start already contains the scene's start pause.
+        start = float(items[0].get("start", 0.0))
+        planned = float(planned_seconds or 0.0)
         natural_end = max(it["start"] + it["dur"] for it in items)
         if planned <= 0 or natural_end <= planned:
             return items
@@ -347,90 +351,14 @@ class Director:
             t += dur + it.get("gap", 0.22)
         return items
 
-    def _scene_duration(self, scene: dict, items: list[dict]) -> float:
-        """مدة المشهد المخططة — لا تمدد مشهدًا صوتيًا ليتسع للرسم."""
-        df = scene.get("duration_frames")
-        wanted = (float(df) / self.fps) if df else float(scene.get("duration") or 0.0)
-        audio_backed = bool(
-            scene.get("duration_samples")
-            or scene.get("duration_frames")
-            or scene.get("start_sample") is not None
-        )
-        if items:
-            last = max(it["start"] + it["dur"] for it in items)
-            if not audio_backed:
-                wanted = max(wanted, last + 0.8)
-        return max(1.0, wanted)
-
     def scene_bounds(self, *, scene_range: tuple[int, int] | None = None,
                      max_seconds: float | None = None) -> list[dict]:
-        """حدود المشاهد بالإطارات المطلقة — مصدر واحد للرندر والتقرير.
-
-        الأولوية: عينات مطلقة → إطارات → ثوانٍ تراكمية. التحويل يتم عند
-        الحدود مرة واحدة (لا تقريب لكل مشهد)، فلا يتراكم انزلاق.
-        """
-        scenes = list(self.plan.get("scenes") or [])
-        if not scenes:
-            return []
-        audio = self.plan.get("audio") or {}
-        sr = int(audio.get("sample_rate") or 0)
-        total_samples = int(audio.get("total_samples") or 0) or None
-
-        has_samples = bool(sr) and all(
-            s.get("start_sample") is not None and s.get("end_sample") is not None
-            for s in scenes
+        """حدود المشاهد بالإطارات المطلقة — مصدر واحد للرندر والتقرير."""
+        return scene_frame_bounds(
+            self.plan,
+            max_seconds=max_seconds,
+            scene_range=scene_range,
         )
-        if has_samples:
-            starts = [int(s["start_sample"]) for s in scenes]
-            ends = [int(s["end_sample"]) for s in scenes]
-            if any(ends[i] != starts[i + 1] for i in range(len(scenes) - 1)):
-                raise TimebaseError("حدود المشاهد غير متصلة (فجوة أو تقاطع في العينات)")
-            mapped = map_boundaries_to_frames(
-                [starts[0]] + ends,
-                SampleRate(sr),
-                self.fps_rate,
-                total_samples=total_samples,
-                mode="round",
-            )
-            starts_f, ends_f = mapped[:-1], mapped[1:]
-        elif all(s.get("duration_frames") for s in scenes):
-            acc = 0
-            starts_f, ends_f = [], []
-            for s in scenes:
-                starts_f.append(acc)
-                acc += int(s["duration_frames"])
-                ends_f.append(acc)
-        else:
-            acc = Fraction(0)
-            starts_f, ends_f = [], []
-            for s in scenes:
-                starts_f.append(self.fps_rate.frame_of_time(acc, mode="round"))
-                acc += Fraction(str(s.get("duration") or 0))
-                ends_f.append(self.fps_rate.frame_of_time(acc, mode="round"))
-
-        max_frame = None
-        if max_seconds is not None and max_seconds > 0:
-            max_frame = self.fps_rate.frame_of_time(Fraction(str(max_seconds)), mode="round")
-
-        out: list[dict] = []
-        for i, scene in enumerate(scenes, 1):
-            start, end = int(starts_f[i - 1]), int(ends_f[i - 1])
-            if max_frame is not None:
-                if start >= max_frame:
-                    break
-                end = min(end, max_frame)
-            if end <= start:
-                continue
-            if scene_range and not (scene_range[0] <= i <= scene_range[1]):
-                continue
-            out.append({
-                "index": i,
-                "scene": scene,
-                "start_frame": start,
-                "end_frame": end,
-                "frames": end - start,
-            })
-        return out
 
     def _draw_pen(self, frame, active: dict | None, cam):
         """يرسم القلم عند نقطة الرسم الحالية (بزاوية تتبع اتجاه الحركة، بنعومة)."""
@@ -462,28 +390,63 @@ class Director:
     def render(self, out_path: str | Path, *, audio: str | Path | None = None, max_seconds: float | None = None,
                scene_range: tuple[int, int] | None = None, on_progress=None) -> dict:
         cw, ch = self.canvas
-        writer = FFmpegWriter(out_path, self.out_size, fps=self.fps, crf=self.crf, preset=self.preset, audio=audio)
         aspect = self.out_size[0] / self.out_size[1]
+        self.sfx_events = []
+        bounds = self.scene_bounds(scene_range=scene_range, max_seconds=max_seconds)
+        if not bounds:
+            raise TimebaseError("لا توجد مشاهد قابلة للرندر بعد تطبيق النطاق/الحد الزمني")
+        expected_frames = sum(int(b["frames"]) for b in bounds)
+        writer = FFmpegWriter(
+            out_path,
+            self.out_size,
+            fps=self.fps_rate,
+            crf=self.crf,
+            preset=self.preset,
+            audio=audio,
+            expected_frames=expected_frames,
+        )
         frames_total = 0
         scene_report: list[dict] = []
         t0 = time.time()
-        max_frames = int(max_seconds * self.fps) if max_seconds else None
+        audio_cfg = self.plan.get("audio") or {}
+        sample_rate = int(audio_cfg.get("sample_rate") or 0)
+        output_start_frame = int(bounds[0]["start_frame"])
 
-        for idx, scene in enumerate(self.plan.get("scenes", []), 1):
-            if scene_range and not (scene_range[0] <= idx <= scene_range[1]):
-                continue
+        for bound in bounds:
+            idx = int(bound["index"])
+            scene = bound["scene"]
+            frames = int(bound["frames"])
+            source_frames = int(bound.get("source_frames") or frames)
+            planned_seconds = float(self.fps_rate.time_of_frames(source_frames))
             # لوحة نضيفة لكل مشهد: لا تراكم عناصر فوق بعضها
             wb = Whiteboard(cw, ch, ink=self.ink)
             cam = Viewport(0.0, 0.0, float(cw), float(ch))
-            items = self._prepare_scene(scene)
-            dur = self._scene_duration(scene, items)
-            frames = max(1, int(round(dur * self.fps)))
-            scene_report.append({"id": scene.get("id"), "frames": frames, "seconds": round(frames / self.fps, 3),
-                                 "start": round(frames_total / self.fps, 3)})
-            log.info("مشهد %d: %d عنصر · %.1fث", idx, len(items), dur)
-            scene_base = frames_total
+            items, natural_end = self._prepare_scene(scene, planned_seconds)
+            overflow = natural_end > planned_seconds + 1e-9
+            scene_report.append({
+                "id": scene.get("id"),
+                "index": idx,
+                "frames": frames,
+                "seconds": round(float(self.fps_rate.time_of_frames(frames)), 6),
+                "start": round(frames_total / self.fps, 6),
+                "start_frame": int(bound["start_frame"]),
+                "end_frame": int(bound["end_frame"]),
+                "source_frames": source_frames,
+                "source_seconds": round(planned_seconds, 6),
+                "overflow": bool(overflow),
+                "natural_seconds": round(float(natural_end), 6),
+            })
+            log.info(
+                "مشهد %d: %d عنصر · %.3fث · %d إطار%s",
+                idx, len(items), planned_seconds, frames, " ⚠ overflow" if overflow else "",
+            )
+            scene_base_frame = int(bound["start_frame"])
+            scene_project_start = self.fps_rate.time_of_frames(scene_base_frame)
+            scene_output_base = frames_total
+            scene_output_start = self.fps_rate.time_of_frames(scene_output_base)
             for f in range(frames):
-                t = f / self.fps
+                local_time = self.fps_rate.time_of_frames(f)
+                t = float(local_time)
                 active = None
                 for it in items:
                     if t < it["start"]:
@@ -504,9 +467,24 @@ class Director:
                             prev = float(it.get("_prev", 0.0))
                             if prog > prev:
                                 for ev in it["obj"].events_between(prev * nat, prog * nat):
-                                    gt = (scene_base + f) / self.fps + float(it["start"]) + (ev.t / nat) * float(it["dur"])
+                                    offset = Fraction(str(it["start"])) + (
+                                        Fraction(str(ev.t)) / Fraction(str(nat))
+                                    ) * Fraction(str(it["dur"]))
+                                    event_abs = scene_project_start + offset
+                                    out_abs = scene_output_start + offset
+                                    frame_no = self.fps_rate.frame_of_time(event_abs, mode="round")
+                                    out_frame_no = self.fps_rate.frame_of_time(out_abs, mode="round")
+                                    sample_no = None
+                                    if sample_rate > 0:
+                                        sample_no = int(round(event_abs * sample_rate))
                                     self.sfx_events.append({
-                                        "t": round(gt, 4),
+                                        # Absolute project clock (contract).
+                                        "frame": frame_no,
+                                        "sample": sample_no,
+                                        "t": round(float(event_abs), 6),
+                                        # Output-relative clock (used by the SFX mix).
+                                        "output_frame": out_frame_no,
+                                        "output_t": round(float(out_abs), 6),
                                         "kind": ev.kind,
                                         "x": round(ev.x, 1),
                                         "y": round(ev.y, 1),
@@ -528,37 +506,49 @@ class Director:
                 frame = self._draw_pen(frame, active, cam)
                 writer.write(frame)
                 frames_total += 1
-                if max_frames and frames_total >= max_frames:
-                    break
             if on_progress:
                 on_progress(idx, frames_total)
-            if max_frames and frames_total >= max_frames:
-                break
 
         writer.close()
+        if frames_total != expected_frames:
+            raise TimebaseError(
+                f"عدد الإطارات المكتوب ({frames_total}) لا يطابق حدود الزمن ({expected_frames})"
+            )
+        exact_seconds = self.fps_rate.time_of_frames(frames_total)
         sfx_path = None
         if self.sfx_events:
             try:
                 sfx_path = str(Path(str(out_path)).with_suffix(".sfx.json"))
-                write_json(sfx_path, {"fps": self.fps, "canvas": list(self.canvas), "scenes": scene_report, "events": self.sfx_events})
+                write_json(
+                    sfx_path,
+                    {
+                        "fps": self.fps_rate.fps,
+                        "fps_rate": frame_rate_json(self.fps_rate),
+                        "frames": frames_total,
+                        "duration_sec_exact": str(exact_seconds),
+                        "canvas": list(self.canvas),
+                        "scenes": scene_report,
+                        "events": self.sfx_events,
+                    },
+                )
                 log.info("أحداث القلم للصوت: %d حدث → %s", len(self.sfx_events), Path(sfx_path).name)
             except Exception as e:
                 log.warning("تعذّر حفظ أحداث الصوت: %s", e)
                 sfx_path = None
-        expected = 0
-        for j, sc in enumerate(self.plan.get("scenes", []), 1):
-            if scene_range and not (scene_range[0] <= j <= scene_range[1]):
-                continue
-            expected += int(sc.get("duration_frames") or 0)
-        expected = expected or None
         return {
             "frames": frames_total,
-            "seconds": round(frames_total / self.fps, 2),
+            "seconds": round(float(exact_seconds), 6),
+            "duration_sec_exact": str(exact_seconds),
+            "fps": frame_rate_json(self.fps_rate),
+            "fps_value": self.fps_rate.fps,
             "out": str(out_path),
             "render_seconds": round(time.time() - t0, 1),
             "scenes": scene_report,
-            "narration_frames": expected,
-            "drift_frames": (frames_total - expected) if expected else None,
+            "expected_frames": expected_frames,
+            "narration_frames": expected_frames,
+            "drift_frames": frames_total - expected_frames,
+            "output_start_frame": output_start_frame,
             "sfx": sfx_path,
             "pen_events": len(self.sfx_events),
+            "overflow_scenes": [s["id"] for s in scene_report if s.get("overflow")],
         }

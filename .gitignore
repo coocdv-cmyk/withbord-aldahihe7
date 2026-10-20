@@ -81,6 +81,12 @@ engine-review-20261019/cache/
 # local backup bundles
 backups/
 
+# Local build / packaging artifacts
+rasm-pro/build/
+rasm-pro/dist/
+rasm-pro/*.spec
+build-tools/
+
 # Logs
 *.log
 studio/data/server*.log

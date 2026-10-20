@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/coocdv-cmyk/withbord-aldahihe7/rasm-pro/engine/core/schema/project.schema.json",
+  "title": "rasm-pro project manifest",
+  "description": "project.json contract. All file paths are relative to the project directory. Hashes, not timestamps, establish integrity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "title",
+    "language",
+    "canvas",
+    "fps",
+    "status",
+    "created_at",
+    "updated_at",
+    "paths",
+    "storyboard",
+    "audio",
+    "asset_policy",
+    "assets",
+    "unresolved",
+    "renders",
+    "render",
+    "studio"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "project_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "language": { "type": "string", "minLength": 1 },
+    "canvas": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "integer", "minimum": 1 },
+        { "type": "integer", "minimum": 1 }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "fps": { "$ref": "#/$defs/frameRate" },
+    "status": {
+      "enum": ["draft", "researched", "planned", "approved", "rendered"]
+    },
+    "created_at": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "minLength": 1 },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["script", "script_text", "research", "assets_index"],
+      "properties": {
+        "script": { "$ref": "#/$defs/relativePathOrNull" },
+        "script_text": { "$ref": "#/$defs/relativePathOrNull" },
+        "research": { "$ref": "#/$defs/relativePathOrNull" },
+        "assets_index": { "$ref": "#/$defs/relativePathOrNull" }
+      }
+    },
+    "storyboard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["active", "sha256", "format_version"],
+      "properties": {
+        "active": { "$ref": "#/$defs/relativePath" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "format_version": { "enum": ["1.0", "2.0"] }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["narration", "alignment"],
+      "properties": {
+        "narration": { "$ref": "#/$defs/relativePathOrNull" },
+        "alignment": { "$ref": "#/$defs/relativePathOrNull" },
+        "sha256": { "$ref": "#/$defs/sha256OrNull" },
+        "alignment_sha256": { "$ref": "#/$defs/sha256OrNull" },
+        "codec": { "type": ["string", "null"] },
+        "sample_rate": { "type": ["integer", "null"], "minimum": 1 },
+        "channels": { "type": ["integer", "null"], "minimum": 1 },
+        "total_samples": { "type": ["integer", "null"], "minimum": 1 },
+        "duration_exact": { "type": ["string", "null"] },
+        "duration_sec": { "type": ["number", "null"], "minimum": 0 }
+      }
+    },
+    "asset_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_is_evidence",
+        "retrieved_requires_approval",
+        "requires_origin",
+        "requires_license"
+      ],
+      "properties": {
+        "generated_is_evidence": { "type": "boolean" },
+        "retrieved_requires_approval": { "type": "boolean" },
+        "requires_origin": { "type": "boolean" },
+        "requires_license": { "type": "boolean" }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "bytes",
+          "origin",
+          "license",
+          "approved_by",
+          "approved_at",
+          "status"
+        ],
+        "properties": {
+          "path": { "$ref": "#/$defs/relativePath" },
+          "sha256": { "$ref": "#/$defs/sha256" },
+          "bytes": { "type": "integer", "minimum": 1 },
+          "kind": { "type": ["string", "null"] },
+          "mime": { "type": ["string", "null"] },
+          "origin": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "url", "page_url", "retrieved_at", "title", "author"],
+            "properties": {
+              "kind": { "type": ["string", "null"] },
+              "url": { "type": ["string", "null"] },
+              "page_url": { "type": ["string", "null"] },
+              "retrieved_at": { "type": ["string", "null"] },
+              "title": { "type": ["string", "null"] },
+              "author": { "type": ["string", "null"] }
+            }
+          },
+          "license": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "url", "attribution_required"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "url": { "type": "string" },
+              "attribution_required": { "type": "boolean" }
+            }
+          },
+          "approved_by": { "type": ["string", "null"] },
+          "approved_at": { "type": ["string", "null"] },
+          "status": {
+            "enum": ["retrieved", "generated", "pending", "approved", "rejected"]
+          }
+        }
+      }
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "blocking", "message"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string", "minLength": 1 },
+          "blocking": { "type": "boolean" },
+          "message": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "renders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "role", "sha256", "bytes", "created_at", "status", "validation"],
+        "properties": {
+          "path": { "$ref": "#/$defs/relativePath" },
+          "role": { "enum": ["preview", "deliverable"] },
+          "sha256": { "$ref": "#/$defs/sha256" },
+          "bytes": { "type": "integer", "minimum": 1 },
+          "created_at": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 },
+          "validation": { "type": ["object", "string", "null"] }
+        }
+      }
+    },
+    "render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fps_source",
+        "width",
+        "height",
+        "default_out_size",
+        "video_codec",
+        "audio_codec"
+      ],
+      "properties": {
+        "fps_source": { "const": "plan" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "default_out_size": {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer", "minimum": 1 },
+            { "type": "integer", "minimum": 1 }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "video_codec": { "type": "string" },
+        "audio_codec": { "type": "string" }
+      }
+    },
+    "studio": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["kind", "project_id"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "project_id": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "frameRate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["num", "den"],
+      "properties": {
+        "num": { "type": "integer", "minimum": 1 },
+        "den": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "sha256OrNull": {
+      "type": ["string", "null"],
+      "pattern": "^[a-fA-F0-9]{64}$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![A-Za-z]:)(?![\\\\/])(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "relativePathOrNull": {
+      "type": ["string", "null"],
+      "pattern": "^(?![A-Za-z]:)(?![\\\\/])(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    }
+  }
+}

@@ -318,9 +318,9 @@ class Handler(BaseHTTPRequestHandler):
                 pid=str(data.get('project_id') or data.get('id',''))
                 if not pid.isalnum() or len(pid)>80:
                     raise ValueError('Invalid project id')
-                plan=rasm_bridge.build_plan_studio(pid,max_scenes=data.get('max_scenes'))
+                plan=rasm_bridge.build_plan_studio(pid,max_scenes=data.get('max_scenes'),fps=data.get('fps'))
                 proj=rasm_bridge.rasm_to_studio_project(plan,pid)
-                return self.send({'ok':True,'project_id':pid,'project':proj,'timing':plan.get('timing',{})})
+                return self.send({'ok':True,'project_id':pid,'project':proj,'timing':plan.get('timing',{}),'fps':plan.get('fps')})
             if path=='/api/rasm/render':
                 import uuid,rasm_bridge
                 pid=str(data.get('project_id') or data.get('id',''))
@@ -328,12 +328,18 @@ class Handler(BaseHTTPRequestHandler):
                     raise ValueError('Invalid project id')
                 run=OUTPUT/uuid.uuid4().hex; run.mkdir()
                 out=run/'video.mp4'
-                size=tuple(data.get('size',(1280,720)))
-                res=rasm_bridge.render_project_studio(pid,out_path=str(out),fps=int(data.get('fps',24)),size=size,max_seconds=data.get('max_seconds'))
-                # validate
-                import subprocess
-                ffprobe=str(ROOT/'runtime/ffprobe.exe')
-                return self.send({'ok':True,'project_id':pid,'url':f'/outputs/{run.name}/video.mp4','folder':str(run),'result':{k:res.get(k) for k in ('frames','seconds','render_seconds','narration_frames','drift_frames') if k in res}})
+                raw_size=data.get('size',(1280,720))
+                if not isinstance(raw_size,(list,tuple)) or len(raw_size)!=2:
+                    raise ValueError('Invalid size')
+                size=(int(raw_size[0]),int(raw_size[1]))
+                if not (16<=size[0]<=4096 and 16<=size[1]<=4096):
+                    raise ValueError('Invalid size')
+                fps=data.get('fps')  # None → the plan's rational rate
+                res=rasm_bridge.render_project_studio(pid,out_path=str(out),fps=fps,size=size,max_seconds=data.get('max_seconds'))
+                report=rasm_bridge.validate_studio_render(res,size,expect_audio=bool(res.get('audio')))
+                if not report.get('ok'):
+                    raise RuntimeError('Render validation failed: '+'; '.join(c['check'] for c in report.get('checks',[]) if not c['ok']))
+                return self.send({'ok':True,'project_id':pid,'url':f'/outputs/{run.name}/video.mp4','folder':str(run),'result':{k:res.get(k) for k in ('frames','seconds','duration_sec_exact','fps','render_seconds','narration_frames','drift_frames','plan_path','manifest','audio') if k in res},'validation':report})
             if path=='/api/cancel':
                 JOBS[data['id']][1].set()
                 return self.send({'ok':True})

@@ -9,20 +9,17 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import shutil
 import subprocess
 from array import array
 from fractions import Fraction
 from pathlib import Path
 
 from ..core.log import get_logger
-from ..render.video import ffmpeg_path
+from ..render.video import _bundle_roots, ffmpeg_path
 
 log = get_logger("audio.probe")
-
-FFPROBE_CANDIDATES = (
-    Path(r"D:\withbord inmation\studio\runtime\ffprobe.exe"),
-    Path("ffprobe"),
-)
 
 AUDIO_EXTS = {".wav", ".mp3", ".m4a", ".aac", ".ogg", ".oga", ".opus", ".flac", ".wma", ".aiff", ".aif"}
 
@@ -32,10 +29,18 @@ class AudioError(RuntimeError):
 
 
 def ffprobe_path() -> str:
-    for c in FFPROBE_CANDIDATES:
-        if str(c) == "ffprobe" or c.exists():
-            return str(c)
-    return "ffprobe"
+    env = os.environ.get("RASM_FFPROBE")
+    if env and Path(env).exists():
+        return str(Path(env))
+    for root in _bundle_roots():
+        candidate = root / "ffprobe.exe"
+        if candidate.exists():
+            return str(candidate)
+        candidate = root / "ffprobe"
+        if candidate.exists():
+            return str(candidate)
+    found = shutil.which("ffprobe")
+    return found or "ffprobe"
 
 
 def sha256_file(path: str | Path, *, chunk: int = 1 << 20) -> str:

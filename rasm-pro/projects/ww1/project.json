@@ -1,0 +1,892 @@
+{
+  "schema_version": "1.0",
+  "project_id": "ww1",
+  "title": "الحرب العالمية الأولى",
+  "language": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "status": "planned",
+  "created_at": "2026-10-20T09:07:31Z",
+  "updated_at": "2026-10-20T09:07:31Z",
+  "paths": {
+    "script": "script/scriptgraph.json",
+    "script_text": "script/script.txt",
+    "research": "research/research.json",
+    "assets_index": "research/assets.json"
+  },
+  "storyboard": {
+    "active": "storyboard/plan_v2.json",
+    "sha256": "95d8783761afdb08b8a81154216f16e2e7a086652ff1b9058728300ea1a46697",
+    "format_version": "1.0"
+  },
+  "audio": {
+    "narration": null,
+    "alignment": null
+  },
+  "asset_policy": {
+    "generated_is_evidence": false,
+    "retrieved_requires_approval": true,
+    "requires_origin": true,
+    "requires_license": true
+  },
+  "assets": [
+    {
+      "path": "assets/person-الأرشيدوق-فرانز-فرديناند/33ff2ae0e7b2.jpg",
+      "sha256": "33ff2ae0e7b2b0a8d4cf81c2b5e28144b056e328cff53cb8a37d954842e4393f",
+      "bytes": 4559374,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/1914_Events_Collage_V_1.0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:1914_Events_Collage_V_1.0.jpg",
+        "retrieved_at": "2026-10-18T11:33:19+00:00",
+        "title": "File:1914 Events Collage V 1.0.jpg",
+        "author": "From a variety of images credited above."
+      },
+      "license": {
+        "name": "CC0",
+        "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/person-الأرشيدوق-فرانز-فرديناند/18af0f088f0e.jpg",
+      "sha256": "18af0f088f0e3c19351e152cbf46f2c3c6e786bff6ead675782dd8f58c15e063",
+      "bytes": 5186164,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg",
+        "retrieved_at": "2026-10-18T11:33:20+00:00",
+        "title": "File:Batiste handkerchief with blood of Franz Ferdinand d'Este 01.jpg",
+        "author": "David Kennedy"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/person-الأرشيدوق-فرانز-فرديناند/6d157b3a4c5d.jpg",
+      "sha256": "6d157b3a4c5d93ab09e82f86a48cf7eb665c5379a653b3fcdf99e14ce479aa3c",
+      "bytes": 1349564,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/DC-1914-27-d-Sarajevo-cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:DC-1914-27-d-Sarajevo-cropped.jpg",
+        "retrieved_at": "2026-10-18T11:33:20+00:00",
+        "title": "File:DC-1914-27-d-Sarajevo-cropped.jpg",
+        "author": "Achille Beltrame"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/efab2ae863c3.tif",
+      "sha256": "efab2ae863c397c5da2cf998d9e04a6a4522f1689baf7dd46298977d9a398fc9",
+      "bytes": 6708282,
+      "kind": "document",
+      "mime": "image/tiff",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Interior_of_the_Galerie_des_Glaces_showing_the_arrangement_of_tables_for_the_signing_of_Peace_Terms%2C_Versailles..._-_NARA_-_531149.tif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Interior_of_the_Galerie_des_Glaces_showing_the_arrangement_of_tables_for_the_signing_of_Peace_Terms,_Versailles..._-_NARA_-_531149.tif",
+        "retrieved_at": "2026-10-18T11:34:02+00:00",
+        "title": "File:Interior of the Galerie des Glaces showing the arrangement of tables for the signing of Peace Terms, Versailles... - NARA - 531149.tif",
+        "author": "Unknown author Unknown author or not provided"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/8e2d5ce08aff.jpg",
+      "sha256": "8e2d5ce08aff98b0fb40c4c09cc5c07e13d5bc112a2a55f486c145e551c66399",
+      "bytes": 24750965,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Treaty_of_Versailles%2C_English_version.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Treaty_of_Versailles,_English_version.jpg",
+        "retrieved_at": "2026-10-18T11:34:05+00:00",
+        "title": "File:Treaty of Versailles, English version.jpg",
+        "author": "David Lloyd George, Woodrow Wilson and Georges Clemenceau"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/0199da588d40.jpg",
+      "sha256": "0199da588d40c26b4f6f9f986d76f25b24cbc4f3a56a2f0f8027d2d900d07488",
+      "bytes": 415722,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Dignitaries_gathering_in_the_Hall_of_Mirrors_at_the_Palace_of_Versailles%2C_France%2C_to_sign_the_Treaty_of_Versailles.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Dignitaries_gathering_in_the_Hall_of_Mirrors_at_the_Palace_of_Versailles,_France,_to_sign_the_Treaty_of_Versailles.jpg",
+        "retrieved_at": "2026-10-18T11:34:07+00:00",
+        "title": "File:Dignitaries gathering in the Hall of Mirrors at the Palace of Versailles, France, to sign the Treaty of Versailles.jpg",
+        "author": "Engelberthumperdink"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/country-ألمانيا/6d6e2635d5de.jpg",
+      "sha256": "6d6e2635d5de5ce951767003852ce291c0878f4ec55707f323acd2615920d8f5",
+      "bytes": 8742045,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Fernsehturm%2C_Berl%C3%ADn%2C_Alemania%2C_2016-04-21%2C_DD_40-42_HDR.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Fernsehturm,_Berl%C3%ADn,_Alemania,_2016-04-21,_DD_40-42_HDR.jpg",
+        "retrieved_at": "2026-10-18T11:36:07+00:00",
+        "title": "File:Fernsehturm, Berlín, Alemania, 2016-04-21, DD 40-42 HDR.jpg",
+        "author": "Diego Delso"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/country-ألمانيا/27f56ac75d11.jpg",
+      "sha256": "27f56ac75d1157d931028b7cb3db6e2ad6d0fdc848ec0a252df97446f7f6081f",
+      "bytes": 6465738,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Siegessaeule_Aussicht_10-13_img4_Tiergarten.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Siegessaeule_Aussicht_10-13_img4_Tiergarten.jpg",
+        "retrieved_at": "2026-10-18T11:36:08+00:00",
+        "title": "File:Siegessaeule Aussicht 10-13 img4 Tiergarten.jpg",
+        "author": "A.Savin"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/person-الأرشيدوق-فرانز-فرديناند/cfcbd5a6d18e.jpg",
+      "sha256": "cfcbd5a6d18e9385258bd95dcd2665c603d1cb36d4c7d19e4fbd5b7e91fcc7eb",
+      "bytes": 2549253,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Franz_Ferdinand_von_Rummel.jpg/1920px-Franz_Ferdinand_von_Rummel.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Franz_Ferdinand_von_Rummel.jpg",
+        "retrieved_at": "2026-10-18T11:41:00+00:00",
+        "title": "Franz Ferdinand von Rummel.jpg",
+        "author": "Unknown author Unknown author"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/person-الأرشيدوق-فرانز-فرديناند/560a8421cce3.pdf",
+      "sha256": "560a8421cce3466cb50b3edbf5c138ea60c52de206b14066827d8117b17c0b80",
+      "bytes": 1798598,
+      "kind": "portrait",
+      "mime": "application/pdf",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Abendpost_1891-08-06-_Vol_3_Iss_185_%28IA_sim_abendpost-sonntagpost_1891-08-06_3_185%29.pdf/page1-1920px-Abendpost_1891-08-06-_Vol_3_Iss_185_%28IA_sim_abendpost-sonntagpost_1891-08-06_3_185%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Abendpost_1891-08-06-_Vol_3_Iss_185_(IA_sim_abendpost-sonntagpost_1891-08-06_3_185).pdf",
+        "retrieved_at": "2026-10-18T11:41:05+00:00",
+        "title": "File:Abendpost 1891-08-06- Vol 3 Iss 185 (IA sim abendpost-sonntagpost 1891-08-06 3 185).pdf",
+        "author": "Fæ"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/person-الأرشيدوق-فرانز-فرديناند/8385feb98277.pdf",
+      "sha256": "8385feb982770ffad925dcaf971fd54974d97b9a5496612ad5c0f0569114140b",
+      "bytes": 54810,
+      "kind": "portrait",
+      "mime": "application/pdf",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Celebrated_pianists_of_the_past_and_present._A_collection_of_one_hundred_and_thirty-nine_biographies%2C_with_portraits_%28IA_1894celebratedpianis00ehrluoft%29.pdf/page1-500px-Celebrated_pianists_of_the_past_and_present._A_collection_of_one_hundred_and_thirty-nine_biographies%2C_with_portraits_%28IA_1894celebratedpianis00ehrluoft%29.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Celebrated_pianists_of_the_past_and_present._A_collection_of_one_hundred_and_thirty-nine_biographies,_with_portraits_(IA_1894celebratedpianis00ehrluoft).pdf",
+        "retrieved_at": "2026-10-18T11:41:07+00:00",
+        "title": "File:Celebrated pianists of the past and present. A collection of one hundred and thirty-nine biographies, with portraits (IA 1894celebratedpianis00ehrluoft).pdf",
+        "author": "Ehrlich, A. 1842-1921 Manchester, Arthur Livingston, 1862-"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/3a39f1b876ac.jpg",
+      "sha256": "3a39f1b876acc14b65e7e75d8c6405a8490b8113849a7b423dfe7cbaecbe1ff1",
+      "bytes": 912574,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Deutsches_Reichsgesetzblatt_1871_026_215.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Deutsches_Reichsgesetzblatt_1871_026_215.jpg",
+        "retrieved_at": "2026-10-18T11:42:01+00:00",
+        "title": "File:Deutsches Reichsgesetzblatt 1871 026 215.jpg",
+        "author": "official juridical document"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/dfdcfa70de09.pdf",
+      "sha256": "dfdcfa70de09041fc257f4e8e9e87e594c7bb7701bf6bff4393b4f2a2b700915",
+      "bytes": 104397,
+      "kind": "document",
+      "mime": "application/pdf",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/League_of_Nations_Treaty_Series_index_1.pdf/page1-960px-League_of_Nations_Treaty_Series_index_1.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:League_of_Nations_Treaty_Series_index_1.pdf",
+        "retrieved_at": "2026-10-18T11:42:11+00:00",
+        "title": "File:League of Nations Treaty Series index 1.pdf",
+        "author": "Secretariat of the League of Nations"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/14f735235fd7.pdf",
+      "sha256": "14f735235fd7e3e5c30bdcf2c6a4b2a9534623ef5f6e83f5cfbca9c71af1b9eb",
+      "bytes": 71567,
+      "kind": "document",
+      "mime": "application/pdf",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/League_of_Nations_Treaty_Series_vol_12.pdf/page1-960px-League_of_Nations_Treaty_Series_vol_12.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:League_of_Nations_Treaty_Series_vol_12.pdf",
+        "retrieved_at": "2026-10-18T11:42:11+00:00",
+        "title": "File:League of Nations Treaty Series vol 12.pdf",
+        "author": "Secretariat of the League of Nations"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-السوم/c75888b731eb.jpg",
+      "sha256": "c75888b731eb6e7063f3863065fea79aa9335e45421463fdc2be9dc147116a73",
+      "bytes": 771469,
+      "kind": "event",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/British_Mark_I_male_tank_Somme_25_September_1916.jpg/1920px-British_Mark_I_male_tank_Somme_25_September_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:British_Mark_I_male_tank_Somme_25_September_1916.jpg",
+        "retrieved_at": "2026-10-18T11:43:02+00:00",
+        "title": "British Mark I male tank Somme 25 September 1916.jpg",
+        "author": "Ernest Brooks"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-السوم/a21b49758ec5.jpg",
+      "sha256": "a21b49758ec5aa57c1635b052530c9d3bb629fb2a7d4bfaa95a5139dd463fb54",
+      "bytes": 382212,
+      "kind": "event",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cheshire_Regiment_trench_Somme_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Cheshire_Regiment_trench_Somme_1916.jpg",
+        "retrieved_at": "2026-10-18T11:43:03+00:00",
+        "title": "File:Cheshire Regiment trench Somme 1916.jpg",
+        "author": "John Warwick Brooke"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-السوم/ac03acc227ed.jpg",
+      "sha256": "ac03acc227eda9f914c9a8ea264a920a7ea52371b575a9911c3304c67ccf8e7b",
+      "bytes": 200755,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Map_of_the_Battle_of_Somme_.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Map_of_the_Battle_of_Somme_.jpg",
+        "retrieved_at": "2026-10-18T11:44:59+00:00",
+        "title": "File:Map of the Battle of Somme .jpg",
+        "author": "Hdavis2021"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-السوم/da71cff44da3.svg",
+      "sha256": "da71cff44da3828339adf03be7629969a2d167ac7926027dc93fa1ecf05d377c",
+      "bytes": 541407,
+      "kind": "map",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Map_of_the_Battle_of_the_Somme%2C_1916.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Map_of_the_Battle_of_the_Somme,_1916.svg",
+        "retrieved_at": "2026-10-18T11:45:00+00:00",
+        "title": "File:Map of the Battle of the Somme, 1916.svg",
+        "author": "SVG version, and changes : Grandiose Original map : Worldwari map13 largerview.jpg , US Military Inset map : Giro720 , File:France blank1.svg"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-السوم/03a5c5befb8e.jpg",
+      "sha256": "03a5c5befb8e132f687b6c4d7f68cd69c34712c0e87cd96d3118a5c126ac0709",
+      "bytes": 1011223,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Stanford%27s_half-inch_map_of_the_battle_front_between_the_Somme_and_Soissons_%285003806%29.jpg/1920px-Stanford%27s_half-inch_map_of_the_battle_front_between_the_Somme_and_Soissons_%285003806%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Stanford%27s_half-inch_map_of_the_battle_front_between_the_Somme_and_Soissons_(5003806).jpg",
+        "retrieved_at": "2026-10-18T11:45:05+00:00",
+        "title": "File:Stanford's half-inch map of the battle front between the Somme and Soissons (5003806).jpg",
+        "author": "Jason.nlw"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-فردان/37782df7095c.jpg",
+      "sha256": "37782df7095c4c1ec2a3fa43800dea3b1ed047128998d1a3e929d605abf909aa",
+      "bytes": 201756,
+      "kind": "event",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Verdun_and_Vincinity_-_Map.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Verdun_and_Vincinity_-_Map.jpg",
+        "retrieved_at": "2026-10-18T11:45:10+00:00",
+        "title": "Verdun and Vincinity - Map.jpg",
+        "author": "W.wolny"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-فردان/2bfe2207a27d.png",
+      "sha256": "2bfe2207a27d0b38be89199b31fdcfbb43582773075000062c1023096eece9b4",
+      "bytes": 4336982,
+      "kind": "event",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Barrage_fire_on_Verdun_from_Barancourt_%28February_22%2C_1916%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Barrage_fire_on_Verdun_from_Barancourt_(February_22,_1916).png",
+        "retrieved_at": "2026-10-18T11:45:10+00:00",
+        "title": "File:Barrage fire on Verdun from Barancourt (February 22, 1916).png",
+        "author": "Martin Frost"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-فردان/346c43c0555f.png",
+      "sha256": "346c43c0555fec6eabce9bc8bb646a6b68dbc4c1b3303fdd2d02c238317b6a5d",
+      "bytes": 150456,
+      "kind": "event",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Battle_of_Verdun_map.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Battle_of_Verdun_map.png",
+        "retrieved_at": "2026-10-18T11:45:10+00:00",
+        "title": "File:Battle of Verdun map.png",
+        "author": "Drawn by Gdr"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-فردان/67bbee129b97.jpg",
+      "sha256": "67bbee129b975e6ff5afbe5220aa1eb267b83161e9f5b4cf1425a0317c09de57",
+      "bytes": 1125167,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Bacon%27s_large-scale_map_of_the_French_battle_front_%28Peronne_to_Verdun%29_%285008091%29.jpg/1920px-Bacon%27s_large-scale_map_of_the_French_battle_front_%28Peronne_to_Verdun%29_%285008091%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Bacon%27s_large-scale_map_of_the_French_battle_front_(Peronne_to_Verdun)_(5008091).jpg",
+        "retrieved_at": "2026-10-18T11:46:01+00:00",
+        "title": "File:Bacon's large-scale map of the French battle front (Peronne to Verdun) (5008091).jpg",
+        "author": "Jason.nlw"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-فردان/46512cbd96e7.jpg",
+      "sha256": "46512cbd96e74136c8c1d5be08fdf23223df509253dee8b038f4739514cd3956",
+      "bytes": 245100,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Map_of_the_Battle_of_Verdun.jpg/1920px-Map_of_the_Battle_of_Verdun.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Map_of_the_Battle_of_Verdun.jpg",
+        "retrieved_at": "2026-10-18T11:46:01+00:00",
+        "title": "File:Map of the Battle of Verdun.jpg",
+        "author": "Ebertapelle21"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/country-ألمانيا/efd480af5a15.svg",
+      "sha256": "efd480af5a154a7651f29da23ee0d09dbc892410fb4041898ddf8face336c575",
+      "bytes": 221,
+      "kind": "flag",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "flag-icons",
+        "url": "https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/flags/4x3/de.svg",
+        "page_url": "https://github.com/lipis/flag-icons",
+        "retrieved_at": "2026-10-18T11:46:06+00:00",
+        "title": "علم ألمانيا",
+        "author": null
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://github.com/lipis/flag-icons/blob/master/LICENSE",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/country-ألمانيا/44a4580e94ae.svg",
+      "sha256": "44a4580e94ae11037b8983e43e37a220e72f884217dba5b33a94309db2dcd88b",
+      "bytes": 502,
+      "kind": "flag",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Flag_of_Germany.svg",
+        "retrieved_at": "2026-10-18T11:46:58+00:00",
+        "title": "علم ألمانيا (كومنز)",
+        "author": "User:SKopp , User:Madden , and other users"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/country-ألمانيا/37bdd198b66a.svg",
+      "sha256": "37bdd198b66a3e4c2499e17306a0c51330a8fc83884b4f4c94f00986cf15f85a",
+      "bytes": 7691254,
+      "kind": "map",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/EU-Germany.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:EU-Germany.svg",
+        "retrieved_at": "2026-10-18T11:47:02+00:00",
+        "title": "EU-Germany.svg",
+        "author": "NuclearVacuum"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/country-ألمانيا/5891d85b6fbd.jpg",
+      "sha256": "5891d85b6fbd43e89053b3822802ff39746ea160c8a43352f6e770f7998e0f70",
+      "bytes": 706347,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg/1920px-01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg",
+        "retrieved_at": "2026-10-18T11:47:03+00:00",
+        "title": "File:01-01-2014 - Messeturm - trade fair tower - Frankfurt- Germany - 01.jpg",
+        "author": "Norbert Nagel"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معركة-السوم/55f2a34065a9.svg",
+      "sha256": "55f2a34065a9f5ec5f7ad1104af40b4c6fef1c2471c72df3870701968f162185",
+      "bytes": 526344,
+      "kind": "map",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Map_of_the_Battle_of_the_Somme%2C_1916_mk.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Map_of_the_Battle_of_the_Somme,_1916_mk.svg",
+        "retrieved_at": "2026-10-18T11:59:48+00:00",
+        "title": "File:Map of the Battle of the Somme, 1916 mk.svg",
+        "author": "original by Grandiose derivative by B. Jankuloski"
+      },
+      "license": {
+        "name": "CC BY 3.0",
+        "url": "https://creativecommons.org/licenses/by/3.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/country-ألمانيا/29f2eaeac895.png",
+      "sha256": "29f2eaeac89509dd2108a82a1687b0b22dadc7a3108d49ba9f8c3f07020d7c57",
+      "bytes": 166512,
+      "kind": "map",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Constantinople_map_German.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Constantinople_map_German.png",
+        "retrieved_at": "2026-10-18T11:59:50+00:00",
+        "title": "File:Constantinople map German.png",
+        "author": "Fremantleboy 22 June 2007 (UTC)"
+      },
+      "license": {
+        "name": "CC BY 2.5",
+        "url": "https://creativecommons.org/licenses/by/2.5",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/6aee608a669e.jpg",
+      "sha256": "6aee608a669ebd69c0fc0ff25c4b50dd8d8463ec6a5c3771cd213c3969d1dd70",
+      "bytes": 54782,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Evening_Standard_placard_Versailles_Treaty_signed.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Evening_Standard_placard_Versailles_Treaty_signed.jpg",
+        "retrieved_at": "2026-10-18T12:02:59+00:00",
+        "title": "File:Evening Standard placard Versailles Treaty signed.jpg",
+        "author": "Evening Standard"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/8de7fd17f115.jpg",
+      "sha256": "8de7fd17f115c22e036e2b83a5dea3b00e1b9805a1ee986df12b88623ae1b4f1",
+      "bytes": 187697,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Medal_issued_by_Japan_commemorating_the_Treaty_of_Versailles%2C_struck_1919.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Medal_issued_by_Japan_commemorating_the_Treaty_of_Versailles,_struck_1919.jpg",
+        "retrieved_at": "2026-10-18T12:03:00+00:00",
+        "title": "File:Medal issued by Japan commemorating the Treaty of Versailles, struck 1919.jpg",
+        "author": "User:LouisAragon (uploader)"
+      },
+      "license": {
+        "name": "CC BY-SA 2.5",
+        "url": "https://creativecommons.org/licenses/by-sa/2.5",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/event-معاهدة-فرساي/4994e4076a8d.png",
+      "sha256": "4994e4076a8d6b4ef05a0a0760ab3f7e1c36483f4d6d4d01dfbd4e3038467740",
+      "bytes": 1100735,
+      "kind": "document",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/The_Treaty_of_Versailles%2C_and_signatures.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:The_Treaty_of_Versailles,_and_signatures.png",
+        "retrieved_at": "2026-10-18T12:03:01+00:00",
+        "title": "File:The Treaty of Versailles, and signatures.png",
+        "author": "Lord Milner"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    },
+    {
+      "path": "assets/country-ألمانيا/f259529c17c2.png",
+      "sha256": "f259529c17c2418a083d4561eb3d3fec0dece7b58d97e45dd0df85dd3c8ff85b",
+      "bytes": 7678361,
+      "kind": "map",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Germany_general_map.png/1920px-Germany_general_map.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Germany_general_map.png",
+        "retrieved_at": "2026-10-18T12:04:04+00:00",
+        "title": "File:Germany general map.png",
+        "author": "Lencer and NordNordWest"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved"
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "narration-missing",
+      "kind": "audio",
+      "blocking": false,
+      "message": "لا يوجد تعليق صوتي معتمد؛ مدة الخطة تقديرية وليست مزامنة صوت."
+    },
+    {
+      "id": "assets-pending-approval",
+      "kind": "assets",
+      "blocking": true,
+      "message": "34 أصلًا مسترجعًا ينتظر موافقة بشرية قبل الإنتاج."
+    },
+    {
+      "id": "absolute-plan-paths",
+      "kind": "paths",
+      "blocking": false,
+      "message": "الخطة النشطة تحمل بعض المسارات المطلقة القديمة؛ لم تُعدّل أثناء الترحيل."
+    },
+    {
+      "id": "legacy-numeric-fps",
+      "kind": "timebase",
+      "blocking": false,
+      "message": "الخطة النشطة تحمل fps رقميًا قديمًا؛ يُطبّع في الذاكرة إلى كسر عقلاني."
+    }
+  ],
+  "renders": [
+    {
+      "path": "render/preview_v1_plan_replay.mp4",
+      "role": "preview",
+      "sha256": "f40a1ecdad77efbb3ce693252ee131e6ec35b0da81a2ac5a45b703f6223bec7b",
+      "bytes": 12297217,
+      "created_at": "2026-10-19T10:39:00Z",
+      "status": "existing",
+      "validation": null
+    },
+    {
+      "path": "render/preview_v2.mp4",
+      "role": "preview",
+      "sha256": "dfde5d2f584ce1c866fa76a4535cc723b6c890306cec81601ab9f9256a34cf6f",
+      "bytes": 29957725,
+      "created_at": "2026-10-19T10:36:10Z",
+      "status": "existing",
+      "validation": null
+    },
+    {
+      "path": "render/preview_v2.sfx.wav",
+      "role": "preview",
+      "sha256": "0c3b495fb871fdd082191b7be2410e4b9aa28ce610c975266f270e587ceb332a",
+      "bytes": 7872044,
+      "created_at": "2026-10-19T10:36:06Z",
+      "status": "existing",
+      "validation": null
+    }
+  ],
+  "render": {
+    "fps_source": "plan",
+    "width": 2560,
+    "height": 1440,
+    "default_out_size": [
+      1280,
+      720
+    ],
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "studio": {
+    "kind": "rasm-pro",
+    "project_id": "ww1"
+  }
+}

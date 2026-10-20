@@ -1,0 +1,126 @@
+{
+  "stage": 2,
+  "generated_at": "2026-10-20T09:46:54Z",
+  "project": "ww1",
+  "manifest": {
+    "path": "projects/ww1/project.json",
+    "sha256": "2f7c63920aacd8669358e6e85f1a721725e25b50ce1d9bcb32ed23a35b888651",
+    "bytes": 38825,
+    "active_plan": "storyboard/plan_v2.json",
+    "plan_sha256": "95d8783761afdb08b8a81154216f16e2e7a086652ff1b9058728300ea1a46697",
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "assets": 34,
+    "pending_assets": 34,
+    "renders": 3,
+    "unresolved": 4,
+    "validation_ok": true,
+    "validation_errors": [],
+    "legacy_plan_preserved": true,
+    "legacy_plan_sha256": "c4374b1e6c4668856bee0a87ecc4e9c496e3e385c2f14a9ff1b4d22d96386921"
+  },
+  "tests": {
+    "passed": 70,
+    "failed": 0,
+    "seconds": 19.43
+  },
+  "schemas": {
+    "project_errors": 0,
+    "plan_errors": 0,
+    "validator": "jsonschema Draft202012Validator"
+  },
+  "render_10s": {
+    "path": "ww1_10s.mp4",
+    "sha256": "e792c53cdb55695ae7f1200292a1e4ad7d2044bf9be949fab7f49341425b3dc1",
+    "bytes": 4209062,
+    "format_duration": "10.000000",
+    "video": {
+      "codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "avg_frame_rate": "24/1",
+      "nb_frames": "240",
+      "duration": "10.000000"
+    },
+    "audio": null,
+    "expected_frames": 240,
+    "expected_fps": "24/1",
+    "expected_duration": "10",
+    "render_seconds": 14.6,
+    "sfx_events": 289,
+    "sfx_event_max_output_t": 9.954559,
+    "overflow_scenes": [
+      1
+    ]
+  },
+  "render_2s_sfx": {
+    "path": "ww1_2s_sfx.mp4",
+    "sha256": "e7a7a3b8bf4150f9521a1010f1b7f1b2de6254cc3db732b551b814db1cc5f97e",
+    "bytes": 709303,
+    "format_duration": "2.000000",
+    "video": {
+      "codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "avg_frame_rate": "24/1",
+      "nb_frames": "48",
+      "duration": "2.000000"
+    },
+    "audio": {
+      "codec": "aac",
+      "sample_rate": "48000",
+      "channels": 1,
+      "duration": "2.000000"
+    },
+    "expected_frames": 48,
+    "expected_fps": "24/1",
+    "expected_duration": "2",
+    "render_seconds": 3.7,
+    "sfx_events": 41,
+    "sfx_wav_sha256": "6b5b56db2dc9fd479e111182486a84dec29429971d4c796c02ba781bc2c017bd",
+    "av_difference_sec": 0.0,
+    "real_recordings": true
+  },
+  "packaging_spike": {
+    "tool": "PyInstaller 6.22.3",
+    "mode": "one-folder",
+    "build_seconds": 77.5,
+    "size_bytes": 325209878,
+    "size_mib": 310.1,
+    "files": 371,
+    "help_seconds": [
+      10.2,
+      1.77,
+      1.54
+    ],
+    "validate_exit": 0,
+    "render_1s_exit": 0,
+    "render_1s_frames": 24,
+    "render_1s_duration": "1.000",
+    "clean_vm": false,
+    "clean_vm_note": "No clean VM was available; the spike ran from an isolated folder on the same machine with RASM_HOME. The alternative is documented in the ADR.",
+    "help_note": "The first run is cold (5.5-10.2s depending on the antivirus scan); warm runs were 1.5-1.8s.",
+    "spike": "rasm-portable-spike7",
+    "build_seconds_note": "Repeated builds on the same machine measured 49.8s, 51.7s and 77.5s (antivirus scanning and cache state).",
+    "bundled": [
+      "assets/fonts",
+      "style_packs/paper_ink_v1.json",
+      "engine/core/schema",
+      "config.example.json"
+    ],
+    "not_bundled": [
+      "studio/models",
+      "studio/runtime",
+      "backups",
+      "projects",
+      "library/manifest-icons.jsonl",
+      "config.json"
+    ]
+  },
+  "external_backup": {
+    "copied": false,
+    "reason": "No external medium attached; E: is an empty CD-ROM."
+  }
+}

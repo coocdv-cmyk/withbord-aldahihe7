@@ -136,7 +136,22 @@ class SfxLibrary:
 
 def _events_from_json(path: Path) -> dict:
     data = json.loads(Path(path).read_text(encoding="utf-8"))
-    return data if isinstance(data, dict) else {"events": data}
+    if not isinstance(data, dict):
+        data = {"events": data}
+    # The renderer records both the absolute project clock and the
+    # output-relative clock. SFX must follow the output, especially for a
+    # scene-range preview where the two differ.
+    events = []
+    for event in data.get("events") or []:
+        if not isinstance(event, dict):
+            continue
+        if event.get("output_t") is not None:
+            event = dict(event)
+            event["project_t"] = event.get("t")
+            event["t"] = event["output_t"]
+        events.append(event)
+    data["events"] = events
+    return data
 
 
 def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "paper",
@@ -256,13 +271,33 @@ def _has_audio_stream(video: Path, ffprobe: str) -> bool:
         return False
 
 
+def _probe_duration(video: Path, ffprobe: str) -> float | None:
+    import subprocess
+
+    try:
+        proc = subprocess.run(
+            [ffprobe, "-v", "error", "-show_entries", "format=duration", "-of", "default=nw=1:nk=1", str(video)],
+            capture_output=True, text=True,
+        )
+        if proc.returncode == 0 and proc.stdout.strip():
+            return float(proc.stdout.strip())
+    except Exception:
+        pass
+    return None
+
+
 def mux_into(video: str | Path, sfx_wav: str | Path, out: str | Path, *,
-             sfx_weight: float = 0.35, narration: str | Path | None = None) -> dict:
+             sfx_weight: float = 0.35, narration: str | Path | None = None,
+             duration: float | None = None) -> dict:
     """يدمج المسار في الفيديو (نسخ الفيديو بلا إعادة ترميز).
 
     - إن كان داخل الفيديو مسار صوت (تعليق سبق دمجه): نخلطه مع المؤثرات.
     - إن مُرّر narration صراحة: يُخلط معه (ولا يُعدّل الملف الأصلي).
     - وإلا: يُضاف المسار وحده.
+
+    Always cuts the output at the video's duration. The old ``-shortest``
+    could trim video when narration was shorter; now a short narration fails
+    validation instead of silently shortening the picture.
     """
     import subprocess
 
@@ -275,6 +310,8 @@ def mux_into(video: str | Path, sfx_wav: str | Path, out: str | Path, *,
     out = Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = out.with_name(out.stem + ".mux.mp4")
+    if duration is None:
+        duration = _probe_duration(video, ffprobe)
 
     inputs = ["-i", str(video)]
     if narration and Path(narration).exists():
@@ -289,17 +326,18 @@ def mux_into(video: str | Path, sfx_wav: str | Path, out: str | Path, *,
         sfx_idx = 1
         has_nar = _has_audio_stream(video, ffprobe)
 
+    cut = ["-t", f"{float(duration):.9f}"] if duration and duration > 0 else []
     if has_nar:
         base = f"[{narration_idx}:a]" if narration_idx is not None else "[0:a]"
         fc = (f"{base}aformat=channel_layouts=stereo,volume=1.0[nar];"
               f"[{sfx_idx}:a]aformat=channel_layouts=stereo,volume={sfx_weight}[sfx];"
-              f"[nar][sfx]amix=inputs=2:duration=first:normalize=0[aout]")
+              f"[nar][sfx]amix=inputs=2:duration=longest:normalize=0[aout]")
         cmd = ([ff, "-y", "-v", "error", *inputs, "-filter_complex", fc,
-                "-map", "0:v", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-shortest", str(tmp)])
+                "-map", "0:v", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", *cut, str(tmp)])
         mode = "narration+sfx"
     else:
         cmd = ([ff, "-y", "-v", "error", *inputs, "-map", "0:v", "-map", f"{sfx_idx}:a",
-                "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-shortest", str(tmp)])
+                "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", *cut, str(tmp)])
         mode = "sfx-only"
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0:

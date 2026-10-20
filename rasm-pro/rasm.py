@@ -14,7 +14,21 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from engine.core.log import get_logger  # noqa: E402
-from engine.core.paths import project_dir  # noqa: E402
+from engine.core.paths import ROOT as DATA_ROOT, project_dir  # noqa: E402
+from engine.core.plan_time import plan_frame_rate  # noqa: E402
+from engine.core.project import (  # noqa: E402
+    ProjectError,
+    activate_plan,
+    infer_manifest,
+    load_active_plan,
+    manifest_plan_path,
+    project_manifest_path,
+    read_manifest,
+    utc_now,
+    validate_manifest,
+    write_manifest,
+)
+from engine.core.timebase import FrameRate, TimebaseError, coerce_frame_rate  # noqa: E402
 from engine.core.util import read_json  # noqa: E402
 from engine.render import Director  # noqa: E402
 from engine.stages import plan as plan_stage  # noqa: E402
@@ -31,6 +45,117 @@ from engine.strokes import (  # noqa: E402
 )
 
 log = get_logger("cli")
+
+
+def _try_manifest(pd: Path) -> dict | None:
+    """Read the manifest but keep legacy projects usable before migration."""
+    if not project_manifest_path(pd).exists():
+        return None
+    return read_manifest(pd, required=True)
+
+
+def _resolve_plan_arg(pd: Path, explicit: str | None = None) -> Path:
+    if explicit:
+        raw = Path(explicit)
+        candidates = [raw] if raw.is_absolute() else [
+            pd / raw,
+            pd / "storyboard" / raw,
+            pd / "storyboard" / raw.name,
+        ]
+        for candidate in candidates:
+            if candidate.is_file():
+                return candidate.resolve()
+        raise FileNotFoundError(f"ملف الخطة غير موجود: {explicit}")
+    man = _try_manifest(pd)
+    if man:
+        path = manifest_plan_path(pd, man)
+        # Verify the manifest hash before the renderer reads it.
+        load_active_plan(pd, man)
+        return path
+    for name in ("plan_v2.json", "plan.json"):
+        candidate = pd / "storyboard" / name
+        if candidate.exists():
+            return candidate
+    raise FileNotFoundError("لا توجد خطة نشطة — شغّل: rasm plan")
+
+
+def _project_rate(pd: Path, explicit: str | None = None) -> FrameRate:
+    """Project override first, then active plan, then the 24fps default."""
+    if explicit:
+        return coerce_frame_rate(explicit)
+    man = _try_manifest(pd)
+    if man and man.get("fps") is not None:
+        return coerce_frame_rate(man["fps"])
+    try:
+        plan_path = _resolve_plan_arg(pd)
+        plan = read_json(plan_path) or {}
+        return plan_frame_rate(plan)
+    except (FileNotFoundError, TimebaseError):
+        return FrameRate(24)
+
+
+def _manifest_equivalent(a: dict, b: dict) -> bool:
+    left = {k: v for k, v in a.items() if k != "updated_at"}
+    right = {k: v for k, v in b.items() if k != "updated_at"}
+    return json.dumps(left, ensure_ascii=False, sort_keys=True) == json.dumps(
+        right, ensure_ascii=False, sort_keys=True
+    )
+
+
+def _write_migration_backup(pd: Path, pid: str) -> Path:
+    stamp = utc_now().replace(":", "").replace("-", "").replace("T", "-").replace("Z", "")
+    dest = DATA_ROOT.parent / "backups" / "project-migrations" / f"{pid}-{stamp}"
+    dest.mkdir(parents=True, exist_ok=False)
+    existing = project_manifest_path(pd)
+    if existing.exists():
+        (dest / "project.json.before").write_bytes(existing.read_bytes())
+    inventory = {}
+    for label, rel in (
+        ("script", "script/scriptgraph.json"),
+        ("research", "research/research.json"),
+        ("assets_index", "research/assets.json"),
+        ("plan_v2", "storyboard/plan_v2.json"),
+        ("plan", "storyboard/plan.json"),
+        ("narration", "audio/narration.json"),
+        ("alignment", "audio/alignment.json"),
+    ):
+        p = pd / rel
+        if p.exists():
+            from engine.core.util import sha256_file
+
+            inventory[label] = {"path": rel, "sha256": sha256_file(p), "bytes": p.stat().st_size}
+    (dest / "inventory.before.json").write_text(
+        json.dumps(inventory, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    return dest
+
+
+def _apply_manifest(pd: Path, manifest: dict) -> tuple[dict, bool]:
+    """Write a manifest atomically; validate before and after. Returns (report, changed)."""
+    old = read_manifest(pd)
+    if old is not None:
+        if _manifest_equivalent(old, manifest):
+            return validate_manifest(old, pd), False
+        manifest = dict(manifest)
+        manifest["created_at"] = old.get("created_at") or manifest.get("created_at")
+    backup = _write_migration_backup(pd, str(manifest.get("project_id") or pd.name))
+    write_manifest(pd, manifest)
+    loaded = read_manifest(pd, required=True)
+    report = validate_manifest(loaded, pd)
+    if not report["ok"]:
+        if old is not None:
+            write_manifest(pd, old)
+        else:
+            try:
+                project_manifest_path(pd).unlink()
+            except FileNotFoundError:
+                pass
+        raise ProjectError(
+            "فشل التحقق بعد كتابة المانيفست — تم التراجع. "
+            + "; ".join(report["errors"][:5])
+        )
+    print(f"• نسخة ما قبل الترحيل: {backup}")
+    return report, True
 
 
 def cmd_understand(args) -> int:
@@ -140,7 +265,7 @@ def cmd_llm_status(args) -> int:
 
 
 def cmd_strokes(args) -> int:
-    out = Path(args.out) if args.out else ROOT / "cache" / "preview.png"
+    out = Path(args.out) if args.out else DATA_ROOT / "cache" / "preview.png"
     if args.text:
         font = find_font(args.font or "arefruqaa")
         doc = text_to_strokes(args.text, font, args.size, mode=args.mode)
@@ -218,10 +343,15 @@ def cmd_plan(args) -> int:
         print("✘ لا يوجد scriptgraph.json — شغّل: rasm understand أولا")
         return 1
     research = read_json(pd / "research" / "research.json", default={}) or {}
-    plan = plan_stage.build_plan(graph, research, project_dir=pd, max_scenes=args.max_scenes)
+    try:
+        rate = _project_rate(pd, getattr(args, "fps", None))
+    except TimebaseError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    plan = plan_stage.build_plan(
+        graph, research, project_dir=pd, max_scenes=args.max_scenes, fps=rate
+    )
     report = validate_plan(plan, project_dir=pd)
-    out = plan_stage.save_plan(plan, pd)
-    print(f"✔ الخطة محفوظة: {out}")
     for warning in report["warnings"][:8]:
         print(f"⚠ {warning}")
     if not report["ok"]:
@@ -229,6 +359,14 @@ def cmd_plan(args) -> int:
             print(f"✘ {error}", file=sys.stderr)
         print(f"✘ الخطة المبنية غير صالحة ({len(report['errors'])} خطأ)", file=sys.stderr)
         return 2
+    out = plan_stage.save_plan(plan, pd)
+    if _try_manifest(pd) is not None:
+        try:
+            activate_plan(pd, out)
+        except ProjectError as exc:
+            print(f"✘ حُفظت الخطة لكن تعذّر تنشيطها: {exc}", file=sys.stderr)
+            return 2
+    print(f"✔ الخطة محفوظة: {out} · {rate} · {plan['stats'].get('frames')} إطار")
     timing = plan.get("timing") or {}
     if timing.get("source"):
         lvl = timing.get("level") or "-"
@@ -242,17 +380,44 @@ def cmd_plan(args) -> int:
 
 def cmd_render(args) -> int:
     pd = project_dir(args.project)
-    plan_file = getattr(args, "plan", None) or "plan.json"
-    plan = read_json(pd / "storyboard" / plan_file)
+    try:
+        plan_path = _resolve_plan_arg(pd, getattr(args, "plan", None))
+        plan = read_json(plan_path)
+    except FileNotFoundError:
+        plan = None
+        plan_path = pd / "storyboard" / "plan.json"
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
     if not plan:
         graph = read_json(pd / "script" / "scriptgraph.json")
         if not graph:
             print("✘ لا يوجد تحليل — شغّل: rasm understand ثم rasm plan")
             return 1
         research = read_json(pd / "research" / "research.json", default={}) or {}
-        plan = plan_stage.build_plan(graph, research, project_dir=pd)
-        plan_stage.save_plan(plan, pd)
-        print("• تم بناء الخطة تلقائيًا")
+        try:
+            rate = _project_rate(pd, getattr(args, "fps", None))
+        except TimebaseError as exc:
+            print(f"✘ {exc}", file=sys.stderr)
+            return 2
+        plan = plan_stage.build_plan(graph, research, project_dir=pd, fps=rate)
+        auto_report = validate_plan(plan, project_dir=pd)
+        if not auto_report["ok"]:
+            for error in auto_report["errors"][:20]:
+                print(f"✘ {error}", file=sys.stderr)
+            print(
+                f"✘ الخطة المبنية تلقائيًا غير صالحة ({len(auto_report['errors'])} خطأ) — لم تُحفظ",
+                file=sys.stderr,
+            )
+            return 2
+        try:
+            plan_path = plan_stage.save_plan(plan, pd)
+            if _try_manifest(pd) is not None:
+                activate_plan(pd, plan_path)
+        except ProjectError as exc:
+            print(f"✘ تعذّر حفظ/تنشيط الخطة: {exc}", file=sys.stderr)
+            return 2
+        print(f"• تم بناء الخطة تلقائيًا: {plan_path} ({rate})")
 
     if not getattr(args, "skip_validate", False):
         report = validate_plan(plan, project_dir=pd)
@@ -288,9 +453,13 @@ def cmd_render(args) -> int:
     plan_audio = plan.get("audio") or {}
     if getattr(args, "audio", None):
         audio_file = args.audio
-    elif plan_audio.get("file") and Path(plan_audio["file"]).exists():
-        audio_file = plan_audio["file"]
-    else:
+    elif plan_audio.get("file"):
+        candidate = Path(plan_audio["file"])
+        if not candidate.is_absolute():
+            candidate = pd / candidate
+        if candidate.exists():
+            audio_file = candidate
+    if audio_file is None:
         from engine.audio import load_narration
 
         nar = load_narration(pd)
@@ -299,10 +468,22 @@ def cmd_render(args) -> int:
     if audio_file:
         print(f"• سرد صوتي: {Path(audio_file).name}")
 
-    director = Director(plan, canvas=canvas, out_size=size, fps=args.fps, crf=args.crf)
+    try:
+        director = Director(
+            plan, canvas=canvas, out_size=size, fps=getattr(args, "fps", None), crf=args.crf
+        )
+    except TimebaseError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    print(f"• الخطة: {plan_path} · معدل: {director.fps_rate} · حدود مطلقة")
     res = director.render(out, audio=audio_file, max_seconds=args.max_seconds, scene_range=scene_range)
     print(f"✔ الفيديو: {res['out']}")
-    print(f"  {res['frames']} إطار · {res['seconds']}ث · زمن الرندر {res['render_seconds']}ث")
+    print(
+        f"  {res['frames']} إطار · {res['seconds']}ث · "
+        f"{res.get('fps')} · زمن الرندر {res['render_seconds']}ث"
+    )
+    if res.get("overflow_scenes"):
+        print(f"⚠ مشاهد تجاوز الرسمُ مدتها (لن تُمدّ): {res['overflow_scenes']}")
 
     # مؤثرات صوتية واقعية من أحداث القلم (تُدمج في نفس ملف الفيديو)
     sfx_muxed = False
@@ -311,9 +492,11 @@ def cmd_render(args) -> int:
             from engine.audio.sfx import build_track, mux_into
 
             wav = Path(str(out)).with_suffix(".sfx.wav")
-            info = build_track(res["sfx"], wav, preset=getattr(args, "sfx_preset", "paper"),
-                               duration=res["seconds"])
-            mux = mux_into(out, wav, out, narration=None)
+            info = build_track(
+                res["sfx"], wav, preset=getattr(args, "sfx_preset", "paper"),
+                duration=res["seconds"]
+            )
+            mux = mux_into(out, wav, out, narration=None, duration=res["seconds"])
             res["sfx_wav"] = str(wav)
             res["audio_mode"] = mux["mode"]
             sfx_muxed = True
@@ -328,24 +511,134 @@ def cmd_render(args) -> int:
     # تحقق رقمي مستقل (FFprobe) — لا نجاح بلا دليل
     from engine.render.validate import validate_video
 
-    exp_dur = plan_audio.get("duration_sec")
-    if audio_file and exp_dur is None:
-        from engine.audio import load_narration
-
-        nar = load_narration(pd) or {}
-        exp_dur = nar.get("duration_sec")
     report = validate_video(
         out,
         expect_size=size,
-        expect_fps=args.fps,
+        expect_fps=director.fps_rate,
+        expect_frames=res["frames"],
         expect_audio=bool(audio_file) or sfx_muxed,
-        expect_duration_sec=exp_dur if audio_file else None,
-        tolerance_frames=2 if audio_file else 1,
+        expect_duration_sec=res["duration_sec_exact"],
+        tolerance_frames=1,
     )
     print(("✔" if report["ok"] else "✘") + f" تحقق FFprobe: {report['path']}")
     for c in report["checks"]:
         print(f"   {'✔' if c['ok'] else '✘'} {c['check']}: {c['detail']}")
     return 0 if report["ok"] else 2
+
+
+def cmd_project_init(args) -> int:
+    pd = project_dir(args.project)
+    try:
+        existing = read_manifest(pd)
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    if existing is not None and not args.force:
+        print(f"✘ المانيفست موجود: {project_manifest_path(pd)} — استخدم --force", file=sys.stderr)
+        return 2
+    try:
+        manifest = infer_manifest(
+            pd,
+            project_id=pd.name,
+            active_plan=args.plan,
+            title=args.title,
+            language=args.language,
+            now=utc_now(),
+        )
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    report = validate_manifest(manifest, pd)
+    if not report["ok"]:
+        for error in report["errors"][:20]:
+            print(f"✘ {error}", file=sys.stderr)
+        return 2
+    if args.dry_run:
+        print(json.dumps(manifest, ensure_ascii=False, indent=2))
+        print("• dry-run: لم تتم الكتابة")
+        return 0
+    try:
+        _apply_manifest(pd, manifest)
+    except ProjectError as exc:
+        print(f"✘ تعذّر كتابة المانيفست: {exc}", file=sys.stderr)
+        return 2
+    print(f"✔ المانيفست: {project_manifest_path(pd)}")
+    return 0
+
+
+def cmd_project_validate(args) -> int:
+    pd = project_dir(args.project)
+    try:
+        manifest = read_manifest(pd, required=True)
+        report = validate_manifest(manifest, pd)
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    print(("✔" if report["ok"] else "✘") + f" مانيفست المشروع: {project_manifest_path(pd)}")
+    print(
+        f"  أصول: {report['stats']['assets']} (معلّق: {report['stats']['pending_assets']}) · "
+        f"رندرات: {report['stats']['renders']} · غير محسوم: {report['stats']['unresolved']}"
+    )
+    for warning in report["warnings"][:20]:
+        print(f"⚠ {warning}")
+    for error in report["errors"][:30]:
+        print(f"✘ {error}", file=sys.stderr)
+    return 0 if report["ok"] else 2
+
+
+def cmd_project_migrate(args) -> int:
+    pd = project_dir(args.project)
+    try:
+        existing = read_manifest(pd)
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    try:
+        manifest = infer_manifest(
+            pd,
+            project_id=pd.name,
+            active_plan=args.plan,
+            title=args.title,
+            language=args.language,
+            now=utc_now(),
+        )
+    except (ProjectError, TimebaseError) as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    report = validate_manifest(manifest, pd)
+    print(f"• المشروع: {pd}")
+    print(
+        f"• الخطة النشطة: {manifest['storyboard']['active']} · {manifest['fps']} · "
+        f"{report['stats']['assets']} أصل · {report['stats']['renders']} رندر"
+    )
+    for warning in report["warnings"][:12]:
+        print(f"⚠ {warning}")
+    if not report["ok"]:
+        for error in report["errors"][:30]:
+            print(f"✘ {error}", file=sys.stderr)
+        print("✘ الترحيل لم يبدأ — المانيفست المقترح غير صالح", file=sys.stderr)
+        return 2
+    if existing is not None and _manifest_equivalent(existing, manifest):
+        print("✔ already migrated — لا تغيير")
+        return 0
+    if existing is not None and not args.force:
+        print("✘ المانيفست موجود ويختلف — استخدم --force للتحديث", file=sys.stderr)
+        return 2
+    if not args.apply:
+        print(json.dumps(manifest, ensure_ascii=False, indent=2))
+        print("• dry-run: لم تتم الكتابة (استخدم --apply)")
+        return 0
+    try:
+        final_report, changed = _apply_manifest(pd, manifest)
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    print(f"✔ مانيفست المشروع: {project_manifest_path(pd)} · تغيير: {changed}")
+    print(
+        f"  أصول: {final_report['stats']['assets']} (معلّق: {final_report['stats']['pending_assets']}) · "
+        f"غير محسوم: {final_report['stats']['unresolved']}"
+    )
+    return 0
 
 
 def cmd_learn(args) -> int:
@@ -496,7 +789,32 @@ def main() -> int:
     p5 = sub.add_parser("plan", help="بناء الستوري بورد من التحليل والبحث")
     p5.add_argument("project")
     p5.add_argument("--max-scenes", type=int, default=None)
+    p5.add_argument("--fps", default=None, help="معدل الإطارات (افتراضي: مانيفست المشروع أو 24)")
     p5.set_defaults(func=cmd_plan)
+
+    pj = sub.add_parser("project", help="مانيفست المشروع: init / validate / migrate")
+    pjsub = pj.add_subparsers(dest="project_cmd", required=True)
+    pji = pjsub.add_parser("init", help="إنشاء project.json من مشروع موجود")
+    pji.add_argument("project")
+    pji.add_argument("--plan", default=None, help="الخطة النشطة (مثال: storyboard/plan_v2.json)")
+    pji.add_argument("--title", default=None)
+    pji.add_argument("--language", default=None)
+    pji.add_argument("--force", action="store_true")
+    pji.add_argument("--dry-run", action="store_true")
+    pji.set_defaults(func=cmd_project_init)
+
+    pjv = pjsub.add_parser("validate", help="فحص المانيفست والمسارات والهاشات والخطة")
+    pjv.add_argument("project")
+    pjv.set_defaults(func=cmd_project_validate)
+
+    pjm = pjsub.add_parser("migrate", help="ترحيل آمن إلى project.json (dry-run افتراضيًا)")
+    pjm.add_argument("project")
+    pjm.add_argument("--plan", default=None, help="الخطة النشطة (افتراضي: plan_v2 إن وجدت)")
+    pjm.add_argument("--title", default=None)
+    pjm.add_argument("--language", default=None)
+    pjm.add_argument("--apply", action="store_true", help="كتابة المانيفست (بدونها dry-run)")
+    pjm.add_argument("--force", action="store_true", help="تحديث مانيفست موجود مختلف")
+    pjm.set_defaults(func=cmd_project_migrate)
 
     pv = sub.add_parser("validate", help="فحص خطة JSON قبل الرندر")
     pv.add_argument("plan")
@@ -508,7 +826,7 @@ def main() -> int:
     p6.add_argument("project")
     p6.add_argument("--out")
     p6.add_argument("--size", default="1280x720")
-    p6.add_argument("--fps", type=int, default=30)
+    p6.add_argument("--fps", default=None, help="معدل الإطارات (افتراضي: الخطة النشطة؛ لا يُسمح بالتعارض)")
     p6.add_argument("--crf", type=int, default=19)
     p6.add_argument("--scenes", help="مثل 1-3 أو 2")
     p6.add_argument("--max-seconds", type=float, default=None)

@@ -6,10 +6,12 @@ long render starts, while keeping recoverable style issues as warnings.
 from __future__ import annotations
 
 import math
+from fractions import Fraction
 from pathlib import Path
 from typing import Any
 
-from ..core.timebase import TimebaseError, coerce_frame_rate
+from ..core.plan_time import scene_frame_bounds
+from ..core.timebase import TimebaseError, coerce_frame_rate, map_boundaries_to_frames, SampleRate
 from ..strokes import find_font
 
 ELEMENT_TYPES = {
@@ -71,8 +73,9 @@ def validate_plan(plan: Any, *, project_dir: str | Path | None = None,
             cw, ch = int(canvas[0]), int(canvas[1])
 
     raw_fps = plan.get("fps", 24)
+    rate = None
     try:
-        coerce_frame_rate(raw_fps)
+        rate = coerce_frame_rate(raw_fps)
     except TimebaseError:
         errors.append("fps must be a positive number or rational {num, den}")
 
@@ -84,6 +87,7 @@ def validate_plan(plan: Any, *, project_dir: str | Path | None = None,
     seen_scene_ids: set[str] = set()
     total_elements = 0
     total_duration = 0.0
+    scene_timing: list[dict] = []
     for si, scene in enumerate(scenes, 1):
         where = f"scene {si}"
         if not isinstance(scene, dict):
@@ -106,8 +110,57 @@ def validate_plan(plan: Any, *, project_dir: str | Path | None = None,
             else:
                 total_duration += float(duration)
         df = scene.get("duration_frames")
-        if df is not None and (not _is_num(df) or float(df) <= 0):
-            errors.append(f"{where}: duration_frames must be positive")
+        if df is not None and (
+            not _is_num(df) or float(df) <= 0 or not float(df).is_integer()
+        ):
+            errors.append(f"{where}: duration_frames must be a positive integer")
+
+        sf = scene.get("start_frame")
+        ef = scene.get("end_frame")
+        if (sf is None) != (ef is None):
+            errors.append(f"{where}: start_frame and end_frame must be provided together")
+        elif sf is not None:
+            if not _is_num(sf) or not float(sf).is_integer() or float(sf) < 0:
+                errors.append(f"{where}: start_frame must be a non-negative integer")
+            if not _is_num(ef) or not float(ef).is_integer():
+                errors.append(f"{where}: end_frame must be an integer")
+            if _is_num(sf) and _is_num(ef) and float(ef) <= float(sf):
+                errors.append(f"{where}: end_frame must be greater than start_frame")
+            if df is not None and _is_num(df) and _is_num(sf) and _is_num(ef) and int(df) != int(ef) - int(sf):
+                errors.append(f"{where}: duration_frames must equal end_frame - start_frame")
+            if rate is not None and duration is not None and _is_num(duration):
+                expected = rate.frames_for_duration(Fraction(str(duration)), mode="round")
+                if _is_num(df) and abs(expected - int(df)) > 1:
+                    warnings.append(
+                        f"{where}: duration_frames ({int(df)}) differs from the rounded duration ({expected})"
+                    )
+
+        ss = scene.get("start_sample")
+        es = scene.get("end_sample")
+        if (ss is None) != (es is None):
+            errors.append(f"{where}: start_sample and end_sample must be provided together")
+        elif ss is not None:
+            if not _is_num(ss) or not float(ss).is_integer() or float(ss) < 0:
+                errors.append(f"{where}: start_sample must be a non-negative integer")
+            if not _is_num(es) or not float(es).is_integer():
+                errors.append(f"{where}: end_sample must be an integer")
+            if _is_num(ss) and _is_num(es) and float(es) <= float(ss):
+                errors.append(f"{where}: end_sample must be greater than start_sample")
+            if _is_num(ss) and _is_num(es) and df is not None and _is_num(df) and rate is not None:
+                audio = plan.get("audio") or {}
+                sr = int(audio.get("sample_rate") or 0)
+                if sr > 0:
+                    mapped = map_boundaries_to_frames(
+                        [int(ss), int(es)], SampleRate(sr), rate, mode="round"
+                    )
+                    if mapped[1] - mapped[0] != int(df):
+                        errors.append(
+                            f"{where}: duration_frames ({int(df)}) does not match sample span "
+                            f"({mapped[1] - mapped[0]})"
+                        )
+
+        scene_timing.append({"id": sid, "start_frame": sf, "end_frame": ef,
+                             "start_sample": ss, "end_sample": es, "duration_frames": df})
 
         pause = scene.get("start_pause")
         if pause is not None and (not _is_num(pause) or float(pause) < 0):
@@ -197,6 +250,37 @@ def validate_plan(plan: Any, *, project_dir: str | Path | None = None,
                 if vals is not None and not isinstance(vals, list):
                     errors.append(f"{ewhere}: values must be a list")
             total_elements += 1
+
+    # Global timebase checks: the same helper the renderer uses, so validation
+    # and rendering cannot disagree about scene boundaries.
+    if rate is not None and scenes and not errors:
+        try:
+            bounds = scene_frame_bounds(plan)
+            tb = plan.get("timebase")
+            if isinstance(tb, dict):
+                if tb.get("end_frame") is not None and int(tb["end_frame"]) != bounds[-1]["end_frame"]:
+                    errors.append(
+                        f"timebase.end_frame ({tb.get('end_frame')}) does not match scene bounds "
+                        f"({bounds[-1]['end_frame']})"
+                    )
+                if tb.get("frames") is not None and int(tb["frames"]) != bounds[-1]["end_frame"]:
+                    errors.append("timebase.frames does not match scene bounds")
+                if tb.get("fps") is not None:
+                    try:
+                        tb_rate = coerce_frame_rate(tb["fps"])
+                    except TimebaseError:
+                        errors.append("timebase.fps is invalid")
+                    else:
+                        if tb_rate.value != rate.value:
+                            errors.append("timebase.fps does not match plan fps")
+            audio = plan.get("audio") or {}
+            total_samples = int(audio.get("total_samples") or 0)
+            if total_samples and scenes:
+                last = scenes[-1]
+                if last.get("end_sample") is not None and int(last["end_sample"]) != total_samples:
+                    errors.append("scene sample bounds do not cover the full narration")
+        except TimebaseError as exc:
+            errors.append(f"timebase: {exc}")
 
     # These are warnings only: they do not block a render.
     for si, scene in enumerate(scenes, 1):

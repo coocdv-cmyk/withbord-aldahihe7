@@ -4,21 +4,31 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from ..core.paths import STYLE_PACKS
+from ..core.paths import BUNDLE_STYLE_PACKS, STYLE_PACKS
 
 DEFAULT_STYLE = "paper_ink_v1"
 
 
 def load_style(name: str | Path | None = None) -> dict:
-    """Load a style pack by id or path. Raises a clear error if missing."""
+    """Load a style pack by id or path. Raises a clear error if missing.
+
+    The user data directory wins, then the packs bundled with the application
+    (the packaged build has no writable style folder next to the executable
+    until the user creates one).
+    """
     if name is None:
         name = DEFAULT_STYLE
     p = Path(name)
     if not p.exists():
-        p = STYLE_PACKS / f"{name}.json"
+        for base in (STYLE_PACKS, BUNDLE_STYLE_PACKS):
+            candidate = base / f"{name}.json"
+            if candidate.exists():
+                p = candidate
+                break
     if not p.exists():
         raise FileNotFoundError(
-            f"Style pack not found: {name!r}. Expected {STYLE_PACKS / (str(name) + '.json')}"
+            f"Style pack not found: {name!r}. Expected {STYLE_PACKS / (str(name) + '.json')} "
+            f"or {BUNDLE_STYLE_PACKS / (str(name) + '.json')}"
         )
     data = json.loads(p.read_text(encoding="utf-8"))
     if not isinstance(data, dict) or "kinds" not in data:

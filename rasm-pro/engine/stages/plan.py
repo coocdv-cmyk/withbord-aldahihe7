@@ -13,7 +13,13 @@ from pathlib import Path
 from ..audio.align import load_alignment
 from ..audio.narration import load_narration
 from ..core import arabic
-from ..core.timebase import FrameRate, coerce_frame_rate, frame_rate_json
+from ..core.timebase import (
+    FrameRate,
+    SampleRate,
+    coerce_frame_rate,
+    frame_rate_json,
+    map_boundaries_to_frames,
+)
 from ..core.util import write_json
 
 CANVAS = (2560, 1440)
@@ -237,55 +243,113 @@ def build_plan(
             "file": nar.get("path"),
             "sha256": nar.get("sha256"),
             "duration_sec": nar.get("duration_sec"),
+            "duration_exact": nar.get("duration_exact"),
             "sample_rate": nar.get("sample_rate"),
             "total_samples": nar.get("total_samples"),
             "codec": nar.get("codec"),
         }
+
+    def _assign_estimated_frames() -> int:
+        """Assign absolute frames from exact decimal durations, once."""
+        acc = Fraction(0)
+        total = 0
+        for sc in out_scenes:
+            dur = Fraction(str(sc.get("duration") or 0))
+            start = rate.frame_of_time(acc, mode="round")
+            acc += dur
+            end = rate.frame_of_time(acc, mode="round")
+            sc["start_frame"] = start
+            sc["end_frame"] = end
+            sc["duration_frames"] = end - start
+            sc["duration"] = round(float(dur), 6)
+            total = end
+        return total
+
+    total_frames = _assign_estimated_frames()
     al = load_alignment(base) if project_dir else None
     if al and al.segments and al.sample_rate > 0:
         by_id = {int(seg.scene_id): seg for seg in al.segments}
-        for sc in out_scenes:
-            seg = by_id.get(int(sc["id"]))
-            if not seg or seg.length <= 0:
-                continue
-            # المصدر: عينات مطلقة. لا نمدّ مقطعًا قصيرًا قسرًا لأن ذلك
-            # يكسر مزامنة الصوت؛ نترك الطول الحقيقي ونصرّح بالتحذير.
-            sc["start_sample"] = int(seg.start_sample)
-            sc["end_sample"] = int(seg.end_sample)
-            sc["duration_samples"] = int(seg.length)
-            sc["duration_frames"] = rate.frames_for_duration(
-                Fraction(seg.length, al.sample_rate), mode="round"
-            )
-            sc["duration"] = round(seg.length / al.sample_rate, 6)
-        timing = {
-            "source": "narration",
-            "level": al.level,
-            "method": al.method,
-            "notes": al.notes,
-            "sample_rate": al.sample_rate,
-            "total_samples": al.total_samples,
-            "fps": frame_rate_json(rate),
-            "alignment": str(base / "audio" / "alignment.json"),
-        }
+        segs = [by_id.get(int(sc["id"])) for sc in out_scenes]
+        # Only accept a complete, contiguous alignment. A partial alignment is
+        # reported as estimated rather than mixed into some scenes silently.
+        complete = all(seg is not None and seg.length > 0 for seg in segs)
+        if complete:
+            starts = [int(seg.start_sample) for seg in segs]  # type: ignore[union-attr]
+            ends = [int(seg.end_sample) for seg in segs]  # type: ignore[union-attr]
+            contiguous = starts[0] == 0 and all(
+                ends[i] == starts[i + 1] for i in range(len(starts) - 1)
+            ) and ends[-1] == int(al.total_samples)
+            if contiguous:
+                mapped = map_boundaries_to_frames(
+                    [starts[0], *ends],
+                    SampleRate(al.sample_rate),
+                    rate,
+                    total_samples=al.total_samples,
+                    mode="round",
+                )
+                for i, sc in enumerate(out_scenes):
+                    seg = segs[i]
+                    assert seg is not None
+                    sc["start_sample"] = starts[i]
+                    sc["end_sample"] = ends[i]
+                    sc["duration_samples"] = ends[i] - starts[i]
+                    sc["start_frame"] = mapped[i]
+                    sc["end_frame"] = mapped[i + 1]
+                    sc["duration_frames"] = mapped[i + 1] - mapped[i]
+                    sc["duration"] = round((ends[i] - starts[i]) / al.sample_rate, 6)
+                total_frames = mapped[-1]
+                timing = {
+                    "source": "narration",
+                    "level": al.level,
+                    "method": al.method,
+                    "notes": al.notes,
+                    "sample_rate": al.sample_rate,
+                    "total_samples": al.total_samples,
+                    "fps": frame_rate_json(rate),
+                    "alignment": str(base / "audio" / "alignment.json"),
+                    "rounding": "absolute-samples-to-frames",
+                }
+            else:
+                timing["note"] = "المحاذاة غير متصلة أو لا تغطي كامل الصوت — استُخدم التوقيت التقديري."
+        else:
+            timing["note"] = "المحاذاة لا تغطي كل المشاهد — استُخدم التوقيت التقديري."
     elif audio_info:
         timing = {
             "source": "estimated-with-narration",
             "method": "words-per-second",
             "note": "يوجد تعليق صوتي بلا محاذاة — المدد تقديرية وقد تختلف عن الصوت.",
+            "fps": frame_rate_json(rate),
         }
 
+    exact_duration = sum(
+        (Fraction(str(sc["duration"])) for sc in out_scenes),
+        Fraction(0),
+    )
     return {
         "project": graph.get("source_hash", ""),
         "lang": graph.get("lang", "ar"),
         "canvas": list(CANVAS),
         "fps": frame_rate_json(rate),
+        "timebase": {
+            "source": timing["source"],
+            "method": timing.get("method", ""),
+            "rounding": timing.get("rounding", "absolute-boundaries"),
+            "fps": frame_rate_json(rate),
+            "sample_rate": timing.get("sample_rate"),
+            "total_samples": timing.get("total_samples"),
+            "start_frame": 0,
+            "end_frame": total_frames,
+            "frames": total_frames,
+        },
         "scenes": out_scenes,
         "audio": audio_info,
         "timing": timing,
         "stats": {
             "scenes": len(out_scenes),
             "elements": sum(len(s["elements"]) for s in out_scenes),
-            "estimated_duration": round(sum(s["duration"] for s in out_scenes), 1),
+            "estimated_duration": round(float(exact_duration), 1),
+            "duration": round(float(exact_duration), 6),
+            "frames": total_frames,
         },
     }
 

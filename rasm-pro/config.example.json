@@ -1,6 +1,6 @@
 {
   "llm": {
-    "backend": "auto",
+    "backend": "local",
     "local_base_url": "http://127.0.0.1:11435/v1",
     "local_model": "qwen3",
     "openai_base_url": "https://api.openai.com/v1",
@@ -14,8 +14,8 @@
     "allow_sharealike": true,
     "assistant": {
       "base_url": "http://127.0.0.1:11435/v1",
-      "model": "studio\\\\models\\\\Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
-      "model_path": "D:/withbord inmation/studio/models/Qwen3-4B-Instruct-2507-Q4_K_M.gguf",
+      "model": "qwen3",
+      "model_path": "",
       "context_size": 8192,
       "max_tokens": 900,
       "timeout": 120,
@@ -31,7 +31,7 @@
     }
   },
   "render": {
-    "fps": 60,
+    "fps": 24,
     "width": 2560,
     "height": 1440,
     "draw_speed_px_s": 520

@@ -10,8 +10,9 @@ from .util import read_json
 
 DEFAULTS: dict[str, Any] = {
     "llm": {
-        # backend: "auto" | "local" | "openai" | "offline"
-        "backend": "auto",
+        # backend: "local" | "openai" | "offline" | "auto"
+        # "auto" is local-first and never falls back to a paid cloud endpoint.
+        "backend": "local",
         "local_base_url": "http://127.0.0.1:11435/v1",
         "local_model": "qwen3",
         "openai_base_url": "https://api.openai.com/v1",
@@ -31,7 +32,7 @@ DEFAULTS: dict[str, Any] = {
         "download_timeout": 45,
     },
     "render": {
-        "fps": 60,
+        "fps": 24,
         "width": 2560,
         "height": 1440,
         "draw_speed_px_s": 520,     # سرعة القلم الافتراضية بوحدات اللوح
@@ -65,7 +66,7 @@ class Config:
     @property
     def llm_backend(self) -> str:
         env = os.environ.get("RASM_LLM_BACKEND")
-        return env or self.get("llm", "backend", default="auto")
+        return env or self.get("llm", "backend", default="local")
 
     @property
     def openai_key(self) -> str:

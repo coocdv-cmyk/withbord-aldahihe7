@@ -70,10 +70,8 @@ class LLM:
             self._backend = "local" if self._local_alive() else "offline"
         elif want == "openai":
             self._backend = "openai" if self.cfg.openai_key else "offline"
-        else:  # auto
-            if self.cfg.openai_key:
-                self._backend = "openai"
-            elif self._local_alive():
+        else:  # auto — local first, never a silent paid/cloud fallback
+            if self._local_alive():
                 self._backend = "local"
             else:
                 self._backend = "offline"

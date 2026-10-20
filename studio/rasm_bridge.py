@@ -25,8 +25,11 @@ try:
     from engine.stages import understanding as rasm_understanding  # noqa: E402
     from engine.stages import research as rasm_research  # noqa: E402
     from engine.stages import plan as rasm_plan  # noqa: E402
-    from engine.core.timebase import FrameRate, SampleRate  # noqa: E402
+    from engine.stages.validate_plan import validate_plan as rasm_validate_plan  # noqa: E402
+    from engine.core.timebase import FrameRate, SampleRate, coerce_frame_rate  # noqa: E402
+    from engine.core import project as rasm_project  # noqa: E402
     from engine.render import Director  # noqa: E402
+    from engine.render.validate import validate_video as rasm_validate_video  # noqa: E402
     from engine.core.util import read_json as rasm_read_json  # noqa: E402
     RASM_AVAILABLE = True
 except Exception as e:
@@ -83,7 +86,28 @@ def load_narration_studio(project_id):
     return rasm_load_narration(pd)
 
 
-def build_plan_studio(project_id, max_scenes=None):
+def project_manifest_studio(project_id):
+    if not RASM_AVAILABLE:
+        return None
+    pd = rasm_paths.project_dir(project_id)
+    return rasm_project.read_manifest(pd)
+
+
+def load_active_plan_studio(project_id):
+    _require()
+    pd = rasm_paths.project_dir(project_id)
+    man = rasm_project.read_manifest(pd)
+    if man is not None:
+        plan, path = rasm_project.load_active_plan(pd, man)
+        return plan, path, man
+    for name in ("plan_v2.json", "plan.json"):
+        path = pd / "storyboard" / name
+        if path.exists():
+            return rasm_read_json(path), path, None
+    raise RuntimeError("no plan; run build_plan first")
+
+
+def build_plan_studio(project_id, max_scenes=None, fps=None):
     _require()
     pd = rasm_paths.project_dir(project_id)
     graph = json.loads((pd / "script" / "scriptgraph.json").read_text(encoding="utf-8"))
@@ -91,15 +115,27 @@ def build_plan_studio(project_id, max_scenes=None):
     rp = pd / "research" / "research.json"
     if rp.exists():
         research = json.loads(rp.read_text(encoding="utf-8"))
-    plan = rasm_plan.build_plan(graph, research, project_dir=pd, max_scenes=max_scenes)
-    rasm_plan.save_plan(plan, pd)
+    rate = coerce_frame_rate(fps) if fps is not None else None
+    man = rasm_project.read_manifest(pd)
+    if rate is None and man and man.get("fps") is not None:
+        rate = coerce_frame_rate(man["fps"])
+    plan = rasm_plan.build_plan(
+        graph, research, project_dir=pd, max_scenes=max_scenes, fps=rate
+    )
+    report = rasm_validate_plan(plan, project_dir=pd)
+    if not report.get("ok"):
+        detail = "; ".join(report.get("errors", [])[:5])
+        raise RuntimeError(f"built plan is invalid; not saved: {detail}")
+    out = rasm_plan.save_plan(plan, pd)
+    if man is not None:
+        rasm_project.activate_plan(pd, out)
     return plan
 
 
 def rasm_to_studio_project(plan, project_id):
     scenes = []
     for s in plan.get("scenes", []):
-        narration = s.get("narration", "")
+        narration = s.get("narration") or ""
         words = narration.split()[:7]
         title = " ".join(words) if words else str(s.get("id", ""))
         scenes.append({
@@ -108,6 +144,16 @@ def rasm_to_studio_project(plan, project_id):
             "duration": float(s.get("duration", 6.0)),
             "assets": [],
             "layout": "focus",
+            # Lossless rasm fields: Studio may ignore them, but a round-trip
+            # must never silently drop elements or selected assets.
+            "rasm_id": s.get("id"),
+            "rasm_elements": s.get("elements", []),
+            "rasm_assets_used": s.get("assets_used", []),
+            "rasm_start_frame": s.get("start_frame"),
+            "rasm_end_frame": s.get("end_frame"),
+            "rasm_duration_frames": s.get("duration_frames"),
+            "rasm_start_sample": s.get("start_sample"),
+            "rasm_end_sample": s.get("end_sample"),
         })
     proj = {
         "version": 1,
@@ -126,23 +172,50 @@ def rasm_to_studio_project(plan, project_id):
         "scenes": scenes,
         "rasm_timing": plan.get("timing", {}),
         "rasm_audio": plan.get("audio", {}),
+        "rasm_fps": plan.get("fps"),
+        "rasm_timebase": plan.get("timebase", {}),
+        "rasm_plan": plan,
     }
     return proj
 
 
-def render_project_studio(project_id, out_path=None, fps=24, size=(1280, 720), max_seconds=None, audio=None):
+def render_project_studio(project_id, out_path=None, fps=None, size=(1280, 720), max_seconds=None, audio=None):
     _require()
     pd = rasm_paths.project_dir(project_id)
-    plan = rasm_read_json(pd / "storyboard" / "plan.json")
-    if not plan:
-        raise RuntimeError("no plan; run build_plan first")
+    plan, plan_path, man = load_active_plan_studio(project_id)
     audio_file = audio
     if audio_file is None:
-        nar = rasm_load_narration(pd)
-        if nar:
-            audio_file = nar.get("path")
+        plan_audio = plan.get("audio") or {}
+        candidate = plan_audio.get("file")
+        if candidate:
+            candidate = Path(candidate)
+            if not candidate.is_absolute():
+                candidate = pd / candidate
+            if candidate.exists():
+                audio_file = candidate
+        if audio_file is None:
+            nar = rasm_load_narration(pd)
+            if nar:
+                audio_file = nar.get("path")
     canvas = tuple(plan.get("canvas") or [2560, 1440])
     director = Director(plan, canvas=canvas, out_size=size, fps=fps, crf=19)
     out = Path(out_path) if out_path else (pd / "render" / "preview.mp4")
     out.parent.mkdir(parents=True, exist_ok=True)
-    return director.render(out, audio=audio_file, max_seconds=max_seconds)
+    result = director.render(out, audio=audio_file, max_seconds=max_seconds)
+    result["plan_path"] = str(plan_path)
+    result["manifest"] = str(rasm_project.project_manifest_path(pd)) if man is not None else None
+    result["audio"] = str(audio_file) if audio_file else None
+    return result
+
+
+def validate_studio_render(result, size, expect_audio=False):
+    _require()
+    return rasm_validate_video(
+        result["out"],
+        expect_size=size,
+        expect_fps=result.get("fps"),
+        expect_frames=result.get("frames"),
+        expect_audio=expect_audio,
+        expect_duration_sec=result.get("duration_sec_exact"),
+        tolerance_frames=1,
+    )

@@ -1,40 +1,81 @@
-"""كاتب الفيديو: تدفّق إطارات rawvideo إلى ffmpeg (نستخدم ffmpeg المدمج في studio)."""
+"""Video writer: raw RGB frames piped to ffmpeg.
+
+The frame rate is a rational ``FrameRate`` (for example ``30000/1001``), never a
+rounded float.  When the caller knows the exact frame count we also pass an
+explicit output duration and verify it after the pipe closes.  This removes the
+old ``-shortest`` behaviour, which could silently trim video when the audio was
+slightly shorter.
+"""
 from __future__ import annotations
 
+import os
+import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 from PIL import Image
 
-FFMPEG_CANDIDATES = (
-    Path(r"D:\withbord inmation\studio\runtime\ffmpeg.exe"),
-    Path("ffmpeg"),
-)
+from ..core.timebase import FrameRate, coerce_frame_rate, TimebaseError
+
+
+def _bundle_roots() -> list[Path]:
+    roots: list[Path] = []
+    env = os.environ.get("RASM_FFMPEG_DIR")
+    if env:
+        roots.append(Path(env))
+    if getattr(sys, "frozen", False):
+        roots.append(Path(sys.executable).resolve().parent / "runtime")
+    meipass = getattr(sys, "_MEIPASS", None)
+    if meipass:
+        roots.append(Path(meipass) / "runtime")
+    # Source checkout: rasm-pro/engine/render/video.py → rasm-pro and repo root.
+    data_home = os.environ.get("RASM_HOME")
+    if data_home:
+        roots.append(Path(data_home) / "runtime")
+        roots.append(Path(data_home).resolve().parent / "studio" / "runtime")
+    here = Path(__file__).resolve()
+    roots.append(here.parents[2] / "runtime")
+    roots.append(here.parents[3] / "studio" / "runtime")
+    return roots
 
 
 def ffmpeg_path() -> str:
-    for c in FFMPEG_CANDIDATES:
-        if str(c) == "ffmpeg" or c.exists():
-            return str(c)
-    return "ffmpeg"
+    env = os.environ.get("RASM_FFMPEG")
+    if env and Path(env).exists():
+        return str(Path(env))
+    for root in _bundle_roots():
+        candidate = root / "ffmpeg.exe"
+        if candidate.exists():
+            return str(candidate)
+        candidate = root / "ffmpeg"
+        if candidate.exists():
+            return str(candidate)
+    found = shutil.which("ffmpeg")
+    return found or "ffmpeg"
 
 
 class FFmpegWriter:
-    """يكتب إطارات RGB خام مباشرة إلى أنبوب ffmpeg (سريع بلا ملفات وسيطة)."""
+    """Writes raw RGB frames directly into an ffmpeg pipe (no temp image files)."""
 
     def __init__(
         self,
         out_path: str | Path,
         size: tuple[int, int],
         *,
-        fps: int = 30,
+        fps: FrameRate | int | float | str | dict | None = None,
         crf: int = 19,
         preset: str = "medium",
         audio: str | Path | None = None,
         ffmpeg: str | None = None,
+        expected_frames: int | None = None,
     ):
         self.size = (int(size[0]), int(size[1]))
-        self.fps = int(fps)
+        self.fps_rate = coerce_frame_rate(24 if fps is None else fps)
+        self.fps = self.fps_rate.fps
+        self.expected_frames = int(expected_frames) if expected_frames else None
+        if self.expected_frames is not None and self.expected_frames <= 0:
+            raise TimebaseError("expected_frames يجب أن يكون موجبًا")
         self.frames = 0
         self.out = str(out_path)
         Path(self.out).parent.mkdir(parents=True, exist_ok=True)
@@ -45,7 +86,7 @@ class FFmpegWriter:
             "-f", "rawvideo",
             "-pix_fmt", "rgb24",
             "-s", f"{self.size[0]}x{self.size[1]}",
-            "-r", str(self.fps),
+            "-r", self.fps_rate.ffmpeg,
             "-i", "-",
         ]
         if audio:
@@ -58,10 +99,22 @@ class FFmpegWriter:
             "-movflags", "+faststart",
         ]
         if audio:
-            cmd += ["-c:a", "aac", "-b:a", "192k", "-shortest"]
+            cmd += ["-c:a", "aac", "-b:a", "192k"]
+        if self.expected_frames is not None:
+            duration = self.fps_rate.time_of_frames(self.expected_frames)
+            # Exact decimal to nanoseconds; ffmpeg's -t accepts this form.
+            cmd += ["-t", f"{float(duration):.9f}"]
         cmd += [self.out]
         self.cmd = cmd
-        self.proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        try:
+            self.proc = subprocess.Popen(
+                cmd, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE
+            )
+        except FileNotFoundError as exc:
+            raise RuntimeError(
+                "ffmpeg غير موجود. ضعه في runtime/ بجانب التطبيق أو اضبط "
+                "RASM_FFMPEG أو RASM_FFMPEG_DIR أو أضفه إلى PATH."
+            ) from exc
 
     def write(self, img: Image.Image) -> None:
         if img.size != self.size:
@@ -88,4 +141,8 @@ class FFmpegWriter:
             except Exception:
                 pass
             raise RuntimeError(f"ffmpeg فشل (كود {rc}): {err.decode('utf-8', 'replace')[-600:]}")
+        if self.expected_frames is not None and self.frames != self.expected_frames:
+            raise RuntimeError(
+                f"عدد الإطارات المكتوب ({self.frames}) لا يطابق المتوقع ({self.expected_frames})"
+            )
         return rc

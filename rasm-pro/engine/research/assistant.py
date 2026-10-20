@@ -21,7 +21,12 @@ from ..core.log import get_logger
 
 log = get_logger("research_assistant")
 
-DEFAULT_MODEL_PATH = Path("D:/withbord inmation/studio/models/Qwen3-4B-Instruct-2507-Q4_K_M.gguf")
+_DEFAULT_MODEL_DIR = (
+    Path(os.environ["RASM_MODEL_DIR"])
+    if os.environ.get("RASM_MODEL_DIR")
+    else Path(__file__).resolve().parents[3] / "studio" / "models"
+)
+DEFAULT_MODEL_PATH = _DEFAULT_MODEL_DIR / "Qwen3-4B-Instruct-2507-Q4_K_M.gguf"
 
 
 @dataclass

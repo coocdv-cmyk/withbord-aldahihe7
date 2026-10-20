@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
+import tempfile
 import unicodedata
 from pathlib import Path
 from typing import Any
@@ -19,7 +21,19 @@ def read_json(path: str | Path, default: Any = None) -> Any:
 def write_json(path: str | Path, data: Any, indent: int = 2) -> Path:
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, ensure_ascii=False, indent=indent), encoding="utf-8")
+    text = json.dumps(data, ensure_ascii=False, indent=indent)
+    fd, tmp_name = tempfile.mkstemp(prefix=f".{p.name}.", suffix=".tmp", dir=str(p.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as f:
+            f.write(text)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp_name, p)
+    finally:
+        try:
+            Path(tmp_name).unlink()
+        except FileNotFoundError:
+            pass
     return p
 
 

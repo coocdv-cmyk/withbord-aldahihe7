@@ -11,6 +11,7 @@ from fractions import Fraction
 from pathlib import Path
 
 from ..audio.probe import ffprobe_path
+from ..core.timebase import FrameRate, TimebaseError, coerce_frame_rate, frame_rate_json
 
 
 class ValidationError(RuntimeError):
@@ -56,9 +57,10 @@ def validate_video(
     path: str | Path,
     *,
     expect_size: tuple[int, int] | None = None,
-    expect_fps: int | float | Fraction | None = None,
+    expect_fps: int | float | str | dict | FrameRate | Fraction | None = None,
+    expect_frames: int | None = None,
     expect_audio: bool | None = None,
-    expect_duration_sec: float | Fraction | None = None,
+    expect_duration_sec: float | Fraction | str | None = None,
     tolerance_frames: int = 1,
 ) -> dict:
     """يفحص ملف فيديو ويعيد تقريرًا كاملًا (لا يرفع استثناء عند فشل فحص)."""
@@ -79,26 +81,43 @@ def validate_video(
     a = next((s for s in streams if s.get("codec_type") == "audio"), None)
 
     check("video-stream", v is not None, f"{v.get('codec_name') if v else 'لا يوجد'}")
+    rate_for_tolerance: Fraction | None = None
     if v:
         w, h = int(v.get("width") or 0), int(v.get("height") or 0)
         if expect_size:
             check("size", (w, h) == (int(expect_size[0]), int(expect_size[1])), f"{w}x{h}")
         fps_actual = _frac_rate(v.get("avg_frame_rate")) or _frac_rate(v.get("r_frame_rate"))
+        exp_rate = None
         if expect_fps is not None:
-            exp = Fraction(str(expect_fps)) if not isinstance(expect_fps, Fraction) else expect_fps
-            check("fps", fps_actual == exp, f"{fps_actual} (متوقع {exp})")
+            try:
+                exp_rate = coerce_frame_rate(expect_fps)
+            except TimebaseError:
+                check("fps", False, f"معدل متوقع غير صالح: {expect_fps!r}")
+            else:
+                check("fps", fps_actual == exp_rate.value, f"{fps_actual} (متوقع {exp_rate})")
         nb = int(v.get("nb_frames") or 0)
+        if expect_frames is not None:
+            check("frames", nb == int(expect_frames), f"{nb} (متوقع {expect_frames})")
         dur_txt = v.get("duration") or (info.get("format") or {}).get("duration")
         dur = Fraction(str(dur_txt)) if dur_txt else None
-        if expect_duration_sec is not None and dur is not None and fps_actual:
+        rate_for_tolerance = fps_actual or (exp_rate.value if exp_rate is not None else None)
+        if expect_duration_sec is not None and dur is not None and rate_for_tolerance:
             exp_d = Fraction(str(expect_duration_sec)) if not isinstance(expect_duration_sec, Fraction) else expect_duration_sec
-            tol = Fraction(int(tolerance_frames)) / fps_actual
+            tol = Fraction(int(tolerance_frames)) / rate_for_tolerance
             check(
                 "duration",
                 abs(dur - exp_d) <= tol,
                 f"{float(dur):.3f}ث (متوقع {float(exp_d):.3f}ث ± {float(tol):.3f}ث)",
             )
-        rep_v = {"codec": v.get("codec_name"), "width": w, "height": h, "fps": str(fps_actual), "frames": nb, "duration_sec": float(dur) if dur else None}
+        rep_v = {
+            "codec": v.get("codec_name"),
+            "width": w,
+            "height": h,
+            "fps": str(fps_actual),
+            "fps_rate": frame_rate_json(FrameRate(fps_actual.numerator, fps_actual.denominator)) if fps_actual else None,
+            "frames": nb,
+            "duration_sec": float(dur) if dur else None,
+        }
     else:
         rep_v = {}
 
@@ -110,7 +129,8 @@ def validate_video(
         if vd_txt:
             vd = Fraction(str(vd_txt))
             diff = abs(ad - vd)
-            check("audio-video-duration", diff <= Fraction(1, 10), f"فرق {float(diff):.3f}ث")
+            tol = Fraction(int(tolerance_frames)) / rate_for_tolerance if rate_for_tolerance else Fraction(1, 10)
+            check("audio-video-duration", diff <= tol, f"فرق {float(diff):.3f}ث (حد {float(tol):.3f}ث)")
         rep_a = {"codec": a.get("codec_name"), "sample_rate": a.get("sample_rate"), "channels": a.get("channels"), "duration_sec": float(ad)}
     else:
         rep_a = {}
