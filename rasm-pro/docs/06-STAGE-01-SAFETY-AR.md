@@ -369,7 +369,7 @@ $min = 16GB; $p = Get-Process -Name python -ErrorAction SilentlyContinue
 | المخرج | المسار | الحجم الفعلي | عدد الملفات |
 |--------|--------|--------------|-------------|
 | حزمة الكود | `backups\stage0-20261020\code\rasm-pro-code.bundle` | 391.4 MB | حزمة Git كاملة |
-| بيانات الإنتاج | `backups\stage0-20261020\data` | 0.59 GB | 52,779 |
+| بيانات الإنتاج | `backups\stage0-20261020\data` | 0.61 GB | 52,800 (لقطة النسخة؛ المرجع النهائي صفوف `MANIFEST-DATA.csv`) |
 | حزمة إعادة التشغيل | `backups\stage0-20261020\runtime` | 2.84 GB | 179 |
 | النسخة الخارجية | — | — | **معلّقة: لا يوجد وسيط خارجي** |
 

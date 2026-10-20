@@ -38,6 +38,10 @@ $copies = @(
     @{ src = "$Repo\rasm-pro\docs";        dst = "$BackupRoot\data\rasm-pro\docs" },
     @{ src = "$Repo\studio\data";          dst = "$BackupRoot\data\studio\data" }
 )
+# Optional untracked work folder (may appear while the project is in use)
+if (Test-Path "$Repo\rasm-pro\future-character-assets") {
+    $copies += @{ src = "$Repo\rasm-pro\future-character-assets"; dst = "$BackupRoot\data\rasm-pro\future-character-assets" }
+}
 foreach ($c in $copies) {
     robocopy $c.src $c.dst /E /COPY:DAT /R:2 /W:2 /NFL /NDL /NP /MT:8 | Out-Null
     $rc = $LASTEXITCODE
