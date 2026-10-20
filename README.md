@@ -59,7 +59,11 @@ The near-term target is a standalone, one-click Windows application for English-
 
 ## License
 
-No license has been selected yet. Do not assume permission to redistribute third-party assets included for development; check the relevant credits and licenses.
+The project code is MIT-licensed (see `LICENSE`). Third-party components keep
+their own terms — fonts (OFL-1.1 / Apache-2.0), Python dependencies, the local
+Qwen model (Apache-2.0, not redistributed), and ffmpeg (a GPL build that is
+deliberately **not** bundled; it is an external sidecar). The full audit is in
+`rasm-pro/docs/10-LICENSE-AUDIT-AR.md` and `THIRD_PARTY_NOTICES.md`.
 
 ---
 
@@ -67,7 +71,7 @@ No license has been selected yet. Do not assume permission to redistribute third
 
 محرك محلي لبناء فيديوهات تفسيرية بالرسم على الوايت بورد، الحبر، الورق، الكولاج، كشف الصور، والقلم والكاميرا. المحرك يرندر خطة مشاهد منظمة، وليس مولد فيديو عصبيًا.
 
-**الحالة:** المشروع قيد التطوير. خطوط الأمان الأساسية موجودة، لكن توقيع المرحلة الأولى معلّق حتى النسخ على وسيط خارجي. المرحلة الثانية (عقد المشروع، التوقيت العقلاني، تجربة التغليف) مكتملة شرطيًا؛ توقيع المالك ومراجعة التراخيص ما زالا معلّقين. ليس إصدارًا جاهزًا للإنتاج.
+**الحالة:** المشروع قيد التطوير. توقيع المرحلة الثانية مكتمل من المالك (20 أكتوبر 2026)، لكن بند **النسخة الخارجية** للمرحلة الأولى ما زال مفتوحًا (لا يوجد وسيط خارجي موصول). تدقيق التراخيص اكتمل في `rasm-pro/docs/10-LICENSE-AUDIT-AR.md`. ليس إصدارًا جاهزًا للإنتاج.
 
 - المحرك الأساسي في `rasm-pro/`.
 - واجهة الاستوديو والجسر المحلي في `studio/`.
