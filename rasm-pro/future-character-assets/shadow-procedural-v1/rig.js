@@ -38,12 +38,21 @@
   ];
   function ik(s,target,a,b,side){
     let dx=target[0]-s[0],dy=target[1]-s[1];
-    let raw=Math.hypot(dx,dy),d=clamp(raw,Math.abs(a-b)+.01,a+b-.01);
+    let raw=Math.hypot(dx,dy),d=clamp(raw,Math.abs(a-b)+.01,a+b);
     let u=raw>1e-8?[dx/raw,dy/raw]:[0,1];
     let w=[s[0]+u[0]*d,s[1]+u[1]*d];
     let q=(a*a-b*b+d*d)/(2*d),h=Math.sqrt(Math.max(0,a*a-q*q));
     return {s:s,e:[s[0]+u[0]*q-u[1]*h*side,s[1]+u[1]*q+u[0]*h*side],
       w:w,target:target,clamped:Math.abs(raw-d)>.001,l1:a,l2:b};
+  }
+  function guidedArm(s,rest,target,gain,side){
+    if(Math.hypot(target[0]-rest[0],target[1]-rest[1])<.01)return ik(s,rest,82,77,side);
+    // Change elbow branch only at full extension, where both solutions coincide.
+    // This keeps a relaxed outward elbow at rest and a lowered elbow while pointing.
+    let dx=rest[0]-s[0],dy=rest[1]-s[1],d=Math.hypot(dx,dy);
+    let straight=[s[0]+dx/d*159,s[1]+dy/d*159];
+    let wrist=gain<=.3?mix(rest,straight,ease(gain/.3)):mix(straight,target,ease((gain-.3)/.7));
+    return ik(s,wrist,82,77,gain<=.3?side:-side);
   }
   function pose(t,gesture='idle',expression='neutral',amount=1){
     let target=GESTURES[gesture]||GESTURES.idle,neutral=GESTURES.idle;
@@ -51,8 +60,8 @@
     let lean=gesture==='explain'?-2*gain:gesture==='explain_other'?2*gain:0;
     let chest=[640+lean,360+breathe];
     let ls=[594+lean,292+breathe],rs=[686+lean,292+breathe];
-    let lw=mix(neutral.l,target.l,gain),rw=mix(neutral.r,target.r,gain);
-    lw[1]+=breathe;rw[1]+=breathe;
+    let lw=[target.l[0],target.l[1]+breathe],rw=[target.r[0],target.r[1]+breathe];
+    let lrest=[neutral.l[0],neutral.l[1]+breathe],rrest=[neutral.r[0],neutral.r[1]+breathe];
     let ex=EXPRESSIONS[expression]||EXPRESSIONS.neutral,eye={};
     Object.keys(ex).forEach(k=>eye[k]=lerp(EXPRESSIONS.neutral[k],ex[k],gain));
     // Deterministic authored blink, no random timing or constant motion.
@@ -60,7 +69,7 @@
     let blink=phase<.22?Math.sin(Math.PI*phase/.22)**2:0;
     let lh=gain>.45?target.lh:'relax',rh=gain>.45?target.rh:'relax';
     return {t,gesture,expression,amount:gain,chest,head:[640+lean*.6,214+breathe],eye,blink,
-      left:ik(ls,lw,82,77,-1),right:ik(rs,rw,82,77,1),lh,rh,
+      left:guidedArm(ls,lrest,lw,gain,1),right:guidedArm(rs,rrest,rw,gain,-1),lh,rh,
       hips:[[616,449],[664,449]],knees:[[608,536],[672,536]],ankles:[[604,618],[676,618]]};
   }
   function scene(t){

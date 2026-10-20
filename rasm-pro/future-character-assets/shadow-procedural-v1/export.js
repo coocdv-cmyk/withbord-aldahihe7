@@ -14,7 +14,17 @@ for(const g of Object.keys(R.GESTURES))for(const e of Object.keys(R.EXPRESSIONS)
 }
 assert(maxError<1e-7);
 assert.deepStrictEqual(R.pose(1.37,'compare','curious',.8),R.pose(1.37,'compare','curious',.8));
+let maxStep=0;
+for(const g of Object.keys(R.GESTURES)){
+ let prev=null;
+ for(let i=0;i<=10000;i++){
+  const p=R.pose(0,g,'neutral',i/10000),a=[...p.left.e,...p.left.w,...p.right.e,...p.right.w];
+  if(prev)maxStep=Math.max(maxStep,...a.map((v,j)=>Math.abs(v-prev[j])));
+  prev=a;
+ }
+}
+assert(maxStep<.1);
 const rows=Array.from({length:R.duration*R.FPS},(_,i)=>R.scene(i/R.FPS));
 fs.writeFileSync(path.join(__dirname,'reports','poses.json'),JSON.stringify(rows));
-fs.writeFileSync(path.join(__dirname,'reports','rig_tests.json'),JSON.stringify({sampled_poses:checked,max_limb_length_error:maxError,clamped_endpoints:clamped,deterministic:true,procedural:true,source_raster_assets:0,video_frames:rows.length,anatomical_realism_certified:false},null,2));
+fs.writeFileSync(path.join(__dirname,'reports','rig_tests.json'),JSON.stringify({sampled_poses:checked,max_limb_length_error:maxError,clamped_endpoints:clamped,max_joint_coordinate_step_for_intensity_delta_0001:maxStep,deterministic:true,procedural:true,source_raster_assets:0,video_frames:rows.length,anatomical_realism_certified:false},null,2));
 console.log(JSON.stringify({checked,maxError,clamped,frames:rows.length}));

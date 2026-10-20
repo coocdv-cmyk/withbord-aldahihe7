@@ -31,7 +31,7 @@
         "start_time": "0.000000",
         "duration_ts": 460800,
         "duration": "30.000000",
-        "bit_rate": "127202",
+        "bit_rate": "133909",
         "bits_per_raw_sample": "8",
         "nb_frames": "900",
         "extradata_size": 46,
@@ -72,8 +72,8 @@
       "format_long_name": "QuickTime / MOV",
       "start_time": "0.000000",
       "duration": "30.000000",
-      "size": "488584",
-      "bit_rate": "130289",
+      "size": "513736",
+      "bit_rate": "136996",
       "probe_score": 100,
       "tags": {
         "major_brand": "isom",
@@ -83,7 +83,7 @@
       }
     }
   },
-  "render_seconds": 65.81863189997966,
+  "render_seconds": 68.93039139997563,
   "protected_engine_files": 66,
   "changed_engine_files": [
     "engine\\core\\timebase.py",

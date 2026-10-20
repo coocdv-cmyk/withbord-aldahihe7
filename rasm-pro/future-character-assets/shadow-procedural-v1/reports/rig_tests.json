@@ -1,7 +1,8 @@
 {
   "sampled_poses": 3100,
-  "max_limb_length_error": 1.2789769243681803e-13,
+  "max_limb_length_error": 1.1368683772161603e-13,
   "clamped_endpoints": 0,
+  "max_joint_coordinate_step_for_intensity_delta_0001": 0.06450035314026081,
   "deterministic": true,
   "procedural": true,
   "source_raster_assets": 0,
