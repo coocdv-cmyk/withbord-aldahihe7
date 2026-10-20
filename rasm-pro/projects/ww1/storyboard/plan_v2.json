@@ -294,7 +294,7 @@
     "chart"
    ],
    "assets_used": [
-    "assets/event-معاهدة-فرساي/6aee608a669e.jpg"
+    "assets/event-معاهدة-فرساي/8e2d5ce08aff.jpg"
    ],
    "elements": [
     {
@@ -340,7 +340,7 @@
     },
     {
      "type": "image",
-     "asset": "assets/event-معاهدة-فرساي/6aee608a669e.jpg",
+     "asset": "assets/event-معاهدة-فرساي/8e2d5ce08aff.jpg",
      "rect": [
       110,
       330,
@@ -349,7 +349,7 @@
      ],
      "trace_size": 900,
      "gap": 0.35,
-     "asset_id": "a-6aee608a669e"
+     "asset_id": "a-8e2d5ce08aff"
     },
     {
      "type": "text",
@@ -411,7 +411,7 @@
    ],
    "duration": 15.79,
    "asset_ids": [
-    "a-6aee608a669e"
+    "a-8e2d5ce08aff"
    ]
   },
   {

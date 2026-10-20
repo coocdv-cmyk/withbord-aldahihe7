@@ -1,6 +1,6 @@
 {
   "stage": 3,
-  "generated_at": "2026-10-20T11:29:59Z",
+  "generated_at": "2026-10-20T12:44:16Z",
   "project": "ww1",
   "branch": "stage3-contract",
   "start_point": {
@@ -29,11 +29,13 @@
   },
   "manifest": {
     "path": "projects/ww1/project.json",
-    "sha256": "e74bfde9c765e37c71e598459c123ce141b038898e3d21e10adba09857ce043b",
+    "sha256": "26bf9879ebb1bdc85dd0e9fc545a22f50baa408c81a3b448d276be90cdc752f8",
     "sha256_before_stage3": "2f7c63920aacd8669358e6e85f1a721725e25b50ce1d9bcb32ed23a35b888651",
     "assets": 34,
     "approval_states": {
-      "pending": 34
+      "rejected": 10,
+      "approved": 17,
+      "deferred": 7
     },
     "unresolved": 3,
     "unresolved_before_stage3": 4,
@@ -46,16 +48,16 @@
     },
     "approval_log": {
       "path": "research/approvals.jsonl",
-      "records": 0,
-      "sha256": ""
+      "records": 34,
+      "sha256": "dc79bc01e14c09e3ee4855fbd191f92ecc6629f6702ae0969eea739404f592ba"
     }
   },
   "plan": {
     "path": "projects/ww1/storyboard/plan_v2.json",
-    "sha256": "47dffa4c00c954916acbdc18b9b9f67e6e43dd6cab3d7eaeaca56282589284cb",
+    "sha256": "44eb89465e1032e220da62db4c0ef05e36b41e2e95aae1948eab1a7fc115279b",
     "sha256_before_stage3": "95d8783761afdb08b8a81154216f16e2e7a086652ff1b9058728300ea1a46697",
     "asset_ids_in_plan": [
-      "a-6aee608a669e",
+      "a-8e2d5ce08aff",
       "a-a21b49758ec5",
       "a-c75888b731eb"
     ],
@@ -118,5 +120,63 @@
     "workflow_template": "rasm-pro/tools/ci/ci.yml",
     "activation": "rasm-pro/tools/ci/README.md",
     "blocked": "pushing .github/workflows/ needs a GitHub token with the workflow scope; the local token was refused by GitHub"
+  },
+  "asset_review": {
+    "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+    "assets": 34,
+    "states": {
+      "rejected": 10,
+      "approved": 17,
+      "deferred": 7
+    },
+    "report": "qa/stage3/asset-review.md",
+    "log": "projects/ww1/research/approvals.jsonl",
+    "log_sha256": "dc79bc01e14c09e3ee4855fbd191f92ecc6629f6702ae0969eea739404f592ba",
+    "log_records": 34,
+    "rejected_reasons": {
+      "wrong_person": 1,
+      "collage_not_portrait": 1,
+      "unrelated_content": 2,
+      "anachronistic_modern_photo_or_map": 4,
+      "anachronistic_modern_flag": 2
+    },
+    "deferred_reasons": {
+      "resolution_below_720p": 2,
+      "correct_artefact_but_wrong_need": 2,
+      "misleading_pdf_extension": 3
+    },
+    "plan_swap": {
+      "scene": 4,
+      "from": "a-6aee608a669e (465x715 Evening Standard placard, deferred)",
+      "to": "a-8e2d5ce08aff (3990x6074 Treaty of Versailles, English version, approved)",
+      "backup": "backups/project-migrations/ww1-asset-swap-20261020-163635"
+    }
+  },
+  "production_render": {
+    "file": "projects/ww1/render/ww1_final_20261020.mp4",
+    "bytes": 26992226,
+    "sha256": "738ea4ca9448bcd6b328b2dcb8914548e4eda1d3da7943a92f361a36098fd605",
+    "frames": 1917,
+    "duration": "79.875",
+    "fps": "24/1",
+    "codec": "h264",
+    "audio": "aac",
+    "size": "1280x720",
+    "wall_seconds": 239.5,
+    "render_seconds": 226.1,
+    "realtime_factor": 3.0,
+    "sfx": {
+      "scratches": 1053,
+      "taps": 101,
+      "slides": 4,
+      "recordings": "real (public domain)"
+    },
+    "ffprobe": {
+      "frames": "1917 (expected 1917)",
+      "duration": "79.875 (expected 79.875)",
+      "audio_video_duration_difference": "0.000s"
+    },
+    "gate": "open - all three assets used by the plan are approved",
+    "honest_note": "All five scenes report drawing overflow: the natural drawing time exceeds the planned scene duration, so the drawing is cut at the scene boundary. This is reported, never silently extended or compressed. Pacing belongs to Stage 6 (and Stage 4 once real narration sets the scene lengths)."
   }
 }

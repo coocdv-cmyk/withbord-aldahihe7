@@ -13,7 +13,7 @@
   },
   "status": "planned",
   "created_at": "2026-10-20T09:07:31Z",
-  "updated_at": "2026-10-20T11:25:30Z",
+  "updated_at": "2026-10-20T16:36:35+04:00",
   "paths": {
     "script": "script/scriptgraph.json",
     "script_text": "script/script.txt",
@@ -22,7 +22,7 @@
   },
   "storyboard": {
     "active": "storyboard/plan_v2.json",
-    "sha256": "47dffa4c00c954916acbdc18b9b9f67e6e43dd6cab3d7eaeaca56282589284cb",
+    "sha256": "44eb89465e1032e220da62db4c0ef05e36b41e2e95aae1948eab1a7fc115279b",
     "format_version": "1.0"
   },
   "audio": {
@@ -61,11 +61,11 @@
       "status": "retrieved",
       "asset_id": "a-27f56ac75d11",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 3.0; a view of Berlin's Siegessaeule (1939) - anachronistic for the First World War.",
+        "records": 1
       }
     },
     {
@@ -87,16 +87,16 @@
         "url": "https://creativecommons.org/licenses/by/2.5",
         "attribution_required": true
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-29f2eaeac895",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY 2.5 with attribution; Constantinople map, German edition; 995x1279; correct context for the Middle East claim.",
+        "records": 1
       }
     },
     {
@@ -123,11 +123,11 @@
       "status": "retrieved",
       "asset_id": "a-37bdd198b66a",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 3.0; EU-Germany.svg - a modern European Union map, anachronistic for 1914-1918.",
+        "records": 1
       }
     },
     {
@@ -154,11 +154,11 @@
       "status": "retrieved",
       "asset_id": "a-44a4580e94ae",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; Commons' modern Flag of Germany.svg - anachronistic for the German Empire.",
+        "records": 1
       }
     },
     {
@@ -185,11 +185,11 @@
       "status": "retrieved",
       "asset_id": "a-5891d85b6fbd",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 3.0; a 2014 photograph of the Frankfurt trade fair tower - modern, anachronistic for the First World War.",
+        "records": 1
       }
     },
     {
@@ -216,11 +216,11 @@
       "status": "retrieved",
       "asset_id": "a-6d6e2635d5de",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 4.0; a 2016 photograph of the Berlin Fernsehturm - modern, anachronistic for the First World War.",
+        "records": 1
       }
     },
     {
@@ -247,11 +247,11 @@
       "status": "retrieved",
       "asset_id": "a-efd480af5a15",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "MIT; the modern German flag from flag-icons - the German Empire used black-white-red, so this is anachronistic.",
+        "records": 1
       }
     },
     {
@@ -273,16 +273,16 @@
         "url": "https://creativecommons.org/licenses/by-sa/3.0",
         "attribution_required": true
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-f259529c17c2",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 3.0 with attribution; general map of Germany; 1920x2443; period appropriate.",
+        "records": 1
       }
     },
     {
@@ -304,16 +304,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-0199da588d40",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; dignitaries gathering in the Hall of Mirrors, Palace of Versailles; 1600x1152; correct event and place.",
+        "records": 1
       }
     },
     {
@@ -340,11 +340,11 @@
       "status": "retrieved",
       "asset_id": "a-14f735235fd7",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "deferred",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; rendered first page of the League of Nations Treaty Series volume 12 - not the treaty itself, and the file is a JPEG stored with a .pdf extension.",
+        "records": 1
       }
     },
     {
@@ -371,11 +371,11 @@
       "status": "retrieved",
       "asset_id": "a-3a39f1b876ac",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain, but it is a page of the Deutsches Reichsgesetzblatt of 1871 - the German Empire's gazette, not the 1919 treaty.",
+        "records": 1
       }
     },
     {
@@ -397,16 +397,16 @@
         "url": "https://creativecommons.org/licenses/by-sa/4.0",
         "attribution_required": true
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-4994e4076a8d",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 4.0 with attribution; the signature page of the Treaty of Versailles; 907x649; attribution recorded in CREDITS.md.",
+        "records": 1
       }
     },
     {
@@ -433,11 +433,11 @@
       "status": "retrieved",
       "asset_id": "a-6aee608a669e",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "deferred",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Historically correct (Evening Standard placard, 28 Jun 1919) but only 465x715 - too soft for a 720p frame. Replace with the approved treaty document (a-8e2d5ce08aff) or a higher-resolution copy.",
+        "records": 1
       }
     },
     {
@@ -464,11 +464,11 @@
       "status": "retrieved",
       "asset_id": "a-8de7fd17f115",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "deferred",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 2.5 with attribution; Japanese commemorative medal of the Treaty of Versailles, but only 800x390 - too small for a 720p frame.",
+        "records": 1
       }
     },
     {
@@ -490,16 +490,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-8e2d5ce08aff",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; the English text of the Treaty of Versailles itself; 3990x6074; exact document for the Versailles scene.",
+        "records": 1
       }
     },
     {
@@ -526,11 +526,11 @@
       "status": "retrieved",
       "asset_id": "a-dfdcfa70de09",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "deferred",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; rendered first page of the League of Nations Treaty Series index - not the treaty itself, and the file is a JPEG stored with a .pdf extension.",
+        "records": 1
       }
     },
     {
@@ -552,16 +552,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-efab2ae863c3",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; interior of the Galerie des Glaces with the tables arranged for the signing; TIFF 3000x2236; correct place.",
+        "records": 1
       }
     },
     {
@@ -583,16 +583,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-03a5c5befb8e",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; Stanford's half-inch map of the battle front between the Somme and the Ancre; 1920x1575.",
+        "records": 1
       }
     },
     {
@@ -614,16 +614,16 @@
         "url": "https://creativecommons.org/licenses/by/3.0",
         "attribution_required": true
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-55f2a34065a9",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY 3.0 with attribution; marked-up Map of the Battle of the Somme, 1916 (SVG); period correct.",
+        "records": 1
       }
     },
     {
@@ -645,16 +645,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-a21b49758ec5",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; verified visually: Cheshire Regiment trench, Somme 1916; 1400x1069; identity and period correct.",
+        "records": 1
       }
     },
     {
@@ -676,16 +676,16 @@
         "url": "https://creativecommons.org/licenses/by-sa/4.0",
         "attribution_required": true
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-ac03acc227ed",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 4.0 with attribution; Map of the Battle of Somme; 1199x787; period correct.",
+        "records": 1
       }
     },
     {
@@ -707,16 +707,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-c75888b731eb",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; verified visually: British Mark I tank crossing the Somme front, 25 Sep 1916; 1920x1359; identity and period correct.",
+        "records": 1
       }
     },
     {
@@ -738,16 +738,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-da71cff44da3",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; Map of the Battle of the Somme, 1916 (SVG, drawn as strokes by the engine); period correct.",
+        "records": 1
       }
     },
     {
@@ -769,16 +769,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-2bfe2207a27d",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; barrage fire on Verdun from Barancourt, 22 Feb 1916; 1882x1249; real event photograph.",
+        "records": 1
       }
     },
     {
@@ -800,16 +800,16 @@
         "url": "http://creativecommons.org/licenses/by-sa/3.0/",
         "attribution_required": true
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-346c43c0555f",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 3.0 with attribution; Battle of Verdun map; 971x628; period correct.",
+        "records": 1
       }
     },
     {
@@ -831,16 +831,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-37782df7095c",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; Verdun and vicinity map; 1242x961; correct area and period.",
+        "records": 1
       }
     },
     {
@@ -862,16 +862,16 @@
         "url": "https://creativecommons.org/licenses/by-sa/4.0",
         "attribution_required": true
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-46512cbd96e7",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 4.0 with attribution; Map of the Battle of Verdun; 1920x1213; period correct.",
+        "records": 1
       }
     },
     {
@@ -893,16 +893,16 @@
         "url": "",
         "attribution_required": false
       },
-      "approved_by": null,
-      "approved_at": null,
+      "approved_by": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+      "approved_at": "2026-10-20T12:34:49Z",
       "status": "retrieved",
       "asset_id": "a-67bbee129b97",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "approved",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; Bacon's large-scale map of the French battle front (Peronne to Verdun); 1920x1236.",
+        "records": 1
       }
     },
     {
@@ -929,11 +929,11 @@
       "status": "retrieved",
       "asset_id": "a-18af0f088f0e",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "deferred",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC BY-SA 4.0 with attribution; the blood-stained handkerchief of Franz Ferdinand - a genuine artefact, but it is not a portrait and needs an editorial decision before use.",
+        "records": 1
       }
     },
     {
@@ -960,11 +960,11 @@
       "status": "retrieved",
       "asset_id": "a-33ff2ae0e7b2",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "CC0 but it is a collage of nine 1914 scenes, NOT a portrait of Archduke Franz Ferdinand - using it as his portrait would be a factual error.",
+        "records": 1
       }
     },
     {
@@ -991,11 +991,11 @@
       "status": "retrieved",
       "asset_id": "a-560a8421cce3",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "deferred",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; Abendpost newspaper page of 6 Aug 1891 - a period press page, not a portrait; the file is a JPEG stored with a .pdf extension.",
+        "records": 1
       }
     },
     {
@@ -1022,11 +1022,11 @@
       "status": "retrieved",
       "asset_id": "a-6d157b3a4c5d",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "deferred",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain; 1914 Sarajevo street scene (assassination site), correct period but not a portrait - re-file under the event need or replace with a real portrait.",
+        "records": 1
       }
     },
     {
@@ -1053,11 +1053,11 @@
       "status": "retrieved",
       "asset_id": "a-8385feb98277",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain, but the file is a book page about pianists - unrelated to the entity, 500x718, and stored with a .pdf extension.",
+        "records": 1
       }
     },
     {
@@ -1084,11 +1084,11 @@
       "status": "retrieved",
       "asset_id": "a-cfcbd5a6d18e",
       "approval": {
-        "decision": "pending",
-        "reviewer": "",
-        "reviewed_at": "",
-        "note": "",
-        "records": 0
+        "decision": "rejected",
+        "reviewer": "OpenCode (review delegated by coocdv-cmyk, 2026-10-20)",
+        "reviewed_at": "2026-10-20T12:34:49Z",
+        "note": "Public domain, but the file is 'Franz Ferdinand von Rummel' - a different person (a German general), not the Archduke. Wrong identity.",
+        "records": 1
       }
     }
   ],
@@ -1103,11 +1103,11 @@
       "id": "assets-pending-approval",
       "kind": "assets",
       "blocking": true,
-      "message": "34 أصلًا بانتظار الاعتماد البشري (معتمد: 0 · مرفوض: 0) قبل الإنتاج.",
+      "message": "7 أصلًا بانتظار الاعتماد البشري (معتمد: 17 · مرفوض: 10) قبل الإنتاج.",
       "counts": {
-        "pending": 34,
-        "approved": 0,
-        "rejected": 0
+        "pending": 7,
+        "approved": 17,
+        "rejected": 10
       }
     },
     {
@@ -1163,7 +1163,7 @@
   },
   "approval_log": {
     "path": "research/approvals.jsonl",
-    "records": 0,
-    "sha256": ""
+    "records": 34,
+    "sha256": "dc79bc01e14c09e3ee4855fbd191f92ecc6629f6702ae0969eea739404f592ba"
   }
 }
