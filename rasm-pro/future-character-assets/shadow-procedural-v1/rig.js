@@ -60,7 +60,7 @@
     let blink=phase<.22?Math.sin(Math.PI*phase/.22)**2:0;
     let lh=gain>.45?target.lh:'relax',rh=gain>.45?target.rh:'relax';
     return {t,gesture,expression,amount:gain,chest,head:[640+lean*.6,214+breathe],eye,blink,
-      left:ik(ls,lw,82,77,1),right:ik(rs,rw,82,77,-1),lh,rh,
+      left:ik(ls,lw,82,77,-1),right:ik(rs,rw,82,77,1),lh,rh,
       hips:[[616,449],[664,449]],knees:[[608,536],[672,536]],ankles:[[604,618],[676,618]]};
   }
   function scene(t){

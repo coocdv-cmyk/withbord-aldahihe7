@@ -31,7 +31,7 @@
         "start_time": "0.000000",
         "duration_ts": 460800,
         "duration": "30.000000",
-        "bit_rate": "149002",
+        "bit_rate": "127202",
         "bits_per_raw_sample": "8",
         "nb_frames": "900",
         "extradata_size": 46,
@@ -72,8 +72,8 @@
       "format_long_name": "QuickTime / MOV",
       "start_time": "0.000000",
       "duration": "30.000000",
-      "size": "570358",
-      "bit_rate": "152095",
+      "size": "488584",
+      "bit_rate": "130289",
       "probe_score": 100,
       "tags": {
         "major_brand": "isom",
@@ -83,12 +83,13 @@
       }
     }
   },
-  "render_seconds": 69.55749020000803,
+  "render_seconds": 65.81863189997966,
   "protected_engine_files": 66,
   "changed_engine_files": [
     "engine\\core\\timebase.py",
     "engine\\render\\director.py",
-    "engine\\stages\\plan.py"
+    "engine\\stages\\plan.py",
+    "engine\\stages\\validate_plan.py"
   ],
   "source_images_used": 0,
   "renderers": "Browser Canvas and Python procedural primitives share rig.js geometry; rasterization differs slightly.",
