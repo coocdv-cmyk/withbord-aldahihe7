@@ -103,6 +103,9 @@ desktop.ini
 *.tmp
 *.bak
 
+# Restore drills (cloned repo + venv + test renders)
+restore-tests/
+
 # Generated images (test/elements)
 test/*.png
 test/*.gif
