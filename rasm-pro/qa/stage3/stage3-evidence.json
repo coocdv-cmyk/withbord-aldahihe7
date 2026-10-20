@@ -15,7 +15,12 @@
     "passed": 87,
     "failed": 0,
     "seconds": 83.05,
-    "new_contract_tests": 17
+    "new_contract_tests": 17,
+    "without_ffmpeg": {
+      "passed": 79,
+      "skipped": 8,
+      "failed": 0
+    }
   },
   "schemas": {
     "project_errors": 0,
@@ -93,5 +98,25 @@
     "project_before_change": "backups/project-migrations/ww1-stage3-20261020-151046",
     "project_before_linking": "backups/project-migrations/ww1-link-20261020-151110",
     "project_before_relinking": "backups/project-migrations/ww1-link-20261020-152529"
+  },
+  "commits": {
+    "stage3_implementation": "7cfec22",
+    "merge_owner_ci_commit": "9ec862e",
+    "tool_discovery_and_ci_template": "a4c49b3",
+    "packaging_evidence_and_docs": "dcdee32",
+    "branches": "main = stage3-contract (public repo, default branch main)"
+  },
+  "packaging": {
+    "spike": "rasm-portable-spike8",
+    "files": 371,
+    "size_bytes": 325237491,
+    "size_mib": 310.2,
+    "isolated_install_test": "pass",
+    "evidence": "qa/packaging/isolated-install.json"
+  },
+  "ci": {
+    "workflow_template": "rasm-pro/tools/ci/ci.yml",
+    "activation": "rasm-pro/tools/ci/README.md",
+    "blocked": "pushing .github/workflows/ needs a GitHub token with the workflow scope; the local token was refused by GitHub"
   }
 }
