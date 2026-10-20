@@ -301,11 +301,14 @@ def mux_into(video: str | Path, sfx_wav: str | Path, out: str | Path, *,
     """
     import subprocess
 
-    from ..render.video import ffmpeg_path
+    from ..render.video import require_ffmpeg
 
     sfx_weight = max(0.0, min(1.0, float(sfx_weight)))
-    ff = ffmpeg_path()
-    ffprobe = str(Path(ff).with_name("ffprobe.exe")) if Path(ff).with_name("ffprobe.exe").exists() else "ffprobe"
+    ff = require_ffmpeg()
+    sibling = Path(ff).with_name("ffprobe.exe")
+    if not sibling.exists():
+        sibling = Path(ff).with_name("ffprobe")
+    ffprobe = str(sibling) if sibling.exists() else "ffprobe"
     video = Path(video)
     out = Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)

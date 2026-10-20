@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from engine.audio.probe import ffprobe_path  # noqa: E402
+from engine.audio.probe import require_ffprobe  # noqa: E402
 
 FILES = [
     ("v2 improved film (Phase 3.1 deliverable)", ROOT / "projects" / "ww1" / "render" / "preview_v2.mp4"),
@@ -37,7 +37,7 @@ NOTES = [
 ]
 
 
-fp = str(ffprobe_path())
+fp = require_ffprobe()
 lines: list[str] = ["# Phase 3.1 — FFprobe evidence", "",
                     f"command: ffprobe -v error -show_streams -show_format -of json <file>", ""]
 for title, path in FILES:

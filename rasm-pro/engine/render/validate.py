@@ -10,7 +10,7 @@ import subprocess
 from fractions import Fraction
 from pathlib import Path
 
-from ..audio.probe import ffprobe_path
+from ..audio.probe import ffprobe_path, require_ffprobe
 from ..core.timebase import FrameRate, TimebaseError, coerce_frame_rate, frame_rate_json
 
 
@@ -34,7 +34,7 @@ def _frac_rate(txt) -> Fraction | None:
 
 def ffprobe_media(path: str | Path) -> dict:
     cmd = [
-        ffprobe_path(),
+        require_ffprobe(),
         "-v", "error",
         "-print_format", "json",
         "-show_format",

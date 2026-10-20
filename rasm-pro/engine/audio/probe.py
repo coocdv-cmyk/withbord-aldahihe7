@@ -17,7 +17,7 @@ from fractions import Fraction
 from pathlib import Path
 
 from ..core.log import get_logger
-from ..render.video import _bundle_roots, ffmpeg_path
+from ..render.video import _bundle_roots, ffmpeg_path, require_ffmpeg
 
 log = get_logger("audio.probe")
 
@@ -28,7 +28,8 @@ class AudioError(RuntimeError):
     """ملف صوت غير صالح/غير مدعوم أو فشل أداة الفحص."""
 
 
-def ffprobe_path() -> str:
+def ffprobe_path() -> str | None:
+    """Locate ffprobe, or ``None`` when it is not available."""
     env = os.environ.get("RASM_FFPROBE")
     if env and Path(env).exists():
         return str(Path(env))
@@ -39,8 +40,17 @@ def ffprobe_path() -> str:
         candidate = root / "ffprobe"
         if candidate.exists():
             return str(candidate)
-    found = shutil.which("ffprobe")
-    return found or "ffprobe"
+    return shutil.which("ffprobe")
+
+
+def require_ffprobe() -> str:
+    exe = ffprobe_path()
+    if not exe:
+        raise AudioError(
+            "ffprobe غير موجود. ضعه في runtime/ بجانب التطبيق أو اضبط "
+            "RASM_FFPROBE أو أضفه إلى PATH."
+        )
+    return exe
 
 
 def sha256_file(path: str | Path, *, chunk: int = 1 << 20) -> str:
@@ -57,7 +67,7 @@ def sha256_file(path: str | Path, *, chunk: int = 1 << 20) -> str:
 
 def _ffprobe_json(path: Path) -> dict:
     cmd = [
-        ffprobe_path(),
+        require_ffprobe(),
         "-v", "error",
         "-print_format", "json",
         "-show_format",
@@ -82,7 +92,7 @@ def _decode_count_and_peaks(path: Path, sample_rate: int, *, peak_rate: int = 10
     لا يحتفظ بأي شيء في الذاكرة أكبر من دفعة واحدة؛ القمم فقط (~peak_rate/ثانية).
     """
     cmd = [
-        ffmpeg_path(),
+        require_ffmpeg(),
         "-v", "error",
         "-i", str(path),
         "-f", "s16le",

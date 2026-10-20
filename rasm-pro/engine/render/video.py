@@ -40,7 +40,13 @@ def _bundle_roots() -> list[Path]:
     return roots
 
 
-def ffmpeg_path() -> str:
+def ffmpeg_path() -> str | None:
+    """Locate ffmpeg, or ``None`` when it is not available.
+
+    ffmpeg is an external sidecar in this project (never bundled), so the
+    honest answer is "not found" instead of a bare command name that fails
+    later with a confusing error.
+    """
     env = os.environ.get("RASM_FFMPEG")
     if env and Path(env).exists():
         return str(Path(env))
@@ -51,8 +57,18 @@ def ffmpeg_path() -> str:
         candidate = root / "ffmpeg"
         if candidate.exists():
             return str(candidate)
-    found = shutil.which("ffmpeg")
-    return found or "ffmpeg"
+    return shutil.which("ffmpeg")
+
+
+def require_ffmpeg() -> str:
+    """The ffmpeg executable, or an explicit error naming every way to fix it."""
+    exe = ffmpeg_path()
+    if not exe:
+        raise RuntimeError(
+            "ffmpeg غير موجود. ضعه في runtime/ بجانب التطبيق أو اضبط "
+            "RASM_FFMPEG أو RASM_FFMPEG_DIR أو أضفه إلى PATH."
+        )
+    return exe
 
 
 class FFmpegWriter:
@@ -80,7 +96,7 @@ class FFmpegWriter:
         self.out = str(out_path)
         Path(self.out).parent.mkdir(parents=True, exist_ok=True)
         cmd = [
-            ffmpeg or ffmpeg_path(),
+            ffmpeg or require_ffmpeg(),
             "-y",
             "-loglevel", "error",
             "-f", "rawvideo",

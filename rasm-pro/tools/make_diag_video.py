@@ -22,7 +22,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from engine.audio.probe import ffmpeg_path, ffprobe_path  # noqa: E402
+from engine.audio.probe import require_ffprobe  # noqa: E402
+from engine.render.video import require_ffmpeg  # noqa: E402
 from engine.render import templates as T  # noqa: E402
 from engine.render.canvas import Whiteboard  # noqa: E402
 from engine.strokes import find_font  # noqa: E402
@@ -136,7 +137,7 @@ def frame_compare(cid: str, pct: int) -> Image.Image:
 def extract_film_frames() -> list[tuple[Image.Image, Image.Image, str]]:
     """إطارات مقارنة من الفيلمين الأصلي والمحسّن (تُستخرج بـffmpeg)."""
     tmp = Path(tempfile.mkdtemp(prefix="rasm_diag_"))
-    ff = str(ffmpeg_path())
+    ff = require_ffmpeg()
     pairs = [
         ("v1", ROOT / "projects" / "ww1" / "render" / "preview.mp4", 4.0,
          "v2", ROOT / "projects" / "ww1" / "render" / "preview_v2.mp4", 8.0, "العنوان الافتتاحي"),
@@ -193,7 +194,7 @@ def main() -> int:
     frames += [fin] * int(3.5 * FPS)
 
     out = OUT / "before_after.mp4"
-    cmd = [str(ffmpeg_path()), "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
+    cmd = [require_ffmpeg(), "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
            "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-crf", "20",
            "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
@@ -206,7 +207,7 @@ def main() -> int:
     if rc != 0:
         print("✘ فشل ترميز الفيديو التشخيصي")
         return 1
-    probe = subprocess.run([str(ffprobe_path()), "-v", "error", "-select_streams", "v", "-show_entries",
+    probe = subprocess.run([require_ffprobe(), "-v", "error", "-select_streams", "v", "-show_entries",
                             "stream=codec_name,width,height,r_frame_rate,nb_frames", "-of", "csv=p=0", str(out)],
                            capture_output=True, text=True)
     print(f"✔ {out}")

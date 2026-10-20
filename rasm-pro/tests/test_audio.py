@@ -23,6 +23,8 @@ from engine.core.timebase import FrameRate
 from engine.render.video import FFmpegWriter
 from engine.render.validate import validate_video
 
+from conftest import requires_ffmpeg, requires_ffprobe
+
 
 def _make_wav(path: Path, seconds: float, rate: int = 16000, freq: float = 440.0) -> Path:
     n = int(round(seconds * rate))
@@ -38,6 +40,7 @@ def _make_wav(path: Path, seconds: float, rate: int = 16000, freq: float = 440.0
     return path
 
 
+@requires_ffprobe
 def test_probe_exact_samples_and_duration():
     with tempfile.TemporaryDirectory() as td:
         p = _make_wav(Path(td) / "a.wav", 2.5, rate=16000)
@@ -61,6 +64,7 @@ def test_sha256_stable_and_streaming():
         assert len(h1) == 64
 
 
+@requires_ffprobe
 def test_import_narration_never_modifies_original_and_reuses():
     with tempfile.TemporaryDirectory() as td:
         root = Path(td)
@@ -150,6 +154,7 @@ def test_alignment_roundtrip_disk():
         assert back.segments[0].end_sample == 16000
 
 
+@requires_ffmpeg
 def test_validate_video_real_export():
     from PIL import Image
 

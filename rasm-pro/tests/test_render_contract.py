@@ -14,6 +14,8 @@ from engine.render import Director
 from engine.render.validate import validate_video
 from engine.render.video import FFmpegWriter
 
+from conftest import requires_ffmpeg
+
 
 def _plan() -> dict:
     return {
@@ -45,6 +47,7 @@ def _plan() -> dict:
     }
 
 
+@requires_ffmpeg
 def test_director_render_is_frame_exact_and_events_have_absolute_clock(tmp_path):
     out = tmp_path / "out.mp4"
     res = Director(_plan(), canvas=(640, 360), out_size=(160, 90)).render(out)
@@ -84,6 +87,7 @@ def test_missing_ffmpeg_is_an_explicit_error(tmp_path):
         )
 
 
+@requires_ffmpeg
 def test_preview_keeps_source_scene_timing_not_compresses_it(tmp_path):
     plan = _plan()
     plan["scenes"][0].update(duration=1.0, end_frame=24, duration_frames=24)
@@ -116,6 +120,7 @@ def _make_wav(path: Path, seconds: float, rate: int = 16000) -> Path:
     return path
 
 
+@requires_ffmpeg
 def test_writer_does_not_shortest_trim_video_when_audio_is_shorter(tmp_path):
     wav = _make_wav(tmp_path / "short.wav", 0.5)
     out = tmp_path / "mismatch.mp4"
@@ -140,6 +145,7 @@ def test_writer_does_not_shortest_trim_video_when_audio_is_shorter(tmp_path):
     )
 
 
+@requires_ffmpeg
 def test_ntsc_writer_keeps_rational_rate(tmp_path):
     out = tmp_path / "ntsc.mp4"
     writer = FFmpegWriter(

@@ -9,6 +9,8 @@ from pathlib import Path
 
 import pytest
 
+from conftest import requires_ffmpeg
+
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = ROOT / "projects"
 PROJECT_ID = "stage3clitest"
@@ -65,6 +67,7 @@ def _plan_with_asset(pd: Path) -> None:
     (pd / "storyboard" / "plan.json").write_text(json.dumps(plan), encoding="utf-8")
 
 
+@requires_ffmpeg
 def test_cli_approval_workflow(project: Path):
     _plan_with_asset(project)
     init = _run("project", "init", PROJECT_ID)
