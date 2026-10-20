@@ -13,8 +13,12 @@ if (Test-Path $code) {
     & git bundle verify $code 2>$null | Out-Null
     Check 'code bundle verify exit=0' ($LASTEXITCODE -eq 0)
     $heads = (& git bundle list-heads $code | Out-String)
-    Check 'bundle has HEAD ed66355' ($heads -match 'ed66355')
     Check 'bundle has safety-pre tag' ($heads -match 'safety-pre-ed66355')
+    Check 'bundle has safety-baseline tag' ($heads -match 'safety-baseline-20261020')
+    $repoHead = (& git -C 'D:\withbord inmation' rev-parse master).Trim()
+    $masterLine = ($heads -split "`n" | Where-Object { $_ -match 'refs/heads/master' } | Select-Object -First 1)
+    $bundleMaster = if ($masterLine) { ($masterLine.Trim() -split '\s+')[0] } else { '' }
+    Check "bundle master matches repo ($repoHead)" ($bundleMaster -eq $repoHead)
     $shaFile = "$BackupRoot\code\rasm-pro-code.bundle.sha256"
     Check 'bundle sha256 file exists' (Test-Path $shaFile)
     if (Test-Path $shaFile) {
@@ -34,7 +38,7 @@ if (Test-Path $dataCsv) {
     $sample = $rows | Get-Random -Count ([Math]::Min(5, $rows.Count))
     foreach ($row in $sample) {
         $full = Join-Path "$BackupRoot\data" $row.path
-        $h = (Get-FileHash $full -Algorithm SHA256).Hash
+        $h = (Get-FileHash -LiteralPath $full -Algorithm SHA256).Hash
         Check "sample hash $($row.path)" ($h -eq $row.sha256)
     }
 }
@@ -49,7 +53,7 @@ if (Test-Path $rtCsv) {
     $sample = $rows | Get-Random -Count ([Math]::Min(3, $rows.Count))
     foreach ($row in $sample) {
         $full = Join-Path $BackupRoot $row.path
-        $h = (Get-FileHash $full -Algorithm SHA256).Hash
+        $h = (Get-FileHash -LiteralPath $full -Algorithm SHA256).Hash
         Check "sample hash $($row.path)" ($h -eq $row.sha256)
     }
 }
