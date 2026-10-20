@@ -18,13 +18,40 @@ def read_json(path: str | Path, default: Any = None) -> Any:
     return json.loads(p.read_text(encoding="utf-8"))
 
 
-def write_json(path: str | Path, data: Any, indent: int = 2) -> Path:
+def _detect_style(path: Path) -> tuple[int, str]:
+    """Detect the indentation and newline style an existing JSON file uses."""
+    indent = 2
+    newline = "\n"
+    try:
+        raw = path.read_bytes()
+    except OSError:
+        return indent, newline
+    head = raw[:4096]
+    if b"\r\n" in head:
+        newline = "\r\n"
+    text = raw.decode("utf-8", errors="replace")
+    for line in text.splitlines()[:80]:
+        stripped = line.lstrip(" ")
+        if stripped and stripped != line:
+            width = len(line) - len(stripped)
+            if 1 <= width <= 8:
+                indent = width
+            break
+    return indent, newline
+
+
+def write_json(path: str | Path, data: Any, indent: int | None = None) -> Path:
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
+    # Keep the newline style and the indentation the file already uses, so a
+    # rewrite shows only the real change instead of the whole file.
+    detected_indent, newline = _detect_style(p)
+    if indent is None:
+        indent = detected_indent
     text = json.dumps(data, ensure_ascii=False, indent=indent)
     fd, tmp_name = tempfile.mkstemp(prefix=f".{p.name}.", suffix=".tmp", dir=str(p.parent))
     try:
-        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as f:
+        with os.fdopen(fd, "w", encoding="utf-8", newline=newline) as f:
             f.write(text)
             f.flush()
             os.fsync(f.fileno())

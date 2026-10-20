@@ -43,6 +43,7 @@ MANIFEST_NAME = "project.json"
 SCHEMA_VERSION = "1.0"
 STATUSES = ("draft", "researched", "planned", "approved", "rendered")
 SAFE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,79}$")
+ASSET_ID_RE = re.compile(r"^a-[0-9a-f]{12}$")
 
 
 class ProjectError(ValueError):
@@ -237,6 +238,8 @@ def _asset_entries(pd: Path, assets_index: Path | None) -> list[dict]:
     data = _load_json_optional(assets_index)
     if not isinstance(data, list):
         return []
+    from .assets import asset_id_for  # local import: assets.py imports this module
+
     out: list[dict] = []
     for rec in data:
         if not isinstance(rec, dict) or not rec.get("path"):
@@ -249,10 +252,12 @@ def _asset_entries(pd: Path, assets_index: Path | None) -> list[dict]:
         if not path.exists():
             continue
         decision = rec.get("decision") if isinstance(rec.get("decision"), dict) else {}
+        digest = rec.get("sha256") or sha256_file(path)
         out.append(
             {
                 "path": rel,
-                "sha256": rec.get("sha256") or sha256_file(path),
+                "asset_id": asset_id_for(digest, rel),
+                "sha256": digest,
                 "bytes": int(rec.get("bytes") or path.stat().st_size),
                 "kind": rec.get("kind"),
                 "mime": rec.get("mime"),
@@ -275,6 +280,21 @@ def _asset_entries(pd: Path, assets_index: Path | None) -> list[dict]:
             }
         )
     return out
+
+
+def build_asset_entries(
+    project_dir: str | Path,
+    assets_index: str | Path | None = None,
+) -> list[dict]:
+    """Public view of the research asset index as manifest asset entries."""
+    pd = _project_root(project_dir)
+    index = Path(assets_index) if assets_index else pd / "research" / "assets.json"
+    return _asset_entries(pd, index)
+
+
+def plan_has_absolute_paths(plan: dict) -> bool:
+    """True when the plan still carries absolute asset paths."""
+    return _has_abs_plan_paths(plan)
 
 
 def _render_entries(pd: Path) -> list[dict]:
@@ -453,6 +473,7 @@ def infer_manifest(
             "retrieved_requires_approval": True,
             "requires_origin": True,
             "requires_license": True,
+            "final_render_requires_approval": True,
         },
         "assets": assets,
         "unresolved": unresolved,
@@ -629,6 +650,21 @@ def validate_manifest(
                 errors.append(f"{where}: approved_by بلا approved_at")
             if asset.get("approved_at") and not asset.get("approved_by"):
                 errors.append(f"{where}: approved_at بلا approved_by")
+            asset_id = asset.get("asset_id")
+            if asset_id is None:
+                warnings.append(f"{where}: لا يوجد asset_id (شغّل: rasm assets sync)")
+            elif not isinstance(asset_id, str) or not ASSET_ID_RE.fullmatch(asset_id):
+                errors.append(f"{where}.asset_id غير صالح: {asset_id!r}")
+            approval = asset.get("approval")
+            if approval is not None:
+                if not isinstance(approval, dict):
+                    errors.append(f"{where}.approval يجب أن يكون كائنًا")
+                else:
+                    state = approval.get("decision")
+                    if state not in ("pending", "approved", "rejected", "deferred"):
+                        errors.append(f"{where}.approval.decision غير صالح: {state!r}")
+                    if state == "approved" and not (approval.get("reviewer") and approval.get("reviewed_at")):
+                        errors.append(f"{where}.approval: الاعتماد يحتاج مراجعًا وتاريخًا")
 
     renders = manifest.get("renders") or []
     if not isinstance(renders, list):

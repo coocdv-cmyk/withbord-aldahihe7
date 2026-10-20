@@ -2,7 +2,7 @@
 
 A local-first engine for explanatory videos built from whiteboard drawing, ink, paper, documentary collage, image reveals, a pen overlay, and camera movement. It renders a structured scene plan; it is not a neural text-to-video generator.
 
-> **Status:** work in progress. Stage 0/1 safety work is in place, but the Stage 1 sign-off is pending an external backup copy. Stage 2 (project contract, rational timebase, packaging spike) is complete conditionally; owner sign-off and license review are still pending. This is not a production-ready release.
+> **Status:** work in progress. Stage 2 (project contract, rational timebase, packaging spike) is complete and signed by the owner; the license audit is closed. Stage 3 (assets inside the plan + human approval gate) is implemented and awaiting owner sign-off. The Stage 1 external backup copy is still open — no external medium is attached. This is not a production-ready release.
 >
 > **Repository:** <https://github.com/coocdv-cmyk/withbord-aldahihe7>
 
@@ -33,7 +33,24 @@ pip install -r requirements.txt
 python rasm.py --help
 ```
 
-The CLI exposes `understand`, `research`, `evidence`, `plan`, `validate`, `render`, `audio`, `assets`, and related commands. Use `python rasm.py <command> --help` for the current arguments.
+The CLI exposes `understand`, `research`, `evidence`, `plan`, `validate`, `render`, `audio`, `assets`, `approvals`, and related commands. Use `python rasm.py <command> --help` for the current arguments.
+
+Retrieved assets need a **human** decision before they can appear in a production
+render. The decision log is append-only, the manifest is only a projection of it,
+and a production render is refused while an asset it uses is unapproved:
+
+```powershell
+python rasm.py approvals list ww1              # every asset + its state
+python rasm.py approvals gate ww1              # would a production render pass?
+python rasm.py approvals approve ww1 --asset a-c75888b731eb --by "your name"
+python rasm.py approvals import ww1            # pull research/assets.json into the manifest
+python rasm.py project link-assets ww1         # relative asset paths + asset_id in the plan
+python rasm.py render ww1                      # production: refused while assets are pending
+python rasm.py render ww1 --preview            # preview: warns instead of blocking
+```
+
+Generated artwork is never treated as historical evidence, and a rejected asset
+blocks in every mode.
 
 Project manifests are optional for legacy projects. A migrated project uses `project.json` as its entry point, with a relative active-plan path and hashes:
 
@@ -43,12 +60,12 @@ python rasm.py project migrate ww1 --apply  # backup, then write project.json
 python rasm.py project validate ww1
 ```
 
-Stage 2 evidence is in `rasm-pro/qa/stage2/` and the packaging decision is in `rasm-pro/docs/08-PACKAGING-ADR-AR.md`. The packaging spike is reproducible with `python tools/build_portable.py` (requires PyInstaller); it is not the final installer.
+Stage 2 evidence is in `rasm-pro/qa/stage2/` and the packaging decision is in `rasm-pro/docs/08-PACKAGING-ADR-AR.md`. The packaging spike is reproducible with `python tools/build_portable.py` (requires PyInstaller); it is not the final installer. Stage 3 evidence (approval gate) is in `rasm-pro/qa/stage3/` and its contract is `rasm-pro/docs/09-STAGE-03-CONTRACT-AR.md`.
 
 ## Data, evidence, and large files
 
 - The large icon manifest `rasm-pro/library/manifest-icons.jsonl` is stored with Git LFS. Run `git lfs pull` after cloning if the library is needed.
-- Models, runtime binaries, backups, generated videos, frames, caches, and local project media are intentionally excluded from Git. The small Stage 2 QA clips under `rasm-pro/qa/stage2/` are the exception; they are verification evidence, not production media.
+- Models, runtime binaries, backups, generated videos, frames, caches, and local project media are intentionally excluded from Git. The small Stage 2/3 QA clips under `rasm-pro/qa/` are the exception; they are verification evidence, not production media.
 - Retrieved assets require human review and approval before production use.
 - Generated artwork is illustration, not historical evidence. Qwen is an assistant, not a factual or permissions authority.
 - There is no silent cloud or paid fallback.
@@ -71,12 +88,27 @@ deliberately **not** bundled; it is an external sidecar). The full audit is in
 
 محرك محلي لبناء فيديوهات تفسيرية بالرسم على الوايت بورد، الحبر، الورق، الكولاج، كشف الصور، والقلم والكاميرا. المحرك يرندر خطة مشاهد منظمة، وليس مولد فيديو عصبيًا.
 
-**الحالة:** المشروع قيد التطوير. توقيع المرحلة الثانية مكتمل من المالك (20 أكتوبر 2026)، لكن بند **النسخة الخارجية** للمرحلة الأولى ما زال مفتوحًا (لا يوجد وسيط خارجي موصول). تدقيق التراخيص اكتمل في `rasm-pro/docs/10-LICENSE-AUDIT-AR.md`. ليس إصدارًا جاهزًا للإنتاج.
+**الحالة:** المشروع قيد التطوير. توقيع المرحلة الثانية مكتمل من المالك (20 أكتوبر 2026)، لكن بند **النسخة الخارجية** للمرحلة الأولى ما زال مفتوحًا (لا يوجد وسيط خارجي موصول). تدقيق التراخيص اكتمل في `rasm-pro/docs/10-LICENSE-AUDIT-AR.md`. المرحلة الثالثة (الأصول داخل الخطة + بوابة الاعتماد البشري) منفَّذة وبانتظار توقيع المالك. ليس إصدارًا جاهزًا للإنتاج.
 
 - المحرك الأساسي في `rasm-pro/`.
 - واجهة الاستوديو والجسر المحلي في `studio/`.
-- النماذج والملفات الضخمة والنسخ الاحتياطية والفيديوهات المولدة غير مرفوعة إلى Git، باستثناء مقطعي التحقق الصغيرين في `rasm-pro/qa/stage2/`.
+- النماذج والملفات الضخمة والنسخ الاحتياطية والفيديوهات المولدة غير مرفوعة إلى Git، باستثناء مقاطع التحقق الصغيرة في `rasm-pro/qa/`.
 - ملف الأيقونات الكبير `manifest-icons.jsonl` محفوظ عبر Git LFS.
 - الأصول المسترجعة تحتاج مراجعة بشرية قبل الاستخدام، والصور المولدة ليست دليلًا تاريخيًا.
-- أدلة المرحلة الثانية في `rasm-pro/qa/stage2/`، وقرار التغليف في `rasm-pro/docs/08-PACKAGING-ADR-AR.md`.
+- أدلة المرحلة الثانية في `rasm-pro/qa/stage2/`، وقرار التغليف في `rasm-pro/docs/08-PACKAGING-ADR-AR.md`، وعقد المرحلة الثالثة في `rasm-pro/docs/09-STAGE-03-CONTRACT-AR.md` وأدلتها في `rasm-pro/qa/stage3/`.
 - لا يوجد تحويل صامت إلى خدمات سحابية أو مدفوعة.
+
+### اعتماد الأصول (المرحلة الثالثة)
+
+```powershell
+python rasm.py approvals list ww1              # كل الأصول وحالة الاعتماد
+python rasm.py approvals gate ww1              # هل يمرّ رندر إنتاجي؟
+python rasm.py approvals approve ww1 --asset a-c75888b731eb --by "اسم المراجع"
+python rasm.py approvals import ww1            # دمج أصول البحث في المانيفست
+python rasm.py project link-assets ww1         # مسارات نسبية + asset_id في الخطة
+python rasm.py render ww1                      # إنتاج: يُمنع مع أصل غير معتمد
+python rasm.py render ww1 --preview            # معاينة: تحذير بدل المنع
+```
+
+سجل القرارات `research/approvals.jsonl` **append-only**، والمانيفست إسقاط له فقط.
+الأصل المرفوض يمنع في كل الأوضاع، والمولَّد لا يُعتمد كدليل.

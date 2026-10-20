@@ -93,13 +93,25 @@
         "generated_is_evidence",
         "retrieved_requires_approval",
         "requires_origin",
-        "requires_license"
+        "requires_license",
+        "final_render_requires_approval"
       ],
       "properties": {
         "generated_is_evidence": { "type": "boolean" },
         "retrieved_requires_approval": { "type": "boolean" },
         "requires_origin": { "type": "boolean" },
-        "requires_license": { "type": "boolean" }
+        "requires_license": { "type": "boolean" },
+        "final_render_requires_approval": { "type": "boolean" }
+      }
+    },
+    "approval_log": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "records", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/relativePath" },
+        "records": { "type": "integer", "minimum": 0 },
+        "sha256": { "type": "string", "pattern": "^$|^[a-fA-F0-9]{64}$" }
       }
     },
     "assets": {
@@ -119,6 +131,7 @@
         ],
         "properties": {
           "path": { "$ref": "#/$defs/relativePath" },
+          "asset_id": { "type": "string", "pattern": "^a-[0-9a-f]{12}$" },
           "sha256": { "$ref": "#/$defs/sha256" },
           "bytes": { "type": "integer", "minimum": 1 },
           "kind": { "type": ["string", "null"] },
@@ -148,6 +161,18 @@
           },
           "approved_by": { "type": ["string", "null"] },
           "approved_at": { "type": ["string", "null"] },
+          "approval": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["decision", "reviewer", "reviewed_at", "note", "records"],
+            "properties": {
+              "decision": { "enum": ["pending", "approved", "rejected", "deferred"] },
+              "reviewer": { "type": "string" },
+              "reviewed_at": { "type": "string" },
+              "note": { "type": "string" },
+              "records": { "type": "integer", "minimum": 0 }
+            }
+          },
           "status": {
             "enum": ["retrieved", "generated", "pending", "approved", "rejected"]
           }
@@ -164,7 +189,17 @@
           "id": { "type": "string", "minLength": 1 },
           "kind": { "type": "string", "minLength": 1 },
           "blocking": { "type": "boolean" },
-          "message": { "type": "string", "minLength": 1 }
+          "message": { "type": "string", "minLength": 1 },
+          "counts": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pending", "approved", "rejected"],
+            "properties": {
+              "pending": { "type": "integer", "minimum": 0 },
+              "approved": { "type": "integer", "minimum": 0 },
+              "rejected": { "type": "integer", "minimum": 0 }
+            }
+          }
         }
       }
     },

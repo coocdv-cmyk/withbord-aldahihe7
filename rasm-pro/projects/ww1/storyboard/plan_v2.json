@@ -97,8 +97,8 @@
     "event"
    ],
    "assets_used": [
-    "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معركة-السوم\\c75888b731eb.jpg",
-    "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معركة-السوم\\a21b49758ec5.jpg"
+    "assets/event-معركة-السوم/c75888b731eb.jpg",
+    "assets/event-معركة-السوم/a21b49758ec5.jpg"
    ],
    "elements": [
     {
@@ -144,7 +144,7 @@
     },
     {
      "type": "image",
-     "asset": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معركة-السوم\\c75888b731eb.jpg",
+     "asset": "assets/event-معركة-السوم/c75888b731eb.jpg",
      "rect": [
       110,
       330,
@@ -152,7 +152,8 @@
       880
      ],
      "trace_size": 900,
-     "gap": 0.35
+     "gap": 0.35,
+     "asset_id": "a-c75888b731eb"
     },
     {
      "type": "paper_card",
@@ -169,7 +170,7 @@
     },
     {
      "type": "image",
-     "asset": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معركة-السوم\\a21b49758ec5.jpg",
+     "asset": "assets/event-معركة-السوم/a21b49758ec5.jpg",
      "rect": [
       1500,
       470,
@@ -177,7 +178,8 @@
       560
      ],
      "trace_size": 520,
-     "gap": 0.3
+     "gap": 0.3,
+     "asset_id": "a-a21b49758ec5"
     },
     {
      "type": "text",
@@ -196,7 +198,11 @@
      "gap": 0.3
     }
    ],
-   "duration": 16.96
+   "duration": 16.96,
+   "asset_ids": [
+    "a-a21b49758ec5",
+    "a-c75888b731eb"
+   ]
   },
   {
    "id": 3,
@@ -288,7 +294,7 @@
     "chart"
    ],
    "assets_used": [
-    "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معاهدة-فرساي\\6aee608a669e.jpg"
+    "assets/event-معاهدة-فرساي/6aee608a669e.jpg"
    ],
    "elements": [
     {
@@ -334,7 +340,7 @@
     },
     {
      "type": "image",
-     "asset": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معاهدة-فرساي\\6aee608a669e.jpg",
+     "asset": "assets/event-معاهدة-فرساي/6aee608a669e.jpg",
      "rect": [
       110,
       330,
@@ -342,7 +348,8 @@
       880
      ],
      "trace_size": 900,
-     "gap": 0.35
+     "gap": 0.35,
+     "asset_id": "a-6aee608a669e"
     },
     {
      "type": "text",
@@ -402,7 +409,10 @@
      "gap": 0.25
     }
    ],
-   "duration": 15.79
+   "duration": 15.79,
+   "asset_ids": [
+    "a-6aee608a669e"
+   ]
   },
   {
    "id": 5,

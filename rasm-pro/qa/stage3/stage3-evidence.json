@@ -1,0 +1,97 @@
+{
+  "stage": 3,
+  "generated_at": "2026-10-20T11:29:59Z",
+  "project": "ww1",
+  "branch": "stage3-contract",
+  "start_point": {
+    "tag": "stage3-start",
+    "commit": "6872f3f",
+    "bundle": "backups/stage3-20261020/rasm-pro-stage3-start.bundle",
+    "bundle_bytes": 498440624,
+    "bundle_sha256": "16EF6F177B0F68A399A87262C2413C5458A741468E2FB24ED3E6B46863C2AC76",
+    "bundle_verify": "ok"
+  },
+  "tests": {
+    "passed": 87,
+    "failed": 0,
+    "seconds": 83.05,
+    "new_contract_tests": 17
+  },
+  "schemas": {
+    "project_errors": 0,
+    "plan_errors": 0,
+    "validator": "jsonschema 4.26.0 Draft202012Validator (independent python, outside the app venv)"
+  },
+  "manifest": {
+    "path": "projects/ww1/project.json",
+    "sha256": "e74bfde9c765e37c71e598459c123ce141b038898e3d21e10adba09857ce043b",
+    "sha256_before_stage3": "2f7c63920aacd8669358e6e85f1a721725e25b50ce1d9bcb32ed23a35b888651",
+    "assets": 34,
+    "approval_states": {
+      "pending": 34
+    },
+    "unresolved": 3,
+    "unresolved_before_stage3": 4,
+    "asset_policy": {
+      "generated_is_evidence": false,
+      "retrieved_requires_approval": true,
+      "requires_origin": true,
+      "requires_license": true,
+      "final_render_requires_approval": true
+    },
+    "approval_log": {
+      "path": "research/approvals.jsonl",
+      "records": 0,
+      "sha256": ""
+    }
+  },
+  "plan": {
+    "path": "projects/ww1/storyboard/plan_v2.json",
+    "sha256": "47dffa4c00c954916acbdc18b9b9f67e6e43dd6cab3d7eaeaca56282589284cb",
+    "sha256_before_stage3": "95d8783761afdb08b8a81154216f16e2e7a086652ff1b9058728300ea1a46697",
+    "asset_ids_in_plan": [
+      "a-6aee608a669e",
+      "a-a21b49758ec5",
+      "a-c75888b731eb"
+    ],
+    "absolute_paths_remaining": 0,
+    "line_endings": "CRLF (preserved from the original file)",
+    "diff_size": "21 insertions / 11 deletions"
+  },
+  "legacy_plan_preserved": {
+    "path": "projects/ww1/storyboard/plan.json",
+    "sha256": "c4374b1e6c4668856bee0a87ecc4e9c496e3e385c2f14a9ff1b4d22d96386921",
+    "expected_sha256": "c4374b1e6c4668856bee0a87ecc4e9c496e3e385c2f14a9ff1b4d22d96386921",
+    "unchanged": true
+  },
+  "gate": {
+    "mode_final": {
+      "ok": false,
+      "blocking": 3,
+      "reason": "asset-not-approved",
+      "render_exit": 2,
+      "output_created": false
+    },
+    "mode_preview": {
+      "ok": true,
+      "blocking": 0,
+      "warnings": 3,
+      "render_exit": 0
+    }
+  },
+  "render_preview_1s": {
+    "frames": 24,
+    "duration": "1.000",
+    "fps": "24/1",
+    "codec": "h264",
+    "size": "1280x720",
+    "bytes": 254281,
+    "identical_to_pre_linking_render": true,
+    "file": "qa/stage3/preview_1s.mp4"
+  },
+  "backups": {
+    "project_before_change": "backups/project-migrations/ww1-stage3-20261020-151046",
+    "project_before_linking": "backups/project-migrations/ww1-link-20261020-151110",
+    "project_before_relinking": "backups/project-migrations/ww1-link-20261020-152529"
+  }
+}

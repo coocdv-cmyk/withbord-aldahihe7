@@ -28,6 +28,7 @@ try:
     from engine.stages.validate_plan import validate_plan as rasm_validate_plan  # noqa: E402
     from engine.core.timebase import FrameRate, SampleRate, coerce_frame_rate  # noqa: E402
     from engine.core import project as rasm_project  # noqa: E402
+    from engine.core import assets as rasm_assets  # noqa: E402
     from engine.render import Director  # noqa: E402
     from engine.render.validate import validate_video as rasm_validate_video  # noqa: E402
     from engine.core.util import read_json as rasm_read_json  # noqa: E402
@@ -179,10 +180,84 @@ def rasm_to_studio_project(plan, project_id):
     return proj
 
 
-def render_project_studio(project_id, out_path=None, fps=None, size=(1280, 720), max_seconds=None, audio=None):
+def asset_approvals_studio(project_id):
+    """Approval state of every project asset (Studio never implies approval)."""
+    if not RASM_AVAILABLE:
+        return None
+    pd = rasm_paths.project_dir(project_id)
+    man = rasm_project.read_manifest(pd)
+    if man is None:
+        return {"assets": [], "counts": {}, "gate": None}
+    plan = None
+    try:
+        plan, _path, _man = load_active_plan_studio(project_id)
+    except Exception:
+        plan = None
+    try:
+        projected = rasm_assets.sync_manifest_approvals(man, pd)
+    except Exception:
+        projected = man
+    counts = {}
+    rows = []
+    for asset in projected.get("assets") or []:
+        if not isinstance(asset, dict):
+            continue
+        approval = asset.get("approval") or {}
+        state = str(approval.get("decision") or "pending")
+        counts[state] = counts.get(state, 0) + 1
+        rows.append(
+            {
+                "asset_id": asset.get("asset_id"),
+                "path": asset.get("path"),
+                "decision": state,
+                "reviewer": approval.get("reviewer") or "",
+                "reviewed_at": approval.get("reviewed_at") or "",
+                "license": (asset.get("license") or {}).get("name"),
+                "origin": (asset.get("origin") or {}).get("kind"),
+            }
+        )
+    gate = None
+    if plan is not None:
+        try:
+            report = rasm_assets.evaluate_gate(plan, pd, manifest=projected, mode="final")
+            gate = {
+                "ok": report.ok,
+                "blocking": [
+                    {"reason": b["reason"], "path": b["path"], "detail": b["detail"]}
+                    for b in report.blocking
+                ],
+                "used": len(report.used),
+            }
+        except Exception as exc:
+            gate = {"ok": False, "blocking": [{"reason": "gate-error", "detail": str(exc)}], "used": 0}
+    return {"assets": rows, "counts": counts, "gate": gate}
+
+
+def render_project_studio(
+    project_id,
+    out_path=None,
+    fps=None,
+    size=(1280, 720),
+    max_seconds=None,
+    audio=None,
+    mode="preview",
+):
+    """Render through Studio.
+
+    Studio renders are interactive previews by default (``mode='preview'``):
+    unapproved assets are allowed but reported.  A production render must pass
+    ``mode='final'`` and is refused while assets are unapproved.
+    """
     _require()
     pd = rasm_paths.project_dir(project_id)
     plan, plan_path, man = load_active_plan_studio(project_id)
+    if man is not None:
+        report = rasm_assets.evaluate_gate(plan, pd, manifest=man, mode=mode)
+        if not report.ok:
+            detail = "; ".join(f"{b['reason']}: {b['path'] or b['display']}" for b in report.blocking[:5])
+            raise RuntimeError(f"asset gate closed ({mode}): {detail}")
+        for item in report.warnings[:5]:
+            print(f"warning: {item['reason']}: {item['path']} - {item['detail']}")
     audio_file = audio
     if audio_file is None:
         plan_audio = plan.get("audio") or {}
@@ -198,13 +273,16 @@ def render_project_studio(project_id, out_path=None, fps=None, size=(1280, 720),
             if nar:
                 audio_file = nar.get("path")
     canvas = tuple(plan.get("canvas") or [2560, 1440])
-    director = Director(plan, canvas=canvas, out_size=size, fps=fps, crf=19)
+    director = Director(
+        plan, canvas=canvas, out_size=size, fps=fps, crf=19, project_dir=pd
+    )
     out = Path(out_path) if out_path else (pd / "render" / "preview.mp4")
     out.parent.mkdir(parents=True, exist_ok=True)
     result = director.render(out, audio=audio_file, max_seconds=max_seconds)
     result["plan_path"] = str(plan_path)
     result["manifest"] = str(rasm_project.project_manifest_path(pd)) if man is not None else None
     result["audio"] = str(audio_file) if audio_file else None
+    result["mode"] = mode
     return result
 
 

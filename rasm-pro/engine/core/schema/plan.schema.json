@@ -51,6 +51,10 @@
           "narration": { "type": ["string", "null"] },
           "needs": { "type": "array", "items": { "type": "string" } },
           "assets_used": { "type": "array", "items": { "type": "string" } },
+          "asset_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^a-[0-9a-f]{12}$" }
+          },
           "duration": { "type": "number", "exclusiveMinimum": 0 },
           "duration_frames": { "type": "integer", "minimum": 1 },
           "start_frame": { "type": "integer", "minimum": 0 },
@@ -66,6 +70,7 @@
               "required": ["type"],
               "properties": {
                 "type": { "type": "string", "minLength": 1 },
+                "asset_id": { "type": "string", "pattern": "^a-[0-9a-f]{12}$" },
                 "rect": {
                   "type": "array",
                   "minItems": 4,

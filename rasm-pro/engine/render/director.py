@@ -221,8 +221,10 @@ class Director:
         crf: int = 19,
         preset: str = "fast",
         ink=INK,
+        project_dir: str | Path | None = None,
     ):
         self.plan = plan
+        self.project_dir = Path(project_dir).resolve() if project_dir else None
         self.canvas = (int(canvas[0]), int(canvas[1]))
         self.out_size = (int(out_size[0]), int(out_size[1]))
         # قاعدة زمن واحدة: لو الخطة تحمل fps، فالرندر يجب أن يطابقها.
@@ -254,15 +256,35 @@ class Director:
         self.sfx_events: list[dict] = []
 
     # ---------- تجهيز ----------
+    def _asset_path(self, raw: str | Path) -> Path:
+        """Resolve an asset reference.
+
+        Plans may carry a project relative path (``assets/...``) or an absolute
+        path.  Relative paths are resolved against the project directory so a
+        plan stays portable and a moved project keeps rendering.
+        """
+        p = Path(raw)
+        if p.is_absolute() or self.project_dir is None:
+            return p
+        return (self.project_dir / p)
+
     def _prepare_scene(self, scene: dict, planned_seconds: float | None = None) -> tuple[list[dict], float]:
         items: list[dict] = []
         t = float(scene.get("start_pause", 0.35))
         for el in scene.get("elements", []):
+            if not isinstance(el, dict):
+                continue
+            # نسخة محلية: المسارات النسبية تُحلّ نسبةً لمجلد المشروع،
+            # ولا تُعدَّل الخطة الأصلية.
+            el = dict(el)
+            for _key in ("asset", "texture"):
+                if el.get(_key):
+                    el[_key] = str(self._asset_path(el[_key]))
             rect = el.get("rect") or [0, 0, 800, 600]
             etype = el.get("type")
             gap = float(el.get("gap", 0.22))
             if etype == "image":
-                path = el["asset"]
+                path = self._asset_path(el["asset"])
                 try:
                     img = Image.open(path).convert("RGB")
                 except Exception as e:

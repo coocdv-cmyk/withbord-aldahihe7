@@ -321,6 +321,13 @@ class Handler(BaseHTTPRequestHandler):
                 plan=rasm_bridge.build_plan_studio(pid,max_scenes=data.get('max_scenes'),fps=data.get('fps'))
                 proj=rasm_bridge.rasm_to_studio_project(plan,pid)
                 return self.send({'ok':True,'project_id':pid,'project':proj,'timing':plan.get('timing',{}),'fps':plan.get('fps')})
+            if path=='/api/rasm/approvals':
+                import rasm_bridge
+                pid=str(data.get('project_id') or data.get('id',''))
+                if not pid.isalnum() or len(pid)>80:
+                    raise ValueError('Invalid project id')
+                state=rasm_bridge.asset_approvals_studio(pid)
+                return self.send({'ok':True,'project_id':pid,'approvals':state})
             if path=='/api/rasm/render':
                 import uuid,rasm_bridge
                 pid=str(data.get('project_id') or data.get('id',''))
@@ -335,11 +342,14 @@ class Handler(BaseHTTPRequestHandler):
                 if not (16<=size[0]<=4096 and 16<=size[1]<=4096):
                     raise ValueError('Invalid size')
                 fps=data.get('fps')  # None → the plan's rational rate
-                res=rasm_bridge.render_project_studio(pid,out_path=str(out),fps=fps,size=size,max_seconds=data.get('max_seconds'))
+                mode=str(data.get('mode') or 'preview')
+                if mode not in ('preview','final'):
+                    raise ValueError('Invalid mode')
+                res=rasm_bridge.render_project_studio(pid,out_path=str(out),fps=fps,size=size,max_seconds=data.get('max_seconds'),mode=mode)
                 report=rasm_bridge.validate_studio_render(res,size,expect_audio=bool(res.get('audio')))
                 if not report.get('ok'):
                     raise RuntimeError('Render validation failed: '+'; '.join(c['check'] for c in report.get('checks',[]) if not c['ok']))
-                return self.send({'ok':True,'project_id':pid,'url':f'/outputs/{run.name}/video.mp4','folder':str(run),'result':{k:res.get(k) for k in ('frames','seconds','duration_sec_exact','fps','render_seconds','narration_frames','drift_frames','plan_path','manifest','audio') if k in res},'validation':report})
+                return self.send({'ok':True,'project_id':pid,'url':f'/outputs/{run.name}/video.mp4','folder':str(run),'result':{k:res.get(k) for k in ('frames','seconds','duration_sec_exact','fps','render_seconds','narration_frames','drift_frames','plan_path','manifest','audio','mode') if k in res},'validation':report})
             if path=='/api/cancel':
                 JOBS[data['id']][1].set()
                 return self.send({'ok':True})

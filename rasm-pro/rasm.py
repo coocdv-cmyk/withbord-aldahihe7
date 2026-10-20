@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import sys
+from datetime import datetime
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -13,23 +15,34 @@ sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
+from engine.core.assets import (  # noqa: E402
+    ApprovalError,
+    append_decision,
+    evaluate_gate,
+    link_plan_assets,
+    plan_asset_refs,
+    sync_manifest_approvals,
+)
 from engine.core.log import get_logger  # noqa: E402
 from engine.core.paths import ROOT as DATA_ROOT, project_dir  # noqa: E402
 from engine.core.plan_time import plan_frame_rate  # noqa: E402
 from engine.core.project import (  # noqa: E402
     ProjectError,
     activate_plan,
+    build_asset_entries,
     infer_manifest,
     load_active_plan,
     manifest_plan_path,
+    plan_has_absolute_paths,
     project_manifest_path,
     read_manifest,
+    relative_project_path,
     utc_now,
     validate_manifest,
     write_manifest,
 )
 from engine.core.timebase import FrameRate, TimebaseError, coerce_frame_rate  # noqa: E402
-from engine.core.util import read_json  # noqa: E402
+from engine.core.util import read_json, write_json  # noqa: E402
 from engine.render import Director  # noqa: E402
 from engine.stages import plan as plan_stage  # noqa: E402
 from engine.stages import research as research_stage  # noqa: E402
@@ -429,6 +442,35 @@ def cmd_render(args) -> int:
             print(f"✘ الخطة غير صالحة ({len(report['errors'])} خطأ) — لم يبدأ الرندر", file=sys.stderr)
             return 2
 
+    # بوابة الاعتماد: رندر الإنتاج لا يستخدم أصلًا غير معتمد
+    preview_mode = bool(getattr(args, "preview", False)) or args.max_seconds is not None
+    mode = "preview" if preview_mode else "final"
+    manifest = _try_manifest(pd)
+    if manifest is not None:
+        try:
+            gate = evaluate_gate(plan, pd, manifest=manifest, mode=mode)
+        except ApprovalError as exc:
+            print(f"✘ {exc}", file=sys.stderr)
+            return 2
+        for item in gate.warnings[:12]:
+            print(f"⚠ {item['reason']}: {item['path'] or item['display']} — {item['detail']}")
+        if not gate.ok:
+            print("✘ بوابة الأصول: الرندر النهائي ممنوع", file=sys.stderr)
+            for item in gate.blocking[:20]:
+                print(
+                    f"   ✘ {item['reason']}: {item['path'] or item['display']} — {item['detail']}",
+                    file=sys.stderr,
+                )
+            print(
+                "   • اعتمد الأصل: rasm approvals approve <project> --asset <path> --by <name>",
+                file=sys.stderr,
+            )
+            print("   • أو معاينة فقط: --preview (أو --max-seconds)", file=sys.stderr)
+            return 2
+        pending = [i for i in gate.used if i["state"] != "approved"]
+        if preview_mode and pending:
+            print(f"ℹ معاينة: {len(pending)} أصلًا غير معتمد — مسموح في المعاينة، ممنوع في الإنتاج")
+
     out = Path(args.out) if args.out else pd / "render" / "preview.mp4"
     size = (1280, 720)
     if args.size:
@@ -470,7 +512,12 @@ def cmd_render(args) -> int:
 
     try:
         director = Director(
-            plan, canvas=canvas, out_size=size, fps=getattr(args, "fps", None), crf=args.crf
+            plan,
+            canvas=canvas,
+            out_size=size,
+            fps=getattr(args, "fps", None),
+            crf=args.crf,
+            project_dir=pd,
         )
     except TimebaseError as exc:
         print(f"✘ {exc}", file=sys.stderr)
@@ -638,6 +685,328 @@ def cmd_project_migrate(args) -> int:
         f"  أصول: {final_report['stats']['assets']} (معلّق: {final_report['stats']['pending_assets']}) · "
         f"غير محسوم: {final_report['stats']['unresolved']}"
     )
+    return 0
+
+
+# ---------------------------------------------------------------------------
+# المرحلة 3 — اعتماد الأصول (بوابة الإنتاج)
+# ---------------------------------------------------------------------------
+
+_DECISION_WORDS = {"approve": "approved", "reject": "rejected", "defer": "deferred"}
+_STATE_MARKS = {"approved": "✔", "rejected": "✘", "deferred": "…", "pending": "·"}
+
+
+def _manifest_asset_by_token(pd: Path, manifest: dict, token: str) -> dict | None:
+    """Find a manifest asset by asset id, exact path, or unique file name."""
+    assets = [a for a in (manifest.get("assets") or []) if isinstance(a, dict)]
+    token = str(token or "").strip()
+    if not token:
+        return None
+    for asset in assets:
+        if str(asset.get("asset_id") or "") == token:
+            return asset
+    rel = None
+    try:
+        rel = relative_project_path(pd, token)
+    except ProjectError:
+        rel = None
+    for asset in assets:
+        path = str(asset.get("path") or "")
+        if path == token or (rel and path == rel):
+            return asset
+    name = Path(token).name.lower()
+    matches = [a for a in assets if Path(str(a.get("path") or "")).name.lower() == name]
+    return matches[0] if len(matches) == 1 else None
+
+
+def _approval_rows(pd: Path, manifest: dict, plan: dict | None) -> list[dict]:
+    used: dict[str, object] = {}
+    if plan:
+        for ref in plan_asset_refs(plan, pd, manifest=manifest):
+            used[ref.asset_id] = ref
+    rows: list[dict] = []
+    for asset in manifest.get("assets") or []:
+        if not isinstance(asset, dict):
+            continue
+        approval = asset.get("approval") or {}
+        ref = used.get(str(asset.get("asset_id") or ""))
+        rows.append(
+            {
+                "asset_id": asset.get("asset_id"),
+                "path": asset.get("path"),
+                "state": approval.get("decision") or "pending",
+                "reviewer": approval.get("reviewer") or "",
+                "reviewed_at": approval.get("reviewed_at") or "",
+                "note": approval.get("note") or "",
+                "license": (asset.get("license") or {}).get("name"),
+                "origin": (asset.get("origin") or {}).get("kind"),
+                "scenes": list(getattr(ref, "scenes", []) or []),
+                "in_plan": ref is not None,
+            }
+        )
+    return rows
+
+
+def cmd_approvals_list(args) -> int:
+    pd = project_dir(args.project)
+    try:
+        manifest = read_manifest(pd, required=True)
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    plan = None
+    try:
+        plan = read_json(_resolve_plan_arg(pd))
+    except (FileNotFoundError, ProjectError):
+        plan = None
+    try:
+        manifest = sync_manifest_approvals(manifest, pd)
+    except ApprovalError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    rows = _approval_rows(pd, manifest, plan)
+    if getattr(args, "used_only", False):
+        rows = [r for r in rows if r["in_plan"]]
+    if getattr(args, "json", False):
+        print(json.dumps(rows, ensure_ascii=False, indent=2))
+        return 0
+    print(f"✔ {len(rows)} أصلًا في {pd.name}")
+    for row in rows:
+        mark = _STATE_MARKS.get(row["state"], "?")
+        where = (" · مستخدم في مشاهد " + ",".join(row["scenes"])) if row["scenes"] else ""
+        print(f"  {mark} {row['asset_id']}  {row['path']}")
+        print(
+            f"      {row['state']}"
+            + (f" · المراجع: {row['reviewer']}" if row["reviewer"] else "")
+            + f" · الترخيص: {row['license'] or '—'}"
+            + f" · المصدر: {row['origin'] or '—'}"
+            + where
+        )
+    counts: dict[str, int] = {}
+    for row in rows:
+        counts[row["state"]] = counts.get(row["state"], 0) + 1
+    print("  · " + " · ".join(f"{k}: {v}" for k, v in sorted(counts.items())))
+    return 0
+
+
+def cmd_approvals_decide(args) -> int:
+    pd = project_dir(args.project)
+    try:
+        manifest = read_manifest(pd, required=True)
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    asset = _manifest_asset_by_token(pd, manifest, args.asset)
+    if asset is None:
+        print(f"✘ أصل غير موجود: {args.asset!r} — راجع: rasm approvals list {pd.name}", file=sys.stderr)
+        return 2
+    decision = _DECISION_WORDS.get(args.approvals_cmd, args.approvals_cmd)
+    try:
+        record = append_decision(
+            pd,
+            asset_id=str(asset.get("asset_id") or ""),
+            path=str(asset.get("path") or ""),
+            decision=decision,
+            reviewer=args.by,
+            note=getattr(args, "note", "") or "",
+            license=str((asset.get("license") or {}).get("name") or ""),
+            source=str((asset.get("origin") or {}).get("kind") or ""),
+            origin_url=str((asset.get("origin") or {}).get("page_url") or ""),
+        )
+    except ApprovalError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    updated = sync_manifest_approvals(manifest, pd)
+    write_manifest(pd, updated)
+    print(f"✔ {decision}: {asset.get('path')} · المراجع: {record['reviewer']} · {record['reviewed_at']}")
+    if getattr(args, "note", ""):
+        print(f"  · ملاحظة: {args.note}")
+    print("  · سجل القرارات (append-only): research/approvals.jsonl")
+    return 0
+
+
+def cmd_approvals_sync(args) -> int:
+    pd = project_dir(args.project)
+    try:
+        manifest = read_manifest(pd, required=True)
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    updated = sync_manifest_approvals(manifest, pd)
+    write_manifest(pd, updated)
+    counts: dict[str, int] = {}
+    for asset in updated.get("assets") or []:
+        state = str((asset.get("approval") or {}).get("decision") or "pending")
+        counts[state] = counts.get(state, 0) + 1
+    print("✔ تمت مزامنة المانيفست مع سجل القرارات")
+    print("  · " + " · ".join(f"{k}: {v}" for k, v in sorted(counts.items())))
+    return 0
+
+
+def cmd_approvals_import(args) -> int:
+    """Pull the research asset index into the manifest (research integration)."""
+    pd = project_dir(args.project)
+    try:
+        manifest = read_manifest(pd, required=True)
+    except ProjectError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    index = pd / "research" / "assets.json"
+    if not index.exists():
+        print(
+            "✘ لا يوجد research/assets.json — شغّل: rasm evidence "
+            f"{pd.name} --download",
+            file=sys.stderr,
+        )
+        return 2
+    fresh = build_asset_entries(pd, index)
+    existing = {
+        str(a.get("path")): a for a in (manifest.get("assets") or []) if isinstance(a, dict)
+    }
+    added = 0
+    touched = 0
+    for entry in fresh:
+        path = entry["path"]
+        if path in existing:
+            keep = existing[path]
+            approval = keep.get("approval")
+            keep.update(entry)
+            if approval is not None:
+                keep["approval"] = approval
+            touched += 1
+        else:
+            existing[path] = entry
+            added += 1
+    manifest["assets"] = [existing[k] for k in sorted(existing)]
+    paths = manifest.get("paths")
+    if not isinstance(paths, dict):
+        paths = {}
+    paths["assets_index"] = "research/assets.json"
+    manifest["paths"] = paths
+    if manifest.get("status") == "draft":
+        manifest["status"] = "researched"
+    manifest["updated_at"] = utc_now()
+    manifest = sync_manifest_approvals(manifest, pd)
+    if getattr(args, "dry_run", False):
+        print(
+            f"• dry-run: {added} جديد · {touched} محدَّث · الإجمالي {len(manifest['assets'])}",
+        )
+        return 0
+    write_manifest(pd, manifest)
+    print(f"✔ استيراد الأصول من البحث: {added} جديد · {touched} محدَّث · الإجمالي {len(manifest['assets'])}")
+    print("  · كل الأصول تبدأ 'pending' — الاعتماد البشري شرط قبل الإنتاج")
+    return 0
+
+
+def cmd_approvals_gate(args) -> int:
+    pd = project_dir(args.project)
+    try:
+        manifest = read_manifest(pd, required=True)
+        plan = read_json(_resolve_plan_arg(pd))
+    except (FileNotFoundError, ProjectError) as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    mode = getattr(args, "mode", "final")
+    report = evaluate_gate(plan, pd, manifest=manifest, mode=mode)
+    print(f"• بوابة الأصول ({mode}) · أصول مستخدمة: {len(report.used)}")
+    for item in report.used:
+        mark = _STATE_MARKS.get(item["state"], "?")
+        print(f"  {mark} {item['asset_id']}  {item['path']}  [{item['state']}]")
+    for item in report.blocking:
+        print(f"  ✘ {item['reason']}: {item['path'] or item['display']} — {item['detail']}", file=sys.stderr)
+    for item in report.warnings:
+        print(f"  ⚠ {item['reason']}: {item['path'] or item['display']} — {item['detail']}")
+    print(("✔ البوابة مفتوحة" if report.ok else "✘ البوابة مغلقة — الرندر النهائي ممنوع"))
+    return 0 if report.ok else 2
+
+
+def _active_plan_path(pd: Path, manifest: dict | None, explicit: str | None = None) -> Path:
+    """Resolve the plan to work on **without** verifying the manifest hash.
+
+    Commands that intentionally rewrite the plan (linking assets) must be able
+    to run when the stored hash is stale — that is exactly the case they fix.
+    """
+    if explicit:
+        raw = Path(explicit)
+        candidates = [raw] if raw.is_absolute() else [
+            pd / raw,
+            pd / "storyboard" / raw,
+            pd / "storyboard" / raw.name,
+        ]
+        for candidate in candidates:
+            if candidate.is_file():
+                return candidate.resolve()
+        raise FileNotFoundError(f"ملف الخطة غير موجود: {explicit}")
+    storyboard = (manifest or {}).get("storyboard") or {}
+    active = storyboard.get("active")
+    if active:
+        candidate = (pd / str(active)).resolve()
+        if candidate.is_file():
+            return candidate
+    for name in ("plan_v2.json", "plan.json"):
+        candidate = pd / "storyboard" / name
+        if candidate.is_file():
+            return candidate.resolve()
+    raise FileNotFoundError("لا توجد خطة نشطة")
+
+
+def cmd_project_link_assets(args) -> int:
+    """Rewrite the active plan's asset paths to relative + asset_id."""
+    pd = project_dir(args.project)
+    try:
+        manifest = read_manifest(pd, required=True)
+        plan_path = _active_plan_path(pd, manifest, getattr(args, "plan", None))
+        plan = read_json(plan_path)
+    except (FileNotFoundError, ProjectError) as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    if not isinstance(plan, dict):
+        print(f"✘ خطة غير صالحة: {plan_path}", file=sys.stderr)
+        return 2
+    new_plan, changes = link_plan_assets(plan, pd, manifest=manifest)
+    if not changes:
+        # لا مراجع لتعديلها، لكن الهاش في المانيفست يجب أن يطابق الملف الآن.
+        try:
+            activate_plan(pd, plan_path)
+        except ProjectError as exc:
+            print(f"✘ تعذّر تحديث هاش الخطة في المانيفست: {exc}", file=sys.stderr)
+            return 2
+        print("✔ لا توجد مسارات مطلقة — الخطة مرتبطة بالأصول بالفعل (تم تحديث الهاش)")
+        return 0
+    print(f"• {len(changes)} مرجع أصل في الخطة")
+    for change in changes[:20]:
+        print(f"   - مشهد {change['scene']} · {change['field']}: {change['from']} → {change['to']}")
+    report = validate_plan(new_plan, project_dir=pd)
+    if not report["ok"]:
+        for error in report["errors"][:10]:
+            print(f"✘ {error}", file=sys.stderr)
+        print("✘ الخطة بعد الربط غير صالحة — لم تُكتب", file=sys.stderr)
+        return 2
+    if getattr(args, "dry_run", False):
+        print("• dry-run: لم تُكتب الخطة")
+        return 0
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    backup_dir = DATA_ROOT.parent / "backups" / "project-migrations" / f"{pd.name}-link-{stamp}"
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(plan_path, backup_dir / plan_path.name)
+    shutil.copy2(project_manifest_path(pd), backup_dir / "project.json")
+    write_json(plan_path, new_plan)
+    try:
+        activate_plan(pd, plan_path)
+    except ProjectError as exc:
+        print(f"✘ حُفظت الخطة لكن تعذّر تنشيطها: {exc}", file=sys.stderr)
+        return 2
+    manifest = read_manifest(pd, required=True) or {}
+    if not plan_has_absolute_paths(new_plan):
+        manifest["unresolved"] = [
+            u
+            for u in (manifest.get("unresolved") or [])
+            if not (isinstance(u, dict) and u.get("id") == "absolute-plan-paths")
+        ]
+    manifest["updated_at"] = utc_now()
+    write_manifest(pd, manifest)
+    print(f"✔ الخطة مرتبطة: {plan_path}")
+    print(f"• نسخة قبل الربط: {backup_dir}")
     return 0
 
 
@@ -814,6 +1183,51 @@ def main() -> int:
     pjm.add_argument("--language", default=None)
     pjm.add_argument("--apply", action="store_true", help="كتابة المانيفست (بدونها dry-run)")
     pjm.add_argument("--force", action="store_true", help="تحديث مانيفست موجود مختلف")
+
+    # ---- المرحلة 3: اعتماد الأصول (بوابة الإنتاج) ----
+    pap = sub.add_parser("approvals", help="اعتماد أصول المشروع (سجل + بوابة إنتاج)")
+    papsub = pap.add_subparsers(dest="approvals_cmd", required=True)
+
+    papl = papsub.add_parser("list", help="عرض الأصول وحالة الاعتماد")
+    papl.add_argument("project")
+    papl.add_argument("--used-only", action="store_true", help="الأصول المستخدمة في الخطة فقط")
+    papl.add_argument("--json", action="store_true")
+    papl.set_defaults(func=cmd_approvals_list)
+
+    for _word, _help in (
+        ("approve", "اعتماد أصل بعد مراجعته"),
+        ("reject", "رفض أصل"),
+        ("defer", "تأجيل قرار أصل"),
+    ):
+        pad = papsub.add_parser(_word, help=_help)
+        pad.add_argument("project")
+        pad.add_argument("--asset", required=True, help="asset_id أو مسار الأصل داخل المشروع")
+        pad.add_argument("--by", required=True, help="اسم المراجع البشري")
+        pad.add_argument("--note", default="", help="ملاحظة القرار")
+        pad.set_defaults(func=cmd_approvals_decide)
+
+    paps = papsub.add_parser("sync", help="مزامنة المانيفست مع سجل القرارات")
+    paps.add_argument("project")
+    paps.set_defaults(func=cmd_approvals_sync)
+
+    papi = papsub.add_parser("import", help="استيراد أصول البحث (research/assets.json) إلى المانيفست")
+    papi.add_argument("project")
+    papi.add_argument("--dry-run", action="store_true")
+    papi.set_defaults(func=cmd_approvals_import)
+
+    pag = papsub.add_parser("gate", help="فحص بوابة الأصول قبل الإنتاج")
+    pag.add_argument("project")
+    pag.add_argument("--mode", choices=["final", "preview"], default="final")
+    pag.set_defaults(func=cmd_approvals_gate)
+
+    pjl = pjsub.add_parser(
+        "link-assets",
+        help="ربط الخطة بالأصول: مسارات نسبية + asset_id (مع نسخة قبل الكتابة)",
+    )
+    pjl.add_argument("project")
+    pjl.add_argument("--plan", default=None, help="خطة بديلة (افتراضي: الخطة النشطة)")
+    pjl.add_argument("--dry-run", action="store_true")
+    pjl.set_defaults(func=cmd_project_link_assets)
     pjm.set_defaults(func=cmd_project_migrate)
 
     pv = sub.add_parser("validate", help="فحص خطة JSON قبل الرندر")
@@ -835,6 +1249,11 @@ def main() -> int:
     p6.add_argument("--sfx-preset", choices=["paper", "subtle", "bold"], default="paper", help="شدة المؤثرات")
     p6.add_argument("--audio", help="ملف تعليق صوتي (وإلا يُستخدم صوت المشروع تلقائيًا)")
     p6.add_argument("--skip-validate", action="store_true", help="تجاوز فحص الخطة (للملفات القديمة فقط)")
+    p6.add_argument(
+        "--preview",
+        action="store_true",
+        help="معاينة: يسمح بأصول غير معتمدة (مع تحذير) — الإنتاج يتطلب اعتمادًا",
+    )
     p6.set_defaults(func=cmd_render)
 
     p8 = sub.add_parser("audio", help="استيراد تعليق صوتي + فحص دقيق + محاذاة تقديرية صريحة")
