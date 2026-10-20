@@ -2,7 +2,9 @@
 
 A local-first engine for explanatory videos built from whiteboard drawing, ink, paper, documentary collage, image reveals, a pen overlay, and camera movement. It renders a structured scene plan; it is not a neural text-to-video generator.
 
-> **Status:** work in progress. Stage 0/1 safety baselines are complete; Stage 2 (project contract, rational timebase, packaging) is in progress. This is not a production-ready release.
+> **Status:** work in progress. Stage 0/1 safety work is in place, but the Stage 1 sign-off is pending an external backup copy. Stage 2 (project contract, rational timebase, packaging) is in progress. This is not a production-ready release.
+>
+> **Repository:** <https://github.com/coocdv-cmyk/withbord-aldahihe7>
 
 ## Repository map
 
@@ -55,7 +57,7 @@ No license has been selected yet. Do not assume permission to redistribute third
 
 محرك محلي لبناء فيديوهات تفسيرية بالرسم على الوايت بورد، الحبر، الورق، الكولاج، كشف الصور، والقلم والكاميرا. المحرك يرندر خطة مشاهد منظمة، وليس مولد فيديو عصبيًا.
 
-**الحالة:** المشروع قيد التطوير. تم إنجاز خطوط الأمان الأساسية، والعمل الحالي في المرحلة الثانية (عقد المشروع، التوقيت العقلاني، التغليف). ليس إصدارًا جاهزًا للإنتاج.
+**الحالة:** المشروع قيد التطوير. خطوط الأمان الأساسية موجودة، لكن توقيع المرحلة الأولى معلّق حتى النسخ على وسيط خارجي. العمل الحالي في المرحلة الثانية (عقد المشروع، التوقيت العقلاني، التغليف). ليس إصدارًا جاهزًا للإنتاج.
 
 - المحرك الأساسي في `rasm-pro/`.
 - واجهة الاستوديو والجسر المحلي في `studio/`.
