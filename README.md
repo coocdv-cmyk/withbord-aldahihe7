@@ -52,6 +52,14 @@ python rasm.py render ww1 --preview            # preview: warns instead of block
 Generated artwork is never treated as historical evidence, and a rejected asset
 blocks in every mode.
 
+### Continuous integration
+
+A reviewed CI workflow is kept at `rasm-pro/tools/ci/ci.yml` with the
+activation steps in `rasm-pro/tools/ci/README.md`. It runs a compile check and
+the full test suite on Ubuntu with Python 3.13; tests that need ffmpeg are
+skipped explicitly when the tool is absent, so a clean runner still gives a
+meaningful result.
+
 Project manifests are optional for legacy projects. A migrated project uses `project.json` as its entry point, with a relative active-plan path and hashes:
 
 ```powershell

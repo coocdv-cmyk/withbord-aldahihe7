@@ -1,0 +1,83 @@
+{
+  "stage": 3,
+  "generated_at": "2026-10-20T12:04:07Z",
+  "topic": "portable packaging spike with the Stage 3 engine + isolated install test",
+  "package": {
+    "spike": "rasm-portable-spike8",
+    "tool": "PyInstaller 6.22.3",
+    "mode": "one-folder",
+    "build_seconds": 191.1,
+    "build_seconds_note": "0.3s-191s across runs on the same machine (antivirus scanning); earlier spikes: 49.8s, 51.7s, 77.5s",
+    "files": 371,
+    "size_bytes": 325237491,
+    "size_mib": 310.2,
+    "help_seconds_cold": 14.82,
+    "bundled": [
+      "assets/fonts",
+      "style_packs/paper_ink_v1.json",
+      "engine/core/schema",
+      "config.example.json",
+      "engine (all modules, incl. the Stage 3 asset gate)"
+    ],
+    "not_bundled": [
+      "studio/models",
+      "studio/runtime",
+      "backups",
+      "projects",
+      "library/manifest-icons.jsonl",
+      "config.json"
+    ]
+  },
+  "isolated_install_test": {
+    "purpose": "clean-environment proxy for the Stage 9 clean-VM test",
+    "install_folder": "C:\\Users\\USER\\AppData\\Local\\Temp\\opencode\\rasm-isolated-install\\rasm",
+    "clean": "fresh folder, no RASM_HOME, no RASM_FFMPEG, source tree not on PATH",
+    "sidecar": "ffmpeg.exe + ffprobe.exe copied to <install>/runtime (the documented layout)",
+    "steps": [
+      {
+        "step": "rasm.exe --help",
+        "exit": 0,
+        "seconds_cold": 14.82
+      },
+      {
+        "step": "rasm.exe approvals --help (Stage 3 CLI present)",
+        "exit": 0
+      },
+      {
+        "step": "rasm.exe plan demo",
+        "exit": 0
+      },
+      {
+        "step": "rasm.exe project init demo",
+        "exit": 0
+      },
+      {
+        "step": "rasm.exe approvals list demo",
+        "exit": 0,
+        "assets": 0
+      },
+      {
+        "step": "rasm.exe render demo --preview --max-seconds 1 --no-sfx",
+        "exit": 0
+      }
+    ],
+    "render_result": {
+      "frames": 24,
+      "duration": "1.000",
+      "fps": "24/1",
+      "codec": "h264",
+      "size": "1280x720",
+      "bytes": 256950
+    },
+    "data_root_created_next_to_executable": [
+      "cache",
+      "library",
+      "logs",
+      "projects",
+      "style_packs"
+    ],
+    "source_tree_references_in_logs": 0,
+    "verdict": "pass"
+  },
+  "open_item": "A real clean VM or a second machine is still pending; this test isolates the install folder, not the operating system."
+}

@@ -160,6 +160,7 @@ rasm render ww1 --preview              # معاينة: تحذير بدل الم�
 | البند | النتيجة |
 |---|---|
 | الحزمة الكاملة | **87/87 ناجح** في 83.05 ثانية |
+| نفس الحزمة بلا ffmpeg/ffprobe | **79 ناجح / 8 متخطّى** (تخطٍ صريح، لا فشل) |
 | اختبارات عقد المرحلة 3 | 16/16 |
 | اختبار CLI end-to-end | 1/1 (.import → gate → block → approve → gate) |
 | JSON Schema (project + plan) | 0 أخطاء (jsonschema 4.26 · Draft 2020-12، تحقق مستقل) |
@@ -170,6 +171,12 @@ rasm render ww1 --preview              # معاينة: تحذير بدل الم�
 | سجل القرارات | append-only · سطر واحد لكل قرار · سجل تالف = خطأ |
 | `plan.json` القديم | لم يُمَس (هاش مطابق) |
 | Studio | `/api/rasm/approvals` + `mode` في الرندر · معاينة افتراضيًا |
+| الحزمة + تثبيت معزول | `rasm-portable-spike8` (371 ملفًا · 310.2 MiB) · تثبيت نظيف بلا `RASM_HOME`: `--help` · `plan` · `project init` · `approvals list` · رندر 1ث (24 إطارًا · 1.000ث) — كلها exit 0، وصفر إشارة لشجرة المصدر (`qa/packaging/isolated-install.json`) |
+| اكتشاف الأدوات | `ffmpeg_path()`/`ffprobe_path()` يعيدان `None` عند الغياب بدل اسم وهمي؛ `require_*` يرفع خطأ صريحًا |
+
+> **CI:** قالب workflow جاهز في `rasm-pro/tools/ci/ci.yml` (مع شرح التفعيل في
+> `tools/ci/README.md`). لا يمكن رفعه من هنا لأن تعديل `.github/workflows/`
+> يتطلب رمز GitHub بنطاق `workflow` — انظر «بنود مفتوحة».
 
 ---
 
@@ -190,8 +197,17 @@ git revert <commit>                      # للعودة ب-commit واحد
 ## 9. البنود المفتوحة
 
 - [ ] **اعتماد بشري للأصول**: 34 أصلًا في ww1 (`pending`). هذا عمل المالك لا الآلة.
-- [ ] النسخة الخارجية للمرحلة الأولى (مادي).
-- [ ] اختبار VM نظيف (المرحلة 9) — البديل الموثق في `docs/08`.
+- [ ] **النسخة الخارجية للمرحلة الأولى** (مادي — لا وسيط موصول).
+- [ ] **CI على GitHub**: الملف `.github/workflows/django.yml` (قالب Django أضافه
+      المالك في `a1d3889`) **يفشل على كل push** لأنه لا يوجد `manage.py` ولا
+      `requirements.txt` في جذر المستودع. الحل: حذفه وإنشاء
+      `.github/workflows/ci.yml` من `rasm-pro/tools/ci/ci.yml` (الشرح في
+      `rasm-pro/tools/ci/README.md`). **تعذّر رفعه من هنا**: تعديل
+      `.github/workflows/` يتطلب رمز GitHub بنطاق `workflow`، والرمز المحلي
+      بلا هذا النطاق (رفض صريح من GitHub، والفرعان متطابقان على
+      `a4c49b3`).
+- [ ] اختبار VM/جهاز نظيف فعلي (المرحلة 9) — البديل الموثق **منفَّذ وناجح**
+      (§5.1 في `docs/08-PACKAGING-ADR-AR.md`).
 - [ ] `CREDITS.md` يجب أن يرافق أي مشروع يُنشر (من Stage 3 صُنع المسار، والالتزام قائم).
 
 **توقيع التنفيذ:** OpenCode — MiniMax M3.1 Flash Free، 20 أكتوبر 2026.  
