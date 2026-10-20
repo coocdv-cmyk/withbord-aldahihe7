@@ -52,6 +52,20 @@ python rasm.py render ww1 --preview            # preview: warns instead of block
 Generated artwork is never treated as historical evidence, and a rejected asset
 blocks in every mode.
 
+### Narration: measured loudness, measured alignment
+
+```powershell
+python rasm.py audio ww1 --file "C:\path\narration.wav"  # import + measure + align
+python rasm.py audio ww1                                  # loudness + alignment report
+python rasm.py audio ww1 --align                          # re-run the measured alignment
+python rasm.py audio ww1 --normalize -16                  # explicit, logged normalization
+```
+
+Loudness is measured with ITU-R BS.1770-4 (integrated LUFS, LRA, true peak) and
+the scene boundaries come from the **measured** audio samples, so the picture
+follows the voice. A production render is refused while the narration is
+unmeasured, off target, or shorter than the picture — never trimmed silently.
+
 ### Continuous integration
 
 A reviewed CI workflow is kept at `rasm-pro/tools/ci/ci.yml` with the

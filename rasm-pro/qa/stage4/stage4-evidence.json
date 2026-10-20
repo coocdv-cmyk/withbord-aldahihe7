@@ -1,0 +1,201 @@
+{
+  "stage": 4,
+  "generated_at": "2026-10-20T13:43:50Z",
+  "topic": "imported narration: loudness measurement, measured alignment, narration gate",
+  "start_point": {
+    "tag": "stage4-start",
+    "commit": "214f292",
+    "bundle": "backups/stage4-20261020/rasm-pro-stage4-start.bundle",
+    "bundle_sha256": "1854DC5E4E29E578611CAFF402CBF3AD3D07A061FCE03BAB709FB7F92869A6F6",
+    "bundle_verify": "ok"
+  },
+  "tests": {
+    "passed": 107,
+    "failed": 0,
+    "stage4_contract_tests": 20
+  },
+  "loudness": {
+    "standard": "ITU-R BS.1770-4 (EBU R128)",
+    "calibration": [
+      {
+        "signal": "1 kHz sine, -20 dBFS peak",
+        "expected_lufs": -23.0,
+        "measured_lufs": -23.0,
+        "delta": 0.0
+      },
+      {
+        "signal": "1 kHz sine, 0 dBFS peak",
+        "expected_lufs": -3.0,
+        "measured_lufs": -3.0,
+        "delta": 0.0
+      },
+      {
+        "signal": "10 kHz sine, -20 dBFS peak (K-weighting shelf)",
+        "expected_lufs": -19.7,
+        "measured_lufs": -19.66,
+        "delta": 0.04
+      },
+      {
+        "signal": "60 Hz sine, -20 dBFS peak (RLB high-pass)",
+        "expected_lufs": -26.6,
+        "measured_lufs": -26.6,
+        "delta": 0.0
+      },
+      {
+        "signal": "two tones 20 dB apart",
+        "expected_lra": 20.0,
+        "measured_lra": 20.0,
+        "delta": 0.0
+      },
+      {
+        "signal": "stereo, both channels equal",
+        "expected_delta_lu": 3.0,
+        "measured_delta_lu": 3.01,
+        "delta": 0.01
+      }
+    ],
+    "deterministic": true,
+    "real_file": {
+      "file": "projects/gate-audio/audio/narration-ce46000144.wav",
+      "sha256": "ce4600014488cb790791893046b99901ee6a6f17fa4697b78183131e1372d202",
+      "codec": "pcm_s16le",
+      "sample_rate": 22050,
+      "channels": 1,
+      "total_samples": 375868,
+      "duration_sec": 17.046168,
+      "lufs_integrated": -19.51,
+      "lra": 8.15,
+      "true_peak_dbtp": -3.31,
+      "rms_dbfs": -19.49
+    }
+  },
+  "import": {
+    "original_untouched": true,
+    "original_sha256_unchanged": true,
+    "stored_path": "audio/narration-ce46000144.wav",
+    "stored_path_is_relative": true,
+    "absolute_path_only_for_the_source": "original.path"
+  },
+  "alignment": {
+    "level": "SEGMENTED",
+    "method": "vad-pauses-proportional-v1",
+    "measured_speech_segments": 5,
+    "scenes": 3,
+    "segments": [
+      {
+        "scene_id": 1,
+        "start_sample": 0,
+        "end_sample": 52920,
+        "confidence": 0.55,
+        "flags": [
+          "pause-detected",
+          "proportional-mapping"
+        ]
+      },
+      {
+        "scene_id": 2,
+        "start_sample": 52920,
+        "end_sample": 168903,
+        "confidence": 0.55,
+        "flags": [
+          "pause-detected",
+          "proportional-mapping"
+        ]
+      },
+      {
+        "scene_id": 3,
+        "start_sample": 168903,
+        "end_sample": 375868,
+        "confidence": 0.55,
+        "flags": [
+          "pause-detected",
+          "proportional-mapping"
+        ]
+      }
+    ],
+    "notes": [
+      "بنية الوقف مقيسة: 5 مقطع نطق مكتشف من الصوت فعليًا.",
+      "عدد المقاطع المقيسة (5) ≠ عدد المشاهد (3) ⇒ التوزيع تناسبي على زمن النطق المقيس، والحدود تُلصق بأقرب وقفة.",
+      "التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق)."
+    ],
+    "honest_level": "SEGMENTED - the number of measured speech segments (5) does not match the number of scenes (3); the mapping is proportional over the measured speech time and the mismatch is stated in the file."
+  },
+  "plan_from_audio": {
+    "timebase": {
+      "source": "narration",
+      "method": "vad-pauses-proportional-v1",
+      "rounding": "absolute-samples-to-frames",
+      "fps": {
+        "num": 24,
+        "den": 1
+      },
+      "sample_rate": 22050,
+      "total_samples": 375868,
+      "start_frame": 0,
+      "end_frame": 409,
+      "frames": 409
+    },
+    "scenes": [
+      {
+        "id": 1,
+        "start_sample": 0,
+        "end_sample": 52920,
+        "start_frame": 0,
+        "end_frame": 58
+      },
+      {
+        "id": 2,
+        "start_sample": 52920,
+        "end_sample": 168903,
+        "start_frame": 58,
+        "end_frame": 184
+      },
+      {
+        "id": 3,
+        "start_sample": 168903,
+        "end_sample": 375868,
+        "start_frame": 184,
+        "end_frame": 409
+      }
+    ],
+    "picture_seconds": 17.046168,
+    "note": "the scene boundaries come from the measured audio samples, so the picture follows the voice instead of an estimate"
+  },
+  "render_with_narration": {
+    "frames": 409,
+    "duration": "17.042",
+    "fps": "24/1",
+    "codec": "h264",
+    "audio": "aac (narration+sfx)",
+    "size": "1280x720",
+    "audio_video_duration_difference": "0.000s",
+    "drift_frames": 0,
+    "exit": 0,
+    "gate": "open - the narration is measured, inside the speech window, and on target"
+  },
+  "normalization": {
+    "explicit": true,
+    "logged_in": "audio/narration.json (normalization)",
+    "bounded_gain_db": 12.0,
+    "example": {
+      "from_lufs": -19.51,
+      "to_lufs": -16.0,
+      "gain_db": 3.51
+    },
+    "original_never_touched": true
+  },
+  "gate": {
+    "rules": [
+      "narration missing but declared by the plan -> blocked in final",
+      "narration not measured -> blocked in final",
+      "loudness outside the speech window [-30, -9] LUFS -> blocked in final",
+      "loudness more than 6 LU from the delivery target -> blocked in final",
+      "narration shorter than the picture -> blocked (never trimmed silently)"
+    ],
+    "preview_mode": "warns instead of blocking"
+  },
+  "open_items": [
+    "ww1 has no real narration yet - the chain was proven on a scratch project with the existing 17 s voice fixture",
+    "a real episode still needs a recorded (or externally generated) narration"
+  ]
+}

@@ -398,10 +398,21 @@ def infer_manifest(
                     "total_samples": narration.get("total_samples"),
                     "duration_exact": narration.get("duration_exact"),
                     "duration_sec": narration.get("duration_sec"),
+                    "loudness": narration.get("loudness"),
+                    "normalization": narration.get("normalization"),
                 }
             )
     if alignment_path.exists():
         audio["alignment_sha256"] = sha256_file(alignment_path)
+        try:
+            from ..audio.align import load_alignment
+
+            al = load_alignment(pd)
+            if al is not None:
+                audio["alignment_level"] = al.level
+                audio["alignment_method"] = al.method
+        except Exception:
+            pass
 
     unresolved: list[dict] = []
     if not audio.get("narration"):

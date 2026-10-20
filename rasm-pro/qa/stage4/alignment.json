@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "level": "SEGMENTED",
+  "method": "vad-pauses-proportional-v1",
+  "sample_rate": 22050,
+  "total_samples": 375868,
+  "notes": [
+    "بنية الوقف مقيسة: 5 مقطع نطق مكتشف من الصوت فعليًا.",
+    "عدد المقاطع المقيسة (5) ≠ عدد المشاهد (3) ⇒ التوزيع تناسبي على زمن النطق المقيس، والحدود تُلصق بأقرب وقفة.",
+    "التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق)."
+  ],
+  "segments": [
+    {
+      "scene_id": 1,
+      "text": "First sentence of the narration.",
+      "start_sample": 0,
+      "end_sample": 52920,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 2,
+      "text": "Second sentence of the narration.",
+      "start_sample": 52920,
+      "end_sample": 168903,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 3,
+      "text": "Third sentence of the narration.",
+      "start_sample": 168903,
+      "end_sample": 375868,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    }
+  ]
+}

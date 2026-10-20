@@ -315,37 +315,99 @@ def cmd_icons(args) -> int:
 
 
 def cmd_audio(args) -> int:
+    """Import / measure / align / normalize the narration of a project.
+
+    ``rasm audio <project> --file x.wav``  → import + measure + align
+    ``rasm audio <project>``                → report only (loudness + alignment)
+    ``rasm audio <project> --align``       → re-run the measured alignment
+    ``rasm audio <project> --normalize -16`` → explicit, logged normalization
+    """
     from engine.audio import baseline_align, import_narration, save_alignment
+    from engine.audio.gate import evaluate_narration_gate
+    from engine.audio.loudness import TARGETS
 
     pd = project_dir(args.project)
-    try:
-        man = import_narration(pd, args.file, copy=not args.no_copy, note=args.note or "")
-    except Exception as e:
-        print(f"✘ فشل استيراد الصوت: {e}")
-        return 1
-    dur = man.get("duration_exact") or man.get("duration")
-    print(f"✔ التعليق محفوظ: {man['path']}")
-    print(
-        f"  {man.get('codec')} · {man.get('sample_rate')} هرتز · {man.get('channels')} قناة · "
-        f"عينات {man.get('total_samples')} · مدة {dur}ث"
-    )
-    print(f"  بصمة: {man['sha256'][:16]}… · الأصل: {man['original']['name']} (لم يُعدَّل)")
+
+    if getattr(args, "normalize", None) is not None:
+        from engine.audio.narration import normalize_narration
+
+        try:
+            info = normalize_narration(pd, float(args.normalize))
+        except Exception as exc:
+            print(f"✘ فشل التطبيع: {exc}")
+            return 2
+        print(
+            f"✔ تطبيع صريح: {info['before'].get('lufs_integrated')} → "
+            f"{info['after'].get('lufs_integrated')} LUFS (كسب {info['gain_db']:+.2f} dB)"
+        )
+        print(f"  · الملف: {info['file']}")
+        print(f"  · مسجَّل في: audio/narration.json (normalization)")
+        return 0
+
+    if getattr(args, "file", None):
+        try:
+            man = import_narration(pd, args.file, copy=not args.no_copy, note=args.note or "")
+        except Exception as e:
+            print(f"✘ فشل استيراد الصوت: {e}")
+            return 1
+        dur = man.get("duration_exact") or man.get("duration")
+        print(f"✔ التعليق محفوظ: {man['path']}")
+        print(
+            f"  {man.get('codec')} · {man.get('sample_rate')} هرتز · {man.get('channels')} قناة · "
+            f"عينات {man.get('total_samples')} · مدة {dur}ث"
+        )
+        print(f"  بصمة: {man['sha256'][:16]}… · الأصل: {man['original']['name']} (لم يُعدَّل)")
+        loud = man.get("loudness") or {}
+        if loud:
+            print(
+                f"  الجهارة: {loud.get('lufs_integrated')} LUFS · LRA {loud.get('lra')} · "
+                f"ذروة حقيقية {loud.get('true_peak_dbtp')} dBTP · RMS {loud.get('rms_dbfs')} dBFS"
+            )
+        else:
+            print("  ⚠ تعذّر قياس الجهارة")
 
     graph = read_json(pd / "script" / "scriptgraph.json")
-    if graph and man.get("total_samples") and man.get("sample_rate"):
-        al = baseline_align(graph.get("scenes", []), int(man["total_samples"]), int(man["sample_rate"]))
-        out = save_alignment(al, pd)
-        sr = int(man["sample_rate"])
-        print(f"✔ محاذاة تقديرية صريحة ({al.level}): {out}")
-        for seg in al.segments:
-            print(
-                f"   - مشهد {seg.scene_id}: "
-                f"[{seg.start_sample / sr:.2f} → {seg.end_sample / sr:.2f}]ث · ثقة {seg.confidence:.2f}"
-                + (" ⚠ " + ",".join(seg.flags) if "rate-extreme" in seg.flags else "")
-            )
-        print("  ملاحظة: التوقيت مرجعه عينات الصوت، لكن توزيعه على المشاهد تقديري.")
-    else:
-        print("• لا يوجد scriptgraph.json — تم استيراد الصوت فقط (شغّل understand ثم أعد audio).")
+    if getattr(args, "align", False) or getattr(args, "file", None):
+        if graph:
+            from engine.audio import load_narration as load_nar
+            from engine.audio.align import measured_align
+            from engine.audio.loudness import decode_samples
+
+            nm = load_nar(pd)
+            if nm and nm.get("total_samples"):
+                sr = int(nm["sample_rate"])
+                from engine.audio.narration import resolve_narration
+
+                samples, rate = decode_samples(resolve_narration(pd, nm))
+                al = measured_align(
+                    graph.get("scenes", []), samples, rate, int(nm["total_samples"])
+                )
+                out = save_alignment(al, pd)
+                print(f"✔ محاذاة ({al.level}): {out}")
+                for seg in al.segments:
+                    print(
+                        f"   - مشهد {seg.scene_id}: "
+                        f"[{seg.start_sample / sr:.2f} → {seg.end_sample / sr:.2f}]ث · ثقة {seg.confidence:.2f}"
+                        + (" ⚠ " + ",".join(seg.flags) if seg.flags else "")
+                    )
+                for note in al.notes:
+                    print(f"  · {note}")
+            else:
+                al = baseline_align(
+                    graph.get("scenes", []), int(nm["total_samples"]), sr
+                ) if nm else None
+                print("• لا يوجد تعليق صوتي — لا محاذاة.")
+
+    gate = evaluate_narration_gate(pd, read_json(pd / "storyboard" / "plan_v2.json"))
+    if gate.has_narration:
+        print(
+            f"  · بوابة الصوت: {gate.lufs} LUFS · مقيسة: {gate.measured} · "
+            f"مدة {gate.duration_sec}ث · هدف {TARGETS.get('video')} LUFS"
+        )
+    for w in gate.warnings:
+        print(f"  ⚠ {w['reason']}: {w['detail']}")
+    for b in gate.blocking:
+        print(f"  ✘ {b['reason']}: {b['detail']}")
     return 0
 
 
@@ -470,6 +532,27 @@ def cmd_render(args) -> int:
         pending = [i for i in gate.used if i["state"] != "approved"]
         if preview_mode and pending:
             print(f"ℹ معاينة: {len(pending)} أصلًا غير معتمد — مسموح في المعاينة، ممنوع في الإنتاج")
+
+    # بوابة الصوت: لا صورة إنتاج بلا سرد مقيس
+    if manifest is not None:
+        try:
+            from engine.audio.gate import evaluate_narration_gate
+            from engine.audio.loudness import TARGETS
+
+            audio_gate = evaluate_narration_gate(
+                pd, plan, mode=mode, target_lufs=TARGETS.get("video")
+            )
+        except Exception as exc:  # a broken audio path must not pass silently
+            print(f"✘ تعذّر فحص بوابة الصوت: {exc}", file=sys.stderr)
+            return 2
+        for item in audio_gate.warnings[:6]:
+            print(f"⚠ {item['reason']}: {item['detail']}")
+        if not audio_gate.ok:
+            print("✘ بوابة الصوت: الرندر النهائي ممنوع", file=sys.stderr)
+            for item in audio_gate.blocking[:10]:
+                print(f"   ✘ {item['reason']}: {item['detail']}", file=sys.stderr)
+            print("   • أو معاينة فقط: --preview (أو --max-seconds)", file=sys.stderr)
+            return 2
 
     out = Path(args.out) if args.out else pd / "render" / "preview.mp4"
     size = (1280, 720)
@@ -1256,11 +1339,19 @@ def main() -> int:
     )
     p6.set_defaults(func=cmd_render)
 
-    p8 = sub.add_parser("audio", help="استيراد تعليق صوتي + فحص دقيق + محاذاة تقديرية صريحة")
+    p8 = sub.add_parser("audio", help="استيراد تعليق صوتي + قياس جهارة + محاذاة مقيسة")
     p8.add_argument("project")
-    p8.add_argument("--file", required=True, help="ملف الصوت الأصلي (لا يُعدَّل)")
+    p8.add_argument("--file", default=None, help="ملف الصوت الأصلي (لا يُعدَّل) — يُستورد ويُقاس")
     p8.add_argument("--no-copy", action="store_true", help="مرجع مباشر بدل نسخة داخل المشروع")
     p8.add_argument("--note", default="", help="ملاحظة (قارئ الصوت/الجلسة)")
+    p8.add_argument("--align", action="store_true", help="إعادة المحاذاة المقيسة فقط")
+    p8.add_argument(
+        "--normalize",
+        type=float,
+        default=None,
+        metavar="LUFS",
+        help="تطبيع صريح إلى هدف LUFS (مثل -16 للفيديو) — مسجَّل في audio/narration.json",
+    )
     p8.set_defaults(func=cmd_audio)
 
     p7 = sub.add_parser("learn", help="تصحيح دائم يتعلمه المحرك (اسم/نوع/احتياجات)")

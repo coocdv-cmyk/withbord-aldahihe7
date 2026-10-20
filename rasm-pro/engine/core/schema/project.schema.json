@@ -83,7 +83,37 @@
         "channels": { "type": ["integer", "null"], "minimum": 1 },
         "total_samples": { "type": ["integer", "null"], "minimum": 1 },
         "duration_exact": { "type": ["string", "null"] },
-        "duration_sec": { "type": ["number", "null"], "minimum": 0 }
+        "duration_sec": { "type": ["number", "null"], "minimum": 0 },
+        "alignment_level": {
+          "enum": ["NONE", "APPROXIMATE", "MEASURED", "SEGMENTED", "WORD", null]
+        },
+        "alignment_method": { "type": ["string", "null"] },
+        "loudness": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": [
+            "lufs_integrated",
+            "lra",
+            "true_peak_dbtp",
+            "rms_dbfs",
+            "sample_rate",
+            "channels",
+            "total_samples",
+            "duration_sec"
+          ],
+          "properties": {
+            "lufs_integrated": { "type": "number" },
+            "lra": { "type": "number", "minimum": 0 },
+            "true_peak_dbtp": { "type": "number" },
+            "rms_dbfs": { "type": "number" },
+            "sample_rate": { "type": "integer", "minimum": 1 },
+            "channels": { "type": "integer", "minimum": 1 },
+            "total_samples": { "type": "integer", "minimum": 1 },
+            "duration_sec": { "type": "number", "minimum": 0 },
+            "method": { "type": "string" }
+          }
+        },
+        "normalization": { "type": ["object", "null"] }
       }
     },
     "asset_policy": {

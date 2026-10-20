@@ -15,6 +15,7 @@ from engine.audio import (
     import_narration,
     load_alignment,
     load_narration,
+    resolve_narration,
     probe_audio,
     save_alignment,
     sha256_file,
@@ -74,11 +75,16 @@ def test_import_narration_never_modifies_original_and_reuses():
 
         proj = root / "proj"
         m1 = import_narration(proj, src, note="اختبار")
-        assert Path(m1["path"]).exists()
+        # المسار المخزَّن نسبي للمشروع (عقد المرحلة الرابعة) — يُحلّ عبر resolve_narration
+        assert not Path(m1["path"]).is_absolute()
+        assert resolve_narration(proj, m1).exists()
         assert m1["sha256"] == h_before
         assert src.stat().st_size == st_before.st_size
         assert sha256_file(src) == h_before
         assert m1["total_samples"] == 48000
+        # والجهارة مقيسة عند الاستيراد
+        assert m1["loudness"] is not None
+        assert "lufs_integrated" in m1["loudness"]
 
         # الاستيراد الثاني: نفس الملف بلا تكرار
         m2 = import_narration(proj, src)

@@ -1,8 +1,18 @@
 """محاذاة السرد↔الصوت — بعقد صريح وبدرجة ثقة صادقة (لا ادعاء دقة زائفة).
 
-المستوى الأساسي هنا ``APPROXIMATE``: توزيع مدة الصوت على الجمل بنسب أطوال
-النصوص (حروف + وزن كلمات) بأعداد صحيحة دقيقة — بلا أي انزلاق وبلا تجاوز مدة
-الصوت. المحاذاة الدقيقة كلمة-بكلمة تحتاج نموذج تفريغ صوتي؛ عند إضافته لاحقًا
+مستويان هنا:
+
+``APPROXIMATE`` (الأساسي)
+    توزيع مدة الصوت على الجمل بنسب أطوال النصوص (حروف + وزن كلمات) بأعداد
+    صحيحة دقيقة — بلا أي انزلاق وبلا تجاوز مدة الصوت.
+
+``MEASURED`` / ``SEGMENTED`` (المرحلة الرابعة)
+    بنية الوقف **مقيسة** من الصوت: نكشف المقاطع الناطقة (VAD energetic)، ثم
+    نربط الجمل بها بالترتيب.  إن كان عدد المقاطع = عدد الجمل فالربط واحد-واحد
+    وثقته عالية؛ وإلا فالتوزيع تناسبي على زمن النطق المقيس، وثقته أقل ويُقال
+    سببها صراحةً.
+
+المحاذاة الدقيقة كلمة-بكلمة تحتاج نموذج تفريغ صوتي؛ عند إضافته لاحقًا
 يرتفع المستوى إلى ``WORD`` بنفس العقد دون تغيير المستهلكين.
 
 كل الأرقام هنا وحدات عينات عند ``sample_rate`` المعلن في الوصف.
@@ -13,6 +23,8 @@ from dataclasses import asdict, dataclass, field
 from fractions import Fraction
 from pathlib import Path
 from typing import Sequence
+
+import numpy as np
 
 from ..core import arabic
 from ..core.log import get_logger
@@ -26,6 +38,8 @@ ALIGN_NAME = "alignment.json"
 
 LEVEL_NONE = "NONE"
 LEVEL_APPROX = "APPROXIMATE"
+LEVEL_MEASURED = "MEASURED"
+LEVEL_SEGMENTED = "SEGMENTED"
 LEVEL_WORD = "WORD"
 
 
@@ -172,6 +186,218 @@ def baseline_align(
     return Alignment(
         level=LEVEL_APPROX,
         method="proportional-characters-v1",
+        sample_rate=sample_rate,
+        total_samples=total_samples,
+        segments=segs,
+        notes=notes,
+    )
+
+
+@dataclass
+class SpeechSegment:
+    """مقطع نطق مقيس (بحدود عينات)."""
+
+    start_sample: int
+    end_sample: int
+    rms_dbfs: float
+
+    @property
+    def length(self) -> int:
+        return self.end_sample - self.start_sample
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+def detect_speech(
+    samples: np.ndarray,
+    sample_rate: int,
+    *,
+    frame_ms: int = 20,
+    min_speech_ms: int = 120,
+    min_gap_ms: int = 180,
+    noise_margin_db: float = 6.0,
+    dynamic_range_db: float = 20.0,
+) -> list[SpeechSegment]:
+    """Detect the spoken segments of a signal (energy VAD).
+
+    The threshold comes from the signal itself: the 10th percentile of the
+    frame levels is the noise floor, the 95th percentile is the speech level,
+    and the gate sits ``noise_margin_db`` above the floor (never more than
+    ``dynamic_range_db`` below the speech level).  Nothing about the
+    recording level is assumed.
+    """
+    x = np.asarray(samples, dtype=np.float64)
+    if x.ndim == 2:
+        x = x.mean(axis=0)
+    if x.size == 0 or sample_rate <= 0:
+        return []
+    frame = max(1, int(round(frame_ms * sample_rate / 1000)))
+    count = x.size // frame
+    if count <= 0:
+        return []
+    frames = x[: count * frame].reshape(count, frame)
+    rms = np.sqrt(np.mean(frames * frames, axis=1))
+    with np.errstate(divide="ignore"):
+        db = 20.0 * np.log10(np.where(rms > 0, rms, 1e-12))
+    floor = float(np.percentile(db, 10))
+    speech = float(np.percentile(db, 95))
+    threshold = max(floor + noise_margin_db, speech - dynamic_range_db)
+
+    voiced = db > threshold
+    gap = max(1, int(round(min_gap_ms * sample_rate / 1000 / frame)))
+    min_len = int(round(min_speech_ms * sample_rate / 1000))
+
+    out: list[SpeechSegment] = []
+    idx = 0
+    while idx < voiced.size:
+        if not voiced[idx]:
+            idx += 1
+            continue
+        end = idx
+        while True:
+            look = end + 1
+            while look < voiced.size and not voiced[look]:
+                look += 1
+            if look < voiced.size and (look - (end + 1)) <= gap:
+                # a short pause inside the same utterance: close it and continue
+                end = look
+                continue
+            break
+        start_sample = idx * frame
+        end_sample = min(int(x.size), (end + 1) * frame)
+        if (end_sample - start_sample) >= min_len:
+            out.append(
+                SpeechSegment(
+                    start_sample=start_sample,
+                    end_sample=end_sample,
+                    rms_dbfs=float(np.mean(db[idx : end + 1])),
+                )
+            )
+        idx = end + 1
+    return out
+
+
+def _largest_remainder(total: int, weights: Sequence[int]) -> list[int]:
+    """Split ``total`` into integer parts proportional to ``weights`` (exact sum)."""
+    wsum = sum(weights)
+    if wsum <= 0:
+        return [0] * len(weights)
+    raw = [Fraction(total * w, wsum) for w in weights]
+    floors = [int(r) for r in raw]
+    rest = total - sum(floors)
+    order = sorted(range(len(weights)), key=lambda i: (raw[i] - floors[i], -i), reverse=True)
+    for k in range(rest):
+        floors[order[k % len(order)]] += 1
+    return floors
+
+
+def measured_align(
+    scenes: Sequence[dict],
+    samples: np.ndarray,
+    sample_rate: int,
+    total_samples: int,
+) -> Alignment:
+    """Align the scenes to the **measured** speech structure of the audio.
+
+    * The pause structure is measured (energy VAD).
+    * If the number of measured segments equals the number of scenes, the
+      mapping is one to one (``MEASURED``, confidence 0.85).
+    * Otherwise the scenes are spread over the measured speech time by text
+      weight and the boundaries are snapped to the nearest measured pause
+      (``SEGMENTED``, lower confidence, and the mismatch is stated).
+    """
+    if total_samples <= 0:
+        raise AlignmentError(f"مدة الصوت غير صالحة: {total_samples} عينة")
+    if sample_rate <= 0:
+        raise AlignmentError(f"معدل العينات غير صالح: {sample_rate}")
+    texts = [str(s.get("narration") or "").strip() for s in scenes]
+    if not texts or any(not t for t in texts):
+        raise AlignmentError("كل مشهد يجب أن يحمل نصًا غير فارغ للمحاذاة")
+    ids = [int(s.get("id") or i + 1) for i, s in enumerate(scenes)]
+
+    segments = detect_speech(samples, sample_rate)
+    notes: list[str] = []
+    if not segments:
+        notes.append("لم يُكتشف أي مقطع نطق — تعذّرت المحاذاة المقيسة.")
+        return Alignment(
+            level=LEVEL_NONE,
+            method="vad-energy-v1",
+            sample_rate=sample_rate,
+            total_samples=total_samples,
+            segments=[],
+            notes=notes,
+        )
+
+    notes.append(f"بنية الوقف مقيسة: {len(segments)} مقطع نطق مكتشف من الصوت فعليًا.")
+
+    if len(segments) == len(scenes):
+        level = LEVEL_MEASURED
+        method = "vad-pauses-one-to-one-v1"
+        conf = 0.85
+        flags_common = ["pause-detected", "one-to-one"]
+        # interior boundary i = the start of the next utterance: the pause
+        # belongs to the scene that precedes it, so the ranges stay contiguous
+        # and the last scene runs to the end of the audio.
+        interior = [segments[i + 1].start_sample for i in range(len(segments) - 1)]
+        notes.append("عدد المقاطع = عدد المشاهد ⇒ ربط واحد-واحد.")
+    else:
+        level = LEVEL_SEGMENTED
+        method = "vad-pauses-proportional-v1"
+        conf = 0.55
+        flags_common = ["pause-detected", "proportional-mapping"]
+        notes.append(
+            f"عدد المقاطع المقيسة ({len(segments)}) ≠ عدد المشاهد ({len(scenes)}) ⇒ "
+            "التوزيع تناسبي على زمن النطق المقيس، والحدود تُلصق بأقرب وقفة."
+        )
+        speech_total = sum(s.length for s in segments)
+        weights = [_text_weight(t) for t in texts]
+        parts = _largest_remainder(speech_total, weights)
+        raw_bounds: list[int] = []
+        cursor = segments[0].start_sample
+        for part in parts:
+            raw_bounds.append(cursor)
+            cursor += part
+        raw_bounds.append(min(total_samples, cursor))
+        edges = [s.start_sample for s in segments] + [s.end_sample for s in segments]
+        snapped = [min(edges, key=lambda e: (abs(e - b), e)) for b in raw_bounds]
+        interior = snapped[1:-1]
+
+    # the picture covers the whole recording: [0 .. total_samples]
+    bounds = [0] + [int(b) for b in interior] + [int(total_samples)]
+    for i in range(1, len(bounds)):
+        if bounds[i] <= bounds[i - 1]:
+            bounds[i] = bounds[i - 1] + 1
+    if bounds[-1] <= bounds[-2]:
+        bounds[-1] = bounds[-2] + 1
+    bounds[-1] = max(bounds[-1], bounds[-2])
+    if bounds[-1] > total_samples:
+        bounds[-1] = int(total_samples)
+
+    segs: list[Segment] = []
+    for i, t in enumerate(texts):
+        start, end = int(bounds[i]), int(bounds[i + 1])
+        flags = list(flags_common)
+        if end <= start:
+            conf_i = 0.2
+            flags.append("zero-length")
+        else:
+            conf_i = conf
+        segs.append(
+            Segment(
+                scene_id=ids[i],
+                text=t,
+                start_sample=start,
+                end_sample=end,
+                confidence=conf_i,
+                flags=flags,
+            )
+        )
+
+    notes.append("التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق).")
+    return Alignment(
+        level=level,
+        method=method,
         sample_rate=sample_rate,
         total_samples=total_samples,
         segments=segs,
