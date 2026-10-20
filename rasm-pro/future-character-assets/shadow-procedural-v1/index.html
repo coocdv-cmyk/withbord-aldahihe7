@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شخصية الظل — نموذج مستقل</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#151d24;color:#eee8dc;font:16px system-ui,sans-serif}main{max-width:1300px;margin:auto;padding:22px}h1{font-size:25px;margin:0 0 7px}p{color:#b7c4c7;line-height:1.7}.stage{background:#29343e;border:1px solid #4b5660;border-radius:16px;overflow:hidden}canvas{display:block;width:100%;height:auto}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:18px;padding:16px;background:#202c35;border-radius:12px}label{display:flex;align-items:center;gap:7px}select,button{background:#344650;color:#fff;border:1px solid #61757c;padding:9px;border-radius:7px;font:inherit}button{cursor:pointer}input{accent-color:#cfb57c}.badge{font-size:13px;color:#dacda9}.note{font-size:14px}a{color:#dfc88c}
+</style>
+<main><h1>شخصية الظل — مولّدة بالبرمجة بالكامل</h1><p>لا صور شخصية ولا فريمات جاهزة. العيون والجفون والجسم والمفاصل تُرسم وقت التشغيل. النموذج مستقل عن Rasm Pro.</p>
+<div class="stage"><canvas id="stage" width="1280" height="720"></canvas></div>
+<div class="controls"><button id="play">إيقاف</button><label><input id="auto" type="checkbox" checked>عرض تلقائي</label><label>الإيماءة <select id="gesture"></select></label><label>العيون <select id="expression"></select></label><label>الشدة <input id="amount" type="range" min="0" max="1" step=".01" value="1"></label><label><input id="transparent" type="checkbox">خلفية شفافة</label><label><input id="bones" type="checkbox">إظهار المفاصل</label><button id="png">تنزيل لقطة شفافة</button></div>
+<p class="badge" id="status"></p><p class="note">نموذج تصميم وتحريك ثنائي الأبعاد، وليس ضمانًا لواقعية بشرية. جرّب هدوء الحركة وتباين المحيط قبل زيادة التفاصيل. لا يوجد فم أو صوت كلام في هذا الاتجاه.</p></main>
+<script src="rig.js"></script><script>
+const c=document.querySelector('canvas'),ctx=c.getContext('2d'),R=ShadowRig;
+const $=id=>document.getElementById(id);
+const arabicG={idle:'سكون',explain:'شرح',explain_other:'شرح باليد الأخرى',compare:'مقارنة',question:'سؤال',point_left:'إشارة يسار',point_right:'إشارة يمين',emphasize:'تأكيد',welcome:'ترحيب',think:'تفكير'};
+const arabicE={neutral:'محايد',curious:'فضول',thinking:'تفكير',skeptical:'تشكك',surprised:'مفاجأة',concerned:'قلق',serious:'جدية',pleased:'ابتهاج خفيف',unsure:'حيرة',relieved:'ارتياح'};
+for(const [k,v]of Object.entries(arabicG))$('gesture').add(new Option(v,k));
+for(const [k,v]of Object.entries(arabicE))$('expression').add(new Option(v,k));
+function line(points,width,color){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.stroke()}
+function ellipse(x,y,rx,ry,color){ctx.fillStyle=color;ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fill()}
+function roundrect(x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()}
+function background(){
+ let g=ctx.createLinearGradient(0,0,0,720);g.addColorStop(0,'#e6dfce');g.addColorStop(1,'#c6baa1');ctx.fillStyle=g;ctx.fillRect(0,0,1280,720);
+ let glow=ctx.createRadialGradient(640,265,30,640,265,450);glow.addColorStop(0,'#fff5dd');glow.addColorStop(1,'#fff5dd00');ctx.fillStyle=glow;ctx.fillRect(0,0,1280,720);
+ ctx.fillStyle='#a99a80';ctx.fillRect(0,625,1280,95);ctx.fillStyle='#786c59';ctx.fillRect(0,619,1280,7);
+ roundrect(74,115,205,460,6,'#84765f');roundrect(88,129,177,431,3,'#615c4e');
+ for(let row=0;row<4;row++){let y=160+row*100;for(let j=0;j<9;j++){let h=43+(j*13+row*7)%30;roundrect(99+j*17,y+65-h,12,h,2,['#9eaa9e','#c6b791','#b08869','#727e79'][(j+row)%4]);}ctx.fillStyle='#b5a180';ctx.fillRect(86,y+68,180,8);}
+ roundrect(1002,460,198,12,5,'#8d7357');line([[1020,470],[1015,625]],9,'#80684f');line([[1184,470],[1190,625]],9,'#80684f');
+ line([[1102,453],[1102,345]],7,'#786343');ctx.fillStyle='#b69258';ctx.beginPath();ctx.moveTo(1065,345);ctx.lineTo(1139,345);ctx.lineTo(1123,290);ctx.lineTo(1081,290);ctx.closePath();ctx.fill();
+ let lamp=ctx.createRadialGradient(1100,360,0,1100,360,170);lamp.addColorStop(0,'#ffd48533');lamp.addColorStop(1,'#ffd48500');ctx.fillStyle=lamp;ctx.fillRect(900,200,380,350);
+ roundrect(1012,176,100,75,2,'#8d8069');roundrect(1019,183,86,61,1,'#d4cbb7');
+ ellipse(1140,598,38,11,'#9e8c72');roundrect(1113,535,54,63,10,'#a08366');line([[1140,539],[1138,435]],5,'#717e66');
+ for(let j=0;j<5;j++){let y=451+j*17;ellipse(1121+(j%2)*35,y,17,8,'#77836b');}
+}
+function hand(arm,mode){
+ let [x,y]=arm.w,angle=Math.atan2(y-arm.e[1],x-arm.e[0]);
+ if(mode==='point_left')angle=Math.PI;if(mode==='point_right')angle=0;if(mode==='point_up')angle=-Math.PI/2;
+ ctx.save();ctx.translate(x,y);ctx.rotate(angle);ellipse(8,0,13,10,'#202932');
+ if(mode.startsWith('point')){line([[11,-5],[34,-5]],6,'#202932');line([[12,4],[21,6]],9,'#202932');line([[3,7],[12,13]],6,'#202932');}
+ else if(mode==='open'){for(let j=0;j<4;j++){let off=-8+j*5;line([[11,off],[26-Math.abs(j-1.5)*4,off*1.5]],5,'#202932');}line([[4,8],[12,19]],6,'#202932');}
+ else {roundrect(3,-8,21,16,7,'#202932');line([[4,7],[13,12]],6,'#202932');}
+ ctx.restore();
+}
+function drawActor(p,bones=false){
+ ellipse(640,638,103,13,'#302b2425');
+ for(let i=0;i<2;i++){line([p.hips[i],p.knees[i]],31,'#202932');line([p.knees[i],p.ankles[i]],26,'#202932');roundrect(p.ankles[i][0]-15-(i?0:9),614,42,20,9,'#202932');}
+ line([[p.head[0],255],[p.head[0],293]],30,'#202932');
+ for(const arm of[p.left,p.right]){line([arm.s,arm.e],29,'#202932');line([arm.e,arm.w],23,'#202932');ellipse(...arm.e,13,13,'#202932');}
+ let x=p.chest[0]-640,y=p.chest[1]-360;
+ ctx.fillStyle='#202932';ctx.beginPath();ctx.moveTo(594+x,279+y);ctx.bezierCurveTo(607+x,270+y,673+x,270+y,686+x,279+y);ctx.bezierCurveTo(702+x,311+y,689+x,383+y,682+x,412+y);ctx.lineTo(684,451);ctx.quadraticCurveTo(640,467,596,451);ctx.lineTo(598+x,412+y);ctx.bezierCurveTo(589+x,370+y,578+x,309+y,594+x,279+y);ctx.fill();
+ // A small collar notch is the only identity detail; no clothing texture.
+ line([[629+x,278+y],[640+x,286+y],[651+x,278+y]],2,'#73818a');
+ hand(p.left,p.lh);hand(p.right,p.rh);
+ ctx.save();ctx.translate(...p.head);ctx.rotate(p.eye.tilt);
+ ctx.fillStyle='#202932';ctx.beginPath();ctx.moveTo(-38,-23);ctx.bezierCurveTo(-39,-55,39,-55,38,-23);ctx.bezierCurveTo(43,10,29,41,0,45);ctx.bezierCurveTo(-29,41,-43,10,-38,-23);ctx.fill();
+ for(let side of[-1,1]){
+   let e=p.eye,h=(side<0?e.l:e.r)*(1-p.blink),slope=side<0?e.sl:e.sr;
+   ctx.save();ctx.translate(side*18+e.gx,e.gy-3);ctx.rotate(slope);
+   if(h<1.2)line([[-9,0],[0,1],[9,0]],2,'#f8f5e8');
+   else roundrect(-11,-h/2,22,h,Math.min(6,h/2),'#f8f5e8');
+   ctx.restore();
+ }
+ ctx.restore();
+ if(bones)for(const a of[p.left,p.right]){line([a.s,a.e,a.w],2,'#e4ad67');for(const q of[a.s,a.e,a.w])ellipse(...q,4,4,'#efc78c');}
+}
+let playing=true,time=0,last=performance.now(),lastPose;
+function draw(now){let dt=Math.min((now-last)/1000,.05);last=now;if(playing)time+=dt;ctx.clearRect(0,0,1280,720);if(!$('transparent').checked)background();let p=$('auto').checked?R.scene(time%30):R.pose(time,$('gesture').value,$('expression').value,+$('amount').value);lastPose=p;drawActor(p,$('bones').checked);$('status').textContent=`${arabicG[p.gesture]} · ${arabicE[p.expression]} · الزمن ${time.toFixed(1)} ث · المصدر: أشكال وحسابات فقط`;requestAnimationFrame(draw)}
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'إيقاف':'تشغيل'};
+for(const id of['gesture','expression','amount'])$(id).oninput=()=>$('auto').checked=false;
+$('png').onclick=()=>{// Export current transparent actor without changing source files
+ let was=$('transparent').checked;$('transparent').checked=true;ctx.clearRect(0,0,1280,720);drawActor(lastPose,false);let a=document.createElement('a');a.download='shadow-character.png';a.href=c.toDataURL('image/png');a.click();$('transparent').checked=was;};
+requestAnimationFrame(draw);
+</script></html>

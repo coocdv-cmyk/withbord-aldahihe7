@@ -1,0 +1,10 @@
+{
+  "sampled_poses": 3100,
+  "max_limb_length_error": 1.1368683772161603e-13,
+  "clamped_endpoints": 0,
+  "deterministic": true,
+  "procedural": true,
+  "source_raster_assets": 0,
+  "video_frames": 900,
+  "anatomical_realism_certified": false
+}

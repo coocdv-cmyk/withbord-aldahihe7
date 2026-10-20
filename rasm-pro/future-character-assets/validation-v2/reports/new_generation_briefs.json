@@ -1,0 +1,30 @@
+{
+  "tool": "built-in image_gen",
+  "new_sources": [
+    {
+      "file": "presenter_explain.png",
+      "purpose": "One consistent front-facing explaining body, open palms; warm editorial 2D cel shading."
+    },
+    {
+      "file": "mouth_open_source.png",
+      "purpose": "Edit only the mouth into a restrained open AA speaking form; preserve source body."
+    },
+    {
+      "file": "mouth_round_source.png",
+      "purpose": "Edit only lips into small round OH/OO form; preserve source body."
+    },
+    {
+      "file": "blink_source.png",
+      "purpose": "Edit only eyelids into a natural closed blink, retaining same glasses and pose."
+    },
+    {
+      "file": "supplemental_poses_06.png",
+      "purpose": "Held think, index emphasis, chest, point and neutral sources; reject duplicate right-point direction."
+    },
+    {
+      "file": "point_left_source.png",
+      "purpose": "One correct viewer-left pointing held pose; fingers left of wrist/elbow/head."
+    }
+  ],
+  "production_status": "New generated sources and prototype composites; held pose sources are not registered animation frames."
+}

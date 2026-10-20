@@ -1,0 +1,27 @@
+{
+  "mouth": {
+    "rect": [
+      449,
+      283,
+      599,
+      359
+    ],
+    "pivot": [
+      524,
+      321
+    ]
+  },
+  "blink": {
+    "rect": [
+      432,
+      200,
+      624,
+      256
+    ]
+  },
+  "master_size": [
+    1024,
+    1536
+  ],
+  "rig_type": "single-image localized deformation, not articulated skeletal rig"
+}

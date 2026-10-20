@@ -1,0 +1,8 @@
+{
+  "raw_event_end": 31.658125000000002,
+  "pcm_duration": 23.20095238095238,
+  "duration_sum": 23.200999999999997,
+  "duration_error_seconds": 4.7619047617075694e-05,
+  "method": "cumulative SAPI event durations; raw AudioPosition rejected",
+  "phonetic_alignment_verified_by_listener": false
+}

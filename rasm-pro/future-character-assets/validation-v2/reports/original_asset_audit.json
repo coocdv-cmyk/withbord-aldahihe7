@@ -1,0 +1,144 @@
+{
+  "files": [
+    {
+      "path": "backgrounds/studio_empty.png",
+      "decode_ok": true,
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "hash_matches_v1_manifest": true
+    },
+    {
+      "path": "character/presenter_master.png",
+      "decode_ok": true,
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "hash_matches_v1_manifest": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_fraction": 0.7079582214355469,
+      "low_alpha_fraction": 0.013502120971679688
+    },
+    {
+      "path": "character/body_poses_12.png",
+      "decode_ok": true,
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "hash_matches_v1_manifest": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_fraction": 0.5605786641438802,
+      "low_alpha_fraction": 0.04944038391113281
+    },
+    {
+      "path": "character/expressions_12.png",
+      "decode_ok": true,
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "hash_matches_v1_manifest": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.41762181659086517,
+      "low_alpha_fraction": 0.04023394178036893
+    },
+    {
+      "path": "character/mouth_sources_12.png",
+      "decode_ok": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "hash_matches_v1_manifest": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_fraction": 0.2515188852945964,
+      "low_alpha_fraction": 0.19788742065429688
+    },
+    {
+      "path": "character/hands_12.png",
+      "decode_ok": true,
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "hash_matches_v1_manifest": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.6753653988990975,
+      "low_alpha_fraction": 0.05763204216395511
+    },
+    {
+      "path": "motion_sources/explain_08.png",
+      "decode_ok": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "hash_matches_v1_manifest": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_fraction": 0.4369653065999349,
+      "low_alpha_fraction": 0.0349890391031901
+    },
+    {
+      "path": "motion_sources/blink_08.png",
+      "decode_ok": true,
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "hash_matches_v1_manifest": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.42869825831978636,
+      "low_alpha_fraction": 0.04924189946477302
+    },
+    {
+      "path": "character/hair_04.png",
+      "decode_ok": true,
+      "size": [
+        1246,
+        1262
+      ],
+      "mode": "RGBA",
+      "hash_matches_v1_manifest": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_fraction": 0.6053870006842816,
+      "low_alpha_fraction": 0.06435935723316197
+    },
+    {
+      "path": "previews/centered_host_studio.png",
+      "decode_ok": true,
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "hash_matches_v1_manifest": true
+    }
+  ],
+  "visual_findings": {
+    "mouth_sources_12": "Reject for direct attachment: realistic mouth style mismatches illustrated head; FV/L/TH unvalidated.",
+    "hands_12": "Reference only: no matching wrist registration; do not swap directly.",
+    "body_poses_12": "Reference only: different body/head proportions and two right-pointing poses.",
+    "blink_08": "Not playback-ready: head and gaze drift.",
+    "explain_08": "Not playback-ready: torso/hand registration and endpoints drift.",
+    "hair_04": "Not attachable to baked-hair head without a clean head layer."
+  }
+}

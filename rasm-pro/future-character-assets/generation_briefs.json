@@ -1,0 +1,17 @@
+{
+  "tool": "built-in image_gen",
+  "note": "Condensed generation briefs, not a verbatim transcript of tool prompts. Reference identity came from the earlier approved concept.",
+  "shared_style": "Original mature adult 2D editorial ink host, teal overshirt/cream shirt/charcoal trousers, glasses/stubble/dark wavy hair with silver streak, warm light from left; transparent character assets, independent realistic room; no generated whiteboard.",
+  "briefs": {
+    "backgrounds/studio_empty.png": "Standalone empty room; no whiteboard or presenter.",
+    "character/presenter_master.png": "Full-body identity reference. Not a layered rig.",
+    "character/body_poses_12.png": "12 key poses, not consecutive animation frames. Last two both point viewer-right; intended left-pointing variant is missing.",
+    "character/expressions_12.png": "Head expressions and gaze references; scale and expression variations require alignment.",
+    "character/mouth_sources_12.png": "Illustrative mouth patches. FV/L/TH distinctions and visual style require correction; NOT validated visemes.",
+    "character/hands_12.png": "Hand reference poses, not registered wrist replacements; per-cell anatomy review required.",
+    "motion_sources/explain_08.png": "8 ordered source key drawings; identity/torso drift, non-identical endpoints. NOT registered playback frames.",
+    "motion_sources/blink_08.png": "8 ordered head drawings; late-frame gaze differs, endpoints not identical. Needs fixed-head eyelid extraction/alignment.",
+    "character/hair_04.png": "4 standalone hair references, subtle silhouette variation, not fitted layers.",
+    "previews/centered_host_studio.png": "AI-generated framing preview using room and character references; not a pixel-identical composite."
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "exported": [
+    {
+      "id": "idle_breath",
+      "requested_frames": 120,
+      "decoded_frames": 120,
+      "duration_target": 4.0,
+      "endpoint_mean_abs_delta": 0.21615486819727892,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "weight_settle",
+      "requested_frames": 90,
+      "decoded_frames": 90,
+      "duration_target": 3.0,
+      "endpoint_mean_abs_delta": 0.5238408801020408,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "blink",
+      "requested_frames": 8,
+      "decoded_frames": 8,
+      "duration_target": 0.26666666666666666,
+      "endpoint_mean_abs_delta": 0.2931552933673469,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "double_blink",
+      "requested_frames": 18,
+      "decoded_frames": 18,
+      "duration_target": 0.6,
+      "endpoint_mean_abs_delta": 0.4334661989795918,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "gaze_left",
+      "requested_frames": 30,
+      "decoded_frames": 30,
+      "duration_target": 1.0,
+      "endpoint_mean_abs_delta": 0.5171471088435374,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "gaze_right",
+      "requested_frames": 30,
+      "decoded_frames": 30,
+      "duration_target": 1.0,
+      "endpoint_mean_abs_delta": 0.5171471088435374,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "brow_curious",
+      "requested_frames": 30,
+      "decoded_frames": 30,
+      "duration_target": 1.0,
+      "endpoint_mean_abs_delta": 0.5171471088435374,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "brow_skeptical",
+      "requested_frames": 30,
+      "decoded_frames": 30,
+      "duration_target": 1.0,
+      "endpoint_mean_abs_delta": 0.5171471088435374,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "nod_yes",
+      "requested_frames": 36,
+      "decoded_frames": 36,
+      "duration_target": 1.2,
+      "endpoint_mean_abs_delta": 0.504779974489796,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "head_no",
+      "requested_frames": 42,
+      "decoded_frames": 42,
+      "duration_target": 1.4,
+      "endpoint_mean_abs_delta": 0.45655665391156464,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "head_tilt",
+      "requested_frames": 36,
+      "decoded_frames": 36,
+      "duration_target": 1.2,
+      "endpoint_mean_abs_delta": 0.504779974489796,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "explain_right",
+      "requested_frames": 48,
+      "decoded_frames": 48,
+      "duration_target": 1.6,
+      "endpoint_mean_abs_delta": 0.3820376275510204,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "explain_left",
+      "requested_frames": 48,
+      "decoded_frames": 48,
+      "duration_target": 1.6,
+      "endpoint_mean_abs_delta": 0.3820376275510204,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "welcome",
+      "requested_frames": 60,
+      "decoded_frames": 60,
+      "duration_target": 2.0,
+      "endpoint_mean_abs_delta": 0.21286033163265305,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "compare",
+      "requested_frames": 72,
+      "decoded_frames": 72,
+      "duration_target": 2.4,
+      "endpoint_mean_abs_delta": 0.3589397321428571,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "shrug",
+      "requested_frames": 48,
+      "decoded_frames": 48,
+      "duration_target": 1.6,
+      "endpoint_mean_abs_delta": 0.3820376275510204,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "small_concept",
+      "requested_frames": 48,
+      "decoded_frames": 48,
+      "duration_target": 1.6,
+      "endpoint_mean_abs_delta": 0.3820376275510204,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "surprise",
+      "requested_frames": 30,
+      "decoded_frames": 30,
+      "duration_target": 1.0,
+      "endpoint_mean_abs_delta": 0.5171471088435374,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "reassure",
+      "requested_frames": 48,
+      "decoded_frames": 48,
+      "duration_target": 1.6,
+      "endpoint_mean_abs_delta": 0.3820376275510204,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    },
+    {
+      "id": "hair_settle",
+      "requested_frames": 36,
+      "decoded_frames": 36,
+      "duration_target": 1.2,
+      "endpoint_mean_abs_delta": 0.504779974489796,
+      "status": "prototype_continuous_2D_deformation_not_final_anatomical_animation"
+    }
+  ],
+  "not_completed": [
+    "emphasize_index",
+    "think_enter",
+    "think_hold",
+    "think_exit",
+    "sincere_hand_chest",
+    "point_left",
+    "point_right",
+    "return_neutral_from_arbitrary_pose"
+  ],
+  "reason": "These need clean articulated arms and new contact/point poses; warping open palms into them would fake anatomy.",
+  "caution": "WebP duration rounding yields approximately 30fps. These are intentionally subtle prototypes, not final realistic body acting."
+}

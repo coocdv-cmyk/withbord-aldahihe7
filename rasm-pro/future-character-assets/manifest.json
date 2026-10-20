@@ -1,0 +1,1059 @@
+{
+  "version": "0.1-source-library",
+  "tool": "built-in image_gen",
+  "scope": "New asset directory only; no engine integration or existing files changed.",
+  "production_ready": false,
+  "design": {
+    "presenter": "centered camera-facing adult editorial 2D host",
+    "background": "independent warm study, no whiteboard",
+    "whiteboard": "existing engine remains separate; no generated board assets",
+    "language_target": "English",
+    "target_output_fps": 30
+  },
+  "assets": [
+    {
+      "path": "backgrounds/studio_empty.png",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "grid_columns_rows": null,
+      "status": "source_art_requires_production_QA",
+      "notes": "Standalone empty room; no whiteboard or presenter.",
+      "sha256": "9986bce89834950e4dd2a11584bf8e61e61b53d182ec135d2cadce597f11bb9c"
+    },
+    {
+      "path": "character/presenter_master.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "grid_columns_rows": null,
+      "status": "source_art_requires_production_QA",
+      "notes": "Full-body identity reference. Not a layered rig.",
+      "sha256": "d637a04a93ca6b2d214476a20d7565b7590ed51a4365bb850158db2e94a29012",
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fully_transparent_pixels": 1113522,
+        "transparent_fraction": 0.70796,
+        "has_transparency": true,
+        "edge_cleanup_required": true
+      }
+    },
+    {
+      "path": "character/body_poses_12.png",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "grid_columns_rows": [
+        4,
+        3
+      ],
+      "status": "source_art_requires_production_QA",
+      "notes": "12 key poses, not consecutive animation frames. Last two both point viewer-right; intended left-pointing variant is missing.",
+      "sha256": "4c2b13e5b772ccb88a282c19f32429fa8232c9d22ce4558726c3d74778823945",
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fully_transparent_pixels": 881714,
+        "transparent_fraction": 0.56058,
+        "has_transparency": true,
+        "edge_cleanup_required": true
+      },
+      "cells": [
+        {
+          "index": 1,
+          "id": "neutral",
+          "nominal_bbox": [
+            0,
+            0,
+            256,
+            512
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 2,
+          "id": "explain_right_hand",
+          "nominal_bbox": [
+            256,
+            0,
+            512,
+            512
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 3,
+          "id": "explain_left_hand",
+          "nominal_bbox": [
+            512,
+            0,
+            768,
+            512
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 4,
+          "id": "welcome_both",
+          "nominal_bbox": [
+            768,
+            0,
+            1024,
+            512
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 5,
+          "id": "emphasize_index",
+          "nominal_bbox": [
+            0,
+            512,
+            256,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 6,
+          "id": "small_concept",
+          "nominal_bbox": [
+            256,
+            512,
+            512,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 7,
+          "id": "compare",
+          "nominal_bbox": [
+            512,
+            512,
+            768,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 8,
+          "id": "shrug",
+          "nominal_bbox": [
+            768,
+            512,
+            1024,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 9,
+          "id": "think",
+          "nominal_bbox": [
+            0,
+            1024,
+            256,
+            1536
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 10,
+          "id": "sincere",
+          "nominal_bbox": [
+            256,
+            1024,
+            512,
+            1536
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 11,
+          "id": "point_right_cross_body",
+          "nominal_bbox": [
+            512,
+            1024,
+            768,
+            1536
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 12,
+          "id": "point_right",
+          "nominal_bbox": [
+            768,
+            1024,
+            1024,
+            1536
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        }
+      ]
+    },
+    {
+      "path": "character/expressions_12.png",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "grid_columns_rows": [
+        4,
+        3
+      ],
+      "status": "source_art_requires_production_QA",
+      "notes": "Head expressions and gaze references; scale and expression variations require alignment.",
+      "sha256": "752f6bb96f582ed06ae9437f06946aa5b3560a7d7b44bc648ed99670404b0eee",
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 656722,
+        "transparent_fraction": 0.41762,
+        "has_transparency": true,
+        "edge_cleanup_required": true
+      },
+      "cells": [
+        {
+          "index": 1,
+          "id": "neutral",
+          "nominal_bbox": [
+            0,
+            0,
+            362,
+            362
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 2,
+          "id": "smile",
+          "nominal_bbox": [
+            362,
+            0,
+            724,
+            362
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 3,
+          "id": "curious",
+          "nominal_bbox": [
+            724,
+            0,
+            1086,
+            362
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 4,
+          "id": "thinking",
+          "nominal_bbox": [
+            1086,
+            0,
+            1448,
+            362
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 5,
+          "id": "skeptical",
+          "nominal_bbox": [
+            0,
+            362,
+            362,
+            724
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 6,
+          "id": "surprised",
+          "nominal_bbox": [
+            362,
+            362,
+            724,
+            724
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 7,
+          "id": "concerned",
+          "nominal_bbox": [
+            724,
+            362,
+            1086,
+            724
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 8,
+          "id": "reassuring",
+          "nominal_bbox": [
+            1086,
+            362,
+            1448,
+            724
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 9,
+          "id": "gaze_left",
+          "nominal_bbox": [
+            0,
+            724,
+            362,
+            1086
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 10,
+          "id": "gaze_right",
+          "nominal_bbox": [
+            362,
+            724,
+            724,
+            1086
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 11,
+          "id": "half_blink",
+          "nominal_bbox": [
+            724,
+            724,
+            1086,
+            1086
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 12,
+          "id": "closed_eyes",
+          "nominal_bbox": [
+            1086,
+            724,
+            1448,
+            1086
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        }
+      ]
+    },
+    {
+      "path": "character/mouth_sources_12.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "grid_columns_rows": [
+        4,
+        3
+      ],
+      "status": "source_art_requires_production_QA",
+      "notes": "Illustrative mouth patches. FV/L/TH distinctions and visual style require correction; NOT validated visemes.",
+      "sha256": "de9f8ff44fdc9acbc67ec93443ecfba618187408a81f1b26d79915435cfc1f71",
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fully_transparent_pixels": 395605,
+        "transparent_fraction": 0.25152,
+        "has_transparency": true,
+        "edge_cleanup_required": true
+      },
+      "cells": [
+        {
+          "index": 1,
+          "id": "rest",
+          "nominal_bbox": [
+            0,
+            0,
+            384,
+            341
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 2,
+          "id": "mbp",
+          "nominal_bbox": [
+            384,
+            0,
+            768,
+            341
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 3,
+          "id": "aa",
+          "nominal_bbox": [
+            768,
+            0,
+            1152,
+            341
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 4,
+          "id": "ee",
+          "nominal_bbox": [
+            1152,
+            0,
+            1536,
+            341
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 5,
+          "id": "oh",
+          "nominal_bbox": [
+            0,
+            341,
+            384,
+            683
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 6,
+          "id": "oo",
+          "nominal_bbox": [
+            384,
+            341,
+            768,
+            683
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 7,
+          "id": "fv_unverified",
+          "nominal_bbox": [
+            768,
+            341,
+            1152,
+            683
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 8,
+          "id": "l_unverified",
+          "nominal_bbox": [
+            1152,
+            341,
+            1536,
+            683
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 9,
+          "id": "th_unverified",
+          "nominal_bbox": [
+            0,
+            683,
+            384,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 10,
+          "id": "sz_unverified",
+          "nominal_bbox": [
+            384,
+            683,
+            768,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 11,
+          "id": "chsh_unverified",
+          "nominal_bbox": [
+            768,
+            683,
+            1152,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 12,
+          "id": "smile",
+          "nominal_bbox": [
+            1152,
+            683,
+            1536,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        }
+      ]
+    },
+    {
+      "path": "character/hands_12.png",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "grid_columns_rows": [
+        4,
+        3
+      ],
+      "status": "source_art_requires_production_QA",
+      "notes": "Hand reference poses, not registered wrist replacements; per-cell anatomy review required.",
+      "sha256": "696afd06b10e0fc2eaec8f8e69f95cd66be64e254bf96eb0325872322d160fe8",
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 1062031,
+        "transparent_fraction": 0.67537,
+        "has_transparency": true,
+        "edge_cleanup_required": true
+      },
+      "cells": [
+        {
+          "index": 1,
+          "id": "relaxed",
+          "nominal_bbox": [
+            0,
+            0,
+            362,
+            362
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 2,
+          "id": "palm_up",
+          "nominal_bbox": [
+            362,
+            0,
+            724,
+            362
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 3,
+          "id": "palm_forward",
+          "nominal_bbox": [
+            724,
+            0,
+            1086,
+            362
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 4,
+          "id": "index_up",
+          "nominal_bbox": [
+            1086,
+            0,
+            1448,
+            362
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 5,
+          "id": "point_left",
+          "nominal_bbox": [
+            0,
+            362,
+            362,
+            724
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 6,
+          "id": "point_right",
+          "nominal_bbox": [
+            362,
+            362,
+            724,
+            724
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 7,
+          "id": "precision",
+          "nominal_bbox": [
+            724,
+            362,
+            1086,
+            724
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 8,
+          "id": "rest_half_closed",
+          "nominal_bbox": [
+            1086,
+            362,
+            1448,
+            724
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 9,
+          "id": "count_two",
+          "nominal_bbox": [
+            0,
+            724,
+            362,
+            1086
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 10,
+          "id": "count_three",
+          "nominal_bbox": [
+            362,
+            724,
+            724,
+            1086
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 11,
+          "id": "palm_down",
+          "nominal_bbox": [
+            724,
+            724,
+            1086,
+            1086
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 12,
+          "id": "chest_oblique",
+          "nominal_bbox": [
+            1086,
+            724,
+            1448,
+            1086
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        }
+      ]
+    },
+    {
+      "path": "motion_sources/explain_08.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "grid_columns_rows": [
+        4,
+        2
+      ],
+      "status": "source_art_requires_production_QA",
+      "notes": "8 ordered source key drawings; identity/torso drift, non-identical endpoints. NOT registered playback frames.",
+      "sha256": "f1b340240ad79748a7aeaf4f7aa0770cb892fa4c42324154c913ec66e9e9e1b2",
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fully_transparent_pixels": 687287,
+        "transparent_fraction": 0.43697,
+        "has_transparency": true,
+        "edge_cleanup_required": true
+      },
+      "cells": [
+        {
+          "index": 1,
+          "id": "source_01",
+          "nominal_bbox": [
+            0,
+            0,
+            384,
+            512
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 2,
+          "id": "source_02",
+          "nominal_bbox": [
+            384,
+            0,
+            768,
+            512
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 3,
+          "id": "source_03",
+          "nominal_bbox": [
+            768,
+            0,
+            1152,
+            512
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 4,
+          "id": "source_04",
+          "nominal_bbox": [
+            1152,
+            0,
+            1536,
+            512
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 5,
+          "id": "source_05",
+          "nominal_bbox": [
+            0,
+            512,
+            384,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 6,
+          "id": "source_06",
+          "nominal_bbox": [
+            384,
+            512,
+            768,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 7,
+          "id": "source_07",
+          "nominal_bbox": [
+            768,
+            512,
+            1152,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 8,
+          "id": "source_08",
+          "nominal_bbox": [
+            1152,
+            512,
+            1536,
+            1024
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        }
+      ]
+    },
+    {
+      "path": "motion_sources/blink_08.png",
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "grid_columns_rows": [
+        4,
+        2
+      ],
+      "status": "source_art_requires_production_QA",
+      "notes": "8 ordered head drawings; late-frame gaze differs, endpoints not identical. Needs fixed-head eyelid extraction/alignment.",
+      "sha256": "8fd0b688b7cdf132b468c8ae314254879490237fd2506d07d1e7e30074db5e56",
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 674573,
+        "transparent_fraction": 0.4287,
+        "has_transparency": true,
+        "edge_cleanup_required": true
+      },
+      "cells": [
+        {
+          "index": 1,
+          "id": "source_01",
+          "nominal_bbox": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 2,
+          "id": "source_02",
+          "nominal_bbox": [
+            444,
+            0,
+            887,
+            444
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 3,
+          "id": "source_03",
+          "nominal_bbox": [
+            887,
+            0,
+            1330,
+            444
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 4,
+          "id": "source_04",
+          "nominal_bbox": [
+            1330,
+            0,
+            1774,
+            444
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 5,
+          "id": "source_05",
+          "nominal_bbox": [
+            0,
+            444,
+            444,
+            887
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 6,
+          "id": "source_06",
+          "nominal_bbox": [
+            444,
+            444,
+            887,
+            887
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 7,
+          "id": "source_07",
+          "nominal_bbox": [
+            887,
+            444,
+            1330,
+            887
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 8,
+          "id": "source_08",
+          "nominal_bbox": [
+            1330,
+            444,
+            1774,
+            887
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        }
+      ]
+    },
+    {
+      "path": "character/hair_04.png",
+      "size": [
+        1246,
+        1262
+      ],
+      "mode": "RGBA",
+      "grid_columns_rows": [
+        2,
+        2
+      ],
+      "status": "source_art_requires_production_QA",
+      "notes": "4 standalone hair references, subtle silhouette variation, not fitted layers.",
+      "sha256": "41132081321e55be4e11103bf96512a7c8ba135908d2d58ae656d8d2d499933b",
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fully_transparent_pixels": 951942,
+        "transparent_fraction": 0.60539,
+        "has_transparency": true,
+        "edge_cleanup_required": true
+      },
+      "cells": [
+        {
+          "index": 1,
+          "id": "source_01",
+          "nominal_bbox": [
+            0,
+            0,
+            623,
+            631
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 2,
+          "id": "source_02",
+          "nominal_bbox": [
+            623,
+            0,
+            1246,
+            631
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 3,
+          "id": "source_03",
+          "nominal_bbox": [
+            0,
+            631,
+            623,
+            1262
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        },
+        {
+          "index": 4,
+          "id": "source_04",
+          "nominal_bbox": [
+            623,
+            631,
+            1246,
+            1262
+          ],
+          "bbox_status": "nominal_grid_not_verified_crop",
+          "pivot": null
+        }
+      ]
+    },
+    {
+      "path": "previews/centered_host_studio.png",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "grid_columns_rows": null,
+      "status": "source_art_requires_production_QA",
+      "notes": "AI-generated framing preview using room and character references; not a pixel-identical composite.",
+      "sha256": "a91deec23c4b71ada91225ba333ce49bf079541cc4100abf545f3048654f382a"
+    }
+  ],
+  "missing_before_production": [
+    "registered individual frame exports",
+    "clean rig layers: head without baked mouth/hair, torso and articulated arms",
+    "validated pivots and attachment anchors",
+    "left-pointing full-body pose",
+    "consistent viseme drawings and phoneme timing",
+    "temporal cleanup, interpolation and seamless loop endpoints",
+    "actual rendered animation previews and runtime measurements"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "control_render_cases": 300,
+  "canvas_commands": 91002,
+  "finite_coordinates": true,
+  "transparent_and_bones_controls_exercised": true,
+  "javascript_runtime_ok": true,
+  "actual_browser_visual_test": false,
+  "reason": "In-app browser could not reach localhost; use local index.html for interactive preview."
+}

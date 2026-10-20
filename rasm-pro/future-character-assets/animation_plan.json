@@ -1,0 +1,271 @@
+{
+  "fps": 30,
+  "important": "Frame counts below are TARGET PLAYBACK frames, NOT generated frame files. All tracks require rigging/cleanup. Do not autoplay atlases as final animation.",
+  "motions": [
+    {
+      "id": "idle_breath",
+      "target_frames": 120,
+      "target_seconds": 4.0,
+      "loop": true,
+      "description": "subtle torso breath",
+      "current_material": "planned",
+      "production_ready": false
+    },
+    {
+      "id": "weight_settle",
+      "target_frames": 90,
+      "target_seconds": 3.0,
+      "loop": false,
+      "description": "small weight shift without foot sliding",
+      "current_material": "planned",
+      "production_ready": false
+    },
+    {
+      "id": "blink",
+      "target_frames": 8,
+      "target_seconds": 0.26666666666666666,
+      "loop": false,
+      "description": "eyelid blink",
+      "current_material": "8 unregistered source drawings",
+      "production_ready": false
+    },
+    {
+      "id": "double_blink",
+      "target_frames": 18,
+      "target_seconds": 0.6,
+      "loop": false,
+      "description": "two blinks with pause",
+      "current_material": "planned",
+      "production_ready": false
+    },
+    {
+      "id": "gaze_left",
+      "target_frames": 15,
+      "target_seconds": 0.5,
+      "loop": false,
+      "description": "eyes glance left and return",
+      "current_material": "expression sources only",
+      "production_ready": false
+    },
+    {
+      "id": "gaze_right",
+      "target_frames": 15,
+      "target_seconds": 0.5,
+      "loop": false,
+      "description": "eyes glance right and return",
+      "current_material": "expression sources only",
+      "production_ready": false
+    },
+    {
+      "id": "brow_curious",
+      "target_frames": 18,
+      "target_seconds": 0.6,
+      "loop": false,
+      "description": "subtle eyebrow lift",
+      "current_material": "expression sources only",
+      "production_ready": false
+    },
+    {
+      "id": "brow_skeptical",
+      "target_frames": 18,
+      "target_seconds": 0.6,
+      "loop": false,
+      "description": "skeptical eyebrow",
+      "current_material": "expression sources only",
+      "production_ready": false
+    },
+    {
+      "id": "nod_yes",
+      "target_frames": 30,
+      "target_seconds": 1.0,
+      "loop": false,
+      "description": "restrained nod",
+      "current_material": "planned",
+      "production_ready": false
+    },
+    {
+      "id": "head_no",
+      "target_frames": 36,
+      "target_seconds": 1.2,
+      "loop": false,
+      "description": "restrained head shake",
+      "current_material": "planned",
+      "production_ready": false
+    },
+    {
+      "id": "head_tilt",
+      "target_frames": 30,
+      "target_seconds": 1.0,
+      "loop": false,
+      "description": "curious tilt and return",
+      "current_material": "planned",
+      "production_ready": false
+    },
+    {
+      "id": "explain_right",
+      "target_frames": 36,
+      "target_seconds": 1.2,
+      "loop": false,
+      "description": "right hand open explain and return",
+      "current_material": "8 unregistered source drawings",
+      "production_ready": false
+    },
+    {
+      "id": "explain_left",
+      "target_frames": 36,
+      "target_seconds": 1.2,
+      "loop": false,
+      "description": "left hand explain and return",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "welcome",
+      "target_frames": 48,
+      "target_seconds": 1.6,
+      "loop": false,
+      "description": "both palms open",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "emphasize",
+      "target_frames": 30,
+      "target_seconds": 1.0,
+      "loop": false,
+      "description": "one index emphasis",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "small_concept",
+      "target_frames": 42,
+      "target_seconds": 1.4,
+      "loop": false,
+      "description": "hands describe size",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "compare",
+      "target_frames": 48,
+      "target_seconds": 1.6,
+      "loop": false,
+      "description": "two alternatives",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "shrug",
+      "target_frames": 42,
+      "target_seconds": 1.4,
+      "loop": false,
+      "description": "uncertainty",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "think_enter",
+      "target_frames": 30,
+      "target_seconds": 1.0,
+      "loop": false,
+      "description": "hand approaches chin",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "think_hold",
+      "target_frames": 90,
+      "target_seconds": 3.0,
+      "loop": true,
+      "description": "thoughtful held pose with subtle motion",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "think_exit",
+      "target_frames": 30,
+      "target_seconds": 1.0,
+      "loop": false,
+      "description": "hand returns neutral",
+      "current_material": "planned",
+      "production_ready": false
+    },
+    {
+      "id": "sincere",
+      "target_frames": 42,
+      "target_seconds": 1.4,
+      "loop": false,
+      "description": "hand over chest",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "point_left",
+      "target_frames": 36,
+      "target_seconds": 1.2,
+      "loop": false,
+      "description": "point toward viewer-left overlay",
+      "current_material": "full-body source missing; hand reference exists",
+      "production_ready": false
+    },
+    {
+      "id": "point_right",
+      "target_frames": 36,
+      "target_seconds": 1.2,
+      "loop": false,
+      "description": "point toward viewer-right overlay",
+      "current_material": "key pose only",
+      "production_ready": false
+    },
+    {
+      "id": "surprise",
+      "target_frames": 24,
+      "target_seconds": 0.8,
+      "loop": false,
+      "description": "small surprised reaction",
+      "current_material": "expression source only",
+      "production_ready": false
+    },
+    {
+      "id": "reassure",
+      "target_frames": 36,
+      "target_seconds": 1.2,
+      "loop": false,
+      "description": "gentle reassuring expression",
+      "current_material": "expression source only",
+      "production_ready": false
+    },
+    {
+      "id": "hair_settle",
+      "target_frames": 24,
+      "target_seconds": 0.8,
+      "loop": false,
+      "description": "small secondary hair movement after head motion",
+      "current_material": "4 unregistered source drawings",
+      "production_ready": false
+    },
+    {
+      "id": "return_neutral",
+      "target_frames": 24,
+      "target_seconds": 0.8,
+      "loop": false,
+      "description": "generic authored return per gesture",
+      "current_material": "planned",
+      "production_ready": false
+    }
+  ],
+  "mouth_track": {
+    "source_shapes": 12,
+    "phoneme_mapping_validated": false,
+    "duration": "must follow actual aligned speech; no fixed universal frame count"
+  },
+  "loop_rules": [
+    "fixed foot and torso anchors",
+    "same first/last pose for loops",
+    "no perpetual hair wind indoors",
+    "no random blink during a blink",
+    "mouth closed during silence",
+    "eye motion independent of head when needed"
+  ]
+}

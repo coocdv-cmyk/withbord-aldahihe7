@@ -1,0 +1,18 @@
+{
+  "master_size": [
+    1024,
+    1536
+  ],
+  "mouth_region": [
+    449,
+    283,
+    599,
+    359
+  ],
+  "body_pixels_changed_by_open_mouth_patch": 0,
+  "hand_replacement": "None: hands use original same-body pixels, deformed continuously.",
+  "head_replacement": "None: head uses original same-body pixels.",
+  "phoneme_groups": 3,
+  "phoneme_accuracy_claim": "No: coarse closed/open/round mapping only.",
+  "mouth_color_and_identity": "Local generated edits, feathered attachment; visually reviewed, not a perfect registered viseme rig."
+}

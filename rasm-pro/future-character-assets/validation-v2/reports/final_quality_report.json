@@ -1,0 +1,230 @@
+{
+  "video": {
+    "path": "D:\\withbord inmation\\rasm-pro\\future-character-assets\\validation-v2\\previews\\presenter_demo_review.mp4",
+    "full_decode_ok": true,
+    "decode_errors": "",
+    "width": 1280,
+    "height": 720,
+    "fps": "30/1",
+    "codec": "h264",
+    "video_frames": "696",
+    "audio_codec": "aac",
+    "duration": "23.200000",
+    "av_duration_delta_seconds": 0.0,
+    "within_one_video_frame": true,
+    "loudness_measured": {
+      "input_i": "-16.51",
+      "input_tp": "-1.99",
+      "input_lra": "2.00",
+      "input_thresh": "-26.92",
+      "output_i": "-16.21",
+      "output_tp": "-1.54",
+      "output_lra": "2.10",
+      "output_thresh": "-26.63",
+      "normalization_type": "dynamic",
+      "target_offset": "0.21"
+    }
+  },
+  "motions": [
+    {
+      "file": "blink.webp",
+      "frames_decoded": 8,
+      "duration_ms": 266,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.5160677083333334,
+      "loop_certified": false
+    },
+    {
+      "file": "brow_curious.webp",
+      "frames_decoded": 30,
+      "duration_ms": 1000,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.4631505102040816,
+      "loop_certified": false
+    },
+    {
+      "file": "brow_skeptical.webp",
+      "frames_decoded": 30,
+      "duration_ms": 1000,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.4631505102040816,
+      "loop_certified": false
+    },
+    {
+      "file": "compare.webp",
+      "frames_decoded": 72,
+      "duration_ms": 2400,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 0.817625425170068,
+      "loop_certified": false
+    },
+    {
+      "file": "double_blink.webp",
+      "frames_decoded": 18,
+      "duration_ms": 600,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.307627551020408,
+      "loop_certified": false
+    },
+    {
+      "file": "explain_left.webp",
+      "frames_decoded": 48,
+      "duration_ms": 1600,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.367125318877551,
+      "loop_certified": false
+    },
+    {
+      "file": "explain_right.webp",
+      "frames_decoded": 48,
+      "duration_ms": 1600,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 0.8843064413265306,
+      "loop_certified": false
+    },
+    {
+      "file": "gaze_left.webp",
+      "frames_decoded": 30,
+      "duration_ms": 1000,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.4631505102040816,
+      "loop_certified": false
+    },
+    {
+      "file": "gaze_right.webp",
+      "frames_decoded": 30,
+      "duration_ms": 1000,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.4631505102040816,
+      "loop_certified": false
+    },
+    {
+      "file": "hair_settle.webp",
+      "frames_decoded": 36,
+      "duration_ms": 1200,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.3844185799319728,
+      "loop_certified": false
+    },
+    {
+      "file": "head_no.webp",
+      "frames_decoded": 42,
+      "duration_ms": 1400,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.584421237244898,
+      "loop_certified": false
+    },
+    {
+      "file": "head_tilt.webp",
+      "frames_decoded": 36,
+      "duration_ms": 1200,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.0849452593537414,
+      "loop_certified": false
+    },
+    {
+      "file": "idle_breath.webp",
+      "frames_decoded": 120,
+      "duration_ms": 4000,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.2855830144557823,
+      "loop_certified": false
+    },
+    {
+      "file": "nod_yes.webp",
+      "frames_decoded": 36,
+      "duration_ms": 1200,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.384469068877551,
+      "loop_certified": false
+    },
+    {
+      "file": "reassure.webp",
+      "frames_decoded": 48,
+      "duration_ms": 1600,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.2902083333333334,
+      "loop_certified": false
+    },
+    {
+      "file": "shrug.webp",
+      "frames_decoded": 48,
+      "duration_ms": 1600,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 0.9030877976190477,
+      "loop_certified": false
+    },
+    {
+      "file": "small_concept.webp",
+      "frames_decoded": 48,
+      "duration_ms": 1600,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.3066145833333334,
+      "loop_certified": false
+    },
+    {
+      "file": "surprise.webp",
+      "frames_decoded": 30,
+      "duration_ms": 1000,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.4631505102040816,
+      "loop_certified": false
+    },
+    {
+      "file": "weight_settle.webp",
+      "frames_decoded": 90,
+      "duration_ms": 3000,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.4621056547619047,
+      "loop_certified": false
+    },
+    {
+      "file": "welcome.webp",
+      "frames_decoded": 60,
+      "duration_ms": 2000,
+      "alpha_present": true,
+      "first_last_decoded_mean_abs_delta": 1.5584369685374149,
+      "loop_certified": false
+    }
+  ],
+  "decoded_motion_frames": 908,
+  "attachments": {
+    "master_size": [
+      1024,
+      1536
+    ],
+    "mouth_region": [
+      449,
+      283,
+      599,
+      359
+    ],
+    "body_pixels_changed_by_open_mouth_patch": 0,
+    "hand_replacement": "None: hands use original same-body pixels, deformed continuously.",
+    "head_replacement": "None: head uses original same-body pixels.",
+    "phoneme_groups": 3,
+    "phoneme_accuracy_claim": "No: coarse closed/open/round mapping only.",
+    "mouth_color_and_identity": "Local generated edits, feathered attachment; visually reviewed, not a perfect registered viseme rig."
+  },
+  "isolation": {
+    "protected_files": 72,
+    "changed_files": []
+  },
+  "deformation_test": {
+    "minimum_sampled_jacobian": 0.878544270992279,
+    "no_fold_in_sampled_extreme": true,
+    "anatomical_motion_verified": false
+  },
+  "visual_review": "Generated sources and 6 video stills/contact sheet inspected; full stream decoded. No claim of human real-time playback/listening review.",
+  "quality_verdict": "Technical prototype passes file/decode/isolation checks. NOT approved as professional character animation.",
+  "remaining": [
+    "clean articulated shoulder/elbow/wrist rig",
+    "authored think/contact/point transitions (8 planned actions incomplete)",
+    "accurate and registered English viseme set beyond three mouth groups",
+    "male brand voice (current female system voice is fixture only)",
+    "purposeful readable hand shapes and anticipation/follow-through",
+    "loop endpoint cleanup",
+    "true word-timed captions (current blocks approximate)",
+    "production review at playback speed and target display resolution"
+  ]
+}
