@@ -168,9 +168,9 @@
 ## 9. النشر على GitHub (2026-10-20)
 
 - **المستودع العام:** <https://github.com/coocdv-cmyk/withbord-aldahihe7>
-- **الفرع الافتراضي:** `main`، ويطابق `stage2-contract` عند `537acd2`.
+- **الفرع الافتراضي:** `main`، ويطابق `stage2-contract` عند `239080f` (تنفيذ المرحلة الثانية).
 - **الفروع المرفوعة:** `main`، `stage2-contract`، `master`.
-- **الوسوم المرفوعة:** `stage2-start`، `safety-pre-ed66355`، `safety-baseline-20261020`، `phase3.1`، `phase3.2`، `v0.1-baseline`.
+- **الوسوم المرفوعة:** `stage2-start`، `stage2-full-start` (نقطة الرجوع قبل تنفيذ المرحلة الثانية، على `9082827`)، `safety-pre-ed66355`، `safety-baseline-20261020`، `phase3.1`، `phase3.2`، `v0.1-baseline`.
 - **الملف الكبير:** `rasm-pro/library/manifest-icons.jsonl` (143,210,184 بايت) محفوظ عبر Git LFS. بعد الاستنساخ: `git lfs pull`.
 - **سبب إعادة كتابة السجل:** الملف السابق يتجاوز حد GitHub (100 MiB)، لذلك تم إنشاء نسخة نشر منفصلة ثم تبنّي تاريخها في المستودع العامل. النسخة الأصلية محفوظة في:
   - `backups/stage0-20261020/code/rasm-pro-code-pre-github.bundle` (SHA256: `F101D5A27C4CC6A69060A36274882FCF939E03FDF18839047DE95609C02F378E`)
@@ -221,6 +221,7 @@
 
 ### الأدلة
 
+- التزام تنفيذ المرحلة الثانية: `239080f` (المستودع العام: `main` = `stage2-contract`).
 - `qa/stage2/stage2-evidence.json` — الهاشات، ffprobe، القياسات.
 - `qa/stage2/ww1_10s.mp4` + `.sfx.json` — رندر 10 ثوانٍ.
 - `qa/stage2/ww1_2s_sfx.mp4` + `.sfx.wav` — SFX حقيقية.
