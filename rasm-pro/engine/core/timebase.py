@@ -13,6 +13,7 @@
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from fractions import Fraction
 from typing import Iterable, Sequence
@@ -25,6 +26,8 @@ __all__ = [
     "NTSC_24",
     "NTSC_30",
     "NTSC_60",
+    "coerce_frame_rate",
+    "frame_rate_json",
     "validate_intervals",
     "map_boundaries_to_frames",
 ]
@@ -181,3 +184,52 @@ def map_boundaries_to_frames(
         prev_b = b
         out.append(fps.frame_of_time(sample_rate.time_of_sample(b), mode=mode))
     return out
+
+
+def coerce_frame_rate(value) -> FrameRate:
+    """يقبل FrameRate أو int أو float أو نصًا ``24``/``30000/1001`` أو dict.
+
+    الهدف: عقد واحد يقرأ كل الصيغ القديمة (30، 24، "30/1") والجديدة
+    ({"num": 30000, "den": 1001}) بلا تخمين. أي قيمة غير صالحة ترفع
+    ``TimebaseError``.
+    """
+    if isinstance(value, FrameRate):
+        return value
+    if isinstance(value, bool) or value is None:
+        raise TimebaseError(f"معدل إطارات غير صالح: {value!r}")
+    if isinstance(value, dict):
+        if "num" not in value:
+            raise TimebaseError(f"معدل إطارات غير صالح (ينقص num): {value!r}")
+        try:
+            return FrameRate(int(value["num"]), int(value.get("den", 1)))
+        except (TypeError, ValueError) as exc:
+            raise TimebaseError(f"معدل إطارات غير صالح: {value!r}") from exc
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            raise TimebaseError("معدل إطارات فارغ")
+        try:
+            if "/" in text:
+                num, den = text.split("/", 1)
+                return FrameRate(int(num), int(den))
+            frac = Fraction(text)
+        except (ValueError, ZeroDivisionError) as exc:
+            raise TimebaseError(f"معدل إطارات غير صالح: {value!r}") from exc
+        if frac <= 0:
+            raise TimebaseError(f"معدل إطارات غير صالح: {value!r}")
+        return FrameRate(frac.numerator, frac.denominator)
+    if isinstance(value, int):
+        return FrameRate(value)
+    if isinstance(value, float):
+        if not math.isfinite(value) or value <= 0:
+            raise TimebaseError(f"معدل إطارات غير صالح: {value!r}")
+        # 29.97 كـ float ليست 30000/1001 بالضرورة؛ للأرقام الكسرية استخدم
+        # الصيغة النصية "30000/1001" أو dict. هنا نحافظ على أقرب كسر معقول.
+        frac = Fraction(value).limit_denominator(1001)
+        return FrameRate(frac.numerator, frac.denominator)
+    raise TimebaseError(f"نوع معدل إطارات غير مدعوم: {type(value).__name__}")
+
+
+def frame_rate_json(fps: FrameRate) -> dict:
+    """تمثيل JSON عقلاني ودقيق لمعدل الإطارات."""
+    return {"num": int(fps.num), "den": int(fps.den)}

@@ -9,6 +9,7 @@ import math
 from pathlib import Path
 from typing import Any
 
+from ..core.timebase import TimebaseError, coerce_frame_rate
 from ..strokes import find_font
 
 ELEMENT_TYPES = {
@@ -69,9 +70,11 @@ def validate_plan(plan: Any, *, project_dir: str | Path | None = None,
         else:
             cw, ch = int(canvas[0]), int(canvas[1])
 
-    fps = plan.get("fps", 24)
-    if not _is_num(fps) or float(fps) <= 0:
-        errors.append("fps must be a positive number")
+    raw_fps = plan.get("fps", 24)
+    try:
+        coerce_frame_rate(raw_fps)
+    except TimebaseError:
+        errors.append("fps must be a positive number or rational {num, den}")
 
     scenes = plan.get("scenes")
     if not isinstance(scenes, list) or not scenes:

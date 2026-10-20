@@ -8,12 +8,21 @@ from __future__ import annotations
 
 import math
 import time
+from fractions import Fraction
 from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
 from ..core.log import get_logger
+from ..core.timebase import (
+    FrameRate,
+    SampleRate,
+    TimebaseError,
+    coerce_frame_rate,
+    frame_rate_json,
+    map_boundaries_to_frames,
+)
 from ..core.util import clamp, write_json
 from ..strokes import find_font, raster_to_strokes, scan_svg, stroke_cache_path, text_to_strokes
 from ..strokes.hand_timeline import HandTimeline
@@ -206,7 +215,7 @@ class Director:
         *,
         canvas: tuple[int, int] = (2560, 1440),
         out_size: tuple[int, int] = (1280, 720),
-        fps: int = 30,
+        fps: FrameRate | int | float | str | dict | None = None,
         speed: float = DEFAULT_SPEED,
         crf: int = 19,
         preset: str = "fast",
@@ -215,7 +224,19 @@ class Director:
         self.plan = plan
         self.canvas = (int(canvas[0]), int(canvas[1]))
         self.out_size = (int(out_size[0]), int(out_size[1]))
-        self.fps = int(fps)
+        # قاعدة زمن واحدة: لو الخطة تحمل fps، فالرندر يجب أن يطابقها.
+        # لا نسمح بتمدد صامت (30 → 24 كان يطيل المشهد 25%).
+        plan_rate = coerce_frame_rate(plan["fps"]) if plan.get("fps") is not None else None
+        if fps is None:
+            self.fps_rate = plan_rate or FrameRate(24)
+        else:
+            self.fps_rate = coerce_frame_rate(fps)
+            if plan_rate is not None and self.fps_rate.value != plan_rate.value:
+                raise TimebaseError(
+                    f"تعارض معدل الإطارات: الخطة {plan_rate} والرندر {self.fps_rate}. "
+                    "أعد بناء الخطة بنفس المعدل أو استخدم تحويلًا صريحًا."
+                )
+        self.fps = self.fps_rate.fps
         self.speed = float(speed)
         self.crf = int(crf)
         self.preset = preset
@@ -235,11 +256,6 @@ class Director:
     def _prepare_scene(self, scene: dict) -> list[dict]:
         items: list[dict] = []
         t = float(scene.get("start_pause", 0.35))
-        df = scene.get("duration_frames")
-        if df:
-            # مرجع الصوت: المدة إطارات مضبوطة مشتقة من عينات الصوت (بلا تقريب عشري)
-            scene = dict(scene)
-            scene["duration"] = float(df) / self.fps
         for el in scene.get("elements", []):
             rect = el.get("rect") or [0, 0, 800, 600]
             etype = el.get("type")
@@ -332,16 +348,89 @@ class Director:
         return items
 
     def _scene_duration(self, scene: dict, items: list[dict]) -> float:
+        """مدة المشهد المخططة — لا تمدد مشهدًا صوتيًا ليتسع للرسم."""
         df = scene.get("duration_frames")
         wanted = (float(df) / self.fps) if df else float(scene.get("duration") or 0.0)
+        audio_backed = bool(
+            scene.get("duration_samples")
+            or scene.get("duration_frames")
+            or scene.get("start_sample") is not None
+        )
         if items:
             last = max(it["start"] + it["dur"] for it in items)
-            if df:
-                # مدة صوتية: نتجاوز فقط إن كان الرسم مستحيلًا في الوقت المتاح (نصرّح بالتجاوز)
-                wanted = max(wanted, last + 0.8) if last + 0.8 > wanted else wanted
-            else:
+            if not audio_backed:
                 wanted = max(wanted, last + 0.8)
         return max(1.0, wanted)
+
+    def scene_bounds(self, *, scene_range: tuple[int, int] | None = None,
+                     max_seconds: float | None = None) -> list[dict]:
+        """حدود المشاهد بالإطارات المطلقة — مصدر واحد للرندر والتقرير.
+
+        الأولوية: عينات مطلقة → إطارات → ثوانٍ تراكمية. التحويل يتم عند
+        الحدود مرة واحدة (لا تقريب لكل مشهد)، فلا يتراكم انزلاق.
+        """
+        scenes = list(self.plan.get("scenes") or [])
+        if not scenes:
+            return []
+        audio = self.plan.get("audio") or {}
+        sr = int(audio.get("sample_rate") or 0)
+        total_samples = int(audio.get("total_samples") or 0) or None
+
+        has_samples = bool(sr) and all(
+            s.get("start_sample") is not None and s.get("end_sample") is not None
+            for s in scenes
+        )
+        if has_samples:
+            starts = [int(s["start_sample"]) for s in scenes]
+            ends = [int(s["end_sample"]) for s in scenes]
+            if any(ends[i] != starts[i + 1] for i in range(len(scenes) - 1)):
+                raise TimebaseError("حدود المشاهد غير متصلة (فجوة أو تقاطع في العينات)")
+            mapped = map_boundaries_to_frames(
+                [starts[0]] + ends,
+                SampleRate(sr),
+                self.fps_rate,
+                total_samples=total_samples,
+                mode="round",
+            )
+            starts_f, ends_f = mapped[:-1], mapped[1:]
+        elif all(s.get("duration_frames") for s in scenes):
+            acc = 0
+            starts_f, ends_f = [], []
+            for s in scenes:
+                starts_f.append(acc)
+                acc += int(s["duration_frames"])
+                ends_f.append(acc)
+        else:
+            acc = Fraction(0)
+            starts_f, ends_f = [], []
+            for s in scenes:
+                starts_f.append(self.fps_rate.frame_of_time(acc, mode="round"))
+                acc += Fraction(str(s.get("duration") or 0))
+                ends_f.append(self.fps_rate.frame_of_time(acc, mode="round"))
+
+        max_frame = None
+        if max_seconds is not None and max_seconds > 0:
+            max_frame = self.fps_rate.frame_of_time(Fraction(str(max_seconds)), mode="round")
+
+        out: list[dict] = []
+        for i, scene in enumerate(scenes, 1):
+            start, end = int(starts_f[i - 1]), int(ends_f[i - 1])
+            if max_frame is not None:
+                if start >= max_frame:
+                    break
+                end = min(end, max_frame)
+            if end <= start:
+                continue
+            if scene_range and not (scene_range[0] <= i <= scene_range[1]):
+                continue
+            out.append({
+                "index": i,
+                "scene": scene,
+                "start_frame": start,
+                "end_frame": end,
+                "frames": end - start,
+            })
+        return out
 
     def _draw_pen(self, frame, active: dict | None, cam):
         """يرسم القلم عند نقطة الرسم الحالية (بزاوية تتبع اتجاه الحركة، بنعومة)."""

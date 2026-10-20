@@ -13,7 +13,7 @@ from pathlib import Path
 from ..audio.align import load_alignment
 from ..audio.narration import load_narration
 from ..core import arabic
-from ..core.timebase import FrameRate
+from ..core.timebase import FrameRate, coerce_frame_rate, frame_rate_json
 from ..core.util import write_json
 
 CANVAS = (2560, 1440)
@@ -85,8 +85,17 @@ def _scene_entities(scene: dict, index: dict[str, list[dict]]) -> list[str]:
     return hits
 
 
-def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, max_scenes: int | None = None) -> dict:
+def build_plan(
+    graph: dict,
+    research: dict,
+    *,
+    project_dir: Path | None = None,
+    max_scenes: int | None = None,
+    fps: FrameRate | int | float | str | dict | None = None,
+) -> dict:
     base = Path(project_dir) if project_dir else Path(".")
+    # قاعدة زمن واحدة: المشروع يحدد المعدل، والافتراضي 24 (لا 30 ثابتة).
+    rate = coerce_frame_rate(fps) if fps is not None else FrameRate(24)
     index = _index_assets(research)
     scenes = list(graph.get("scenes", []))[: (max_scenes or 10_000)]
     out_scenes: list[dict] = []
@@ -234,17 +243,20 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
         }
     al = load_alignment(base) if project_dir else None
     if al and al.segments and al.sample_rate > 0:
-        fps = FrameRate(30)
         by_id = {int(seg.scene_id): seg for seg in al.segments}
-        min_frames = fps.frames_for_duration(Fraction(6, 5), mode="ceil")  # 1.2ث حد أدنى
         for sc in out_scenes:
             seg = by_id.get(int(sc["id"]))
             if not seg or seg.length <= 0:
                 continue
-            fr = fps.frames_for_duration(Fraction(seg.length, al.sample_rate), mode="round")
-            fr = max(fr, min_frames)
-            sc["duration_frames"] = fr
-            sc["duration"] = round(fr / fps.fps, 3)
+            # المصدر: عينات مطلقة. لا نمدّ مقطعًا قصيرًا قسرًا لأن ذلك
+            # يكسر مزامنة الصوت؛ نترك الطول الحقيقي ونصرّح بالتحذير.
+            sc["start_sample"] = int(seg.start_sample)
+            sc["end_sample"] = int(seg.end_sample)
+            sc["duration_samples"] = int(seg.length)
+            sc["duration_frames"] = rate.frames_for_duration(
+                Fraction(seg.length, al.sample_rate), mode="round"
+            )
+            sc["duration"] = round(seg.length / al.sample_rate, 6)
         timing = {
             "source": "narration",
             "level": al.level,
@@ -252,6 +264,7 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
             "notes": al.notes,
             "sample_rate": al.sample_rate,
             "total_samples": al.total_samples,
+            "fps": frame_rate_json(rate),
             "alignment": str(base / "audio" / "alignment.json"),
         }
     elif audio_info:
@@ -265,7 +278,7 @@ def build_plan(graph: dict, research: dict, *, project_dir: Path | None = None, 
         "project": graph.get("source_hash", ""),
         "lang": graph.get("lang", "ar"),
         "canvas": list(CANVAS),
-        "fps": 30,
+        "fps": frame_rate_json(rate),
         "scenes": out_scenes,
         "audio": audio_info,
         "timing": timing,
