@@ -1,0 +1,58 @@
+{
+  "lang": "en",
+  "hook": "The Art of War",
+  "source": "https://www.youtube.com/watch?v= (transcript reference: Al-Deheeq episode on The Art of War) — subject matter only; wording and structure are original to this episode",
+  "tone": "documentary",
+  "audience": "general",
+  "entities": [
+    { "name": "The Art of War", "type": "concept", "needs": ["document"], "why": "the book itself: manuscripts, editions, the 1972 bamboo find" },
+    { "name": "Sun Tzu", "type": "person", "needs": ["portrait"], "why": "the attributed author, whose biography is unrecorded" },
+    { "name": "Warring States period", "type": "concept", "needs": ["map"], "why": "the world the book describes" },
+    { "name": "Clausewitz", "type": "person", "needs": ["portrait"], "why": "the European reader who worked from a translation" },
+    { "name": "Qi Jiguang", "type": "person", "needs": ["portrait"], "why": "the author of the Chinese military text that actually worked" },
+    { "name": "Mao Zedong", "type": "person", "needs": ["portrait"], "why": "the twentieth-century reader who used the book" },
+    { "name": "Seven Military Classics", "type": "concept", "needs": ["document"], "why": "the canon that fixed the book in 1084" },
+    { "name": "Japan", "type": "country", "needs": ["map"], "why": "where the text was printed and where Europe read it" },
+    { "name": "Ukraine", "type": "country", "needs": ["map"], "why": "the modern case for and against the book's logic" }
+  ],
+  "claims": [
+    { "text": "The oldest surviving copy of the text was found in China in 1972, in bamboo slips from a Han tomb.", "scene": 6 },
+    { "text": "The famous English edition of 1961 was translated from a Japanese edition, not from Chinese.", "scene": 8 },
+    { "text": "Qi Jiguang's own manuals, not Sun Tzu, are what reformed Chinese warfare in the sixteenth century.", "scene": 12 }
+  ],
+  "timeline": [
+    { "when": "c. 5th century BC", "what": "the book is usually dated" },
+    { "when": "1084", "what": "the Seven Military Classics canon" },
+    { "when": "1772", "what": "the first European translation" },
+    { "when": "1961", "what": "the English edition that made the book famous" },
+    { "when": "1972", "what": "the bamboo-slip find" },
+    { "when": "2022", "what": "the modern war of the argument" }
+  ],
+  "quotes": [],
+  "numbers": [13, 1084, 1772, 1961, 1972],
+  "scenes": [
+    { "id": 1, "duration": 13.0, "narration": "The Art of War: a book Europe learned from Japan" },
+    { "id": 2, "duration": 14.0, "narration": "The Warring States period" },
+    { "id": 3, "duration": 14.0, "narration": "Two thousand years of silence" },
+    { "id": 4, "duration": 14.0, "narration": "Sun Tzu left no biography" },
+    { "id": 5, "duration": 12.0, "narration": "Thirteen chapters, each one line" },
+    { "id": 6, "duration": 13.0, "narration": "The text vanished for centuries" },
+    { "id": 7, "duration": 15.0, "narration": "The Art of War, dug up in 1972" },
+    { "id": 8, "duration": 14.0, "narration": "Printed in Japan, read in Europe" },
+    { "id": 9, "duration": 13.0, "narration": "The Art of War, English 1961" },
+    { "id": 10, "duration": 14.0, "narration": "Clausewitz read that translation" },
+    { "id": 11, "duration": 14.0, "narration": "Mao Zedong studied the same text" },
+    { "id": 12, "duration": 13.0, "narration": "A theory is not a guarantee" },
+    { "id": 13, "duration": 15.0, "narration": "Qi Jiguang's drilled infantry" },
+    { "id": 14, "duration": 13.0, "narration": "The Chinese book that worked" },
+    { "id": 15, "duration": 13.0, "narration": "The West learned it in translation" },
+    { "id": 16, "duration": 15.0, "narration": "Seven Military Classics, 1084" },
+    { "id": 17, "duration": 13.0, "narration": "Ukraine, 2022: defend everywhere" },
+    { "id": 18, "duration": 14.0, "narration": "Not a myth. A product of its age." }
+  ],
+  "stats": {
+    "words": 89,
+    "sentences": 18,
+    "engine": "hand-built (silent episode: the narration field carries the on-screen text)"
+  }
+}

@@ -1,0 +1,888 @@
+{
+  "schema_version": "1.0",
+  "project_id": "episode-02-art-of-war",
+  "title": "episode-02-art-of-war",
+  "language": "en",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "status": "planned",
+  "created_at": "2026-10-21T12:05:35Z",
+  "updated_at": "2026-10-21T12:40:56Z",
+  "paths": {
+    "script": "script/scriptgraph.json",
+    "script_text": "script/script.txt",
+    "research": "research/research.json",
+    "assets_index": "research/assets.json"
+  },
+  "storyboard": {
+    "active": "storyboard/plan_v6.json",
+    "sha256": "6788e0d03c66787c0a896e4b1be44737d2bc356843b260bf3e68c7f46cc720c3",
+    "format_version": "2.0"
+  },
+  "audio": {
+    "narration": null,
+    "alignment": null
+  },
+  "asset_policy": {
+    "generated_is_evidence": false,
+    "retrieved_requires_approval": true,
+    "requires_origin": true,
+    "requires_license": true,
+    "final_render_requires_approval": true
+  },
+  "assets": [
+    {
+      "path": "assets/concept-Seven-Military-Classics/047658eacc46.jpg",
+      "asset_id": "a-047658eacc46",
+      "sha256": "047658eacc46fcd51f14f130fc99a83ec1036468015a4f233bdafed0784188ee",
+      "bytes": 264748,
+      "kind": "document",
+      "mime": "image/vnd.djvu",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/The_Harvard_Classics_Vol._38.djvu/page1-1920px-The_Harvard_Classics_Vol._38.djvu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:The_Harvard_Classics_Vol._38.djvu",
+        "retrieved_at": "2026-10-21T11:51:04+00:00",
+        "title": "File:The Harvard Classics Vol. 38.djvu",
+        "author": "Ratte"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:31Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:31Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/concept-Seven-Military-Classics/9ddcf2df4900.jpg",
+      "asset_id": "a-9ddcf2df4900",
+      "sha256": "9ddcf2df49002f11bbbb05d1da40ce51ec073ddf4e3de6337b1edf20732e2d16",
+      "bytes": 1022501,
+      "kind": "document",
+      "mime": "image/vnd.djvu",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/The_Harvard_Classics_Vol._51%3B_Lectures.djvu/page1-1920px-The_Harvard_Classics_Vol._51%3B_Lectures.djvu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:The_Harvard_Classics_Vol._51;_Lectures.djvu",
+        "retrieved_at": "2026-10-21T11:51:05+00:00",
+        "title": "File:The Harvard Classics Vol. 51; Lectures.djvu",
+        "author": "Multiple authors"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:06:34Z",
+        "note": "Clausewitz on War, filed here by a name search; not one of the Seven Military Classics",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/concept-Seven-Military-Classics/da36ec767a89.jpg",
+      "asset_id": "a-da36ec767a89",
+      "sha256": "da36ec767a8913e3a88e316970079630266a27a8f9841b9af4823146fe4f92bc",
+      "bytes": 1039539,
+      "kind": "document",
+      "mime": "image/vnd.djvu",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/The_Harvard_Classics_Vol._50.djvu/page1-1920px-The_Harvard_Classics_Vol._50.djvu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:The_Harvard_Classics_Vol._50.djvu",
+        "retrieved_at": "2026-10-21T11:51:04+00:00",
+        "title": "File:The Harvard Classics Vol. 50.djvu",
+        "author": "Ratte"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:42Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:42Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/concept-The-Art-of-War/6ab0f5270349.jpg",
+      "asset_id": "a-6ab0f5270349",
+      "sha256": "6ab0f5270349552cb3da9e36edafad98a8fa2c5e8e2706420a9e22cad203d515",
+      "bytes": 417878,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Inscribed_bamboo-slips_of_Art_of_War.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Inscribed_bamboo-slips_of_Art_of_War.jpg",
+        "retrieved_at": null,
+        "title": "File:Inscribed bamboo-slips of Art of War.jpg",
+        "author": "AlexHe34"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attribution_required": true
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:25Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:25Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/concept-Warring-States-period/66f175424b48.jpg",
+      "asset_id": "a-66f175424b48",
+      "sha256": "66f175424b487a91bb299791f31458205be4ca7b6dc62285f0b07cd4922312e0",
+      "bytes": 2004938,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/20241025_Bronze_Ding_with_Cover%2C_Warring_States_Period_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:20241025_Bronze_Ding_with_Cover,_Warring_States_Period_02.jpg",
+        "retrieved_at": "2026-10-21T11:55:02+00:00",
+        "title": "File:20241025 Bronze Ding with Cover, Warring States Period 02.jpg",
+        "author": "Windmemories"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:22Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:22Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/concept-Warring-States-period/8b881cb8be40.jpg",
+      "asset_id": "a-8b881cb8be40",
+      "sha256": "8b881cb8be40317af9076cba468c93fa156290361f66003293b354a8a519412d",
+      "bytes": 2244414,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/20241025_Bronze_Ding_with_Cover%2C_Warring_States_Period_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:20241025_Bronze_Ding_with_Cover,_Warring_States_Period_01.jpg",
+        "retrieved_at": "2026-10-21T11:55:01+00:00",
+        "title": "File:20241025 Bronze Ding with Cover, Warring States Period 01.jpg",
+        "author": "Windmemories"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:34Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:34Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/concept-Warring-States-period/ab31d17601cb.jpg",
+      "asset_id": "a-ab31d17601cb",
+      "sha256": "ab31d17601cb5c3f22fed51ae442ef4629fee814b33c4be39b7b97549fc46c4a",
+      "bytes": 365304,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Shells_%E2%80%95Warring_States_Period%2C_475-221_BCE.jpg/1920px-Shells_%E2%80%95Warring_States_Period%2C_475-221_BCE.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Shells_%E2%80%95Warring_States_Period,_475-221_BCE.jpg",
+        "retrieved_at": "2026-10-21T11:55:04+00:00",
+        "title": "File:Shells ―Warring States Period, 475-221 BCE.jpg",
+        "author": "anokarina"
+      },
+      "license": {
+        "name": "CC BY-SA 2.0",
+        "url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:06:32Z",
+        "note": "a photograph of an object, not the Warring States world",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/country-Japan/3dfcd5c4ceae.gif",
+      "asset_id": "a-3dfcd5c4ceae",
+      "sha256": "3dfcd5c4ceaea460ebc1a08555cf6ba53fbe68c202bcb248b19f37b184902276",
+      "bytes": 145025,
+      "kind": "map",
+      "mime": "image/gif",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Japan_Map_Chikei.gif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Japan_Map_Chikei.gif",
+        "retrieved_at": "2026-10-21T11:48:05+00:00",
+        "title": "File:Japan Map Chikei.gif",
+        "author": "改変元：著作権・使用制限テンプレート参照 改変部分：アップロード者"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:06:37Z",
+        "note": "a low-resolution GIF map; the printed edition is the better source",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/country-Japan/b877a95899d0.jpg",
+      "asset_id": "a-b877a95899d0",
+      "sha256": "b877a95899d0c18357c2e735cf329bada51c90aa3d2818774f028aeca2ef0862",
+      "bytes": 693727,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Bamboo_book_-_closed_-_UCR.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Bamboo_book_-_closed_-_UCR.jpg",
+        "retrieved_at": null,
+        "title": "File:Bamboo book - closed - UCR.jpg",
+        "author": "vlasta2, bluefootedbooby on flickr.com"
+      },
+      "license": {
+        "name": "CC BY 2.0",
+        "url": "https://creativecommons.org/licenses/by/2.0",
+        "attribution_required": true
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:40Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:40Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/country-Japan/bb14f50b41d5.png",
+      "asset_id": "a-bb14f50b41d5",
+      "sha256": "bb14f50b41d563419b25008b488f3867b4027757fc4131545c3cc3ec06d74c1f",
+      "bytes": 606791,
+      "kind": "map",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Foreign_nationals_living_in_Japan_%282023%29.png/1920px-Foreign_nationals_living_in_Japan_%282023%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Foreign_nationals_living_in_Japan_(2023).png",
+        "retrieved_at": "2026-10-21T11:48:04+00:00",
+        "title": "File:Foreign nationals living in Japan (2023).png",
+        "author": "Donoskra"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:44Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:44Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/country-Japan/e62a093ad734.jpg",
+      "asset_id": "a-e62a093ad734",
+      "sha256": "e62a093ad73469838cffa4fcba0195b9a618903633c807bc75ce86f6abfc173c",
+      "bytes": 200598,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Eleven_Commentaries_to_The_Art_of_War_by_Sunzi_WDL11410.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Eleven_Commentaries_to_The_Art_of_War_by_Sunzi_WDL11410.jpg",
+        "retrieved_at": null,
+        "title": "File:Eleven Commentaries to The Art of War by Sunzi WDL11410.jpg",
+        "author": "Sunzi, 544-496 BCE"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:26Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:26Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/country-Japan/eb15142ebfdb.png",
+      "asset_id": "a-eb15142ebfdb",
+      "sha256": "eb15142ebfdbca1a242cdfc92ef09e4cb13007b557153fc6fdac0427919e89d1",
+      "bytes": 5734586,
+      "kind": "map",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Japan_Relief_Map_of_Land_and_Seabed.png/1920px-Japan_Relief_Map_of_Land_and_Seabed.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Japan_Relief_Map_of_Land_and_Seabed.png",
+        "retrieved_at": "2026-10-21T11:48:06+00:00",
+        "title": "File:Japan Relief Map of Land and Seabed.png",
+        "author": "NASA, National Geophysical Data Center, NOAA"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:06:26Z",
+        "note": "a bathymetric map of Japan, not the printed book the scene is about",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/country-Ukraine/0e54f5f1372e.jpg",
+      "asset_id": "a-0e54f5f1372e",
+      "sha256": "0e54f5f1372e9c8ca4a648d3b27025e528ba225e1d99bb871c3eedf18dd57aeb",
+      "bytes": 420798,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Diesel_locomotive_ChME3-5947_in_Vinnitsa_railway_station%2C_Ukraine%2C_2012.jpg/1920px-Diesel_locomotive_ChME3-5947_in_Vinnitsa_railway_station%2C_Ukraine%2C_2012.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Diesel_locomotive_ChME3-5947_in_Vinnitsa_railway_station,_Ukraine,_2012.jpg",
+        "retrieved_at": "2026-10-21T11:50:03+00:00",
+        "title": "File:Diesel locomotive ChME3-5947 in Vinnitsa railway station, Ukraine, 2012.jpg",
+        "author": "George Chernilevsky"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:06:22Z",
+        "note": "a train photograph does not depict the country",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/country-Ukraine/819962dab7b8.svg",
+      "asset_id": "a-819962dab7b8",
+      "sha256": "819962dab7b89421d2c004783a9a6ed5b93dea848974c53a2250e4494e47f38e",
+      "bytes": 9623853,
+      "kind": "map",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/EU-Ukraine.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:EU-Ukraine.svg",
+        "retrieved_at": "2026-10-21T11:50:02+00:00",
+        "title": "EU-Ukraine.svg",
+        "author": "Giorgi Balakhadze"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attribution_required": true
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:45Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:45Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/country-Ukraine/f2eb1d1b1318.svg",
+      "asset_id": "a-f2eb1d1b1318",
+      "sha256": "f2eb1d1b1318c526a9e0d4f8d2cf8efe52c5ead76666d6c25b33f8a2a7bd8340",
+      "bytes": 120269,
+      "kind": "map",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Flag_map_of_Ukraine_%281991%E2%80%932006%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Flag_map_of_Ukraine_(1991%E2%80%932006).svg",
+        "retrieved_at": "2026-10-21T11:50:04+00:00",
+        "title": "File:Flag map of Ukraine (1991–2006).svg",
+        "author": "Ιγκόρ"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:33Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:33Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Clausewitz/162afb1fafd8.jpg",
+      "asset_id": "a-162afb1fafd8",
+      "sha256": "162afb1fafd8bba56f2e435e5bcb4575f6f1564cf0106bb5dcb7abbb0671f34a",
+      "bytes": 1918890,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/Carl_v._Clausewitz%2C_Vom_Kriege%2C_Berlin_1957%2C_Umschlagtitel.jpg/1920px-Carl_v._Clausewitz%2C_Vom_Kriege%2C_Berlin_1957%2C_Umschlagtitel.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Carl_v._Clausewitz,_Vom_Kriege,_Berlin_1957,_Umschlagtitel.jpg",
+        "retrieved_at": "2026-10-21T11:29:05+00:00",
+        "title": "File:Carl v. Clausewitz, Vom Kriege, Berlin 1957, Umschlagtitel.jpg",
+        "author": "Rabe.dd"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:35Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:35Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Clausewitz/57f71cdd5325.jpg",
+      "asset_id": "a-57f71cdd5325",
+      "sha256": "57f71cdd5325a7837e8561d8654db7434be6194a0eb116b789bb7f0b019df1d2",
+      "bytes": 339951,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Clausewitz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Clausewitz.jpg",
+        "retrieved_at": "2026-10-21T11:29:03+00:00",
+        "title": "Clausewitz.jpg",
+        "author": "Wilhelm Wach"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:27Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:27Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Mao-Zedong/5978d8ab2389.jpg",
+      "asset_id": "a-5978d8ab2389",
+      "sha256": "5978d8ab238923b93494ccf5250d6fed99496029ce3948a5372e8da26c6735bb",
+      "bytes": 200738,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Mao_Tse_Tung.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Mao_Tse_Tung.jpg",
+        "retrieved_at": "2026-10-21T11:30:59+00:00",
+        "title": "Mao Tse Tung.jpg",
+        "author": "Chen Zhengqing (1917–1966)"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:29Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:29Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Mao-Zedong/96cd60e72881.svg",
+      "asset_id": "a-96cd60e72881",
+      "sha256": "96cd60e7288116ba3c5f4cdf7d4ae6deb38859f8d7e8813c8a1964cc88cc87b9",
+      "bytes": 248208,
+      "kind": "portrait",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Mao_Zedong_vector_portrait.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Mao_Zedong_vector_portrait.svg",
+        "retrieved_at": "2026-10-21T11:31:00+00:00",
+        "title": "File:Mao Zedong vector portrait.svg",
+        "author": "OwcaGierka"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:38Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:38Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Mao-Zedong/f0296943c564.jpg",
+      "asset_id": "a-f0296943c564",
+      "sha256": "f0296943c5649283e0c4dba02ce5e1c062c7eb01c3713a4214915c9ae3e62057",
+      "bytes": 96751,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Mao_Zedong_%281920%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Mao_Zedong_(1920)_02.jpg",
+        "retrieved_at": "2026-10-21T11:30:59+00:00",
+        "title": "File:Mao Zedong (1920) 02.jpg",
+        "author": "Unknown author Unknown author"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:37Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:37Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Qi-Jiguang/1e23114f1b3b.jpg",
+      "asset_id": "a-1e23114f1b3b",
+      "sha256": "1e23114f1b3b24e68ce0eef727ce8116164505a7e30b835a500e74c2239a163c",
+      "bytes": 762876,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Stele_of_Tan_Lun%27s_Portrait_and_Praise_Qi_Jiguang%27s_Achievement_2022-10.jpg/1920px-Stele_of_Tan_Lun%27s_Portrait_and_Praise_Qi_Jiguang%27s_Achievement_2022-10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Stele_of_Tan_Lun%27s_Portrait_and_Praise_Qi_Jiguang%27s_Achievement_2022-10.jpg",
+        "retrieved_at": "2026-10-21T11:38:07+00:00",
+        "title": "File:Stele of Tan Lun's Portrait and Praise Qi Jiguang's Achievement 2022-10.jpg",
+        "author": "明代碑刻，原作者不详"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:41Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:41Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Qi-Jiguang/82f78c76868a.jpg",
+      "asset_id": "a-82f78c76868a",
+      "sha256": "82f78c76868a66ef835ccfa9f96db646404159c345fa11b7d0e9860846419313",
+      "bytes": 79027,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Wujing_Zongyao_flails.jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Wujing_Zongyao_flails.jpg",
+        "retrieved_at": null,
+        "title": "File:Wujing Zongyao flails.jpg",
+        "author": "Zeng Gongliang"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:30Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:30Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Qi-Jiguang/bcc448e53df9.jpg",
+      "asset_id": "a-bcc448e53df9",
+      "sha256": "bcc448e53df9e459fcd79c6c33f75c4f40abc5d29ada0447671dfdc21fa4f789",
+      "bytes": 496482,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/PLAN_Qi_Jiguang_20251001.jpg/1920px-PLAN_Qi_Jiguang_20251001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:PLAN_Qi_Jiguang_20251001.jpg",
+        "retrieved_at": "2026-10-21T11:38:08+00:00",
+        "title": "File:PLAN Qi Jiguang 20251001.jpg",
+        "author": "Bfybf"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:06:23Z",
+        "note": "a modern warship, not a sixteenth-century Chinese commander",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Qi-Jiguang/f80d4ca7589e.jpg",
+      "asset_id": "a-f80d4ca7589e",
+      "sha256": "f80d4ca7589e08c21e9c6936bbbcf5a3b4dd7645fbbc454e43b30b21c66bfe10",
+      "bytes": 543514,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/PLANS_Qi_Jiguang_83_%28ship%2C_2017%29_20190621.jpg/1920px-PLANS_Qi_Jiguang_83_%28ship%2C_2017%29_20190621.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:PLANS_Qi_Jiguang_83_(ship,_2017)_20190621.jpg",
+        "retrieved_at": "2026-10-21T11:38:08+00:00",
+        "title": "File:PLANS Qi Jiguang 83 (ship, 2017) 20190621.jpg",
+        "author": "Tyg728"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:06:24Z",
+        "note": "a modern warship, not a sixteenth-century Chinese commander",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Sun-Tzu/148af13c6ddc.svg",
+      "asset_id": "a-148af13c6ddc",
+      "sha256": "148af13c6ddccc0be6d1b4c9d064e61c9b0c9e9219c0c7fba6902e7dd7b18c75",
+      "bytes": 13316848,
+      "kind": "portrait",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Sun_Zi.svg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Sun_Zi.svg",
+        "retrieved_at": null,
+        "title": "File:Sun Zi.svg",
+        "author": "original photo: Dohduhdah derivative: Eugenio Hansen, OFS"
+      },
+      "license": {
+        "name": "CC BY-SA 3.0",
+        "url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:06:28Z",
+        "note": "a page of a French translation, not a portrait of Sun Tzu",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-Sun-Tzu/edd7982e00d8.jpg",
+      "asset_id": "a-edd7982e00d8",
+      "sha256": "edd7982e00d83e84ccba13a12cd5103cc0af1ef829ce6948f682c328d29dfd12",
+      "bytes": 451878,
+      "kind": "document",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://commons.wikimedia.org/wiki/File:Sunzi,_Author_of_Art_of_War_(9873714545).jpg",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Sunzi,_Author_of_Art_of_War_(9873714545).jpg",
+        "retrieved_at": null,
+        "title": "File:Sunzi, Author of Art of War (9873714545).jpg",
+        "author": "Gary Todd from Xinzheng, China"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T12:10:23Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T12:10:23Z",
+        "note": "reviewed by the editor; relevant to the scene",
+        "records": 1
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "narration-missing",
+      "kind": "audio",
+      "blocking": false,
+      "message": "لا يوجد تعليق صوتي معتمد؛ مدة الخطة تقديرية وليست مزامنة صوت."
+    },
+    {
+      "id": "assets-pending-approval",
+      "kind": "assets",
+      "blocking": false,
+      "message": "0 أصلًا بانتظار الاعتماد البشري (معتمد: 18 · مرفوض: 8) قبل الإنتاج.",
+      "counts": {
+        "pending": 0,
+        "approved": 18,
+        "rejected": 8,
+        "used_unapproved": 0
+      }
+    }
+  ],
+  "renders": [],
+  "render": {
+    "fps_source": "plan",
+    "width": 2560,
+    "height": 1440,
+    "default_out_size": [
+      1280,
+      720
+    ],
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "studio": {
+    "kind": "rasm-pro",
+    "project_id": "episode-02-art-of-war"
+  },
+  "approval_log": {
+    "path": "research/approvals.jsonl",
+    "records": 26,
+    "sha256": "4692a2d9e5a5483f9a67c05d81f216da6125fee8ed0b144521ba5b649d5f440d"
+  }
+}

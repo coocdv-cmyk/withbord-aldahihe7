@@ -345,6 +345,7 @@ def research_script(graph: dict, project_dir, *, cfg=None, max_entities: int = 1
 
     min_w = int(cfg.get("research", "min_image_width", default=500))
     max_per_need = int(cfg.get("research", "max_assets_per_need", default=3))
+    max_examined = int(cfg.get("research", "max_candidates_per_need", default=8))
     allow_sa = bool(cfg.get("research", "allow_sharealike", default=True))
     script_dates = [t.get("when", "") for t in graph.get("timeline", []) if t.get("when")]
 
@@ -377,9 +378,27 @@ def research_script(graph: dict, project_dir, *, cfg=None, max_entities: int = 1
 
         for need in ent.get("needs", [])[:4]:
             got = 0
+            examined = 0
             for cand in _candidates_for_need(ent, need, resolved, commons=commons, cfg=cfg, era_year=era):
                 if got >= max_per_need:
                     break
+                # Every candidate that needs a license lookup costs one Commons
+                # call.  A broad search can return dozens of candidates, and
+                # scanning all of them made a single entity take minutes.
+                # The examined candidates are capped and the rest are declared
+                # as skipped — never silently dropped.
+                if examined >= max_examined:
+                    result["skipped"].append(
+                        {
+                            "entity": ent.get("name"),
+                            "need": need,
+                            "title": cand.get("title"),
+                            "why": f"تجاوز{max_examined} مرشّحًا مفحوصًا",
+                        }
+                    )
+                    result["totals"]["denied"] += 1
+                    break
+                examined += 1
 
                 if cand.get("needs_license_lookup"):
                     fname = (cand.get("url") or "").split("FilePath/")[-1].split("?")[0]

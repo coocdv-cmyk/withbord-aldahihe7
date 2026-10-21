@@ -53,9 +53,88 @@ def _wrap(text: str, per_line: int) -> str:
     return "\n".join(" ".join(parts[i : i + per_line]) for i in range(0, len(parts), per_line))
 
 
-def _index_assets(research: dict) -> dict[str, list[dict]]:
-    """فهرس: كيان (مُطبَّع) → أصول صوره/أيقوناته."""
+_WIDTH_CACHE: dict[tuple[str, int], object] = {}
+
+
+def _measure_font(font_name: str, size: int):
+    """يمسك مقياس الخط (PIL) لقياس عرض النص قبل رسمه."""
+    key = (str(font_name), int(size))
+    if key in _WIDTH_CACHE:
+        return _WIDTH_CACHE[key]
+    font = None
+    try:
+        from PIL import ImageFont
+
+        from ..strokes import find_font
+
+        font = ImageFont.truetype(str(find_font(font_name)), int(size))
+    except Exception:
+        font = None
+    _WIDTH_CACHE[key] = font
+    return font
+
+
+def _wrap_to_width(text: str, *, font_name: str, size: int, width: float) -> str:
+    """تغليف النص **بقياس العرض** حتى لا يتجاوز صندوقه.
+
+    التغليف بعدد كلمات ثابت ترك النص يتجاوز العمود فيُقصّ على الشاشة
+    (سطر «dug up in 1972» في عمود 920px).  هنا نقيس كل سطر بالخط الحقيقي
+    (PIL) ولا نضع كلمة لا يسعها العرض.
+    """
+    parts = (text or "").strip().split()
+    if not parts:
+        return ""
+    font = _measure_font(font_name, size)
+    if font is None or width <= 0:
+        return _wrap(text, 6)
+    limit = float(width)
+    lines: list[str] = []
+    current: list[str] = []
+    for word in parts:
+        trial = " ".join([*current, word])
+        try:
+            w = float(font.getlength(trial))
+        except Exception:
+            w = len(trial) * float(size) * 0.5
+        if current and w > limit:
+            lines.append(" ".join(current))
+            current = [word]
+        else:
+            current.append(word)
+    if current:
+        lines.append(" ".join(current))
+    return "\n".join(lines)
+
+
+def _rejected_asset_paths(project_dir: Path | None) -> set[str]:
+    """مسارات الأصول التي رفضها إنسان (من سجل القرارات الملحق فقط)."""
+    if not project_dir:
+        return set()
+    try:
+        from ..core.assets import decisions_by_asset
+
+        out: set[str] = set()
+        for records in decisions_by_asset(project_dir).values():
+            for record in records or []:
+                if str((record or {}).get("decision") or "") != "rejected":
+                    continue
+                path = str((record or {}).get("path") or "").replace("\\", "/")
+                if path:
+                    out.add(path)
+        return out
+    except Exception:
+        return set()
+
+
+def _index_assets(research: dict, rejected: set[str] | None = None) -> dict[str, list[dict]]:
+    """فهرس: كيان (مُطبَّع) → أصول صوره/أيقوناته.
+
+    ``rejected`` = المسارات التي رفضها إنسان.  **الأصل المرفوض لا يدخل الخطة
+    أصلًا**: البحث يجد بالاسم وقد يُرجع صورة لا تمثّل الكيان (قطار، سفينة حديثة)؛
+    الرفض قرار بشري، والخطة لا تختار أصلًا مرفوضًا.
+    """
     index: dict[str, list[dict]] = {}
+    rejected = rejected or set()
     for e in research.get("entities", []) or []:
         name = arabic.normalize(e.get("name") or "")
         if not name:
@@ -65,6 +144,8 @@ def _index_assets(research: dict) -> dict[str, list[dict]]:
             rec = a.get("asset") or {}
             path = rec.get("path")
             if not path:
+                continue
+            if str(path).replace("\\", "/") in rejected:
                 continue
             mime = str(rec.get("mime") or "")
             ext = Path(path).suffix.lower()
@@ -131,7 +212,10 @@ def _scene_text_chunks(
     if role == "evidence" and visual:
         label = visual.get("entity") or (names[0] if names else "")
     label_words = len(label.split()) if label else 0
-    caption_words = max(1, min(7, cap - label_words))
+    # the caption may use the whole drawing capacity of the scene; the
+    # **measured** wrap decides how it breaks into lines, so a long caption
+    # is no longer cut at a fixed word count ("... dug up in" without 1972).
+    caption_words = max(1, min(12, cap - label_words))
     caption = _first_clause(narration, caption_words)
     if role == "evidence" and visual and label:
         return [label, caption]
@@ -182,12 +266,15 @@ def _text_element(
     wrap: int,
 ) -> dict:
     """A text element placed for its role (title / subtitle / label / caption)."""
+    rect = list(place["rect"])
+    # the text is wrapped by **measured width** so it never runs out of its box
+    body = _wrap_to_width(text, font_name=font, size=size, width=float(rect[2]))
     return {
         "type": "text",
-        "text": _wrap(text, wrap),
+        "text": body or _wrap(text, wrap),
         "font": font,
         "size": size,
-        "rect": list(place["rect"]),
+        "rect": rect,
         "mode": "skeleton",
         "rtl": not english,
         **({"weight": int(place["weight"])} if english else {}),
@@ -209,7 +296,7 @@ def build_plan(
     # قاعدة زمن واحدة: المشروع يحدد المعدل، والافتراضي 24 (لا 30 ثابتة).
     rate = coerce_frame_rate(fps) if fps is not None else FrameRate(24)
     fam = get_family(family)
-    index = _index_assets(research)
+    index = _index_assets(research, _rejected_asset_paths(base))
     scenes = list(graph.get("scenes", []))[: (max_scenes or 10_000)]
     out_scenes: list[dict] = []
     english = str(graph.get("lang") or "ar").lower().startswith("en")

@@ -1,0 +1,34 @@
+# episode-02-art-of-war — on-screen script (silent episode)
+
+A silent whiteboard episode: there is no narration track. The words below are
+what the engine writes on the board, and they carry the argument alone.
+
+Subject matter: the historical question behind the reference episode — is
+"The Art of War" a work of ancient Chinese military genius, or a myth? The
+wording and the structure of this episode are original; the historical facts
+are documented, and the images are real, licensed sources (Wikimedia Commons)
+credited in `research/CREDITS.md`.
+
+---
+
+1.  The Art of War: a book Europe learned from Japan
+2.  Two thousand years of silence
+3.  The Warring States period
+4.  Sun Tzu left no biography
+5.  Thirteen chapters, each one line
+6.  The Art of War, dug up in 1972
+7.  Printed in Japan, read in Europe
+8.  The Art of War, English 1961
+9.  Its translator never read Chinese
+10. Clausewitz read that translation
+11. Mao Zedong studied the same text
+12. Qi Jiguang's drilled infantry
+13. The Chinese book that worked
+14. Seven Military Classics, 1084
+15. A theory is not a guarantee
+16. Ukraine, 2022: defend everywhere
+17. Neither side wins by copying
+18. Not a myth. A product of its age.
+
+Total on-screen runtime: 249 s (4 min 09 s) at 24 fps, 720p, with the engine's
+pen, camera and real recorded SFX — and no voice track.
