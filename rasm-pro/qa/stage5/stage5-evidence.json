@@ -1,0 +1,152 @@
+{
+  "stage": 5,
+  "generated_at": "2026-10-21T05:31:13Z",
+  "topic": "real SFX: a measured, role-bound library with no silent degradation",
+  "start_point": {
+    "tag": "stage5-start",
+    "commit": "84a0632",
+    "bundle": "backups/stage5-20261021/rasm-pro-stage5-start.bundle",
+    "bundle_sha256": "78C607E26211B8C68658BE3C1CBD44C091E0F01459C72EE6DD7C23C425988484"
+  },
+  "tests": {
+    "passed": 118,
+    "failed": 0,
+    "stage5_contract_tests": 11
+  },
+  "library": {
+    "types": 6,
+    "recordings": [
+      {
+        "file": "page_turn.wav",
+        "role": "card / scene transition",
+        "lufs_raw": -32.95,
+        "true_peak_dbtp": -14.34,
+        "centroid_hz": 4071.6,
+        "calibration_gain_db": 2.95
+      },
+      {
+        "file": "page_turn.wav",
+        "role": "soft placement",
+        "lufs_raw": -32.95,
+        "true_peak_dbtp": -14.34,
+        "centroid_hz": 4071.6,
+        "calibration_gain_db": 2.95
+      },
+      {
+        "file": "pen_felt.wav",
+        "role": "light stroke",
+        "lufs_raw": -37.86,
+        "true_peak_dbtp": -11.55,
+        "centroid_hz": 768.1,
+        "calibration_gain_db": 7.86
+      },
+      {
+        "file": "pen_ink.wav",
+        "role": "handwriting",
+        "lufs_raw": -43.83,
+        "true_peak_dbtp": -16.13,
+        "centroid_hz": 73.7,
+        "calibration_gain_db": 13.83
+      },
+      {
+        "file": "pen_ink.wav",
+        "role": "quick mark",
+        "lufs_raw": -43.83,
+        "true_peak_dbtp": -16.13,
+        "centroid_hz": 73.7,
+        "calibration_gain_db": 13.83
+      },
+      {
+        "file": "pen_ink.wav",
+        "role": "point / tap",
+        "lufs_raw": -43.83,
+        "true_peak_dbtp": -16.13,
+        "centroid_hz": 73.7,
+        "calibration_gain_db": 13.83
+      }
+    ],
+    "target_lufs": -30.0,
+    "method": "ITU-R BS.1770-4 (engine.audio.loudness) + FFT spectral centroid/flatness",
+    "licenses": [
+      {
+        "file": "pen_ink.wav",
+        "license": "Public domain (PD-Sound)",
+        "artist": "stephan",
+        "role": "handwriting texture - the main writing layer"
+      },
+      {
+        "file": "pen_felt.wav",
+        "license": "Public domain (PD-Sound)",
+        "artist": "stephan",
+        "role": "light writing layer - soft strokes"
+      },
+      {
+        "file": "page_turn.wav",
+        "license": "Public domain (PD-Sound)",
+        "artist": "planish",
+        "role": "paper movement - card placement and scene transition"
+      }
+    ],
+    "rejected_candidate": [
+      {
+        "candidate": "Pencil scratchings (PD-Sounds 513, gypsygirl)",
+        "measured": "spectral centroid 68.7 Hz against 73.7 Hz for the ink pen - the same acoustic family",
+        "decision": "dropped",
+        "reason": "duplicated a role that already existed; the quick-strokes role is served by the ink pen played back faster (varispeed, no new payload)"
+      }
+    ]
+  },
+  "binding": {
+    "stroke_binding": {
+      "text": "scratch",
+      "svg": "scratch",
+      "highlight": "scratch_soft",
+      "underline": "scratch_soft",
+      "flourish": "scratch_fast",
+      "arrow": "scratch_fast",
+      "timeline": "scratch_fast",
+      "bars": "scratch_fast"
+    },
+    "place_binding": {
+      "paper_card": "page",
+      "torn_strip": "page",
+      "texture": "page_soft",
+      "background": "page_soft"
+    },
+    "tap": "tick",
+    "counts_by_type": {
+      "page": 6,
+      "scratch": 922,
+      "scratch_fast": 125,
+      "scratch_soft": 6,
+      "tick": 101
+    }
+  },
+  "mix": {
+    "preset": "paper",
+    "library_target_rms_dbfs": -30.0,
+    "track_rms_dbfs": -31.53,
+    "track_peak_dbfs": -5.22,
+    "limiter_engaged": false,
+    "mux_mode": "sfx-only",
+    "sfx_weight": 0.35,
+    "missing_recordings": [],
+    "synthetic_fallback": false,
+    "real_recordings": true
+  },
+  "sync": {
+    "events": 2229,
+    "max_output_t": 79.075,
+    "min_output_t": 1.072967,
+    "all_inside_output": true,
+    "dropped_events": 0,
+    "closed_open_strokes": 0
+  },
+  "render": {
+    "file": "projects/ww1/render/ww1_final_stage5.mp4",
+    "bytes": 27242797,
+    "sha256": "3a0a96784f3250e73a80d3e54ac9ef9c5ec43513369026c7e2eb98ea1ee743eb",
+    "mix_report": "projects/ww1/render/ww1_final_stage5.mix.json",
+    "mix_report_sha256": "494dbd87f3cd9b377052b667a2908a4d8771f8ca9f912a1768b3c24d16471040"
+  }
+}

@@ -27,9 +27,14 @@ def test_sfx_clamps_events_and_closes_open_strokes(tmp_path: Path):
     assert info["requested_duration"] == 2.0
     assert info["dropped_events"] == 2
     assert info["closed_open_strokes"] == 1
-    assert info["scratches"] == 2
-    assert info["taps"] == 1
-    assert info["slides"] == 1
+    # المرحلة الخامسة: التقرير أصبح بالنوع مع قياس
+    counts = info["counts_by_type"]
+    assert counts.get("scratch") == 2
+    assert counts.get("tick") == 1
+    assert info["types_used"] == 2
+    assert info["synthetic_fallback"] is False
+    assert info["real_recordings"] is True
+    assert info["track_rms_dbfs"] < 0.0
     assert wav.exists()
     with wave.open(str(wav), "rb") as w:
         assert w.getframerate() == SR

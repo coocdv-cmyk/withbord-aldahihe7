@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "measured_at": "2026-10-21T05:18:52Z",
+  "method": "ITU-R BS.1770-4 (engine.audio.loudness) + FFT spectral centroid/flatness",
+  "target_lufs": -30.0,
+  "target_tolerance_lu": 0.5,
+  "recordings": {
+    "page_turn.wav": {
+      "role": "paper movement - card placement and scene transition",
+      "lufs_raw": -32.95,
+      "true_peak_dbtp": -14.34,
+      "rms_dbfs": -39.71,
+      "centroid_hz": 4071.6,
+      "flatness": 0.002217,
+      "duration_sec": 3.369813,
+      "sample_rate": 48000,
+      "channels": 1,
+      "sha256": "0f7e77c12324c6e37b569946423eb50914725faad469a09d02bbcfe5b3941902",
+      "calibration_gain_db": 2.95
+    },
+    "pen_felt.wav": {
+      "role": "light writing layer (felt pen) - soft strokes",
+      "lufs_raw": -37.86,
+      "true_peak_dbtp": -11.55,
+      "rms_dbfs": -33.47,
+      "centroid_hz": 768.1,
+      "flatness": 0.001687,
+      "duration_sec": 19.565729,
+      "sample_rate": 48000,
+      "channels": 1,
+      "sha256": "d06b0885a70e523cacc586cc8fdcfba0ef2528dcc55a9b96ba875b3d2c48ab46",
+      "calibration_gain_db": 7.86
+    },
+    "pen_ink.wav": {
+      "role": "handwriting texture (ink pen on paper) - the main writing layer",
+      "lufs_raw": -43.83,
+      "true_peak_dbtp": -16.13,
+      "rms_dbfs": -35.0,
+      "centroid_hz": 73.7,
+      "flatness": 0.000291,
+      "duration_sec": 19.957563,
+      "sample_rate": 48000,
+      "channels": 1,
+      "sha256": "0fb7dc04cf32ad398364f1f5db87d618106b3616d5cba17b0cb132e0ca6f09a9",
+      "calibration_gain_db": 13.83
+    }
+  }
+}

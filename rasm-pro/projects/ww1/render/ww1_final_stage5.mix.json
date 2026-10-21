@@ -1,0 +1,77 @@
+{
+  "out": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\render\\ww1_final_stage5.sfx.wav",
+  "duration": 80.375,
+  "requested_duration": 79.875,
+  "events": 2229,
+  "counts_by_type": {
+    "page": 6,
+    "scratch": 922,
+    "scratch_fast": 125,
+    "scratch_soft": 6,
+    "tick": 101
+  },
+  "types_used": 5,
+  "types_available": 6,
+  "dropped_events": 0,
+  "closed_open_strokes": 0,
+  "preset": "paper",
+  "preset_offset_db": 0.0,
+  "sfx_mix_db": -9.1,
+  "library_target_rms_dbfs": -30.0,
+  "track_rms_dbfs": -31.53,
+  "track_peak_dbfs": -5.22,
+  "limiter_engaged": false,
+  "missing_recordings": [],
+  "synthetic_fallback": false,
+  "real_recordings": true,
+  "sources": [
+    {
+      "file": "page_turn.wav",
+      "role": "card / scene transition",
+      "description": "نقل بطاقة أو انتقال مشهد — صوت ورق حقيقي"
+    },
+    {
+      "file": "page_turn.wav",
+      "role": "soft placement",
+      "description": "وضع صورة أو خلفية — ورق أخف"
+    },
+    {
+      "file": "pen_felt.wav",
+      "role": "light stroke",
+      "description": "الخطوط الخفيفة (تظليل/تسطير) — نسيج ألطف"
+    },
+    {
+      "file": "pen_ink.wav",
+      "role": "handwriting",
+      "description": "خط الكتابة اليدوية — الطبقة الأساسية لكل حركة رسم"
+    },
+    {
+      "file": "pen_ink.wav",
+      "role": "quick mark",
+      "description": "العلامات السريعة (زخرفة/سهم/خط زمني) — أسرع وأقصر"
+    },
+    {
+      "file": "pen_ink.wav",
+      "role": "point / tap",
+      "description": "نقطة الإعجام — نقرة قصيرة"
+    }
+  ],
+  "mux": {
+    "out": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\render\\ww1_final_stage5.mp4",
+    "mode": "sfx-only",
+    "sfx_weight": 0.35,
+    "narration": null,
+    "duration": 79.875
+  },
+  "library": {
+    "types": 6,
+    "recordings": [
+      "page_turn.wav",
+      "pen_felt.wav",
+      "pen_ink.wav"
+    ],
+    "missing": [],
+    "complete": true,
+    "calibration": true
+  }
+}

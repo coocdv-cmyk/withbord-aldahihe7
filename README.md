@@ -66,6 +66,20 @@ the scene boundaries come from the **measured** audio samples, so the picture
 follows the voice. A production render is refused while the narration is
 unmeasured, off target, or shorter than the picture — never trimmed silently.
 
+### Sound effects: a measured library with a role for every sound
+
+```powershell
+python tools/measure_sfx.py           # measure the library (writes calibration.json)
+python tools/measure_sfx.py --check   # verify the committed table is current
+```
+
+Six sound types come from three public-domain recordings, each bound to what
+happens on screen (handwriting → pen scratch, a card being placed → real paper
+sound, a tap → a click). Every excerpt is measured to the same library level
+before it is mixed, the mix report is written next to the video, and a missing
+recording blocks a production render instead of silently substituting a
+synthetic sound.
+
 ### Continuous integration
 
 A reviewed CI workflow is kept at `rasm-pro/tools/ci/ci.yml` with the

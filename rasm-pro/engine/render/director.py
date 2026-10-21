@@ -119,6 +119,9 @@ def _cached_doc(key: str, build) -> StrokeDoc:
 # بدون هذا، كاش القرص يعيد مسارات قديمة (حدث فعلًا: نص مقلوب من نسخة سابقة).
 TEXT_PIPELINE_V = 6  # Phase 3.2: LTR خطي حقيقي + اتجاه الفقرة + أوزان الخط المتغيّرة
 
+# العناصر التي تُرسم دفعة واحدة (بطاقة/شريط/خلفية) ويُصاحبها صوت ورق.
+PLACE_SOUND_ELEMENTS = ("paper_card", "torn_strip", "texture", "background")
+
 
 def load_doc(el: dict) -> StrokeDoc | None:
     t = el.get("type")
@@ -481,6 +484,30 @@ class Director:
                         if not it.get("_done"):
                             it["fn"](wb)
                             it["_done"] = True
+                            # صوت placing: وضع بطاقة/صورة على الورق — حدث
+                            # مربوط بنفس الساعة المطلقة (contract).
+                            if it["el"].get("type") in PLACE_SOUND_ELEMENTS:
+                                offset = Fraction(str(it["start"]))
+                                event_abs = scene_project_start + offset
+                                out_abs = scene_output_start + offset
+                                self.sfx_events.append(
+                                    {
+                                        "frame": self.fps_rate.frame_of_time(event_abs, mode="round"),
+                                        "sample": (
+                                            int(round(float(event_abs) * sample_rate)) if sample_rate > 0 else None
+                                        ),
+                                        "t": round(float(event_abs), 6),
+                                        "output_frame": self.fps_rate.frame_of_time(out_abs, mode="round"),
+                                        "output_t": round(float(out_abs), 6),
+                                        "kind": "place",
+                                        "x": 0.0,
+                                        "y": 0.0,
+                                        "stroke": "",
+                                        "scene": scene.get("id"),
+                                        "el": it["el"].get("id"),
+                                        "el_type": it["el"].get("type"),
+                                    }
+                                )
                         continue
                     else:
                         wb.paint(it["obj"].advance(prog), ink=_rgb(it["el"].get("color")))
@@ -513,6 +540,9 @@ class Director:
                                         "stroke": ev.stroke,
                                         "scene": scene.get("id"),
                                         "el": it["el"].get("id"),
+                                        # نوع العنصر: يربط الصوت بالدور الدلالي
+                                        # (كتابة يدوية ↔ خدش قلم، بطاقة ↔ ورق).
+                                        "el_type": it["el"].get("type"),
                                     })
                                 it["_prev"] = prog
                     if prog < 1.0 and active is None:

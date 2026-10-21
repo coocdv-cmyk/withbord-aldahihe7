@@ -554,6 +554,29 @@ def cmd_render(args) -> int:
             print("   • أو معاينة فقط: --preview (أو --max-seconds)", file=sys.stderr)
             return 2
 
+    # مكتبة المؤثرات: فحص رخيص قبل أي رندر — لا نصنع فيديو ثم نكتشف أن الصوت ناقص
+    sfx_library = None
+    if getattr(args, "sfx", True):
+        try:
+            from engine.audio.sfx import library_status
+
+            sfx_library = library_status()
+        except Exception as exc:
+            print(f"✘ تعذّر فحص مكتبة المؤثرات: {exc}", file=sys.stderr)
+            return 2
+        if not sfx_library["complete"] and mode == "final":
+            print("✘ مكتبة المؤثرات ناقصة — الرندر النهائي ممنوع", file=sys.stderr)
+            for name in sfx_library["missing"]:
+                print(f"   ✘ التسجيل مفقود: {name}", file=sys.stderr)
+            print("   · أو معاينة فقط: --preview", file=sys.stderr)
+            return 2
+        if not sfx_library["complete"]:
+            print(
+                "⚠ مكتبة المؤثرات ناقصة: "
+                + ", ".join(sfx_library["missing"])
+                + " — معاينة فقط"
+            )
+
     out = Path(args.out) if args.out else pd / "render" / "preview.mp4"
     size = (1280, 720)
     if args.size:
@@ -615,8 +638,9 @@ def cmd_render(args) -> int:
     if res.get("overflow_scenes"):
         print(f"⚠ مشاهد تجاوز الرسمُ مدتها (لن تُمدّ): {res['overflow_scenes']}")
 
-    # مؤثرات صوتية واقعية من أحداث القلم (تُدمج في نفس ملف الفيديو)
+    # مؤثرات صوتية واقعية من أحداث الرسم (تُدمج في نفس ملف الفيديو)
     sfx_muxed = False
+    mix_report: dict = {}
     if getattr(args, "sfx", True) and res.get("sfx") and Path(res["sfx"]).exists():
         try:
             from engine.audio.sfx import build_track, mux_into
@@ -630,9 +654,32 @@ def cmd_render(args) -> int:
             res["sfx_wav"] = str(wav)
             res["audio_mode"] = mux["mode"]
             sfx_muxed = True
-            src = "تسجيلات حقيقية (ملكية عامة)" if info.get("real_recordings") else "توليف احتياطي"
-            print(f"• مؤثرات: {info['scratches']} رسمة · {info['taps']} نقرة · {info['slides']} انزلاق · {src} · دمج: {mux['mode']}")
+            src = "تسجيلات حقيقية (ملكية عامة)" if info.get("real_recordings") else "توليف بديل"
+            counts = info.get("counts_by_type") or {}
+            print(
+                f"• مؤثرات: "
+                + (" · ".join(f"{k}={v}" for k, v in counts.items()) or "لا أحداث")
+                + f" · {src} · مزج: {mux['mode']}"
+            )
+            print(
+                f"  · مستوى المسار {info.get('track_rms_dbfs')} dBFS · ذروة "
+                f"{info.get('track_peak_dbfs')} dBFS · هدف المكتبة "
+                f"{info.get('library_target_rms_dbfs')} dBFS"
+                + (" · محدِّد نشط" if info.get("limiter_engaged") else "")
+            )
+            mix_report = {**info, "mux": mux, "library": sfx_library}
+            # تقرير المزج بجانب الفيديو: دليل مقيس على كل قرار
+            write_json(Path(str(out)).with_suffix(".mix.json"), mix_report)
+            res["mix_report"] = str(Path(str(out)).with_suffix(".mix.json"))
+            if info.get("synthetic_fallback") and mode == "final":
+                print("✘ بعض أنواع المؤثرات سقطت إلى التوليف — الرندر النهائي ممنوع", file=sys.stderr)
+                for name in info.get("missing_recordings") or []:
+                    print(f"   ✘ التسجيل مفقود: {name}", file=sys.stderr)
+                return 2
         except Exception as e:
+            if mode == "final":
+                print(f"✘ تعذّر إدماج المؤثرات الصوتية: {e}", file=sys.stderr)
+                return 2
             print(f"⚠ تعذّر إدماج المؤثرات الصوتية: {e}")
     if res.get("narration_frames") is not None:
         drift = res.get("drift_frames")

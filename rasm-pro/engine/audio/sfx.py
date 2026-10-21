@@ -1,18 +1,26 @@
-"""مؤثرات صوتية من أحداث القلم — تسجيلات حقيقية (ملكية عامة) + توليف احتياطي.
+"""مؤثرات صوتية حقيقية (ملكية عامة) — مكتبة بأنواع مقيَّسة وأدوار دلالية.
 
-الأسلوب:
-- صوت الرسم/الملامسة يُقتطع من تسجيل حقيقي («Writing with inkpen», PDSounds,
-  ملكية عامة — انظر assets/sfx/LICENSES.json)، كل مسار = قصّة بطول زمن
-  الضغط الحقيقي مع غلاف هجوم/انكسار ناعم → ليس "بيب" ولا نغمة صناعية.
-- نقرة/نقطة الإعجام = قصّة قصيرة جدًا (35ms) من نفس التسجيل.
-- انزلاق الورق عند بداية المشهد = توليف (ضجيج مرشّح بمغلّف جرسي) لأن التسجيل
-  الحقيقي لا يحتوي انزلاقًا — يُوسم صراحة في التقرير.
-- إن غابت الملفات الحقيقية: توليف كامل لضجيج ورقي بمستوى مقبول، مع وسم واضح.
+المرحلة الخامسة — القواعد:
+1. **كل تسجيل له دور واحد محدد.** ما لا يخدم دورًا لا يُحتفظ به.
+2. **كل مستوى مقيس.** لا أرقام يدوية: مستوى كل مقطع يُقاس ويُعاد إلى هدف
+   المكتبة، فتصبح «الأنواع» قابلة للمقارنة والمزج.
+3. **لا تدهور صامت.** إن غاب التسجيل الحقيقي يُقال ذلك في التقرير ويُمنع
+   الإنتاج — ولا يُستبدل بصوت توليدي في صمت.
+4. **الربط دلالي:** نوع العنصر في الفيديو يحدد نوع الصوت (كتابة يدوية ↔
+   خدش قلم، بطاقة ↔ ورق، نقطة ↔ نقرة).
 
-الخلط:
-- build_track: أحداث المخرج (sfx.json) → WAV مونو 48kHz بعائد ذروة ≤ 0.7.
-- مكس مع تعليق صوتي عبر ffmpeg: التعليق بوزن 1.0 والمؤثرات بوزن 0.35
-  (لا نعدّل ملف التعليق الأصلي إطلاقًا).
+المكتبة:
+
+| النوع | التسجيل | الدور | الاشتقاق |
+|---|---|---|---|
+| `scratch` | pen_ink | خط الكتابة اليدوية | مباشر |
+| `scratch_soft` | pen_felt | الخطوط الخفيفة (تظليل/تسطير) | مباشر |
+| `scratch_fast` | pen_ink | العلامات السريعة (زخرفة/سهم) | تشغيل أسرع (varispeed) |
+| `tick` | pen_ink | نقطة/ضغطة القلم | مقطع قصير |
+| `page` | page_turn | نقل بطاقة/انتقال مشهد | مباشر |
+| `page_soft` | page_turn | وضع صورة/خلفية | أبطأ وأخف |
+
+الأرقام في `assets/sfx/calibration.json` كلها مقيسة بـ`tools/measure_sfx.py`.
 """
 from __future__ import annotations
 
@@ -31,12 +39,96 @@ log = get_logger("sfx")
 
 SR = 48000
 SFX_DIR = Path(__file__).resolve().parents[2] / "assets" / "sfx"
+CALIBRATION_FILE = SFX_DIR / "calibration.json"
 
+# مستوى المكتبة المرجعي: كل مقطع يُعاد إليه بالقياس (لا بأرقام يدوية).
+LIBRARY_TARGET_RMS_DBFS = -30.0
+# سقف الذروة لكل مقطع قبل المزج (حماية من التشويه).
+EVENT_PEAK_CEILING = 0.7
+# سقف ذروة المسار بعد التجميع.
+TRACK_PEAK_CEILING = 0.89
+
+# الإزاحة (dB) لكل نمط فوق مرجع المكتبة: "أقوى/أخف" صريح ومقروء.
 PRESETS = {
-    "paper":  {"scratch": 0.55, "tick": 0.35, "slide": 0.30},
-    "subtle": {"scratch": 0.35, "tick": 0.22, "slide": 0.18},
-    "bold":   {"scratch": 0.75, "tick": 0.50, "slide": 0.34},
+    "paper":  {"offset_db": 0.0,  "sfx_mix_db": -9.1},   # 0.35 خطي مقابل سرد 1.0
+    "subtle": {"offset_db": -6.0, "sfx_mix_db": -13.1},
+    "bold":   {"offset_db": 3.0,  "sfx_mix_db": -6.1},
 }
+
+# الأنواع: التسجيل المصدر + الاشتقاق + الدور.
+SFX_TYPES: dict[str, dict] = {
+    "scratch": {
+        "source": "pen_ink.wav",
+        "role": "handwriting",
+        "rate": 1.0,
+        "kind": "stroke",
+        "description": "خط الكتابة اليدوية — الطبقة الأساسية لكل حركة رسم",
+    },
+    "scratch_soft": {
+        "source": "pen_felt.wav",
+        "role": "light stroke",
+        "rate": 1.0,
+        "kind": "stroke",
+        "description": "الخطوط الخفيفة (تظليل/تسطير) — نسيج ألطف",
+    },
+    "scratch_fast": {
+        "source": "pen_ink.wav",
+        "role": "quick mark",
+        "rate": 1.45,
+        "kind": "stroke",
+        "description": "العلامات السريعة (زخرفة/سهم/خط زمني) — أسرع وأقصر",
+    },
+    "tick": {
+        "source": "pen_ink.wav",
+        "role": "point / tap",
+        "rate": 1.0,
+        "kind": "tap",
+        "description": "نقطة الإعجام — نقرة قصيرة",
+    },
+    "page": {
+        "source": "page_turn.wav",
+        "role": "card / scene transition",
+        "rate": 1.0,
+        "kind": "paper",
+        "description": "نقل بطاقة أو انتقال مشهد — صوت ورق حقيقي",
+    },
+    "page_soft": {
+        "source": "page_turn.wav",
+        "role": "soft placement",
+        "rate": 0.85,
+        "kind": "paper",
+        "description": "وضع صورة أو خلفية — ورق أخف",
+    },
+}
+
+# الربط الدلالي: نوع العنصر في الفيديو ← نوع الصوت.
+STROKE_BINDING = {
+    "text": "scratch",
+    "svg": "scratch",
+    "highlight": "scratch_soft",
+    "underline": "scratch_soft",
+    "flourish": "scratch_fast",
+    "arrow": "scratch_fast",
+    "timeline": "scratch_fast",
+    "bars": "scratch_fast",
+}
+PLACE_BINDING = {
+    "paper_card": "page",
+    "torn_strip": "page",
+    "texture": "page_soft",
+    "background": "page_soft",
+}
+TAP_TYPE = "tick"
+
+
+def load_calibration() -> dict:
+    """جدول المعايرة المقيس (أو {} إن لم يوجد — يُقاس عند الحاجة)."""
+    if not CALIBRATION_FILE.exists():
+        return {}
+    try:
+        return json.loads(CALIBRATION_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
 
 
 def _load_wav_mono(path: Path, sr: int) -> np.ndarray | None:
@@ -48,90 +140,152 @@ def _load_wav_mono(path: Path, sr: int) -> np.ndarray | None:
             sw = w.getsampwidth()
             rate = w.getframerate()
             raw = w.readframes(n)
-        if sw != 2:
-            return None
-        a = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768.0
-        if ch > 1:
-            a = a.reshape(-1, ch).mean(axis=1)
-        if rate != sr and len(a):
-            x_old = np.linspace(0.0, 1.0, len(a), endpoint=False)
-            x_new = np.linspace(0.0, 1.0, int(len(a) * sr / rate), endpoint=False)
-            a = np.interp(x_new, x_old, a).astype(np.float32)
-        return a
-    except Exception as e:  # pragma: no cover
-        log.warning("تعذّر قراءة %s: %s", path.name, e)
+    except Exception as exc:  # pragma: no cover
+        log.warning("تعذّر قراءة %s: %s", path.name, exc)
         return None
+    if sw != 2:
+        return None
+    data = np.frombuffer(raw, dtype="<i2").astype(np.float32) / 32768.0
+    if ch > 1:
+        data = data.reshape(-1, ch).mean(axis=1)
+    if rate != sr and data.size:
+        idx = np.linspace(0, data.size - 1, int(data.size * sr / rate))
+        data = np.interp(idx, np.arange(data.size), data).astype(np.float32)
+    return data
+
+
+def library_status() -> dict:
+    """هل مكتبة المؤثرات كاملة؟ (فحص رخيص قبل أي رندر)."""
+    used = sorted({str(spec.get("source")) for spec in SFX_TYPES.values()})
+    missing = [name for name in used if not (SFX_DIR / name).exists()]
+    return {
+        "types": len(SFX_TYPES),
+        "recordings": used,
+        "missing": missing,
+        "complete": not missing,
+        "calibration": bool(load_calibration()),
+    }
 
 
 def _env(n: int, sr: int, attack: float = 0.012, release: float = 0.030) -> np.ndarray:
+    env = np.ones(n, dtype=np.float32)
     a = max(1, int(attack * sr))
     r = max(1, int(release * sr))
-    up = np.minimum(1.0, np.arange(n) / a)
-    dn = np.minimum(1.0, np.arange(n)[::-1] / r)
-    return (up * dn).astype(np.float32)
+    if a < n:
+        env[:a] = np.linspace(0.0, 1.0, a, dtype=np.float32)
+    if r < n:
+        env[-r:] *= np.linspace(1.0, 0.0, r, dtype=np.float32)
+    return env
+
+
+def _resample(x: np.ndarray, rate: float) -> np.ndarray:
+    """تشغيل أسرع/أبطأ (varispeed) — تغيير الطول والطبقة معًا."""
+    if abs(rate - 1.0) < 1e-3 or x.size < 8:
+        return x
+    n = max(8, int(x.size / rate))
+    idx = np.linspace(0, x.size - 1, n)
+    return np.interp(idx, np.arange(x.size), x).astype(np.float32)
+
+
+def _rms_dbfs(x: np.ndarray) -> float:
+    if x.size == 0:
+        return -120.0
+    rms = float(np.sqrt(np.mean(x.astype(np.float64) ** 2)))
+    return 20.0 * math.log10(rms) if rms > 0 else -120.0
 
 
 class SfxLibrary:
-    """مكتبة أصوات: تسجيلات حقيقية إن وُجدت، وإلا توليف احتياطي."""
+    """تسجيلات حقيقية + اشتقاقات منها، كلها بمستوى مقيس."""
 
     def __init__(self, sr: int = SR, which: str = "ink"):
         self.sr = sr
         self.real = False
         self.sources: list[dict] = []
-        self.primary = _load_wav_mono(SFX_DIR / ("pen_felt.wav" if which == "felt" else "pen_ink.wav"), sr)
-        self.secondary = _load_wav_mono(SFX_DIR / ("pen_ink.wav" if which == "felt" else "pen_felt.wav"), sr)
-        if self.primary is not None and len(self.primary) > sr // 2:
-            self.real = True
-            self.sources.append({"file": "pen_felt.wav" if which == "felt" else "pen_ink.wav",
-                                 "license": "Public domain (PDSounds)", "kind": "recording"})
-        else:
-            self.sources.append({"file": None, "license": "procedural synthesis", "kind": "synth"})
+        self.missing: list[str] = []
+        self.calibration = load_calibration()
+        self._cache: dict[str, np.ndarray | None] = {}
+        self.which = which
 
-    # ---------- مكوّنات ----------
-    def scratch(self, dur: float, *, gain: float = 1.0, rng: random.Random | None = None) -> np.ndarray:
-        """قصّة من تسجيل الكتابة الحقيقي بطول dur (أو توليف ضجيج ورقي)."""
+    # ---------- التسجيلات ----------
+    def recording(self, name: str) -> np.ndarray | None:
+        if name not in self._cache:
+            path = SFX_DIR / name
+            self._cache[name] = _load_wav_mono(path, self.sr) if path.exists() else None
+        return self._cache[name]
+
+    def _source_for(self, type_name: str) -> str:
+        """The recording behind a type (``which='felt'`` swaps the ink pen)."""
+        spec = SFX_TYPES.get(type_name) or {}
+        source = str(spec.get("source") or "")
+        if self.which == "felt" and type_name in ("scratch", "scratch_fast", "tick"):
+            return "pen_felt.wav" if source == "pen_ink.wav" else source
+        return source
+
+    # ---------- المستوى ----------
+    def _level_to_target(self, seg: np.ndarray, offset_db: float = 0.0) -> tuple[np.ndarray, float]:
+        """يعيد المقطع إلى مستوى المكتبة المرجعي (بالقياس، لا بالتخمين)."""
+        if seg.size == 0:
+            return seg, 0.0
+        target = LIBRARY_TARGET_RMS_DBFS + float(offset_db)
+        current = _rms_dbfs(seg)
+        gain_db = target - current
+        scaled = (seg * (10.0 ** (gain_db / 20.0))).astype(np.float32)
+        peak = float(np.max(np.abs(scaled))) if scaled.size else 0.0
+        limited = 0
+        if peak > EVENT_PEAK_CEILING:
+            scaled = (scaled * (EVENT_PEAK_CEILING / peak)).astype(np.float32)
+            limited = 1
+        return scaled, gain_db
+
+    # ---------- الأنواع ----------
+    def scratch(self, dur: float, *, type_name: str = "scratch", offset_db: float = 0.0,
+                rng: random.Random | None = None) -> np.ndarray:
+        """قصّة من تسجيل حقيقي بطول dur، بمستوى مقيس."""
         rng = rng or random
+        spec = SFX_TYPES.get(type_name) or SFX_TYPES["scratch"]
+        src = self.recording(self._source_for(type_name))
+        if src is None or src.size < 64:
+            self.missing.append(str(spec.get("source")))
+            return np.zeros(0, dtype=np.float32)
         n = max(8, int(dur * self.sr))
-        src = self.primary if (self.primary is not None and len(self.primary) > n + 64) else None
-        if src is not None:
-            off = rng.randrange(0, len(src) - n)
-            seg = src[off:off + n].astype(np.float32).copy()
-        else:
-            noise = np.random.default_rng(rng.randrange(1 << 30)).normal(0.0, 1.0, n).astype(np.float32)
-            # ضجيج ورقي: مرشّح تمرير نطاق تقريبي (فرق مرشّحين أسيّين)
-            b = np.empty(n, dtype=np.float32)
-            acc = 0.0
-            for i in range(n):
-                acc += (noise[i] - acc) * 0.55
-                b[i] = acc
-            seg = (noise - b * 0.85)
-        env = _env(n, self.sr, 0.012, 0.035)
-        return (seg * env * float(gain)).astype(np.float32)
+        if src.size < n + 64:
+            n = max(8, src.size - 64)
+        off = rng.randrange(0, max(1, src.size - n))
+        seg = _resample(src[off : off + n].copy(), float(spec.get("rate") or 1.0))
+        seg = seg * _env(seg.size, self.sr, 0.012, 0.035)
+        scaled, _gain = self._level_to_target(seg, offset_db)
+        return scaled
 
-    def tick(self, *, gain: float = 1.0, rng: random.Random | None = None) -> np.ndarray:
-        """نقرة ملامسة قصيرة (نقطة إعجام): عيّنة حقيقية قصيرة أو نقرة ضجيج مخمدة."""
+    def tick(self, *, offset_db: float = 0.0, rng: random.Random | None = None) -> np.ndarray:
+        """نقرة/نقطة: قصّة قصيرة جدًا من التسجيل الحقيقي، بمستوى مقيس."""
         rng = rng or random
+        src = self.recording(self._source_for(TAP_TYPE))
+        if src is None or src.size < 128:
+            self.missing.append(str(SFX_TYPES[TAP_TYPE].get("source")))
+            return np.zeros(0, dtype=np.float32)
         n = int(0.032 * self.sr)
-        src = self.primary if (self.primary is not None and len(self.primary) > n + 64) else None
-        if src is not None:
-            off = rng.randrange(0, len(src) - n)
-            seg = src[off:off + n].astype(np.float32).copy()
-        else:
-            t = np.arange(n) / self.sr
-            f = 1900.0
-            seg = (np.random.default_rng(rng.randrange(1 << 30)).normal(0, 0.7, n) * np.exp(-t * 120.0)
-                   + np.sin(2 * math.pi * f * t) * np.exp(-t * 260.0) * 0.35).astype(np.float32)
-        return (seg * _env(n, self.sr, 0.002, 0.022) * float(gain)).astype(np.float32)
+        off = rng.randrange(0, max(1, src.size - n))
+        seg = src[off : off + n].copy() * _env(n, self.sr, 0.002, 0.022)
+        scaled, _gain = self._level_to_target(seg, offset_db)
+        return scaled
 
-    def paper_slide(self, dur: float = 0.5, *, gain: float = 1.0, rng: random.Random | None = None) -> np.ndarray:
-        """انزلاق/انقلاب ورق — توليف (لا يوجد في التسجيل الأصلي)."""
+    def paper(self, dur: float = 0.5, *, type_name: str = "page", offset_db: float = 0.0,
+              rng: random.Random | None = None) -> np.ndarray:
+        """حركة ورق حقيقية (قلب صفحة) — بدل التوليف."""
         rng = rng or random
+        spec = SFX_TYPES.get(type_name) or SFX_TYPES["page"]
+        src = self.recording(self._source_for(type_name))
+        if src is None or src.size < 256:
+            self.missing.append(str(spec.get("source")))
+            return np.zeros(0, dtype=np.float32)
         n = max(16, int(dur * self.sr))
-        noise = np.random.default_rng(rng.randrange(1 << 30)).normal(0.0, 1.0, n).astype(np.float32)
-        # تمرير عالي تقريبي + مغلّف جرسي
-        hp = np.diff(noise, prepend=noise[:1])
-        bell = np.sin(np.linspace(0, math.pi, n)) ** 1.6
-        return (hp * 0.5 * bell * float(gain)).astype(np.float32)
+        if src.size < n + 64:
+            n = max(16, src.size - 64)
+        off = rng.randrange(0, max(1, src.size - n))
+        seg = _resample(src[off : off + n].copy(), float(spec.get("rate") or 1.0))
+        seg = seg * _env(seg.size, self.sr, 0.008, 0.060)
+        scaled, _gain = self._level_to_target(seg, offset_db)
+        return scaled
 
 
 def _events_from_json(path: Path) -> dict:
@@ -154,29 +308,45 @@ def _events_from_json(path: Path) -> dict:
     return data
 
 
+def _bind_stroke(el_type: str | None) -> str:
+    return STROKE_BINDING.get(str(el_type or ""), "scratch")
+
+
+def _bind_place(el_type: str | None) -> str:
+    return PLACE_BINDING.get(str(el_type or ""), "page_soft")
+
+
 def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "paper",
                 duration: float | None = None, which: str = "ink") -> dict:
-    """يبني مسار WAV من أحداث القلم (down/up/tap) + انزلاقات بدايات المشاهد."""
+    """يبني مسار WAV من أحداث الرسم + ربط دلالي + مستوى مقيس.
+
+    تقرير الإخراج يذكر: عدد الأحداث حسب النوع، مستوى المسار المقيس، ذروته،
+    وأي نوع سقط إلى التوليف (لا يوجد توليف صامت: الغياب يُعلن).
+    """
     data = _events_from_json(Path(sfx_json))
     events = [e for e in (data.get("events") or []) if isinstance(e, dict)]
     if duration is None:
         duration = max([float(e.get("t", 0.0)) for e in events] + [0.0]) + 1.2
     duration = max(0.0, float(duration))
     lib = SfxLibrary(which=which)
-    g = PRESETS.get(preset, PRESETS["paper"])
+    spec = PRESETS.get(preset, PRESETS["paper"])
+    offset_db = float(spec.get("offset_db", 0.0))
     rng = random.Random(20261019)
     n_total = int(duration * SR) + SR // 2
     buf = np.zeros(n_total, dtype=np.float32)
 
-    def put(a: np.ndarray, t: float) -> None:
+    def put(a: np.ndarray, t: float) -> bool:
+        if a is None or a.size == 0:
+            return False
         i0 = max(0, int(t * SR))
         i1 = min(n_total, i0 + len(a))
         if i1 > i0:
             buf[i0:i1] += a[: i1 - i0]
+            return True
+        return False
 
     downs: list[dict] = []
-    scratch_count = 0
-    tap_count = 0
+    counts: dict[str, int] = {}
     dropped = 0
     for e in sorted(events, key=lambda x: float(x.get("t", 0.0))):
         kind = e.get("kind")
@@ -199,11 +369,16 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
                 start = float(d["t"])
                 end = min(t, duration)
                 dur = max(0.03, min(1.6, end - start))
-                put(lib.scratch(dur, gain=g["scratch"] * rng.uniform(0.85, 1.15), rng=rng), start)
-                scratch_count += 1
+                type_name = _bind_stroke(d["e"].get("el_type"))
+                ok = put(lib.scratch(dur, type_name=type_name, offset_db=offset_db, rng=rng), start)
+                counts[type_name] = counts.get(type_name, 0) + (1 if ok else 0)
         elif kind == "tap":
-            put(lib.tick(gain=g["tick"] * rng.uniform(0.85, 1.2), rng=rng), t)
-            tap_count += 1
+            ok = put(lib.tick(offset_db=offset_db, rng=rng), t)
+            counts[TAP_TYPE] = counts.get(TAP_TYPE, 0) + (1 if ok else 0)
+        elif kind == "place":
+            type_name = _bind_place(e.get("el_type"))
+            ok = put(lib.paper(0.42, type_name=type_name, offset_db=offset_db, rng=rng), t)
+            counts[type_name] = counts.get(type_name, 0) + (1 if ok else 0)
         elif kind == "complete":
             pass
 
@@ -215,23 +390,16 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
         end = min(duration, start + 0.25)
         if end <= start:
             continue
-        put(lib.scratch(max(0.03, end - start), gain=g["scratch"] * 0.8, rng=rng), start)
-        scratch_count += 1
+        type_name = _bind_stroke(d["e"].get("el_type"))
+        ok = put(lib.scratch(max(0.03, end - start), type_name=type_name, offset_db=offset_db, rng=rng), start)
+        counts[type_name] = counts.get(type_name, 0) + (1 if ok else 0)
         open_closed += 1
 
-    slide_count = 0
-    for sc in data.get("scenes") or []:
-        try:
-            st = float(sc.get("start") or 0.0)
-        except (TypeError, ValueError):
-            continue
-        if 0.05 < st <= duration:
-            put(lib.paper_slide(0.45, gain=g["slide"] * rng.uniform(0.9, 1.1), rng=rng), st - 0.22)
-            slide_count += 1
-
-    peak = float(np.max(np.abs(buf))) or 1.0
-    if peak > 0.7:
-        buf *= 0.7 / peak
+    peak = float(np.max(np.abs(buf))) if buf.size else 0.0
+    limiter = 0
+    if peak > TRACK_PEAK_CEILING:
+        buf *= TRACK_PEAK_CEILING / peak
+        limiter = 1
     out = Path(out_wav)
     out.parent.mkdir(parents=True, exist_ok=True)
     pcm = np.clip(buf * 32767.0, -32768, 32767).astype(np.int16)
@@ -241,20 +409,42 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
         w.setframerate(SR)
         w.writeframes(pcm.tobytes())
 
+    missing = sorted(set(lib.missing))
     info = {
         "out": str(out),
         "duration": round(len(buf) / SR, 3),
         "requested_duration": round(duration, 3),
         "events": len(events),
-        "scratches": scratch_count,
-        "taps": tap_count,
-        "slides": slide_count,
+        "counts_by_type": dict(sorted(counts.items())),
+        "types_used": len(counts),
+        "types_available": len(SFX_TYPES),
         "dropped_events": dropped,
         "closed_open_strokes": open_closed,
-        "real_recordings": lib.real,
-        "sources": lib.sources,
+        "preset": preset,
+        "preset_offset_db": offset_db,
+        "sfx_mix_db": spec.get("sfx_mix_db"),
+        "library_target_rms_dbfs": LIBRARY_TARGET_RMS_DBFS,
+        "track_rms_dbfs": round(_rms_dbfs(buf), 2),
+        "track_peak_dbfs": round(20.0 * math.log10(peak), 2) if peak > 0 else -120.0,
+        "limiter_engaged": bool(limiter),
+        "missing_recordings": missing,
+        "synthetic_fallback": bool(missing),
+        "real_recordings": not missing,
+        "sources": [
+            {
+                "file": str(spec.get("source")),
+                "role": str(spec.get("role")),
+                "description": str(spec.get("description")),
+            }
+            for spec in sorted(SFX_TYPES.values(), key=lambda s: str(s.get("source")))
+        ],
     }
-    log.info("مؤثرات: %d قصّة رسم · %d نقرة · %d انزلاق → %s", scratch_count, tap_count, slide_count, out.name)
+    log.info(
+        "مؤثرات: %s → %s%s",
+        " · ".join(f"{k}={v}" for k, v in info["counts_by_type"].items()) or "لا أحداث",
+        out.name,
+        " ⚠ توليف بديل" if missing else "",
+    )
     return info
 
 
@@ -294,6 +484,8 @@ def mux_into(video: str | Path, sfx_wav: str | Path, out: str | Path, *,
     - إن كان داخل الفيديو مسار صوت (تعليق سبق دمجه): نخلطه مع المؤثرات.
     - إن مُرّر narration صراحة: يُخلط معه (ولا يُعدّل الملف الأصلي).
     - وإلا: يُضاف المسار وحده.
+    - **المزج بأوزان معلومة:** التعليق بوزن 1.0 والمؤثرات بوزن قابل للضبط
+      (0.35 خطي ≈ ‎-9.1 dB)، ولا يُعدَّل ملف التعليق الأصلي إطلاقًا.
 
     Always cuts the output at the video's duration. The old ``-shortest``
     could trim video when narration was shorter; now a short narration fails
@@ -346,4 +538,10 @@ def mux_into(video: str | Path, sfx_wav: str | Path, out: str | Path, *,
     if proc.returncode != 0:
         raise RuntimeError(f"ffmpeg mux فشل: {proc.stderr.strip()[:400]}")
     tmp.replace(out)
-    return {"out": str(out), "mode": mode}
+    return {
+        "out": str(out),
+        "mode": mode,
+        "sfx_weight": sfx_weight,
+        "narration": str(narration) if narration else None,
+        "duration": duration,
+    }

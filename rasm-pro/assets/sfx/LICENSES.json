@@ -1,31 +1,56 @@
 {
- "note": "مؤثرات صوتية حقيقية مُسجَّلة — ملكية عامة (PDSounds.org عبر ويكيميديا كومنز). لا قيود تجارية ولا نسبة إلزامية (نذكرها للأمانة).",
- "files": [
-  {
-   "file": "pen_ink.wav",
-   "source_file": "raw/writing_inkpen.ogg",
-   "title": "writing with inkpen",
-   "artist": "stephan",
-   "year": 2007,
-   "pdsounds_record": 179,
-   "license": "Public domain (PD-Sound)",
-   "license_url": "https://commons.wikimedia.org/wiki/File:Writing_with_inkpen.ogg",
-   "origin": "http://www.pdsounds.org/sounds/writing_with_inkpen",
-   "usage": "قلم حبر على ورق (قصّات لأصوات الرسم/الملامسة)",
-   "downloaded": "2026-10-19"
-  },
-  {
-   "file": "pen_felt.wav",
-   "source_file": "raw/writing_feltpen.ogg",
-   "title": "writing with feltpen",
-   "artist": "stephan",
-   "year": 2007,
-   "pdsounds_record": 180,
-   "license": "Public domain (PD-Sound)",
-   "license_url": "https://commons.wikimedia.org/wiki/File:Writing_with_feltpen.ogg",
-   "origin": "http://www.pdsounds.org/sounds/writing_with_feltpen",
-   "usage": "قلم فلوماستر على ورق (طبقة بديلة أخف)",
-   "downloaded": "2026-10-19"
-  }
- ]
+  "note": "مؤثرات صوتية حقيقية مُسجَّلة — ملكية عامة (PDSounds.org عبر ويكيميديا كومنز). لا قيود تجارية ولا نسبة إلزامية (نذكرها للأمانة). كل ملف هنا له دور واحد محدد في المزيج؛ ما لا يحبّر دورًا لا يُحتفظ به.",
+  "measured_by": "tools/measure_sfx.py (ITU-R BS.1770-4) — الأرقام في calibration.json",
+  "files": [
+    {
+      "file": "pen_ink.wav",
+      "source_file": "raw/writing_inkpen.ogg",
+      "title": "writing with inkpen",
+      "artist": "stephan",
+      "year": 2007,
+      "pdsounds_record": 179,
+      "license": "Public domain (PD-Sound)",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Writing_with_inkpen.ogg",
+      "origin": "http://www.pdsounds.org/sounds/writing_with_inkpen",
+      "usage": "قلم حبر على ورق (القصّة الأساسية لحركة الكتابة)",
+      "role": "handwriting texture - the main writing layer",
+      "downloaded": "2026-10-19"
+    },
+    {
+      "file": "pen_felt.wav",
+      "source_file": "raw/writing_feltpen.ogg",
+      "title": "writing with feltpen",
+      "artist": "stephan",
+      "year": 2007,
+      "pdsounds_record": 180,
+      "license": "Public domain (PD-Sound)",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Writing_with_feltpen.ogg",
+      "origin": "http://www.pdsounds.org/sounds/writing_with_feltpen",
+      "usage": "قلم فلوماستر على ورق (طبقة أخف)",
+      "role": "light writing layer - soft strokes",
+      "downloaded": "2026-10-19"
+    },
+    {
+      "file": "page_turn.wav",
+      "source_file": "raw/Turning_a_page.ogg",
+      "title": "Turning a page",
+      "artist": "planish",
+      "year": 2007,
+      "pdsounds_record": 304,
+      "license": "Public domain (PD-Sound)",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Turning_a_page.ogg",
+      "origin": "http://www.pdsounds.org/sounds/turning_a_page",
+      "usage": "قلب صفحة في كتاب غلاف صلب (نقل بطاقة/انتقال مشهد)",
+      "role": "paper movement - card placement and scene transition",
+      "downloaded": "2026-10-21"
+    }
+  ],
+  "evaluated_and_rejected": [
+    {
+      "candidate": "Pencil scratchings (PD-Sounds 513, gypsygirl)",
+      "measured": "spectral centroid 68.7 Hz against 73.7 Hz for the ink pen - the same acoustic family",
+      "decision": "dropped",
+      "reason": "duplicated a role that already existed; the quick-strokes role is served by the ink pen played back faster (varispeed, no new payload)"
+    }
+  ]
 }

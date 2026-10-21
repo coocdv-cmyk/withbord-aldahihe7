@@ -140,7 +140,7 @@ def main(argv: list[str]) -> int:
         sfx = build_track(res["sfx"], out.with_suffix(".sfx.wav"), preset="paper", duration=res["seconds"])
         mux = mux_into(out, out.with_suffix(".sfx.wav"), out)
         print(f"[{name}] {res['frames']} إطار · {res['seconds']}ث · رندر {res['render_seconds']}ث · "
-              f"مؤثرات: {sfx['scratches']} رسمة/{sfx['taps']} نقرة · حقيقي={sfx['real_recordings']} · {mux['mode']} · "
+              f"مؤثرات: {sfx.get('counts_by_type')} · حقيقي={sfx['real_recordings']} · {mux['mode']} · "
               f"مدة المشاهد {durs}")
     return 0
 
