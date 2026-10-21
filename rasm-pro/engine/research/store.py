@@ -114,65 +114,137 @@ class AssetStore:
 
     # ---------- اعتمادات ----------
     def _approval_states(self) -> dict[str, str]:
-        """The human decision per asset (from the project manifest), if any."""
+        """The latest human decision per project-relative asset path."""
         manifest = self.root / "project.json"
-        if not manifest.exists():
-            return {}
-        try:
-            data = read_json(manifest) or {}
-        except Exception:
-            return {}
+        path_to_id: dict[str, str] = {}
         states: dict[str, str] = {}
-        for asset in data.get("assets") or []:
-            if not isinstance(asset, dict):
-                continue
-            path = str(asset.get("path") or "").replace("\\", "/")
-            if not path:
-                continue
-            state = str((asset.get("approval") or {}).get("decision") or "pending")
-            states[path] = state
+        if manifest.exists():
+            try:
+                data = read_json(manifest) or {}
+            except Exception:
+                data = {}
+            for asset in data.get("assets") or []:
+                if not isinstance(asset, dict):
+                    continue
+                path = str(asset.get("path") or "").replace("\\", "/")
+                if not path:
+                    continue
+                asset_id = str(asset.get("asset_id") or "")
+                if asset_id:
+                    path_to_id[path] = asset_id
+                states[path] = str(
+                    (asset.get("approval") or {}).get("decision") or "pending"
+                )
+        # The append-only decision log is authoritative; the manifest is only
+        # a projection and may lag behind the last human decision.
+        try:
+            from ..core.assets import decisions_by_asset
+
+            decisions = decisions_by_asset(self.root)
+        except Exception:
+            decisions = {}
+        for path, asset_id in path_to_id.items():
+            records = decisions.get(asset_id) or []
+            if records:
+                states[path] = str(records[-1].get("decision") or "pending")
         return states
 
-    def credits_markdown(self) -> str:
-        """The credits that must travel with the published video.
+    def _relative_path(self, raw: str) -> str:
+        path = str(raw or "").replace("\\", "/")
+        if not path:
+            return ""
+        p = Path(path)
+        if p.is_absolute():
+            try:
+                return p.resolve().relative_to(self.root.resolve()).as_posix()
+            except ValueError:
+                return path
+        return path.lstrip("./")
 
-        Only the assets a human **approved** are credited: crediting a rejected
-        asset would claim a licence relationship that does not exist, and
-        crediting a deferred one would ship an asset that is not allowed yet.
-        Deferred assets are listed separately so nothing disappears silently.
+    def credits_markdown(self, plan: dict | None = None) -> str:
+        """Credits for **this video**: assets used by the plan *and* approved.
+
+        A licence relationship only exists for assets that appear in the
+        episode and were approved by a human.  Rejected assets are never
+        credited; approved-but-unused assets are absent; deferred used assets
+        are disclosed separately because they are not cleared for publication.
         """
         states = self._approval_states()
-        lines = ["# اعتمادات الأصول (تُنشر مع الفيديو)", ""]
-        attributions = [r for r in self.registry if r.get("license")]
-        used: list[dict] = []
-        pending: list[dict] = []
-        for r in sorted(attributions, key=lambda x: (x.get("title") or "")):
-            path = str(r.get("path") or "").replace("\\", "/")
-            state = states.get(path)
+        used_paths: set[str] = set()
+        if isinstance(plan, dict):
+            try:
+                from ..core.assets import plan_asset_refs
+
+                manifest = None
+                if (self.root / "project.json").exists():
+                    try:
+                        manifest = read_json(self.root / "project.json") or None
+                    except Exception:
+                        manifest = None
+                used_paths = {
+                    self._relative_path(ref.path)
+                    for ref in plan_asset_refs(plan, self.root, manifest=manifest)
+                    if ref.path
+                }
+            except Exception as exc:
+                log.warning("تعذّر استخراج أصول الخطة للاعتمادات: %s", exc)
+
+        by_path = {
+            self._relative_path(str(r.get("path") or "")): r for r in self.registry
+        }
+        credited: list[dict] = []
+        deferred: list[dict] = []
+        not_approved: list[dict] = []
+        unattributed: list[str] = []
+        for path in sorted(used_paths):
+            rec = by_path.get(path)
+            if rec is None:
+                unattributed.append(path)
+                continue
+            state = states.get(path, "pending")
             if state == "rejected":
                 continue
             if state == "deferred":
-                pending.append(r)
-            else:
-                used.append(r)
-        for r in used:
+                deferred.append(rec)
+                continue
+            if state != "approved":
+                not_approved.append(rec)
+                continue
+            if not rec.get("license"):
+                unattributed.append(path)
+                continue
+            credited.append(rec)
+
+        lines = ["# اعتمادات الأصول (تُنشر مع الفيديو)", ""]
+        for r in sorted(credited, key=lambda x: (x.get("title") or x.get("path") or "")):
             title = r.get("title") or r.get("path")
             author = r.get("author") or r.get("uploader") or ""
             lic = r.get("license") or ""
             src = r.get("page_url") or r.get("url") or r.get("source") or ""
             who = f" — {author}" if author else ""
             lines.append(f"- **{title}**{who} · {lic} · {src}")
-        if len(lines) == 2:
-            lines.append("(لا توجد أصول معتمدة تتطلب نسبًا)")
-        if pending:
-            lines += ["", "## أصول قيد الاعتماد (لم تُستخدم في هذا الفيديو)", ""]
-            for r in pending:
+        if not credited:
+            lines.append("(لا توجد أصول معتمدة ومستخدمة تتطلب نسبًا)")
+
+        def section(title: str, records: list[dict], extra: str = "") -> None:
+            if not records:
+                return
+            lines.extend(["", f"## {title}", ""])
+            if extra:
+                lines.extend([extra, ""])
+            for r in sorted(records, key=lambda x: (x.get("title") or x.get("path") or "")):
                 title = r.get("title") or r.get("path")
-                lic = r.get("license") or ""
+                lic = r.get("license") or "بلا ترخيص"
                 lines.append(f"- {title} · {lic}")
+
+        section("أصول مستخدمة قيد الاعتماد", deferred, "لم تُعتمد بعد — لا تُنشر.")
+        section("أصول مستخدمة بانتظار قرار", not_approved)
+        if unattributed:
+            lines.extend(["", "## أصول مستخدمة بلا تسجيل/ترخيص", ""])
+            lines.extend(f"- {path}" for path in unattributed)
         return "\n".join(lines)
 
-    def write_credits(self) -> Path:
+    def write_credits(self, plan: dict | None = None) -> Path:
         p = self.root / "research" / "CREDITS.md"
-        p.write_text(self.credits_markdown(), encoding="utf-8")
+        p.write_text(self.credits_markdown(plan=plan), encoding="utf-8")
         return p

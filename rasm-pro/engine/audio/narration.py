@@ -205,6 +205,14 @@ def normalize_narration(
         raise AudioError(f"فشل التطبيع: {proc.stderr[-300:]}")
     after = measure_loudness(out).to_dict()
     digest = sha256_file(out)
+    # The stored file changed: every top-level descriptor must describe the
+    # new bytes, not the pre-normalization source.  Otherwise the production
+    # contract compares a fresh SHA against a stale manifest and refuses.
+    desc = probe_audio(out, deep=True)
+    for key, value in desc.items():
+        if key == "path":
+            continue
+        m[key] = value
 
     m["normalization"] = {
         "applied_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),

@@ -111,9 +111,12 @@ def _scene_text_chunks(
     hook = (graph.get("hook") or narration).strip()
     if role == "hook":
         title = _first_clause(hook, 5) or _first_clause(narration, 5)
-        # the subtitle of a hook is short on purpose: it has to be drawn
-        sub = _first_clause(narration, 6)
-        return [t for t in (title, sub if sub != title else "") if t]
+        # the subtitle continues the sentence instead of repeating the title:
+        # drawing the same five words twice wastes scene time and reads badly.
+        words = narration.split()
+        rest = " ".join(words[5:]) if len(words) > 5 else ""
+        sub = _first_clause(rest, 6) if rest else ""
+        return [t for t in (title, sub if sub and sub != title else "") if t]
     caption = _first_clause(narration, 7)
     if role == "evidence" and visual:
         label = visual.get("entity") or (names[0] if names else "")
@@ -131,6 +134,7 @@ def _text_slot(
     label_size: int,
     caption_size: int,
     headline_size: int,
+    has_visual: bool = False,
 ) -> tuple[dict, int, int]:
     """Where a text element goes and how big it is (per role and slot)."""
     if role == "hook" and slot == 1:
@@ -143,6 +147,10 @@ def _text_slot(
         )
     if role == "label":
         return {"rect": [1450, 150, 980, 190], "color": ACCENT, "weight": 500}, label_size, 3
+    if role == "evidence" and has_visual and slot == 1:
+        # the entity label belongs on the torn strip, not as a giant headline
+        # on top of the image.  The caption is the second text slot.
+        return {"rect": [1450, 140, 980, 170], "color": ACCENT, "weight": 500}, label_size, 3
     if role == "evidence" and slot == 2:
         return {"rect": [1520, 400, 920, 740], "color": INK, "weight": 500}, caption_size, 4
     return {"rect": [SAFE, 380, CANVAS[0] - 2 * SAFE, 700], "color": INK, "weight": 600}, headline_size, 4
@@ -232,6 +240,7 @@ def build_plan(
                     label_size=label_size,
                     caption_size=caption_size,
                     headline_size=headline_size,
+                    has_visual=bool(visual),
                 )
                 elements.append(
                     _text_element(
@@ -260,7 +269,10 @@ def build_plan(
             elif kind == "underline":
                 # في مشهد الافتتاحية يُرسَم التسطير تحت العنوان الفرعي،
                 # وإلا criss-cross على ذيل الخط العربي.
-                rect = [130, 1290, 2300, 260] if role == "hook" else [130, 285, 2300, 380]
+                # the underline template draws at rect.y + rect.h + offset;
+                # the non-hook text block ends at y=1080, so this keeps the
+                # stroke below the words instead of striking through them.
+                rect = [130, 1290, 2300, 260] if role == "hook" else [130, 724, 2300, 380]
                 elements.append(
                     {
                         "type": "underline",
@@ -419,36 +431,6 @@ def build_plan(
 
     total_frames = _assign_estimated_frames()
 
-    # ميزانية الرسم: النص **المرسوم على الشاشة** يجب أن يُرسم ضمن مدة المشهد.
-    # المعامل مقيس على خطة الإنتاج: ~0.95 كلمة مرسومة في الثانية (القياس:
-    # 106.92ث رسم طبيعي مقابل 79.875ث فيلم => 1.34× تسريع).
-    words_limit = text_budget(fam)
-    over_budget = 0
-    for sc in out_scenes:
-        drawn_words = sum(
-            len(str(el.get("text") or "").replace("\n", " ").split())
-            for el in sc.get("elements") or []
-            if el.get("type") == "text"
-        )
-        narration_words = len((sc.get("narration") or "").split())
-        duration = max(0.1, float(sc.get("duration") or 0.0))
-        capacity = duration * NATURAL_DRAWN_WORDS_PER_SECOND
-        excess = max(0, drawn_words - int(capacity))
-        narration_rate = narration_words / duration
-        sc["text_budget"] = {
-            "drawn_words": drawn_words,
-            "narration_words": narration_words,
-            "narration_words_per_second": round(narration_rate, 3),
-            "natural_words_per_second": NATURAL_DRAWN_WORDS_PER_SECOND,
-            "capacity_words": int(capacity),
-            "fits": excess == 0 and narration_rate <= MAX_NARRATION_WORDS_PER_SECOND,
-            "excess_words": excess,
-            "family_limit": words_limit,
-            "over_family_limit": drawn_words > words_limit,
-        }
-        if not sc["text_budget"]["fits"]:
-            over_budget += 1
-
     al = load_alignment(base) if project_dir else None
     if al and al.segments and al.sample_rate > 0:
         by_id = {int(seg.scene_id): seg for seg in al.segments}
@@ -503,6 +485,37 @@ def build_plan(
             "note": "يوجد تعليق صوتي بلا محاذاة — المدد تقديرية وقد تختلف عن الصوت.",
             "fps": frame_rate_json(rate),
         }
+
+    # ميزانية الرسم: النص **المرسوم على الشاشة** يجب أن يُرسم ضمن مدة المشهد.
+    # تُحسب **بعد** تطبيق المحاذاة، لأن المدة التي ستُرسم فعلًا هي مدة الصوت
+    # لا تقدير الكلمات/الثانية.  المعامل مقيس على خطة الإنتاج: ~0.95 كلمة
+    # مرسومة في الثانية (106.92ث رسم طبيعي مقابل 79.875ث فيلم).
+    words_limit = text_budget(fam)
+    over_budget = 0
+    for sc in out_scenes:
+        drawn_words = sum(
+            len(str(el.get("text") or "").replace("\n", " ").split())
+            for el in sc.get("elements") or []
+            if el.get("type") == "text"
+        )
+        narration_words = len((sc.get("narration") or "").split())
+        duration = max(0.1, float(sc.get("duration") or 0.0))
+        capacity = duration * NATURAL_DRAWN_WORDS_PER_SECOND
+        excess = max(0, drawn_words - int(capacity))
+        narration_rate = narration_words / duration
+        sc["text_budget"] = {
+            "drawn_words": drawn_words,
+            "narration_words": narration_words,
+            "narration_words_per_second": round(narration_rate, 3),
+            "natural_words_per_second": NATURAL_DRAWN_WORDS_PER_SECOND,
+            "capacity_words": int(capacity),
+            "fits": excess == 0 and narration_rate <= MAX_NARRATION_WORDS_PER_SECOND,
+            "excess_words": excess,
+            "family_limit": words_limit,
+            "over_family_limit": drawn_words > words_limit,
+        }
+        if not sc["text_budget"]["fits"]:
+            over_budget += 1
 
     exact_duration = sum(
         (Fraction(str(sc["duration"])) for sc in out_scenes),

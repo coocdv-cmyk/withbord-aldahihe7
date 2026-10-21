@@ -1,0 +1,627 @@
+{
+  "project": "",
+  "lang": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "family": {
+    "name": "documentary",
+    "description": "صور وشواهد: شريط ممزق + صورة + عنوان + تعليق",
+    "words_per_scene": 16,
+    "allows_images": true,
+    "motion": {
+      "zoom": 2.8,
+      "follow": 0.06,
+      "zoom_by_type": {
+        "image": 2.4,
+        "svg": 2.4,
+        "torn_strip": 1.6,
+        "paper_card": 1.8
+      },
+      "hold_on_text": false,
+      "lead_in": 0.15
+    }
+  },
+  "timebase": {
+    "source": "estimated",
+    "method": "words-per-second",
+    "rounding": "absolute-boundaries",
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "sample_rate": null,
+    "total_samples": null,
+    "start_frame": 0,
+    "end_frame": 1296,
+    "frames": 1296
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 6.0,
+      "narration": "كم فكرة رائعة نسيناها لأنها بقيت حبيسة ورقة صغيرة، وكم فكرة أخرى لم تجد من يكتبها في وقتها فماتت في الطريق قبل أن يراها أحد، ثم جاء غيرنا وكتبها بعد سنوات؟",
+      "role": "hook",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            150,
+            300,
+            2240,
+            340
+          ],
+          "color": "#F3D57C",
+          "speed": 2.2,
+          "events": false,
+          "gap": 0.14
+        },
+        {
+          "type": "text",
+          "text": "كم فكرة رائعة نسيناها\nلأنها…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            130,
+            220,
+            2300,
+            720
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "كم فكرة رائعة نسيناها لأنها بقيت…",
+          "font": "cairo",
+          "size": 128,
+          "rect": [
+            190,
+            940,
+            2180,
+            340
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 0,
+      "end_frame": 144,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 11,
+        "narration_words": 31,
+        "narration_words_per_second": 5.167,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 6,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 2,
+      "duration": 6.0,
+      "narration": "الذاكرة لا تحتفظ بكل شيء، لكنها تحتفظ بما نراه وما نلمسه وما نكتبه وما نعيد رسمه بأيدينا كل يوم.",
+      "role": "evidence",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12
+        },
+        {
+          "type": "text",
+          "text": "الذاكرة لا تحتفظ بكل\nشيء، لكنها تحتفظ…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 144,
+      "end_frame": 288,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 19,
+        "narration_words_per_second": 3.167,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 2,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 3,
+      "duration": 6.0,
+      "narration": "حين نحوّل الفكرة إلى رسم بسيط جدًا، يجد العقل صورة واضحة جدًا يعود إليها دائمًا بدل سطرٍ ينساه سريعًا.",
+      "role": "explain",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "حين نحوّل الفكرة إلى\nرسم بسيط جدًا…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            285,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 288,
+      "end_frame": 432,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 19,
+        "narration_words_per_second": 3.167,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 2,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 4,
+      "duration": 6.0,
+      "narration": "لا تحتاج إلى موهبة كبيرة، بل إلى ورقة وقلم ودقيقتين فقط من الصمت العميق.",
+      "role": "evidence",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12
+        },
+        {
+          "type": "text",
+          "text": "لا تحتاج إلى موهبة\nكبيرة، بل إلى…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 432,
+      "end_frame": 576,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 14,
+        "narration_words_per_second": 2.333,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 2,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 5,
+      "duration": 6.0,
+      "narration": "خذ ملاحظة واحدة صغيرة من يومك، وارسم لها دائرة واضحة للفكرة وسهمًا للسبب ومربعًا للنتيجة.",
+      "role": "evidence",
+      "needs": [],
+      "assets_used": [
+        "assets/generated/diagram.svg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "دائرة",
+          "font": "cairo",
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "دائرة",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "svg",
+          "asset": "D:\\withbord inmation\\rasm-pro\\projects\\stage6-arabic-sample\\assets\\generated\\diagram.svg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "gap": 0.35
+        },
+        {
+          "type": "text",
+          "text": "خذ ملاحظة واحدة صغيرة\nمن يومك، وارسم…",
+          "font": "cairo",
+          "size": 150,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 576,
+      "end_frame": 720,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 15,
+        "narration_words_per_second": 2.5,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 3,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 6,
+      "duration": 6.0,
+      "narration": "أعد النظر إلى الرسم في المساء، واسأل نفسك: ماذا بقي واضحًا وماذا اختفى؟",
+      "role": "explain",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "أعد النظر إلى الرسم\nفي المساء، واسأل…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            285,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 720,
+      "end_frame": 864,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 13,
+        "narration_words_per_second": 2.167,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 2,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 7,
+      "duration": 6.0,
+      "narration": "أضف سطرًا واحدًا فقط في المساء، ثم دع الورقة تتحدث عنك بعد أسبوع كامل.",
+      "role": "evidence",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12
+        },
+        {
+          "type": "text",
+          "text": "أضف سطرًا واحدًا فقط\nفي المساء، ثم…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 864,
+      "end_frame": 1008,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 14,
+        "narration_words_per_second": 2.333,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 2,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 8,
+      "duration": 6.0,
+      "narration": "ستكتشف أن الرسم أصبح خريطة حقيقية واضحة، كل خط فيها يعيدك إلى لحظة فهمتها لا إلى كلمة حفظتها بعد وقت طويل جدًا.",
+      "role": "evidence",
+      "needs": [],
+      "assets_used": [
+        "assets/generated/map.svg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "خريطة",
+          "font": "cairo",
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "خريطة",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "svg",
+          "asset": "D:\\withbord inmation\\rasm-pro\\projects\\stage6-arabic-sample\\assets\\generated\\map.svg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "gap": 0.35
+        },
+        {
+          "type": "text",
+          "text": "ستكتشف أن الرسم أصبح\nخريطة حقيقية واضحة…",
+          "font": "cairo",
+          "size": 150,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1008,
+      "end_frame": 1152,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 22,
+        "narration_words_per_second": 3.667,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 3,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 9,
+      "duration": 6.0,
+      "narration": "ابدأ اليوم بورقة واحدة، لا لتتقن الرسم بل لتتذكر ما يستحق أن يبقى.",
+      "role": "close",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            150,
+            300,
+            2240,
+            340
+          ],
+          "color": "#F3D57C",
+          "speed": 2.2,
+          "events": false,
+          "gap": 0.14
+        },
+        {
+          "type": "text",
+          "text": "ابدأ اليوم بورقة واحدة،\nلا لتتقن الرسم…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            285,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1152,
+      "end_frame": 1296,
+      "duration_frames": 144,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 13,
+        "narration_words_per_second": 2.167,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": false,
+        "excess_words": 2,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    }
+  ],
+  "audio": null,
+  "timing": {
+    "source": "estimated",
+    "method": "words-per-second"
+  },
+  "stats": {
+    "scenes": 9,
+    "elements": 24,
+    "estimated_duration": 54.0,
+    "duration": 54.0,
+    "frames": 1296,
+    "scenes_over_text_budget": 9
+  }
+}

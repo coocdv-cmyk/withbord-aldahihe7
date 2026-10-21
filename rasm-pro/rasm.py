@@ -367,38 +367,51 @@ def cmd_audio(args) -> int:
             print("  ⚠ تعذّر قياس الجهارة")
 
     graph = read_json(pd / "script" / "scriptgraph.json")
+    # The active plan is the narration contract once it exists; the script
+    # graph may have changed or been reordered since the plan was built.  The
+    # old code always aligned against the graph and then gated against a
+    # hard-coded plan_v2.json, which could describe different scenes.
+    plan_for_audio = None
+    try:
+        plan_for_audio = read_json(_resolve_plan_arg(pd))
+    except (FileNotFoundError, ProjectError, TimebaseError):
+        plan_for_audio = None
+    align_scenes = (
+        (plan_for_audio or {}).get("scenes")
+        or (graph or {}).get("scenes")
+        or []
+    )
+
     if getattr(args, "align", False) or getattr(args, "file", None):
-        if graph:
-            from engine.audio import load_narration as load_nar
-            from engine.audio.align import measured_align
-            from engine.audio.loudness import decode_samples
+        from engine.audio import load_narration as load_nar
+        from engine.audio.align import measured_align
+        from engine.audio.loudness import decode_samples
+        from engine.audio.narration import resolve_narration
 
-            nm = load_nar(pd)
-            if nm and nm.get("total_samples"):
-                sr = int(nm["sample_rate"])
-                from engine.audio.narration import resolve_narration
-
-                samples, rate = decode_samples(resolve_narration(pd, nm))
-                al = measured_align(
-                    graph.get("scenes", []), samples, rate, int(nm["total_samples"])
+        nm = load_nar(pd)
+        if nm and nm.get("total_samples") and align_scenes:
+            sr = int(nm["sample_rate"])
+            samples, rate = decode_samples(resolve_narration(pd, nm))
+            al = measured_align(
+                align_scenes, samples, rate, int(nm["total_samples"])
+            )
+            out = save_alignment(al, pd)
+            source = "الخطة النشطة" if plan_for_audio else "scriptgraph"
+            print(f"✔ محاذاة ({al.level}) مقابل {source}: {out}")
+            for seg in al.segments:
+                print(
+                    f"   - مشهد {seg.scene_id}: "
+                    f"[{seg.start_sample / sr:.2f} → {seg.end_sample / sr:.2f}]ث · ثقة {seg.confidence:.2f}"
+                    + (" ⚠ " + ",".join(seg.flags) if seg.flags else "")
                 )
-                out = save_alignment(al, pd)
-                print(f"✔ محاذاة ({al.level}): {out}")
-                for seg in al.segments:
-                    print(
-                        f"   - مشهد {seg.scene_id}: "
-                        f"[{seg.start_sample / sr:.2f} → {seg.end_sample / sr:.2f}]ث · ثقة {seg.confidence:.2f}"
-                        + (" ⚠ " + ",".join(seg.flags) if seg.flags else "")
-                    )
-                for note in al.notes:
-                    print(f"  · {note}")
-            else:
-                al = baseline_align(
-                    graph.get("scenes", []), int(nm["total_samples"]), sr
-                ) if nm else None
-                print("• لا يوجد تعليق صوتي — لا محاذاة.")
+            for note in al.notes:
+                print(f"  · {note}")
+        elif nm and nm.get("total_samples"):
+            print("• لا مشاهد في الخطة/الرسم للمحاذاة.")
+        else:
+            print("• لا يوجد تعليق صوتي — لا محاذاة.")
 
-    gate = evaluate_narration_gate(pd, read_json(pd / "storyboard" / "plan_v2.json"))
+    gate = evaluate_narration_gate(pd, plan_for_audio)
     if gate.has_narration:
         print(
             f"  · بوابة الصوت: {gate.lufs} LUFS · مقيسة: {gate.measured} · "
@@ -552,80 +565,9 @@ def cmd_render(args) -> int:
             print(f"✘ الخطة غير صالحة ({len(report['errors'])} خطأ) — لم يبدأ الرندر", file=sys.stderr)
             return 2
 
-    # بوابة الاعتماد: رندر الإنتاج لا يستخدم أصلًا غير معتمد
+    # the default name must say what the file is: a preview or a deliverable
     preview_mode = bool(getattr(args, "preview", False)) or args.max_seconds is not None
     mode = "preview" if preview_mode else "final"
-    manifest = _try_manifest(pd)
-    if manifest is not None:
-        try:
-            gate = evaluate_gate(plan, pd, manifest=manifest, mode=mode)
-        except ApprovalError as exc:
-            print(f"✘ {exc}", file=sys.stderr)
-            return 2
-        for item in gate.warnings[:12]:
-            print(f"⚠ {item['reason']}: {item['path'] or item['display']} — {item['detail']}")
-        if not gate.ok:
-            print("✘ بوابة الأصول: الرندر النهائي ممنوع", file=sys.stderr)
-            for item in gate.blocking[:20]:
-                print(
-                    f"   ✘ {item['reason']}: {item['path'] or item['display']} — {item['detail']}",
-                    file=sys.stderr,
-                )
-            print(
-                "   • اعتمد الأصل: rasm approvals approve <project> --asset <path> --by <name>",
-                file=sys.stderr,
-            )
-            print("   • أو معاينة فقط: --preview (أو --max-seconds)", file=sys.stderr)
-            return 2
-        pending = [i for i in gate.used if i["state"] != "approved"]
-        if preview_mode and pending:
-            print(f"ℹ معاينة: {len(pending)} أصلًا غير معتمد — مسموح في المعاينة، ممنوع في الإنتاج")
-
-    # بوابة الصوت: لا صورة إنتاج بلا سرد مقيس
-    if manifest is not None:
-        try:
-            from engine.audio.gate import evaluate_narration_gate
-            from engine.audio.loudness import TARGETS
-
-            audio_gate = evaluate_narration_gate(
-                pd, plan, mode=mode, target_lufs=TARGETS.get("video")
-            )
-        except Exception as exc:  # a broken audio path must not pass silently
-            print(f"✘ تعذّر فحص بوابة الصوت: {exc}", file=sys.stderr)
-            return 2
-        for item in audio_gate.warnings[:6]:
-            print(f"⚠ {item['reason']}: {item['detail']}")
-        if not audio_gate.ok:
-            print("✘ بوابة الصوت: الرندر النهائي ممنوع", file=sys.stderr)
-            for item in audio_gate.blocking[:10]:
-                print(f"   ✘ {item['reason']}: {item['detail']}", file=sys.stderr)
-            print("   • أو معاينة فقط: --preview (أو --max-seconds)", file=sys.stderr)
-            return 2
-
-    # مكتبة المؤثرات: فحص رخيص قبل أي رندر — لا نصنع فيديو ثم نكتشف أن الصوت ناقص
-    sfx_library = None
-    if getattr(args, "sfx", True):
-        try:
-            from engine.audio.sfx import library_status
-
-            sfx_library = library_status()
-        except Exception as exc:
-            print(f"✘ تعذّر فحص مكتبة المؤثرات: {exc}", file=sys.stderr)
-            return 2
-        if not sfx_library["complete"] and mode == "final":
-            print("✘ مكتبة المؤثرات ناقصة — الرندر النهائي ممنوع", file=sys.stderr)
-            for name in sfx_library["missing"]:
-                print(f"   ✘ التسجيل مفقود: {name}", file=sys.stderr)
-            print("   · أو معاينة فقط: --preview", file=sys.stderr)
-            return 2
-        if not sfx_library["complete"]:
-            print(
-                "⚠ مكتبة المؤثرات ناقصة: "
-                + ", ".join(sfx_library["missing"])
-                + " — معاينة فقط"
-            )
-
-    # the default name must say what the file is: a preview or a deliverable
     default_name = "preview.mp4" if mode == "preview" else "episode.mp4"
     out = Path(args.out) if args.out else pd / "render" / default_name
     size = (1280, 720)
@@ -644,42 +586,73 @@ def cmd_render(args) -> int:
         except Exception:
             scene_range = (1, int(args.scenes))
 
-    canvas = tuple(plan.get("canvas") or [2560, 1440])
-
-    # الصوت: من الخطة أو --audio أو narration.json في المشروع
-    audio_file = None
-    plan_audio = plan.get("audio") or {}
-    if getattr(args, "audio", None):
-        audio_file = args.audio
-    elif plan_audio.get("file"):
-        candidate = Path(plan_audio["file"])
-        if not candidate.is_absolute():
-            candidate = pd / candidate
-        if candidate.exists():
-            audio_file = candidate
-    if audio_file is None:
-        from engine.audio import load_narration
-
-        nar = load_narration(pd)
-        if nar:
-            audio_file = nar.get("path")
-    if audio_file:
-        print(f"• سرد صوتي: {Path(audio_file).name}")
+    # عقد إنتاج واحد للـCLI والـStudio: أصول + صوت فعلي + محاذاة + مؤثرات
+    # + فحص كل مشهد.  كل هذا قبل فتح ملف الإخراج.
+    from engine.production import (
+        ProductionError,
+        prepare_production,
+        render_prepared,
+    )
+    from engine.render.director import RenderPreflightError
 
     try:
-        director = Director(
+        prep = prepare_production(
+            pd,
             plan,
-            canvas=canvas,
-            out_size=size,
+            plan_path=plan_path,
+            manifest=_try_manifest(pd),
+            mode=mode,
+            size=size,
             fps=getattr(args, "fps", None),
+            audio=getattr(args, "audio", None),
+            max_seconds=args.max_seconds,
+            scene_range=scene_range,
+            sfx=getattr(args, "sfx", True),
+            sfx_preset=getattr(args, "sfx_preset", "paper"),
             crf=args.crf,
-            project_dir=pd,
         )
+    except Exception as exc:
+        print(f"✘ تعذّر فحص الإنتاج: {exc}", file=sys.stderr)
+        return 2
+
+    for item in prep.warnings[:12]:
+        where = item.get("path") or item.get("display") or item.get("scene") or ""
+        print(f"⚠ {item['reason']}: {where} — {item.get('detail', '')}")
+    if not prep.ok:
+        print("✘ الإنتاج مرفوض قبل الكتابة", file=sys.stderr)
+        for item in prep.blocking[:20]:
+            where = item.get("path") or item.get("display") or item.get("scene") or ""
+            print(
+                f"   ✘ {item['reason']}: {where} — {item.get('detail', '')}",
+                file=sys.stderr,
+            )
+        print(
+            "   • الأصول: rasm approvals approve <project> --asset <path> --by <name>",
+            file=sys.stderr,
+        )
+        print("   • أو معاينة فقط: --preview (أو --max-seconds)", file=sys.stderr)
+        return 2
+
+    if prep.audio_file:
+        print(f"• سرد صوتي: {Path(prep.audio_file).name} · بصمة مطابقة")
+    if prep.director is not None:
+        print(f"• الخطة: {plan_path} · معدل: {prep.director.fps_rate} · حدود مطلقة")
+    if scene_range and prep.audio_file:
+        start = (prep.director.scene_bounds(scene_range=scene_range, max_seconds=args.max_seconds)[0]["start_frame"] / prep.director.fps) if prep.director else 0
+        print(f"• نطاق المشاهد: يبدأ السرد عند {start:.2f}ث")
+
+    try:
+        res = render_prepared(prep, out)
+    except RenderPreflightError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    except ProductionError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
     except TimebaseError as exc:
         print(f"✘ {exc}", file=sys.stderr)
         return 2
-    print(f"• الخطة: {plan_path} · معدل: {director.fps_rate} · حدود مطلقة")
-    res = director.render(out, audio=audio_file, max_seconds=args.max_seconds, scene_range=scene_range)
+
     print(f"✔ الفيديو: {res['out']}")
     print(
         f"  {res['frames']} إطار · {res['seconds']}ث · "
@@ -687,70 +660,38 @@ def cmd_render(args) -> int:
     )
     if res.get("overflow_scenes"):
         print(f"⚠ مشاهد تجاوز الرسمُ مدتها (لن تُمدّ): {res['overflow_scenes']}")
+    if res.get("compressed_scenes"):
+        print(f"• مشاهد سُرّعت فيها الكتابة لتناسب مدتها: {res['compressed_scenes']}")
 
-    # مؤثرات صوتية واقعية من أحداث الرسم (تُدمج في نفس ملف الفيديو)
-    sfx_muxed = False
-    mix_report: dict = {}
-    if getattr(args, "sfx", True) and res.get("sfx") and Path(res["sfx"]).exists():
-        try:
-            from engine.audio.sfx import build_track, mux_into
-
-            wav = Path(str(out)).with_suffix(".sfx.wav")
-            info = build_track(
-                res["sfx"], wav, preset=getattr(args, "sfx_preset", "paper"),
-                duration=res["seconds"]
-            )
-            mux = mux_into(out, wav, out, narration=None, duration=res["seconds"])
-            res["sfx_wav"] = str(wav)
-            res["audio_mode"] = mux["mode"]
-            sfx_muxed = True
-            src = "تسجيلات حقيقية (ملكية عامة)" if info.get("real_recordings") else "توليف بديل"
-            counts = info.get("counts_by_type") or {}
-            print(
-                f"• مؤثرات: "
-                + (" · ".join(f"{k}={v}" for k, v in counts.items()) or "لا أحداث")
-                + f" · {src} · مزج: {mux['mode']}"
-            )
-            print(
-                f"  · مستوى المسار {info.get('track_rms_dbfs')} dBFS · ذروة "
-                f"{info.get('track_peak_dbfs')} dBFS · هدف المكتبة "
-                f"{info.get('library_target_rms_dbfs')} dBFS"
-                + (" · محدِّد نشط" if info.get("limiter_engaged") else "")
-            )
-            mix_report = {**info, "mux": mux, "library": sfx_library}
-            # تقرير المزج بجانب الفيديو: دليل مقيس على كل قرار
-            write_json(Path(str(out)).with_suffix(".mix.json"), mix_report)
-            res["mix_report"] = str(Path(str(out)).with_suffix(".mix.json"))
-            if info.get("synthetic_fallback") and mode == "final":
-                print("✘ بعض أنواع المؤثرات سقطت إلى التوليف — الرندر النهائي ممنوع", file=sys.stderr)
-                for name in info.get("missing_recordings") or []:
-                    print(f"   ✘ التسجيل مفقود: {name}", file=sys.stderr)
-                return 2
-        except Exception as e:
-            if mode == "final":
-                print(f"✘ تعذّر إدماج المؤثرات الصوتية: {e}", file=sys.stderr)
-                return 2
-            print(f"⚠ تعذّر إدماج المؤثرات الصوتية: {e}")
+    production = res.get("production") or {}
+    mix = production.get("mix") or {}
+    if mix:
+        counts = mix.get("counts_by_type") or {}
+        src = "تسجيلات حقيقية (ملكية عامة)" if mix.get("real_recordings") else "توليف بديل"
+        mux_mode = (mix.get("mux") or {}).get("mode", "—")
+        print(
+            f"• مؤثرات: "
+            + (" · ".join(f"{k}={v}" for k, v in counts.items()) or "لا أحداث")
+            + f" · {src} · مزج: {mux_mode}"
+        )
+        print(
+            f"  · مستوى المسار {mix.get('track_rms_dbfs')} dBFS · ذروة "
+            f"{mix.get('track_peak_dbfs')} dBFS · هدف المكتبة "
+            f"{mix.get('library_target_rms_dbfs')} dBFS"
+            + (" · محدِّد نشط" if mix.get("limiter_engaged") else "")
+        )
     if res.get("narration_frames") is not None:
         drift = res.get("drift_frames")
         print(f"  مزامنة السرد: {res['narration_frames']} إطار متوقع · انزلاق {drift} إطار {'✔' if drift == 0 else '⚠'}")
 
     # تحقق رقمي مستقل (FFprobe) — لا نجاح بلا دليل
-    from engine.render.validate import validate_video
-
-    report = validate_video(
-        out,
-        expect_size=size,
-        expect_fps=director.fps_rate,
-        expect_frames=res["frames"],
-        expect_audio=bool(audio_file) or sfx_muxed,
-        expect_duration_sec=res["duration_sec_exact"],
-        tolerance_frames=1,
-    )
-    print(("✔" if report["ok"] else "✘") + f" تحقق FFprobe: {report['path']}")
-    for c in report["checks"]:
+    report = production.get("validation") or {}
+    print(("✔" if report.get("ok") else "✘") + f" تحقق FFprobe: {report.get('path', out)}")
+    for c in report.get("checks") or []:
         print(f"   {'✔' if c['ok'] else '✘'} {c['check']}: {c['detail']}")
-    return 0 if report["ok"] else 2
+    for item in production.get("blocking") or []:
+        print(f"   ✘ {item['reason']}: {item.get('detail', '')}", file=sys.stderr)
+    return 0 if report.get("ok") else 2
 
 
 def cmd_project_init(args) -> int:
@@ -1196,7 +1137,13 @@ def cmd_approvals_credits(args) -> int:
 
     pd = project_dir(args.project)
     store = AssetStore(pd)
-    path = store.write_credits()
+    plan = None
+    try:
+        manifest = _try_manifest(pd)
+        plan = read_json(_active_plan_path(pd, manifest, getattr(args, "plan", None)))
+    except (FileNotFoundError, ProjectError):
+        plan = None
+    path = store.write_credits(plan=plan)
     text = path.read_text(encoding="utf-8")
     credited = [l for l in text.splitlines() if l.startswith("- **")]
     pending = [l for l in text.splitlines() if l.startswith("- ") and "**" not in l]

@@ -348,20 +348,48 @@ def measured_align(
         flags_common = ["pause-detected", "proportional-mapping"]
         notes.append(
             f"عدد المقاطع المقيسة ({len(segments)}) ≠ عدد المشاهد ({len(scenes)}) ⇒ "
-            "التوزيع تناسبي على زمن النطق المقيس، والحدود تُلصق بأقرب وقفة."
+            "التوزيع تناسبي على زمن النطق المقيس، ثم يُحوَّل كل حد تراكمي إلى "
+            "زمن التسجيل مع احتساب الوقفات التي تسبقه."
         )
         speech_total = sum(s.length for s in segments)
         weights = [_text_weight(t) for t in texts]
         parts = _largest_remainder(speech_total, weights)
-        raw_bounds: list[int] = []
-        cursor = segments[0].start_sample
-        for part in parts:
-            raw_bounds.append(cursor)
-            cursor += part
-        raw_bounds.append(min(total_samples, cursor))
-        edges = [s.start_sample for s in segments] + [s.end_sample for s in segments]
-        snapped = [min(edges, key=lambda e: (abs(e - b), e)) for b in raw_bounds]
-        interior = snapped[1:-1]
+
+        def speech_to_recording(offset: int) -> int:
+            """Map a cumulative *spoken* sample offset to the recording clock.
+
+            Walking the measured utterances is the whole point: if the first
+            two scenes weigh half the speech, the boundary is at half of the
+            **spoken** time, but its place in the recording must include every
+            pause that came before it.  Snapping to a nearby pause edge (the
+            old behaviour) silently discarded those pauses and started the
+            scene too early.  At an exact end-of-utterance offset we return
+            that end, so a boundary that falls on a pause stays on the pause.
+            """
+            cursor = 0
+            for seg in segments:
+                if offset <= cursor + seg.length:
+                    return int(seg.start_sample + (offset - cursor))
+                cursor += seg.length
+            return int(total_samples)
+
+        # Boundaries after each scene except the last; cumulative speech time
+        # is converted to recording time rather than compressed into speech.
+        interior: list[int] = []
+        cumulative = 0
+        for i in range(len(scenes) - 1):
+            cumulative += parts[i]
+            boundary = speech_to_recording(cumulative)
+            # Integer rounding must never create a zero-length scene; leave at
+            # least one sample for every remaining scene.
+            remaining = len(scenes) - 1 - i
+            upper = max(0, int(total_samples) - remaining)
+            boundary = min(boundary, upper)
+            if interior:
+                boundary = max(boundary, interior[-1] + 1)
+            else:
+                boundary = max(1, boundary)
+            interior.append(int(boundary))
 
     # the picture covers the whole recording: [0 .. total_samples]
     bounds = [0] + [int(b) for b in interior] + [int(total_samples)]

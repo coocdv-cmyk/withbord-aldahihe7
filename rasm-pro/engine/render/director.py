@@ -40,6 +40,23 @@ MIN_DRAW_SEC = 0.4
 INK = (34, 30, 26)
 
 
+class RenderPreflightError(RuntimeError):
+    """The plan cannot be rendered as written; nothing was written to disk.
+
+    A production render must fail **before** opening the output.  Reporting an
+    overflow after the file exists is not a refusal; it is a broken deliverable.
+    """
+
+    def __init__(self, report: dict):
+        self.report = report
+        reasons = []
+        for item in report.get("blocking") or []:
+            reason = item.get("reason") or "unknown"
+            detail = item.get("detail") or ""
+            reasons.append(f"{reason}: {detail}" if detail else reason)
+        super().__init__("الرندر مرفوض قبل الكتابة — " + "; ".join(reasons))
+
+
 def _rgb(color, default=INK) -> tuple[int, int, int]:
     """يحوّل لون الخطة (#RRGGBB) إلى ثلاثية RGB لـPIL."""
     if not color:
@@ -261,6 +278,7 @@ class Director:
         self.pen_rot_angle = None
         # أحداث القلم (للصوت): تُجمع أثناء الرندر وتُكتب بجانب الفيديو
         self.sfx_events: list[dict] = []
+        self._last_preflight: dict | None = None
 
     # ---------- تجهيز ----------
     def _asset_path(self, raw: str | Path) -> Path:
@@ -275,12 +293,32 @@ class Director:
             return p
         return (self.project_dir / p)
 
-    def _prepare_scene(self, scene: dict, planned_seconds: float | None = None) -> tuple[list[dict], float]:
+    def _prepare_scene(
+        self,
+        scene: dict,
+        planned_seconds: float | None = None,
+        *,
+        issues: list[dict] | None = None,
+    ) -> tuple[list[dict], float, float]:
         items: list[dict] = []
         t = float(scene.get("start_pause", 0.35))
-        for el in scene.get("elements", []):
+        for el_index, el in enumerate(scene.get("elements", [])):
             if not isinstance(el, dict):
                 continue
+
+            def report_issue(reason: str, detail: str, *, severity: str = "blocking") -> None:
+                if issues is not None:
+                    issues.append(
+                        {
+                            "reason": reason,
+                            "detail": detail,
+                            "severity": severity,
+                            "element": el_index,
+                            "type": el.get("type"),
+                            "element_id": el.get("id"),
+                        }
+                    )
+
             # نسخة محلية: المسارات النسبية تُحلّ نسبةً لمجلد المشروع،
             # ولا تُعدَّل الخطة الأصلية.
             el = dict(el)
@@ -291,10 +329,18 @@ class Director:
             etype = el.get("type")
             gap = float(el.get("gap", 0.22))
             if etype == "image":
-                path = self._asset_path(el["asset"])
+                raw_path = el.get("asset")
+                if not raw_path:
+                    report_issue("element-missing", "عنصر صورة بلا مسار أصل")
+                    continue
+                path = self._asset_path(raw_path)
+                if not path.exists():
+                    report_issue("element-missing", f"الأصل غير موجود: {raw_path}")
+                    continue
                 try:
                     img = Image.open(path).convert("RGB")
                 except Exception as e:
+                    report_issue("element-unreadable", f"صورة غير مقروءة {raw_path}: {e}")
                     log.warning("تخطّي صورة غير مقروءة %s: %s", path, e)
                     continue
                 doc = _cached_doc(
@@ -302,6 +348,7 @@ class Director:
                     lambda: raster_to_strokes(np.asarray(img), max_size=int(el.get("trace_size", 900)), rtl=bool(el.get("rtl", False))),
                 )
                 if not doc.strokes:
+                    report_issue("element-empty", f"لم تُستخرج مسارات من الصورة: {raw_path}")
                     continue
                 strokes = clip_strokes(_fatten(doc, 2.8), rect)
                 # صندوق عرض الصورة: نفس تحجيم المسارات (حفظ النسبة + توسيط)
@@ -315,8 +362,28 @@ class Director:
                 items.append({"kind": "reveal", "obj": reveal, "start": t, "dur": dur, "bbox": strokes_bbox(strokes), "el": el, "gap": gap})
                 t += dur + gap
             elif etype in ("text", "svg"):
-                doc = load_doc(el)
+                if etype == "svg":
+                    raw_path = el.get("asset")
+                    if not raw_path:
+                        report_issue("element-missing", "عنصر SVG بلا مسار أصل")
+                        continue
+                    path = self._asset_path(raw_path)
+                    if not path.exists():
+                        report_issue("element-missing", f"ملف SVG غير موجود: {raw_path}")
+                        continue
+                try:
+                    doc = load_doc(el)
+                except Exception as e:
+                    report_issue("element-unreadable", f"تعذّر تحميل العنصر: {e}")
+                    log.warning("تخطّي عنصر غير مقروء (%s): %s", etype, e)
+                    continue
                 if not doc or not doc.strokes:
+                    report_issue(
+                        "element-empty",
+                        "نص فارغ أو لم تُستخرج منه مسارات"
+                        if etype == "text"
+                        else "ملف SVG بلا مسارات قابلة للرسم",
+                    )
                     continue
                 strokes = clip_strokes(doc, rect)
                 words = None
@@ -330,8 +397,14 @@ class Director:
                               "el": el, "gap": gap, "nat": tl.natural, "events": True, "_prev": 0.0})
                 t += dur + gap
             elif etype in ("highlight", "underline", "flourish", "arrow", "timeline", "bars"):
-                strokes = _template_strokes(el)
+                try:
+                    strokes = _template_strokes(el)
+                except Exception as e:
+                    report_issue("element-unreadable", f"تعذّر بناء عنصر {etype}: {e}")
+                    log.warning("تخطّي عنصر %s غير صالح: %s", etype, e)
+                    continue
                 if not strokes:
+                    report_issue("element-empty", f"عنصر {etype} لا ينتج أي مسار للرسم")
                     continue
                 speed = self.speed * float(el.get("speed", 1.0))
                 tl = HandTimeline(strokes)
@@ -341,15 +414,34 @@ class Director:
                               "events": bool(el.get("events", True)), "_prev": 0.0})
                 t += dur + gap
             elif etype in ("paper_card", "torn_strip", "texture", "background"):
+                if etype in ("texture", "background"):
+                    raw_path = el.get("asset") or el.get("texture")
+                    if not raw_path:
+                        report_issue("element-missing", f"عنصر {etype} بلا صورة خلفية")
+                        continue
+                    path = self._asset_path(raw_path)
+                    if not path.exists():
+                        report_issue("element-missing", f"الخلفية غير موجودة: {raw_path}")
+                        continue
+                    try:
+                        with Image.open(path) as probe_img:
+                            probe_img.verify()
+                    except Exception as e:
+                        report_issue("element-unreadable", f"خلفية غير مقروءة {raw_path}: {e}")
+                        continue
                 fn = _template_decor(el)
                 if fn is None:
+                    report_issue("element-empty", f"عنصر {etype} بلا دالة رسم")
                     continue
                 x, y, w, h = [float(v) for v in rect]
                 pad = 40.0
-                items.append({"kind": "paint_once", "fn": fn, "start": t, "dur": 0.001,
+                reveal = max(0.001, float(el.get("reveal_time", 0.12)))
+                items.append({"kind": "paint_once", "fn": fn, "start": t, "dur": reveal,
                               "bbox": (x - pad, y - pad, x + w + pad, y + h + pad), "el": el,
                               "gap": float(el.get("gap", 0.08))})
-                t += float(el.get("reveal_time", 0.12)) + float(el.get("gap", 0.08))
+                t += reveal + float(el.get("gap", 0.08))
+            else:
+                report_issue("element-unsupported", f"نوع عنصر غير معروف: {etype!r}")
         natural_end = max((it["start"] + it["dur"] for it in items), default=0.0)
         items, time_scale = self._fit_timings(items, planned_seconds)
         return items, natural_end, time_scale
@@ -420,16 +512,118 @@ class Director:
         frame.paste(self.pen_rot, (int(round(px - self.pen_tip[0])), int(round(py - self.pen_tip[1]))), self.pen_rot)
         return frame
 
+    # ---------- فحص قبل الكتابة ----------
+    def preflight(
+        self,
+        *,
+        scene_range: tuple[int, int] | None = None,
+        max_seconds: float | None = None,
+    ) -> dict:
+        """Check every scene **before** any output file is opened.
+
+        A production render may only write a file when every required element
+        can be placed inside its scene and every referenced asset can be read.
+        The old code reported ``overflow`` after the fact and skipped missing
+        assets silently; both are now blocking findings with a reason.
+        """
+        bounds = self.scene_bounds(scene_range=scene_range, max_seconds=max_seconds)
+        blocking: list[dict] = []
+        warnings: list[dict] = []
+        scenes: list[dict] = []
+        for bound in bounds:
+            idx = int(bound["index"])
+            scene = bound["scene"]
+            source_frames = int(bound.get("source_frames") or bound.get("frames") or 0)
+            planned_seconds = float(self.fps_rate.time_of_frames(source_frames))
+            issues: list[dict] = []
+            items, natural_end, time_scale = self._prepare_scene(
+                scene, planned_seconds, issues=issues
+            )
+            drawn_end = max((it["start"] + it["dur"] for it in items), default=0.0)
+            fits = drawn_end <= planned_seconds + 1e-6
+            for issue in issues:
+                item = {
+                    "scene": scene.get("id"),
+                    "index": idx,
+                    **issue,
+                }
+                (warnings if issue.get("severity") == "warning" else blocking).append(item)
+            if not fits:
+                blocking.append(
+                    {
+                        "scene": scene.get("id"),
+                        "index": idx,
+                        "reason": "scene-does-not-fit",
+                        "detail": (
+                            f"العناصر تنتهي عند {drawn_end:.3f}ث من مشهد مدته "
+                            f"{planned_seconds:.3f}ث — لا يمكن تسريعها أكثر مع حد "
+                            f"{MIN_DRAW_SEC:.2f}ث للعنصر."
+                        ),
+                        "planned_seconds": round(planned_seconds, 6),
+                        "drawn_end_seconds": round(float(drawn_end), 6),
+                    }
+                )
+            if not items and scene.get("elements"):
+                warnings.append(
+                    {
+                        "scene": scene.get("id"),
+                        "index": idx,
+                        "reason": "scene-empty",
+                        "detail": "لم ينتج أي عنصر قابل للرسم من عناصر المشهد.",
+                    }
+                )
+            scenes.append(
+                {
+                    "id": scene.get("id"),
+                    "index": idx,
+                    "planned_seconds": round(planned_seconds, 6),
+                    "natural_seconds": round(float(natural_end), 6),
+                    "drawn_end_seconds": round(float(drawn_end), 6),
+                    "elements": len(items),
+                    "missing_elements": sum(1 for i in issues if i.get("severity") != "warning"),
+                    "fits": bool(fits),
+                    "time_scale": time_scale,
+                }
+            )
+        report = {
+            "ok": not blocking,
+            "blocking": blocking,
+            "warnings": warnings,
+            "scenes": scenes,
+            "frames": sum(int(b["frames"]) for b in bounds),
+        }
+        self._last_preflight = report
+        return report
+
     # ---------- الرندر ----------
-    def render(self, out_path: str | Path, *, audio: str | Path | None = None, max_seconds: float | None = None,
-               scene_range: tuple[int, int] | None = None, on_progress=None) -> dict:
+    def render(
+        self,
+        out_path: str | Path,
+        *,
+        audio: str | Path | None = None,
+        max_seconds: float | None = None,
+        scene_range: tuple[int, int] | None = None,
+        on_progress=None,
+        strict: bool = False,
+        preflight_report: dict | None = None,
+    ) -> dict:
         cw, ch = self.canvas
         aspect = self.out_size[0] / self.out_size[1]
         self.sfx_events = []
         bounds = self.scene_bounds(scene_range=scene_range, max_seconds=max_seconds)
         if not bounds:
             raise TimebaseError("لا توجد مشاهد قابلة للرندر بعد تطبيق النطاق/الحد الزمني")
+        report = preflight_report
+        if strict:
+            if report is None:
+                report = self.preflight(
+                    scene_range=scene_range, max_seconds=max_seconds
+                )
+            if not report.get("ok"):
+                raise RenderPreflightError(report)
         expected_frames = sum(int(b["frames"]) for b in bounds)
+        output_start_frame = int(bounds[0]["start_frame"])
+        output_start_time = float(self.fps_rate.time_of_frames(output_start_frame))
         writer = FFmpegWriter(
             out_path,
             self.out_size,
@@ -437,6 +631,7 @@ class Director:
             crf=self.crf,
             preset=self.preset,
             audio=audio,
+            audio_start=output_start_time if audio else 0.0,
             expected_frames=expected_frames,
         )
         frames_total = 0
@@ -444,7 +639,6 @@ class Director:
         t0 = time.time()
         audio_cfg = self.plan.get("audio") or {}
         sample_rate = int(audio_cfg.get("sample_rate") or 0)
-        output_start_frame = int(bounds[0]["start_frame"])
 
         for bound in bounds:
             idx = int(bound["index"])
@@ -456,7 +650,9 @@ class Director:
             wb = Whiteboard(cw, ch, ink=self.ink)
             cam = Viewport(0.0, 0.0, float(cw), float(ch))
             items, natural_end, time_scale = self._prepare_scene(scene, planned_seconds)
-            overflow = natural_end > planned_seconds + 1e-9
+            drawn_end = max((it["start"] + it["dur"] for it in items), default=0.0)
+            overflow = drawn_end > planned_seconds + 1e-9
+            compressed = natural_end > planned_seconds + 1e-9 and not overflow
             scene_report.append({
                 "id": scene.get("id"),
                 "index": idx,
@@ -469,13 +665,20 @@ class Director:
                 "source_frames": source_frames,
                 "source_seconds": round(planned_seconds, 6),
                 "overflow": bool(overflow),
+                "compressed": bool(compressed),
                 "natural_seconds": round(float(natural_end), 6),
+                "drawn_end_seconds": round(float(drawn_end), 6),
                 # how much faster than natural the drawing had to be (1.0 = fits)
                 "time_scale": time_scale,
             })
+            suffix = ""
+            if overflow:
+                suffix = " ⚠ overflow"
+            elif compressed:
+                suffix = f" ⚡ compressed ×{time_scale:.2f}"
             log.info(
                 "مشهد %d: %d عنصر · %.3fث · %d إطار%s",
-                idx, len(items), planned_seconds, frames, " ⚠ overflow" if overflow else "",
+                idx, len(items), planned_seconds, frames, suffix,
             )
             scene_base_frame = int(bound["start_frame"])
             scene_project_start = self.fps_rate.time_of_frames(scene_base_frame)
@@ -618,7 +821,10 @@ class Director:
             "narration_frames": expected_frames,
             "drift_frames": frames_total - expected_frames,
             "output_start_frame": output_start_frame,
+            "audio_start_sec": round(output_start_time if audio else 0.0, 9),
+            "preflight": report,
             "sfx": sfx_path,
             "pen_events": len(self.sfx_events),
             "overflow_scenes": [s["id"] for s in scene_report if s.get("overflow")],
+            "compressed_scenes": [s["id"] for s in scene_report if s.get("compressed")],
         }

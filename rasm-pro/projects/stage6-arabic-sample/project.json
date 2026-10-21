@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "project_id": "stage6-arabic-sample",
+  "title": "stage6-arabic-sample",
+  "language": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "status": "planned",
+  "created_at": "2026-10-21T07:31:04Z",
+  "updated_at": "2026-10-21T09:11:52Z",
+  "paths": {
+    "script": "script/scriptgraph.json",
+    "script_text": null,
+    "research": "research/research.json",
+    "assets_index": "research/assets.json"
+  },
+  "storyboard": {
+    "active": "storyboard/plan_v3.json",
+    "sha256": "a46a33b28adc57ee4f1f3b199c33b1e7db39ee784162786f78eea4ef8c486bbf",
+    "format_version": "2.0"
+  },
+  "audio": {
+    "narration": null,
+    "alignment": null
+  },
+  "asset_policy": {
+    "generated_is_evidence": false,
+    "retrieved_requires_approval": true,
+    "requires_origin": true,
+    "requires_license": true,
+    "final_render_requires_approval": true
+  },
+  "assets": [
+    {
+      "path": "assets/generated/diagram.svg",
+      "asset_id": "a-546f24c38fa6",
+      "sha256": "546f24c38fa6e6e7ee8187a734c79f56f27afd48adfa83721b3845a36906c7bf",
+      "bytes": 485,
+      "kind": "diagram",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Generated locally for this sample",
+        "url": "",
+        "page_url": "",
+        "retrieved_at": null,
+        "title": "A three-part idea diagram",
+        "author": "Rasm sample generator"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_required": false
+      },
+      "approved_by": "sample-reviewer",
+      "approved_at": "2026-10-21T09:11:31Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "sample-reviewer",
+        "reviewed_at": "2026-10-21T09:11:31Z",
+        "note": "regenerated as paths only; approved for this sample",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/generated/map.svg",
+      "asset_id": "a-8beea944c1dd",
+      "sha256": "8beea944c1dd7a89483652b0b3e980a148404e4ec566a18d5c47e13e14df1d03",
+      "bytes": 465,
+      "kind": "diagram",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Generated locally for this sample",
+        "url": "",
+        "page_url": "",
+        "retrieved_at": null,
+        "title": "A hand-drawn route map",
+        "author": "Rasm sample generator"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_required": false
+      },
+      "approved_by": "sample-reviewer",
+      "approved_at": "2026-10-21T07:31:49Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "sample-reviewer",
+        "reviewed_at": "2026-10-21T07:31:49Z",
+        "note": "generated locally; approved for this sample",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/generated/rejected-mirror.svg",
+      "asset_id": "a-ebed9016644a",
+      "sha256": "ebed9016644a34c0e4f7b76cc81dc8a769b3c5adf0988d73fc294401b2e8d09f",
+      "bytes": 272,
+      "kind": "diagram",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Generated locally for this sample",
+        "url": "",
+        "page_url": "",
+        "retrieved_at": null,
+        "title": "A rejected generated mirror sketch",
+        "author": "Rasm sample generator"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "rejected",
+        "reviewer": "sample-reviewer",
+        "reviewed_at": "2026-10-21T09:11:35Z",
+        "note": "rejected: not needed for this sample",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/generated/unused-key.svg",
+      "asset_id": "a-b006f64e7432",
+      "sha256": "b006f64e7432a0808953c09a6132098eb2cc9e02a9e2ff32c75ad82956519fd4",
+      "bytes": 306,
+      "kind": "diagram",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Generated locally for this sample",
+        "url": "",
+        "page_url": "",
+        "retrieved_at": null,
+        "title": "An unused generated key diagram",
+        "author": "Rasm sample generator"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_required": false
+      },
+      "approved_by": "sample-reviewer",
+      "approved_at": "2026-10-21T09:11:33Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "sample-reviewer",
+        "reviewed_at": "2026-10-21T09:11:33Z",
+        "note": "approved but not used by the plan",
+        "records": 1
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "narration-missing",
+      "kind": "audio",
+      "blocking": false,
+      "message": "لا يوجد تعليق صوتي معتمد؛ مدة الخطة تقديرية وليست مزامنة صوت."
+    },
+    {
+      "id": "assets-pending-approval",
+      "kind": "assets",
+      "blocking": false,
+      "message": "0 أصلًا بانتظار الاعتماد البشري (معتمد: 3 · مرفوض: 1) قبل الإنتاج.",
+      "counts": {
+        "pending": 0,
+        "approved": 3,
+        "rejected": 1,
+        "used_unapproved": 0
+      }
+    }
+  ],
+  "renders": [],
+  "render": {
+    "fps_source": "plan",
+    "width": 2560,
+    "height": 1440,
+    "default_out_size": [
+      1280,
+      720
+    ],
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "studio": {
+    "kind": "rasm-pro",
+    "project_id": "stage6-arabic-sample"
+  },
+  "approval_log": {
+    "path": "research/approvals.jsonl",
+    "records": 5,
+    "sha256": "59990077b117c5c9df676acf0580406e5144aa61c2628c61ecbefb5059142f91"
+  }
+}

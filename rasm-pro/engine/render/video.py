@@ -83,12 +83,16 @@ class FFmpegWriter:
         crf: int = 19,
         preset: str = "medium",
         audio: str | Path | None = None,
+        audio_start: float = 0.0,
         ffmpeg: str | None = None,
         expected_frames: int | None = None,
     ):
         self.size = (int(size[0]), int(size[1]))
         self.fps_rate = coerce_frame_rate(24 if fps is None else fps)
         self.fps = self.fps_rate.fps
+        self.audio_start = float(audio_start or 0.0)
+        if self.audio_start < 0:
+            raise ValueError("audio_start يجب أن يكون صفرًا أو موجبًا")
         self.expected_frames = int(expected_frames) if expected_frames else None
         if self.expected_frames is not None and self.expected_frames <= 0:
             raise TimebaseError("expected_frames يجب أن يكون موجبًا")
@@ -106,6 +110,11 @@ class FFmpegWriter:
             "-i", "-",
         ]
         if audio:
+            # Input-side seek: a scene-range export must start the narration at
+            # the first exported scene, not at 0.  The output `-t` below trims
+            # the result to the exported frame count.
+            if self.audio_start > 0:
+                cmd += ["-ss", f"{self.audio_start:.9f}"]
             cmd += ["-i", str(audio)]
         cmd += [
             "-c:v", "libx264",

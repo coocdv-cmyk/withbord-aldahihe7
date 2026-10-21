@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "level": "SEGMENTED",
+  "method": "vad-pauses-proportional-v1",
+  "sample_rate": 48000,
+  "total_samples": 4058016,
+  "notes": [
+    "بنية الوقف مقيسة: 20 مقطع نطق مكتشف من الصوت فعليًا.",
+    "عدد المقاطع المقيسة (20) ≠ عدد المشاهد (9) ⇒ التوزيع تناسبي على زمن النطق المقيس، ثم يُحوَّل كل حد تراكمي إلى زمن التسجيل مع احتساب الوقفات التي تسبقه.",
+    "التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق)."
+  ],
+  "segments": [
+    {
+      "scene_id": 1,
+      "text": "كم فكرة رائعة نسيناها لأنها بقيت حبيسة ورقة صغيرة، وكم فكرة أخرى لم تجد من يكتبها في وقتها فماتت في الطريق قبل أن يراها أحد، ثم جاء غيرنا وكتبها بعد سنوات؟",
+      "start_sample": 0,
+      "end_sample": 710590,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 2,
+      "text": "الذاكرة لا تحتفظ بكل شيء، لكنها تحتفظ بما نراه وما نلمسه وما نكتبه وما نعيد رسمه بأيدينا كل يوم.",
+      "start_sample": 710590,
+      "end_sample": 1159580,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 3,
+      "text": "حين نحوّل الفكرة إلى رسم بسيط جدًا، يجد العقل صورة واضحة جدًا يعود إليها دائمًا بدل سطرٍ ينساه سريعًا.",
+      "start_sample": 1159580,
+      "end_sample": 1520250,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 4,
+      "text": "لا تحتاج إلى موهبة كبيرة، بل إلى ورقة وقلم ودقيقتين فقط من الصمت العميق.",
+      "start_sample": 1520250,
+      "end_sample": 1902294,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 5,
+      "text": "خذ ملاحظة واحدة صغيرة من يومك، وارسم لها دائرة واضحة للفكرة وسهمًا للسبب ومربعًا للنتيجة.",
+      "start_sample": 1902294,
+      "end_sample": 2307588,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 6,
+      "text": "أعد النظر إلى الرسم في المساء، واسأل نفسك: ماذا بقي واضحًا وماذا اختفى؟",
+      "start_sample": 2307588,
+      "end_sample": 2829143,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 7,
+      "text": "أضف سطرًا واحدًا فقط في المساء، ثم دع الورقة تتحدث عنك بعد أسبوع كامل.",
+      "start_sample": 2829143,
+      "end_sample": 3196553,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 8,
+      "text": "ستكتشف أن الرسم أصبح خريطة حقيقية واضحة، كل خط فيها يعيدك إلى لحظة فهمتها لا إلى كلمة حفظتها بعد وقت طويل جدًا.",
+      "start_sample": 3196553,
+      "end_sample": 3614359,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 9,
+      "text": "ابدأ اليوم بورقة واحدة، لا لتتقن الرسم بل لتتذكر ما يستحق أن يبقى.",
+      "start_sample": 3614359,
+      "end_sample": 4058016,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    }
+  ]
+}

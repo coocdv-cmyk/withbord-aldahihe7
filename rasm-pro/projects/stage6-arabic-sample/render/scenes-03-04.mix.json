@@ -1,0 +1,66 @@
+{
+  "out": "D:\\withbord inmation\\rasm-pro\\projects\\stage6-arabic-sample\\render\\scenes-03-04.sfx.wav",
+  "duration": 15.958,
+  "requested_duration": 15.458,
+  "events": 255,
+  "counts_by_type": {
+    "page": 1,
+    "scratch": 120,
+    "scratch_soft": 2,
+    "tick": 7
+  },
+  "types_used": 4,
+  "types_available": 6,
+  "dropped_events": 0,
+  "closed_open_strokes": 0,
+  "preset": "paper",
+  "preset_offset_db": 0.0,
+  "sfx_mix_db": -9.1,
+  "library_target_rms_dbfs": -30.0,
+  "track_rms_dbfs": -31.67,
+  "track_peak_dbfs": -7.42,
+  "limiter_engaged": false,
+  "missing_recordings": [],
+  "synthetic_fallback": false,
+  "real_recordings": true,
+  "sources": [
+    {
+      "file": "page_turn.wav",
+      "role": "card / scene transition",
+      "description": "نقل بطاقة أو انتقال مشهد — صوت ورق حقيقي"
+    },
+    {
+      "file": "page_turn.wav",
+      "role": "soft placement",
+      "description": "وضع صورة أو خلفية — ورق أخف"
+    },
+    {
+      "file": "pen_felt.wav",
+      "role": "light stroke",
+      "description": "الخطوط الخفيفة (تظليل/تسطير) — نسيج ألطف"
+    },
+    {
+      "file": "pen_ink.wav",
+      "role": "handwriting",
+      "description": "خط الكتابة اليدوية — الطبقة الأساسية لكل حركة رسم"
+    },
+    {
+      "file": "pen_ink.wav",
+      "role": "quick mark",
+      "description": "العلامات السريعة (زخرفة/سهم/خط زمني) — أسرع وأقصر"
+    },
+    {
+      "file": "pen_ink.wav",
+      "role": "point / tap",
+      "description": "نقطة الإعجام — نقرة قصيرة"
+    }
+  ],
+  "mux": {
+    "out": "D:\\withbord inmation\\rasm-pro\\projects\\stage6-arabic-sample\\render\\scenes-03-04.mp4",
+    "mode": "narration+sfx",
+    "sfx_weight": 0.35,
+    "narration": null,
+    "duration": 15.458333
+  },
+  "mode": "narration+sfx"
+}

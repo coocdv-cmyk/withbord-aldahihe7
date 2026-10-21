@@ -1,0 +1,70 @@
+[
+  {
+    "path": "assets/generated/map.svg",
+    "sha256": "",
+    "kind": "diagram",
+    "mime": "image/svg+xml",
+    "source": "Generated locally for this sample",
+    "url": "",
+    "page_url": "",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "title": "A hand-drawn route map",
+    "author": "Rasm sample generator",
+    "attr": false,
+    "origin": {
+      "kind": "generated"
+    }
+  },
+  {
+    "path": "assets/generated/diagram.svg",
+    "sha256": "",
+    "kind": "diagram",
+    "mime": "image/svg+xml",
+    "source": "Generated locally for this sample",
+    "url": "",
+    "page_url": "",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "title": "A three-part idea diagram",
+    "author": "Rasm sample generator",
+    "attr": false,
+    "origin": {
+      "kind": "generated"
+    }
+  },
+  {
+    "path": "assets/generated/unused-key.svg",
+    "sha256": "",
+    "kind": "diagram",
+    "mime": "image/svg+xml",
+    "source": "Generated locally for this sample",
+    "url": "",
+    "page_url": "",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "title": "An unused generated key diagram",
+    "author": "Rasm sample generator",
+    "attr": false,
+    "origin": {
+      "kind": "generated"
+    }
+  },
+  {
+    "path": "assets/generated/rejected-mirror.svg",
+    "sha256": "",
+    "kind": "diagram",
+    "mime": "image/svg+xml",
+    "source": "Generated locally for this sample",
+    "url": "",
+    "page_url": "",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "title": "A rejected generated mirror sketch",
+    "author": "Rasm sample generator",
+    "attr": false,
+    "origin": {
+      "kind": "generated"
+    }
+  }
+]

@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-10-21T00:00:00+00:00",
+  "project": "stage6-arabic-sample",
+  "entities": [
+    {
+      "name": "خريطة",
+      "type": "concept",
+      "assets": [
+        {
+          "asset": {
+            "path": "assets/generated/map.svg",
+            "mime": "image/svg+xml",
+            "title": "A hand-drawn route map (generated locally)",
+            "license": "CC0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "دائرة",
+      "type": "concept",
+      "assets": [
+        {
+          "asset": {
+            "path": "assets/generated/diagram.svg",
+            "mime": "image/svg+xml",
+            "title": "A three-part idea diagram (generated locally)",
+            "license": "CC0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "?????",
+      "type": "concept",
+      "assets": [
+        {
+          "asset": {
+            "path": "assets/generated/unused-key.svg",
+            "mime": "image/svg+xml",
+            "title": "An unused generated key diagram",
+            "license": "CC0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "????",
+      "type": "concept",
+      "assets": [
+        {
+          "asset": {
+            "path": "assets/generated/rejected-mirror.svg",
+            "mime": "image/svg+xml",
+            "title": "A rejected generated mirror sketch",
+            "license": "CC0"
+          }
+        }
+      ]
+    }
+  ]
+}

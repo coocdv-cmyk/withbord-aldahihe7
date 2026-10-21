@@ -251,50 +251,43 @@ def render_project_studio(
     _require()
     pd = rasm_paths.project_dir(project_id)
     plan, plan_path, man = load_active_plan_studio(project_id)
-    if man is not None:
-        report = rasm_assets.evaluate_gate(plan, pd, manifest=man, mode=mode)
-        if not report.ok:
-            detail = "; ".join(f"{b['reason']}: {b['path'] or b['display']}" for b in report.blocking[:5])
-            raise RuntimeError(f"asset gate closed ({mode}): {detail}")
-        for item in report.warnings[:5]:
-            print(f"warning: {item['reason']}: {item['path']} - {item['detail']}")
-        # the narration gate is the same contract as the CLI's
-        from engine.audio.gate import evaluate_narration_gate
-        from engine.audio.loudness import TARGETS
-
-        audio_gate = evaluate_narration_gate(
-            pd, plan, mode=mode, target_lufs=TARGETS.get("video")
-        )
-        if not audio_gate.ok:
-            detail = "; ".join(f"{b['reason']}: {b['detail']}" for b in audio_gate.blocking[:5])
-            raise RuntimeError(f"narration gate closed ({mode}): {detail}")
-        for item in audio_gate.warnings[:5]:
-            print(f"warning: {item['reason']}: {item['detail']}")
-    audio_file = audio
-    if audio_file is None:
-        plan_audio = plan.get("audio") or {}
-        candidate = plan_audio.get("file")
-        if candidate:
-            candidate = Path(candidate)
-            if not candidate.is_absolute():
-                candidate = pd / candidate
-            if candidate.exists():
-                audio_file = candidate
-        if audio_file is None:
-            nar = rasm_load_narration(pd)
-            if nar:
-                audio_file = nar.get("path")
-    canvas = tuple(plan.get("canvas") or [2560, 1440])
-    director = Director(
-        plan, canvas=canvas, out_size=size, fps=fps, crf=19, project_dir=pd
+    # Studio uses the exact same production contract as `rasm render`: asset
+    # approval, the real audio bytes, alignment, SFX library, scene preflight,
+    # SFX mix and FFprobe verification.
+    from engine.production import (
+        ProductionError,
+        prepare_production,
+        render_prepared,
     )
-    out = Path(out_path) if out_path else (pd / "render" / "preview.mp4")
-    out.parent.mkdir(parents=True, exist_ok=True)
-    result = director.render(out, audio=audio_file, max_seconds=max_seconds)
+    from engine.render.director import RenderPreflightError
+
+    prep = prepare_production(
+        pd,
+        plan,
+        plan_path=plan_path,
+        manifest=man,
+        mode=mode,
+        size=size,
+        fps=fps,
+        audio=audio,
+        max_seconds=max_seconds,
+        sfx=True,
+        target_lufs=-16.0,
+    )
+    for item in prep.warnings[:5]:
+        print(f"warning: {item['reason']}: {item.get('detail', '')}")
+    if not prep.ok:
+        detail = "; ".join(
+            f"{b['reason']}: {b.get('detail', '')}" for b in prep.blocking[:5]
+        )
+        raise RuntimeError(f"production gate closed ({mode}): {detail}")
+    out = Path(out_path) if out_path else (pd / "render" / ("preview.mp4" if mode == "preview" else "episode.mp4"))
+    try:
+        result = render_prepared(prep, out)
+    except (RenderPreflightError, ProductionError) as exc:
+        raise RuntimeError(str(exc)) from exc
     result["plan_path"] = str(plan_path)
     result["manifest"] = str(rasm_project.project_manifest_path(pd)) if man is not None else None
-    result["audio"] = str(audio_file) if audio_file else None
-    result["mode"] = mode
     return result
 
 
