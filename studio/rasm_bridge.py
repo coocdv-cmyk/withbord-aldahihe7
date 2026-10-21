@@ -258,6 +258,18 @@ def render_project_studio(
             raise RuntimeError(f"asset gate closed ({mode}): {detail}")
         for item in report.warnings[:5]:
             print(f"warning: {item['reason']}: {item['path']} - {item['detail']}")
+        # the narration gate is the same contract as the CLI's
+        from engine.audio.gate import evaluate_narration_gate
+        from engine.audio.loudness import TARGETS
+
+        audio_gate = evaluate_narration_gate(
+            pd, plan, mode=mode, target_lufs=TARGETS.get("video")
+        )
+        if not audio_gate.ok:
+            detail = "; ".join(f"{b['reason']}: {b['detail']}" for b in audio_gate.blocking[:5])
+            raise RuntimeError(f"narration gate closed ({mode}): {detail}")
+        for item in audio_gate.warnings[:5]:
+            print(f"warning: {item['reason']}: {item['detail']}")
     audio_file = audio
     if audio_file is None:
         plan_audio = plan.get("audio") or {}

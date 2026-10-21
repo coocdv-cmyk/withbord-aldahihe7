@@ -625,7 +625,9 @@ def cmd_render(args) -> int:
                 + " — معاينة فقط"
             )
 
-    out = Path(args.out) if args.out else pd / "render" / "preview.mp4"
+    # the default name must say what the file is: a preview or a deliverable
+    default_name = "preview.mp4" if mode == "preview" else "episode.mp4"
+    out = Path(args.out) if args.out else pd / "render" / default_name
     size = (1280, 720)
     if args.size:
         try:
@@ -1188,6 +1190,23 @@ def cmd_project_link_assets(args) -> int:
     return 0
 
 
+def cmd_approvals_credits(args) -> int:
+    """Rewrite research/CREDITS.md so it matches the human decisions."""
+    from engine.research.store import AssetStore
+
+    pd = project_dir(args.project)
+    store = AssetStore(pd)
+    path = store.write_credits()
+    text = path.read_text(encoding="utf-8")
+    credited = [l for l in text.splitlines() if l.startswith("- **")]
+    pending = [l for l in text.splitlines() if l.startswith("- ") and "**" not in l]
+    print(f"✔ الاعتمادات: {path}")
+    print(f"  · أصول معتمدة ومنسوبة: {len(credited)}")
+    print(f"  · أصول قيد الاعتماد (مذكورة على حدة): {len(pending)}")
+    print("  · الأصول المرفوضة لا تُنسب (لا علاقة ترخيص بها)")
+    return 0
+
+
 def cmd_learn(args) -> int:
     from engine.memory import Lexicon, add_correction
 
@@ -1407,6 +1426,10 @@ def main() -> int:
     pag.add_argument("project")
     pag.add_argument("--mode", choices=["final", "preview"], default="final")
     pag.set_defaults(func=cmd_approvals_gate)
+
+    pac = papsub.add_parser("credits", help="إعادة كتابة research/CREDITS.md حسب قرارات الاعتماد")
+    pac.add_argument("project")
+    pac.set_defaults(func=cmd_approvals_credits)
 
     pjl = pjsub.add_parser(
         "link-assets",

@@ -551,5 +551,21 @@ def build_plan(
     }
 
 
-def save_plan(plan: dict, project_dir: Path) -> Path:
-    return write_json(Path(project_dir) / "storyboard" / "plan.json", plan)
+def save_plan(plan: dict, project_dir: Path, *, prefer: str = "plan.json") -> Path:
+    """Save a plan under a name that is **never reused**.
+
+    A plan is production data: the legacy ``plan.json`` and the active
+    ``plan_v2.json`` must survive any rebuild.  So a new plan takes the first
+    free name in the sequence (``plan.json`` → ``plan_v2.json`` → …) and the
+    caller activates it explicitly.  Nothing is ever overwritten silently.
+    """
+    d = Path(project_dir) / "storyboard"
+    d.mkdir(parents=True, exist_ok=True)
+    candidate = d / prefer
+    if candidate.exists():
+        stem, dot, ext = prefer.partition(".")
+        n = 2
+        while (d / f"{stem}_v{n}{dot}{ext}").exists():
+            n += 1
+        candidate = d / f"{stem}_v{n}{dot}{ext}"
+    return write_json(candidate, plan)

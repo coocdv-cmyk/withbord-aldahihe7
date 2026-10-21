@@ -1,36 +1,29 @@
 # اعتمادات الأصول (تُنشر مع الفيديو)
 
 - **British Mark I male tank Somme 25 September 1916.jpg** — Ernest Brooks · Public domain · https://commons.wikimedia.org/wiki/File:British_Mark_I_male_tank_Somme_25_September_1916.jpg
-- **EU-Germany.svg** — NuclearVacuum · CC BY-SA 3.0 · https://commons.wikimedia.org/wiki/File:EU-Germany.svg
-- **File:01-01-2014 - Messeturm - trade fair tower - Frankfurt- Germany - 01.jpg** — Norbert Nagel · CC BY-SA 3.0 · https://commons.wikimedia.org/wiki/File:01-01-2014_-_Messeturm_-_trade_fair_tower_-_Frankfurt-_Germany_-_01.jpg
-- **File:1914 Events Collage V 1.0.jpg** — From a variety of images credited above. · CC0 · https://commons.wikimedia.org/wiki/File:1914_Events_Collage_V_1.0.jpg
-- **File:Abendpost 1891-08-06- Vol 3 Iss 185 (IA sim abendpost-sonntagpost 1891-08-06 3 185).pdf** — Fæ · Public domain · https://commons.wikimedia.org/wiki/File:Abendpost_1891-08-06-_Vol_3_Iss_185_(IA_sim_abendpost-sonntagpost_1891-08-06_3_185).pdf
 - **File:Bacon's large-scale map of the French battle front (Peronne to Verdun) (5008091).jpg** — Jason.nlw · Public domain · https://commons.wikimedia.org/wiki/File:Bacon%27s_large-scale_map_of_the_French_battle_front_(Peronne_to_Verdun)_(5008091).jpg
 - **File:Barrage fire on Verdun from Barancourt (February 22, 1916).png** — Martin Frost · Public domain · https://commons.wikimedia.org/wiki/File:Barrage_fire_on_Verdun_from_Barancourt_(February_22,_1916).png
-- **File:Batiste handkerchief with blood of Franz Ferdinand d'Este 01.jpg** — David Kennedy · CC BY-SA 4.0 · https://commons.wikimedia.org/wiki/File:Batiste_handkerchief_with_blood_of_Franz_Ferdinand_d%27Este_01.jpg
 - **File:Battle of Verdun map.png** — Drawn by Gdr · CC BY-SA 3.0 · https://commons.wikimedia.org/wiki/File:Battle_of_Verdun_map.png
-- **File:Celebrated pianists of the past and present. A collection of one hundred and thirty-nine biographies, with portraits (IA 1894celebratedpianis00ehrluoft).pdf** — Ehrlich, A. 1842-1921 Manchester, Arthur Livingston, 1862- · Public domain · https://commons.wikimedia.org/wiki/File:Celebrated_pianists_of_the_past_and_present._A_collection_of_one_hundred_and_thirty-nine_biographies,_with_portraits_(IA_1894celebratedpianis00ehrluoft).pdf
 - **File:Cheshire Regiment trench Somme 1916.jpg** — John Warwick Brooke · Public domain · https://commons.wikimedia.org/wiki/File:Cheshire_Regiment_trench_Somme_1916.jpg
 - **File:Constantinople map German.png** — Fremantleboy 22 June 2007 (UTC) · CC BY 2.5 · https://commons.wikimedia.org/wiki/File:Constantinople_map_German.png
-- **File:DC-1914-27-d-Sarajevo-cropped.jpg** — Achille Beltrame · Public domain · https://commons.wikimedia.org/wiki/File:DC-1914-27-d-Sarajevo-cropped.jpg
-- **File:Deutsches Reichsgesetzblatt 1871 026 215.jpg** — official juridical document · Public domain · https://commons.wikimedia.org/wiki/File:Deutsches_Reichsgesetzblatt_1871_026_215.jpg
 - **File:Dignitaries gathering in the Hall of Mirrors at the Palace of Versailles, France, to sign the Treaty of Versailles.jpg** — Engelberthumperdink · Public domain · https://commons.wikimedia.org/wiki/File:Dignitaries_gathering_in_the_Hall_of_Mirrors_at_the_Palace_of_Versailles,_France,_to_sign_the_Treaty_of_Versailles.jpg
-- **File:Evening Standard placard Versailles Treaty signed.jpg** — Evening Standard · Public domain · https://commons.wikimedia.org/wiki/File:Evening_Standard_placard_Versailles_Treaty_signed.jpg
-- **File:Fernsehturm, Berlín, Alemania, 2016-04-21, DD 40-42 HDR.jpg** — Diego Delso · CC BY-SA 4.0 · https://commons.wikimedia.org/wiki/File:Fernsehturm,_Berl%C3%ADn,_Alemania,_2016-04-21,_DD_40-42_HDR.jpg
 - **File:Germany general map.png** — Lencer and NordNordWest · CC BY-SA 3.0 · https://commons.wikimedia.org/wiki/File:Germany_general_map.png
 - **File:Interior of the Galerie des Glaces showing the arrangement of tables for the signing of Peace Terms, Versailles... - NARA - 531149.tif** — Unknown author Unknown author or not provided · Public domain · https://commons.wikimedia.org/wiki/File:Interior_of_the_Galerie_des_Glaces_showing_the_arrangement_of_tables_for_the_signing_of_Peace_Terms,_Versailles..._-_NARA_-_531149.tif
-- **File:League of Nations Treaty Series index 1.pdf** — Secretariat of the League of Nations · Public domain · https://commons.wikimedia.org/wiki/File:League_of_Nations_Treaty_Series_index_1.pdf
-- **File:League of Nations Treaty Series vol 12.pdf** — Secretariat of the League of Nations · Public domain · https://commons.wikimedia.org/wiki/File:League_of_Nations_Treaty_Series_vol_12.pdf
 - **File:Map of the Battle of Somme .jpg** — Hdavis2021 · CC BY-SA 4.0 · https://commons.wikimedia.org/wiki/File:Map_of_the_Battle_of_Somme_.jpg
 - **File:Map of the Battle of Verdun.jpg** — Ebertapelle21 · CC BY-SA 4.0 · https://commons.wikimedia.org/wiki/File:Map_of_the_Battle_of_Verdun.jpg
 - **File:Map of the Battle of the Somme, 1916 mk.svg** — original by Grandiose derivative by B. Jankuloski · CC BY 3.0 · https://commons.wikimedia.org/wiki/File:Map_of_the_Battle_of_the_Somme,_1916_mk.svg
 - **File:Map of the Battle of the Somme, 1916.svg** — SVG version, and changes : Grandiose Original map : Worldwari map13 largerview.jpg , US Military Inset map : Giro720 , File:France blank1.svg · Public domain · https://commons.wikimedia.org/wiki/File:Map_of_the_Battle_of_the_Somme,_1916.svg
-- **File:Medal issued by Japan commemorating the Treaty of Versailles, struck 1919.jpg** — User:LouisAragon (uploader) · CC BY-SA 2.5 · https://commons.wikimedia.org/wiki/File:Medal_issued_by_Japan_commemorating_the_Treaty_of_Versailles,_struck_1919.jpg
-- **File:Siegessaeule Aussicht 10-13 img4 Tiergarten.jpg** — A.Savin · CC BY-SA 3.0 · https://commons.wikimedia.org/wiki/File:Siegessaeule_Aussicht_10-13_img4_Tiergarten.jpg
 - **File:Stanford's half-inch map of the battle front between the Somme and Soissons (5003806).jpg** — Jason.nlw · Public domain · https://commons.wikimedia.org/wiki/File:Stanford%27s_half-inch_map_of_the_battle_front_between_the_Somme_and_Soissons_(5003806).jpg
 - **File:The Treaty of Versailles, and signatures.png** — Lord Milner · CC BY-SA 4.0 · https://commons.wikimedia.org/wiki/File:The_Treaty_of_Versailles,_and_signatures.png
 - **File:Treaty of Versailles, English version.jpg** — David Lloyd George, Woodrow Wilson and Georges Clemenceau · Public domain · https://commons.wikimedia.org/wiki/File:Treaty_of_Versailles,_English_version.jpg
-- **Franz Ferdinand von Rummel.jpg** — Unknown author Unknown author · Public domain · https://commons.wikimedia.org/wiki/File:Franz_Ferdinand_von_Rummel.jpg
 - **Verdun and Vincinity - Map.jpg** — W.wolny · Public domain · https://commons.wikimedia.org/wiki/File:Verdun_and_Vincinity_-_Map.jpg
-- **علم ألمانيا** · MIT · https://github.com/lipis/flag-icons
-- **علم ألمانيا (كومنز)** — User:SKopp , User:Madden , and other users · Public domain · https://commons.wikimedia.org/wiki/File:Flag_of_Germany.svg
+
+## أصول قيد الاعتماد (لم تُستخدم في هذا الفيديو)
+
+- File:Abendpost 1891-08-06- Vol 3 Iss 185 (IA sim abendpost-sonntagpost 1891-08-06 3 185).pdf · Public domain
+- File:Batiste handkerchief with blood of Franz Ferdinand d'Este 01.jpg · CC BY-SA 4.0
+- File:DC-1914-27-d-Sarajevo-cropped.jpg · Public domain
+- File:Evening Standard placard Versailles Treaty signed.jpg · Public domain
+- File:League of Nations Treaty Series index 1.pdf · Public domain
+- File:League of Nations Treaty Series vol 12.pdf · Public domain
+- File:Medal issued by Japan commemorating the Treaty of Versailles, struck 1919.jpg · CC BY-SA 2.5

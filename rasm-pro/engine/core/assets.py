@@ -496,6 +496,24 @@ def link_plan_assets(
 # --------------------------------------------------------------------------
 # manifest projection
 # --------------------------------------------------------------------------
+def _used_asset_ids(project_dir: str | Path, manifest: dict) -> set[str]:
+    """The asset ids the active plan actually uses."""
+    used: set[str] = set()
+    active = str((manifest.get("storyboard") or {}).get("active") or "")
+    if not active:
+        return used
+    try:
+        plan = read_json(Path(project_dir) / active)
+    except Exception:
+        return used
+    if not isinstance(plan, dict):
+        return used
+    for scene in plan.get("scenes") or []:
+        if isinstance(scene, dict):
+            used.update(str(i) for i in (scene.get("asset_ids") or []))
+    return used
+
+
 def sync_manifest_approvals(manifest: dict, project_dir: str | Path) -> dict:
     """Project the decision log into the manifest (pure function)."""
     if not isinstance(manifest, dict):
@@ -553,6 +571,15 @@ def sync_manifest_approvals(manifest: dict, project_dir: str | Path) -> dict:
     }
 
     unresolved = [u for u in (out.get("unresolved") or []) if isinstance(u, dict)]
+    used_ids = _used_asset_ids(project_dir, out)
+    blocking_pending = sorted(
+        aid
+        for aid, entry in (
+            (str(a.get("asset_id") or ""), a) for a in (out.get("assets") or []) if isinstance(a, dict)
+        )
+        if aid and aid in used_ids
+        and str((entry.get("approval") or {}).get("decision") or "pending") != "approved"
+    )
     found = False
     for item in unresolved:
         if item.get("id") == "assets-pending-approval":
@@ -561,19 +588,30 @@ def sync_manifest_approvals(manifest: dict, project_dir: str | Path) -> dict:
                 f"{pending} أصلًا بانتظار الاعتماد البشري"
                 f" (معتمد: {approved} · مرفوض: {rejected}) قبل الإنتاج."
             )
-            item["blocking"] = pending > 0
-            item["counts"] = {"pending": pending, "approved": approved, "rejected": rejected}
+            # blocking only when an unapproved asset is actually used in the plan
+            item["blocking"] = bool(blocking_pending)
+            item["counts"] = {
+                "pending": pending,
+                "approved": approved,
+                "rejected": rejected,
+                "used_unapproved": len(blocking_pending),
+            }
     if not found and (pending or approved or rejected):
         unresolved.append(
             {
                 "id": "assets-pending-approval",
                 "kind": "assets",
-                "blocking": pending > 0,
+                "blocking": bool(blocking_pending),
                 "message": (
                     f"{pending} أصلًا بانتظار الاعتماد البشري"
                     f" (معتمد: {approved} · مرفوض: {rejected}) قبل الإنتاج."
                 ),
-                "counts": {"pending": pending, "approved": approved, "rejected": rejected},
+                "counts": {
+                    "pending": pending,
+                    "approved": approved,
+                    "rejected": rejected,
+                    "used_unapproved": len(blocking_pending),
+                },
             }
         )
     out["unresolved"] = unresolved

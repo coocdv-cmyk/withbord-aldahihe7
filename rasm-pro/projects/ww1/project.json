@@ -1102,12 +1102,13 @@
     {
       "id": "assets-pending-approval",
       "kind": "assets",
-      "blocking": true,
+      "blocking": false,
       "message": "7 أصلًا بانتظار الاعتماد البشري (معتمد: 17 · مرفوض: 10) قبل الإنتاج.",
       "counts": {
         "pending": 7,
         "approved": 17,
-        "rejected": 10
+        "rejected": 10,
+        "used_unapproved": 0
       }
     },
     {

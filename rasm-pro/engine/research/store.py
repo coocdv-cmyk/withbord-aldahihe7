@@ -41,7 +41,7 @@ def _ext_for(url: str, mime: str | None = None, kind: str = "image") -> str:
 class AssetStore:
     """يبقي كل أصل مستخدم مع بصمته ومنشئه ورخصته."""
 
-    def __init__(self, project_dir: Path, client: HttpClient):
+    def __init__(self, project_dir: Path, client: HttpClient | None = None):
         self.root = Path(project_dir)
         self.client = client
         self.assets_dir = self.root / "assets"
@@ -113,10 +113,49 @@ class AssetStore:
         write_json(self.registry_path, self.registry)
 
     # ---------- اعتمادات ----------
+    def _approval_states(self) -> dict[str, str]:
+        """The human decision per asset (from the project manifest), if any."""
+        manifest = self.root / "project.json"
+        if not manifest.exists():
+            return {}
+        try:
+            data = read_json(manifest) or {}
+        except Exception:
+            return {}
+        states: dict[str, str] = {}
+        for asset in data.get("assets") or []:
+            if not isinstance(asset, dict):
+                continue
+            path = str(asset.get("path") or "").replace("\\", "/")
+            if not path:
+                continue
+            state = str((asset.get("approval") or {}).get("decision") or "pending")
+            states[path] = state
+        return states
+
     def credits_markdown(self) -> str:
+        """The credits that must travel with the published video.
+
+        Only the assets a human **approved** are credited: crediting a rejected
+        asset would claim a licence relationship that does not exist, and
+        crediting a deferred one would ship an asset that is not allowed yet.
+        Deferred assets are listed separately so nothing disappears silently.
+        """
+        states = self._approval_states()
         lines = ["# اعتمادات الأصول (تُنشر مع الفيديو)", ""]
         attributions = [r for r in self.registry if r.get("license")]
+        used: list[dict] = []
+        pending: list[dict] = []
         for r in sorted(attributions, key=lambda x: (x.get("title") or "")):
+            path = str(r.get("path") or "").replace("\\", "/")
+            state = states.get(path)
+            if state == "rejected":
+                continue
+            if state == "deferred":
+                pending.append(r)
+            else:
+                used.append(r)
+        for r in used:
             title = r.get("title") or r.get("path")
             author = r.get("author") or r.get("uploader") or ""
             lic = r.get("license") or ""
@@ -124,7 +163,13 @@ class AssetStore:
             who = f" — {author}" if author else ""
             lines.append(f"- **{title}**{who} · {lic} · {src}")
         if len(lines) == 2:
-            lines.append("(لا توجد أصول تتطلب نسبًا)")
+            lines.append("(لا توجد أصول معتمدة تتطلب نسبًا)")
+        if pending:
+            lines += ["", "## أصول قيد الاعتماد (لم تُستخدم في هذا الفيديو)", ""]
+            for r in pending:
+                title = r.get("title") or r.get("path")
+                lic = r.get("license") or ""
+                lines.append(f"- {title} · {lic}")
         return "\n".join(lines)
 
     def write_credits(self) -> Path:
