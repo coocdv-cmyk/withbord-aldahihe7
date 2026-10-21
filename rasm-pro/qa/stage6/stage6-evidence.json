@@ -1,0 +1,463 @@
+{
+  "stage": 6,
+  "generated_at": "2026-10-21T06:28:30Z",
+  "topic": "template families, motion rules and the measured draw budget",
+  "start_point": {
+    "tag": "stage6-start",
+    "commit": "f98ae45",
+    "bundle": "backups/stage6-20261021/rasm-pro-stage6-start.bundle",
+    "bundle_sha256": "029727159575A59F4F7345B5F3FBE9DD1D7E4D58BFCDC2427C00D79F00336117"
+  },
+  "tests": {
+    "passed": 130,
+    "failed": 0,
+    "stage6_contract_tests": 12
+  },
+  "families": [
+    {
+      "name": "documentary",
+      "description": "صور وشواهد: شريط ممزق + صورة + عنوان + تعليق",
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "words_per_scene": 16,
+      "allows_images": true,
+      "recipe": {
+        "hook": [
+          "highlight",
+          "text",
+          "text"
+        ],
+        "evidence": [
+          "torn_strip",
+          "text",
+          "image",
+          "text"
+        ],
+        "explain": [
+          "text",
+          "underline"
+        ],
+        "close": [
+          "highlight",
+          "text",
+          "underline",
+          "text"
+        ]
+      },
+      "motion": {
+        "zoom": 2.8,
+        "follow": 0.06,
+        "zoom_by_type": {
+          "image": 2.4,
+          "svg": 2.4,
+          "torn_strip": 1.6,
+          "paper_card": 1.8
+        },
+        "hold_on_text": false,
+        "lead_in": 0.15
+      }
+    },
+    {
+      "name": "explainer",
+      "description": "نصّي: عنوان كبير + تسطير/تظليل — يُرسم أسرع وأسهل قراءة",
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "words_per_scene": 12,
+      "allows_images": false,
+      "recipe": {
+        "hook": [
+          "underline",
+          "text",
+          "text"
+        ],
+        "evidence": [
+          "text",
+          "flourish",
+          "text"
+        ],
+        "explain": [
+          "text",
+          "underline",
+          "text"
+        ],
+        "close": [
+          "text",
+          "underline",
+          "text",
+          "flourish"
+        ]
+      },
+      "motion": {
+        "zoom": 1.9,
+        "follow": 0.08,
+        "zoom_by_type": {
+          "text": 1.6,
+          "underline": 1.4,
+          "highlight": 1.4
+        },
+        "hold_on_text": true,
+        "lead_in": 0.1
+      }
+    },
+    {
+      "name": "dense",
+      "description": "معلومة كثيفة: عنوان + خط زمني/أعمدة + صورة صغيرة",
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "words_per_scene": 20,
+      "allows_images": true,
+      "recipe": {
+        "hook": [
+          "flourish",
+          "text",
+          "text"
+        ],
+        "evidence": [
+          "text",
+          "image",
+          "text"
+        ],
+        "explain": [
+          "text",
+          "timeline",
+          "text"
+        ],
+        "close": [
+          "text",
+          "bars",
+          "underline"
+        ]
+      },
+      "motion": {
+        "zoom": 2.2,
+        "follow": 0.07,
+        "zoom_by_type": {
+          "timeline": 1.2,
+          "bars": 1.2,
+          "image": 2.0,
+          "text": 1.5
+        },
+        "hold_on_text": false,
+        "lead_in": 0.12
+      }
+    }
+  ],
+  "family_plans": {
+    "documentary": {
+      "sha256": "7289ea42b9a5ef0536ed3a385c852637b302481b05960340b02a8fe9640b4fc9",
+      "scenes": 5,
+      "elements": 16,
+      "planned_seconds": 43.26,
+      "over_budget_scenes": 3,
+      "text_budget": [
+        {
+          "scene": 1,
+          "role": "hook",
+          "seconds": 10.2,
+          "drawn_words": 11,
+          "capacity_words": 9,
+          "fits": false,
+          "excess_words": 2,
+          "elements": [
+            "highlight",
+            "text",
+            "text"
+          ]
+        },
+        {
+          "scene": 2,
+          "role": "evidence",
+          "seconds": 7.76,
+          "drawn_words": 9,
+          "capacity_words": 7,
+          "fits": false,
+          "excess_words": 2,
+          "elements": [
+            "torn_strip",
+            "text",
+            "image",
+            "text"
+          ]
+        },
+        {
+          "scene": 3,
+          "role": "explain",
+          "seconds": 8.98,
+          "drawn_words": 7,
+          "capacity_words": 8,
+          "fits": true,
+          "excess_words": 0,
+          "elements": [
+            "text",
+            "underline"
+          ]
+        },
+        {
+          "scene": 4,
+          "role": "evidence",
+          "seconds": 8.16,
+          "drawn_words": 9,
+          "capacity_words": 7,
+          "fits": false,
+          "excess_words": 2,
+          "elements": [
+            "torn_strip",
+            "text",
+            "image",
+            "text"
+          ]
+        },
+        {
+          "scene": 5,
+          "role": "close",
+          "seconds": 8.16,
+          "drawn_words": 7,
+          "capacity_words": 7,
+          "fits": true,
+          "excess_words": 0,
+          "elements": [
+            "highlight",
+            "text",
+            "underline"
+          ]
+        }
+      ],
+      "motion": {
+        "zoom": 2.8,
+        "follow": 0.06,
+        "zoom_by_type": {
+          "image": 2.4,
+          "svg": 2.4,
+          "torn_strip": 1.6,
+          "paper_card": 1.8
+        },
+        "hold_on_text": false,
+        "lead_in": 0.15
+      }
+    },
+    "explainer": {
+      "sha256": "a26627b3563b7c4441150fb3addbe369ad0d290e7d8d52fda86eaa2bc30017cc",
+      "scenes": 5,
+      "elements": 12,
+      "planned_seconds": 43.26,
+      "over_budget_scenes": 1,
+      "text_budget": [
+        {
+          "scene": 1,
+          "role": "hook",
+          "seconds": 10.2,
+          "drawn_words": 11,
+          "capacity_words": 9,
+          "fits": false,
+          "excess_words": 2,
+          "elements": [
+            "underline",
+            "text",
+            "text"
+          ]
+        },
+        {
+          "scene": 2,
+          "role": "evidence",
+          "seconds": 7.76,
+          "drawn_words": 7,
+          "capacity_words": 7,
+          "fits": true,
+          "excess_words": 0,
+          "elements": [
+            "text",
+            "flourish"
+          ]
+        },
+        {
+          "scene": 3,
+          "role": "explain",
+          "seconds": 8.98,
+          "drawn_words": 7,
+          "capacity_words": 8,
+          "fits": true,
+          "excess_words": 0,
+          "elements": [
+            "text",
+            "underline"
+          ]
+        },
+        {
+          "scene": 4,
+          "role": "evidence",
+          "seconds": 8.16,
+          "drawn_words": 7,
+          "capacity_words": 7,
+          "fits": true,
+          "excess_words": 0,
+          "elements": [
+            "text",
+            "flourish"
+          ]
+        },
+        {
+          "scene": 5,
+          "role": "close",
+          "seconds": 8.16,
+          "drawn_words": 7,
+          "capacity_words": 7,
+          "fits": true,
+          "excess_words": 0,
+          "elements": [
+            "text",
+            "underline",
+            "flourish"
+          ]
+        }
+      ],
+      "motion": {
+        "zoom": 1.9,
+        "follow": 0.08,
+        "zoom_by_type": {
+          "text": 1.6,
+          "underline": 1.4,
+          "highlight": 1.4
+        },
+        "hold_on_text": true,
+        "lead_in": 0.1
+      }
+    },
+    "dense": {
+      "sha256": "25f7c18a4d16f12556e507eb75fe88d4326ec4e1732e4fcb9652478ab98a923d",
+      "scenes": 5,
+      "elements": 12,
+      "planned_seconds": 43.26,
+      "over_budget_scenes": 3,
+      "text_budget": [
+        {
+          "scene": 1,
+          "role": "hook",
+          "seconds": 10.2,
+          "drawn_words": 11,
+          "capacity_words": 9,
+          "fits": false,
+          "excess_words": 2,
+          "elements": [
+            "flourish",
+            "text",
+            "text"
+          ]
+        },
+        {
+          "scene": 2,
+          "role": "evidence",
+          "seconds": 7.76,
+          "drawn_words": 9,
+          "capacity_words": 7,
+          "fits": false,
+          "excess_words": 2,
+          "elements": [
+            "text",
+            "image",
+            "text"
+          ]
+        },
+        {
+          "scene": 3,
+          "role": "explain",
+          "seconds": 8.98,
+          "drawn_words": 7,
+          "capacity_words": 8,
+          "fits": true,
+          "excess_words": 0,
+          "elements": [
+            "text"
+          ]
+        },
+        {
+          "scene": 4,
+          "role": "evidence",
+          "seconds": 8.16,
+          "drawn_words": 9,
+          "capacity_words": 7,
+          "fits": false,
+          "excess_words": 2,
+          "elements": [
+            "text",
+            "image",
+            "text"
+          ]
+        },
+        {
+          "scene": 5,
+          "role": "close",
+          "seconds": 8.16,
+          "drawn_words": 7,
+          "capacity_words": 7,
+          "fits": true,
+          "excess_words": 0,
+          "elements": [
+            "text",
+            "underline"
+          ]
+        }
+      ],
+      "motion": {
+        "zoom": 2.2,
+        "follow": 0.07,
+        "zoom_by_type": {
+          "timeline": 1.2,
+          "bars": 1.2,
+          "image": 2.0,
+          "text": 1.5
+        },
+        "hold_on_text": false,
+        "lead_in": 0.12
+      }
+    }
+  },
+  "corpus": {
+    "tool": "tools/render_family_corpus.py",
+    "tiles": "3 families x 4 scene roles x 2 languages",
+    "files": {
+      "qa/stage6/family-corpus-ar.png": "abf2d3121530c94041c05a4525c92cdd177384b2264a92f5e545a255bbfaf623",
+      "qa/stage6/family-corpus-en.png": "8d3dcd57589a1b7726019f1bc1ffe3743242578721bd8537c7f4db94d340de4c"
+    },
+    "note": "the corpus is rendered with the real Director, plan builder, fonts and assets"
+  },
+  "draw_budget": {
+    "measured_on": "the ww1 production plan (2026-10-21)",
+    "natural_drawing_seconds": 106.92,
+    "film_seconds": 79.875,
+    "speedup": 1.338,
+    "natural_drawn_words_per_second": 0.95,
+    "max_narration_words_per_second": 3.2,
+    "per_scene_scales_production_plan": [
+      1.48,
+      1.38,
+      1.54,
+      1.0,
+      1.49
+    ],
+    "family_speedup_on_the_same_material": {
+      "documentary": 1.862,
+      "explainer": 1.627,
+      "dense": 1.753
+    },
+    "note": "the explainer family draws fastest (12 elements instead of 16) and stays inside the text budget in 4 of 5 scenes; the production plan is reported as it is, never quietly re-timed"
+  },
+  "renderer_report": {
+    "new_field": "time_scale",
+    "meaning": "how much faster than natural the drawing had to be in that scene (1.0 = fits)",
+    "before": "a boolean overflow flag only"
+  },
+  "schema": {
+    "plan_errors_per_family": 0,
+    "validator": "jsonschema 4.26.0 Draft202012Validator"
+  },
+  "open_items": [
+    "the family of the production plan (ww1) is the owner's choice - the plan was not rewritten",
+    "a real narration for ww1 is still missing (Stage 4 chain proved on a fixture)"
+  ]
+}

@@ -67,7 +67,6 @@ follows the voice. A production render is refused while the narration is
 unmeasured, off target, or shorter than the picture — never trimmed silently.
 
 ### Sound effects: a measured library with a role for every sound
-
 ```powershell
 python tools/measure_sfx.py           # measure the library (writes calibration.json)
 python tools/measure_sfx.py --check   # verify the committed table is current
@@ -79,6 +78,21 @@ sound, a tap → a click). Every excerpt is measured to the same library level
 before it is mixed, the mix report is written next to the video, and a missing
 recording blocks a production render instead of silently substituting a
 synthetic sound.
+
+### Template families and the draw budget
+
+```powershell
+python rasm.py plan ww1 --family explainer          # build the plan with a family
+python rasm.py plan ww1 --check --family explainer   # authoring report (nothing saved)
+python tools/render_family_corpus.py                # re-render the visual corpus
+```
+
+Three families — `documentary` (photo-led), `explainer` (text-led, draws
+fastest) and `dense` (data-led) — each with a scene-role recipe and a motion
+profile that travels inside the plan. The budget is measured, not guessed:
+a scene whose on-screen text cannot be drawn in its own time is reported with
+the exact number of words to cut, and the render report states how much faster
+than natural the drawing had to be (`time_scale`).
 
 ### Continuous integration
 

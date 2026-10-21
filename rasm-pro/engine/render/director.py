@@ -228,6 +228,10 @@ class Director:
     ):
         self.plan = plan
         self.project_dir = Path(project_dir).resolve() if project_dir else None
+        # قواعد الحركة: من عائلة القالب في الخطة (مصدر واحد للحقيقة)
+        family = plan.get("family") if isinstance(plan, dict) else None
+        motion = (family or {}).get("motion") if isinstance(family, dict) else None
+        self.motion: dict = dict(motion) if isinstance(motion, dict) else {}
         self.canvas = (int(canvas[0]), int(canvas[1]))
         self.out_size = (int(out_size[0]), int(out_size[1]))
         # قاعدة زمن واحدة: لو الخطة تحمل fps، فالرندر يجب أن يطابقها.
@@ -347,22 +351,26 @@ class Director:
                               "gap": float(el.get("gap", 0.08))})
                 t += float(el.get("reveal_time", 0.12)) + float(el.get("gap", 0.08))
         natural_end = max((it["start"] + it["dur"] for it in items), default=0.0)
-        self._fit_timings(items, planned_seconds)
-        return items, natural_end
+        items, time_scale = self._fit_timings(items, planned_seconds)
+        return items, natural_end, time_scale
 
     def _fit_timings(self, items: list[dict], planned_seconds: float | None) -> list[dict]:
         """يضبط توقيت العناصر داخل مدة المشهد المخططة (بلا مدد منفجرة).
 
         القاعدة: كل العناصر تنتهي قبل نهاية المشهد بـ0.6ث، مع حد أدنى 0.45ث للعنصر.
+
+        When the natural drawing does not fit, the strokes are **sped up** (never
+        cut) — and the factor is returned so the report can state it instead of
+        hiding it.
         """
         if not items:
-            return items
+            return items, 1.0
         # The first item's start already contains the scene's start pause.
         start = float(items[0].get("start", 0.0))
         planned = float(planned_seconds or 0.0)
         natural_end = max(it["start"] + it["dur"] for it in items)
         if planned <= 0 or natural_end <= planned:
-            return items
+            return items, 1.0
         available = max(len(items) * MIN_DRAW_SEC, planned - start - 0.6)
         weights = [max(0.2, it["dur"]) for it in items]
         total_w = sum(weights)
@@ -374,7 +382,8 @@ class Director:
             it["dur"] = dur
             it["start"] = t
             t += dur + it.get("gap", 0.22)
-        return items
+        scale = (natural_end - start) / max(1e-6, (t - start))
+        return items, round(scale, 3)
 
     def scene_bounds(self, *, scene_range: tuple[int, int] | None = None,
                      max_seconds: float | None = None) -> list[dict]:
@@ -446,11 +455,12 @@ class Director:
             # لوحة نضيفة لكل مشهد: لا تراكم عناصر فوق بعضها
             wb = Whiteboard(cw, ch, ink=self.ink)
             cam = Viewport(0.0, 0.0, float(cw), float(ch))
-            items, natural_end = self._prepare_scene(scene, planned_seconds)
+            items, natural_end, time_scale = self._prepare_scene(scene, planned_seconds)
             overflow = natural_end > planned_seconds + 1e-9
             scene_report.append({
                 "id": scene.get("id"),
                 "index": idx,
+                "role": scene.get("role"),
                 "frames": frames,
                 "seconds": round(float(self.fps_rate.time_of_frames(frames)), 6),
                 "start": round(frames_total / self.fps, 6),
@@ -460,6 +470,8 @@ class Director:
                 "source_seconds": round(planned_seconds, 6),
                 "overflow": bool(overflow),
                 "natural_seconds": round(float(natural_end), 6),
+                # how much faster than natural the drawing had to be (1.0 = fits)
+                "time_scale": time_scale,
             })
             log.info(
                 "مشهد %d: %d عنصر · %.3fث · %d إطار%s",
@@ -549,11 +561,17 @@ class Director:
                         active = it
                 if active:
                     x0, y0, x1, y1 = active["bbox"]
-                    zoom_w = clamp((x1 - x0) * 2.6, cw * 0.46, float(cw))
-                    target = fit_viewport((x0 + x1) / 2, (y0 + y1) / 2, aspect, zoom_w=zoom_w, canvas_w=cw, canvas_h=ch)
+                    etype = (active.get("el") or {}).get("type")
+                    zoom_k = float(self.motion.get("zoom_by_type", {}).get(etype, self.motion.get("zoom", 2.6)))
+                    if self.motion.get("hold_on_text") and etype == "text":
+                        # الكتابة تُقرأ: الكاميرا ثابتة أثناء رسم النص
+                        target = cam
+                    else:
+                        zoom_w = clamp((x1 - x0) * zoom_k, cw * 0.46, float(cw))
+                        target = fit_viewport((x0 + x1) / 2, (y0 + y1) / 2, aspect, zoom_w=zoom_w, canvas_w=cw, canvas_h=ch)
                 else:
                     target = Viewport(0.0, 0.0, float(cw), float(ch))
-                cam = smooth_to(cam, target, 0.07)
+                cam = smooth_to(cam, target, float(self.motion.get("follow", 0.07)))
                 frame = crop_resize(wb.rgb, cam, self.out_size)
                 frame = self._draw_pen(frame, active, cam)
                 writer.write(frame)

@@ -423,9 +423,23 @@ def cmd_plan(args) -> int:
     except TimebaseError as exc:
         print(f"✘ {exc}", file=sys.stderr)
         return 2
-    plan = plan_stage.build_plan(
-        graph, research, project_dir=pd, max_scenes=args.max_scenes, fps=rate
-    )
+    family = getattr(args, "family", None)
+    if not family:
+        # keep the family already in use by the project (if any)
+        active = _try_manifest(pd)
+        try:
+            current = read_json(manifest_plan_path(pd, active)) if active else None
+        except (ProjectError, OSError):
+            current = None
+        if isinstance(current, dict):
+            family = (current.get("family") or {}).get("name")
+    try:
+        plan = plan_stage.build_plan(
+            graph, research, project_dir=pd, max_scenes=args.max_scenes, fps=rate, family=family
+        )
+    except ValueError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
     report = validate_plan(plan, project_dir=pd)
     for warning in report["warnings"][:8]:
         print(f"⚠ {warning}")
@@ -434,6 +448,34 @@ def cmd_plan(args) -> int:
             print(f"✘ {error}", file=sys.stderr)
         print(f"✘ الخطة المبنية غير صالحة ({len(report['errors'])} خطأ)", file=sys.stderr)
         return 2
+
+    if getattr(args, "check", False):
+        # تقرير تأليف: ما الذي لا يُرسم ضمن وقته (بلا حفظ)
+        fam = plan.get("family") or {}
+        print(f"• عائلة القالب: {fam.get('name')} — {fam.get('description')}")
+        print(f"  ميزانية النص: {fam.get('words_per_scene')} كلمة/مشهد")
+        over = 0
+        for s in plan["scenes"]:
+            budget = s.get("text_budget") or {}
+            kinds = ", ".join(e["type"] for e in s["elements"]) or "—"
+            flag = "✔" if budget.get("fits") else "✘"
+            if not budget.get("fits"):
+                over += 1
+            print(
+                f"  {flag} مشهد {s['id']} ({s.get('role', '-')}): {s['duration']}ث · "
+                f"مرسوم: {budget.get('drawn_words', 0)} كلمة "
+                f"(سعة {budget.get('capacity_words', 0)}) · "
+                f"سرد: {budget.get('narration_words', 0)} كلمة "
+                f"({budget.get('narration_words_per_second', 0)}/ث) · عناصر: {kinds}"
+            )
+            if not budget.get("fits"):
+                print(
+                    f"      ⤷ يحتاج تقليص ≈ {budget.get('excess_words', 0)} كلمة مرسومة "
+                    f"(أو زيادة مدة المشهد) قبل أن يُرسم في وقته"
+                )
+        print(f"  مشاهد خارج ميزانية النص: {over}")
+        return 0 if over == 0 else 2
+
     out = plan_stage.save_plan(plan, pd)
     if _try_manifest(pd) is not None:
         try:
@@ -442,6 +484,12 @@ def cmd_plan(args) -> int:
             print(f"✘ حُفظت الخطة لكن تعذّر تنشيطها: {exc}", file=sys.stderr)
             return 2
     print(f"✔ الخطة محفوظة: {out} · {rate} · {plan['stats'].get('frames')} إطار")
+    fam = plan.get("family") or {}
+    if fam:
+        print(f"  عائلة القالب: {fam.get('name')} — {fam.get('description')}")
+    over = plan["stats"].get("scenes_over_text_budget") or 0
+    if over:
+        print(f"  ⚠ {over} مشاهد خارج ميزانية النص — شغّل: rasm plan {args.project} --check")
     timing = plan.get("timing") or {}
     if timing.get("source"):
         lvl = timing.get("level") or "-"
@@ -1289,6 +1337,16 @@ def main() -> int:
     p5.add_argument("project")
     p5.add_argument("--max-scenes", type=int, default=None)
     p5.add_argument("--fps", default=None, help="معدل الإطارات (افتراضي: مانيفست المشروع أو 24)")
+    p5.add_argument(
+        "--family",
+        default=None,
+        help="عائلة القالب: documentary | explainer | dense (افتراضي: عائلة المشروع الحالية)",
+    )
+    p5.add_argument(
+        "--check",
+        action="store_true",
+        help="تقرير تأليف فقط (بلا حفظ): أي مشاهد لا يُرسم نصه ضمن وقته",
+    )
     p5.set_defaults(func=cmd_plan)
 
     pj = sub.add_parser("project", help="مانيفست المشروع: init / validate / migrate")

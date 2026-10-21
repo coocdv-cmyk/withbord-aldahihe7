@@ -21,8 +21,17 @@ from ..core.timebase import (
     map_boundaries_to_frames,
 )
 from ..core.util import write_json
+from .families import get_family, scene_role, text_budget
 
 CANVAS = (2560, 1440)
+
+# The drawing budget, measured on the production plan (2026-10-21):
+# 106.92 s of natural drawing for a 79.875 s film (1.34x speed-up), which is
+# ~0.95 drawn words per second of scene time.  A scene above that budget is
+# reported as "does not fit" instead of being quietly rushed.
+NATURAL_DRAWN_WORDS_PER_SECOND = 0.95
+# A narration faster than this cannot be read (and cannot be drawn).
+MAX_NARRATION_WORDS_PER_SECOND = 3.2
 SAFE = 130
 INK = "#211E1A"
 ACCENT = "#8C2F1F"
@@ -91,6 +100,80 @@ def _scene_entities(scene: dict, index: dict[str, list[dict]]) -> list[str]:
     return hits
 
 
+def _scene_text_chunks(
+    role: str,
+    graph: dict,
+    narration: str,
+    visual: dict | None,
+    names: list[str],
+) -> list[str]:
+    """The text pieces a scene may show, in reading order (may be empty)."""
+    hook = (graph.get("hook") or narration).strip()
+    if role == "hook":
+        title = _first_clause(hook, 5) or _first_clause(narration, 5)
+        # the subtitle of a hook is short on purpose: it has to be drawn
+        sub = _first_clause(narration, 6)
+        return [t for t in (title, sub if sub != title else "") if t]
+    caption = _first_clause(narration, 7)
+    if role == "evidence" and visual:
+        label = visual.get("entity") or (names[0] if names else "")
+        return [t for t in (label, caption) if t]
+    return [caption] if caption else []
+
+
+def _text_slot(
+    role: str,
+    slot: int,
+    *,
+    english: bool,
+    title_size: int,
+    sub_size: int,
+    label_size: int,
+    caption_size: int,
+    headline_size: int,
+) -> tuple[dict, int, int]:
+    """Where a text element goes and how big it is (per role and slot)."""
+    if role == "hook" and slot == 1:
+        return {"rect": [SAFE, 220, CANVAS[0] - 2 * SAFE, 720], "color": INK, "weight": 650}, title_size, 4
+    if role == "hook" and slot == 2:
+        return (
+            {"rect": [SAFE + 60, 940, CANVAS[0] - 2 * SAFE - 120, 340], "color": ACCENT, "weight": 500},
+            sub_size,
+            6,
+        )
+    if role == "label":
+        return {"rect": [1450, 150, 980, 190], "color": ACCENT, "weight": 500}, label_size, 3
+    if role == "evidence" and slot == 2:
+        return {"rect": [1520, 400, 920, 740], "color": INK, "weight": 500}, caption_size, 4
+    return {"rect": [SAFE, 380, CANVAS[0] - 2 * SAFE, 700], "color": INK, "weight": 600}, headline_size, 4
+
+
+def _text_element(
+    text: str,
+    *,
+    role: str,
+    slot: int,
+    font: str,
+    english: bool,
+    place: dict,
+    size: int,
+    wrap: int,
+) -> dict:
+    """A text element placed for its role (title / subtitle / label / caption)."""
+    return {
+        "type": "text",
+        "text": _wrap(text, wrap),
+        "font": font,
+        "size": size,
+        "rect": list(place["rect"]),
+        "mode": "skeleton",
+        "rtl": not english,
+        **({"weight": int(place["weight"])} if english else {}),
+        "color": place["color"],
+        "gap": 0.3,
+    }
+
+
 def build_plan(
     graph: dict,
     research: dict,
@@ -98,10 +181,12 @@ def build_plan(
     project_dir: Path | None = None,
     max_scenes: int | None = None,
     fps: FrameRate | int | float | str | dict | None = None,
+    family: str | None = None,
 ) -> dict:
     base = Path(project_dir) if project_dir else Path(".")
     # قاعدة زمن واحدة: المشروع يحدد المعدل، والافتراضي 24 (لا 30 ثابتة).
     rate = coerce_frame_rate(fps) if fps is not None else FrameRate(24)
+    fam = get_family(family)
     index = _index_assets(research)
     scenes = list(graph.get("scenes", []))[: (max_scenes or 10_000)]
     out_scenes: list[dict] = []
@@ -125,63 +210,102 @@ def build_plan(
         photo = next((a for a in assets if not a["vector"]), None)
         vector = next((a for a in assets if a["vector"]), None)
         visual = photo or vector
+        if not fam.allows_images:
+            visual = None
 
-        if i == 1:
-            hook = (graph.get("hook") or narration).strip()
-            title = _first_clause(hook, 5) or _first_clause(narration, 5)
-            if title:
+        role = scene_role(i, len(scenes))
+        recipe = fam.recipe.get(role) or fam.recipe.get("explain", ())
+        text_chunks = _scene_text_chunks(role, graph, narration, visual, names)
+        text_index = 0
+        for kind in recipe:
+            if kind == "text":
+                chunk = text_chunks[text_index] if text_index < len(text_chunks) else None
+                text_index += 1
+                if not chunk:
+                    continue
+                place, size, wrap = _text_slot(
+                    role,
+                    text_index,
+                    english=english,
+                    title_size=title_size,
+                    sub_size=sub_size,
+                    label_size=label_size,
+                    caption_size=caption_size,
+                    headline_size=headline_size,
+                )
+                elements.append(
+                    _text_element(
+                        chunk,
+                        role=role,
+                        slot=text_index,
+                        font=body_font if text_index > 1 else title_font,
+                        english=english,
+                        place=place,
+                        size=size,
+                        wrap=wrap,
+                    )
+                )
+            elif kind == "highlight":
+                # شريط تظليل خلف النص (اللون الفاتح) — يُرسم قبل النص
                 elements.append(
                     {
-                        "type": "text",
-                        "text": _wrap(title, 4),
-                        "font": title_font,
-                        "size": title_size,
-                        "rect": [SAFE, 220, CANVAS[0] - 2 * SAFE, 720],
-                        "mode": "skeleton",
-                        "rtl": not english,
-                        **({"weight": 650} if english else {}),
-                        "color": INK,
+                        "type": "highlight",
+                        "rect": [150, 300, 2240, 340],
+                        "color": "#F3D57C",
+                        "speed": 2.2,
+                        "events": False,
+                        "gap": 0.14,
+                    }
+                )
+            elif kind == "underline":
+                # في مشهد الافتتاحية يُرسَم التسطير تحت العنوان الفرعي،
+                # وإلا criss-cross على ذيل الخط العربي.
+                rect = [130, 1290, 2300, 260] if role == "hook" else [130, 285, 2300, 380]
+                elements.append(
+                    {
+                        "type": "underline",
+                        "rect": rect,
+                        "double": True,
+                        "color": "#8C2F1F",
+                        "brush": 6.5,
+                        "offset": 16,
                         "gap": 0.3,
                     }
                 )
-            sub = _first_clause(narration, 12)
-            if sub and sub != title:
+            elif kind == "flourish":
                 elements.append(
                     {
-                        "type": "text",
-                        "text": _wrap(sub, 6),
-                        "font": body_font,
-                        "size": sub_size,
-                        "rect": [SAFE + 60, 940, CANVAS[0] - 2 * SAFE - 120, 340],
-                        "mode": "skeleton",
-                        "rtl": not english,
-                        **({"weight": 500} if english else {}),
-                        "color": ACCENT,
-                        "gap": 0.4,
+                        "type": "flourish",
+                        "rect": [190, 950, 2180, 340],
+                        "color": "#8C2F1F",
+                        "gap": 0.2,
                     }
                 )
-        else:
-            caption = _first_clause(narration, 7)
-            if visual:
-                label = visual.get("entity") or (names[0] if names else "")
-                if label:
-                    elements.append(
-                        {
-                            "type": "text",
-                            "text": label,
-                            "font": body_font,
-                            "size": label_size,
-                            "rect": [1450, 150, 980, 190],
-                            "mode": "skeleton",
-                            "rtl": not english,
-                            **({"weight": 500} if english else {}),
-                            "color": ACCENT,
-                            "gap": 0.2,
-                        }
-                    )
+            elif kind == "torn_strip":
+                label = (visual.get("entity") if visual else None) or (names[0] if names else "")
+                elements.append(
+                    {
+                        "type": "torn_strip",
+                        "rect": [1420, 130, 1030, 250],
+                        "seed": 21,
+                        "tilt": -0.6,
+                        "gap": 0.12,
+                        **({"text": label, "font": body_font, "size": label_size} if label else {}),
+                    }
+                )
+            elif kind in ("image", "svg"):
+                if not visual:
+                    continue
                 visual_rect = [SAFE - 20, 330, 1400, 950]
                 if visual["vector"]:
-                    elements.append({"type": "svg", "asset": _abs_path(visual["path"], base), "rect": visual_rect, "gap": 0.35})
+                    elements.append(
+                        {
+                            "type": "svg",
+                            "asset": _abs_path(visual["path"], base),
+                            "rect": visual_rect,
+                            "gap": 0.35,
+                        }
+                    )
                 else:
                     elements.append(
                         {
@@ -192,35 +316,62 @@ def build_plan(
                             "gap": 0.35,
                         }
                     )
-                if caption:
-                    elements.append(
-                        {
-                            "type": "text",
-                            "text": _wrap(caption, 4),
-                            "font": body_font,
-                            "size": caption_size,
-                            "rect": [1520, 400, 920, 740],
-                            "mode": "skeleton",
-                            "rtl": not english,
-                            **({"weight": 500} if english else {}),
-                            "color": INK,
-                            "gap": 0.3,
-                        }
-                    )
-            elif caption:
+            elif kind == "paper_card":
                 elements.append(
                     {
-                        "type": "text",
-                        "text": caption,
-                        "font": title_font,
-                        "size": headline_size,
-                        "rect": [SAFE, 380, CANVAS[0] - 2 * SAFE, 700],
-                        "mode": "skeleton",
-                        "rtl": not english,
-                        **({"weight": 600} if english else {}),
-                        "color": INK,
-                        "gap": 0.3,
+                        "type": "paper_card",
+                        "rect": [SAFE - 60, 300, 1520, 1000],
+                        "style": "photo",
+                        "gap": 0.12,
                     }
+                )
+            elif kind in ("timeline", "bars"):
+                data = s.get("data") or {}
+                if kind == "timeline" and data.get("events"):
+                    elements.append(
+                        {
+                            "type": "timeline",
+                            "rect": [SAFE, 880, CANVAS[0] - 2 * SAFE, 420],
+                            "events": data["events"],
+                            "font": body_font,
+                            "size": 64,
+                            "rtl": not english,
+                            "gap": 0.25,
+                        }
+                    )
+                elif kind == "bars" and data.get("values"):
+                    elements.append(
+                        {
+                            "type": "bars",
+                            "rect": [SAFE, 880, CANVAS[0] - 2 * SAFE, 420],
+                            "values": data["values"],
+                            "labels": data.get("labels") or [],
+                            "font": body_font,
+                            "size": 60,
+                            "rtl": not english,
+                            "gap": 0.25,
+                        }
+                    )
+                else:
+                    # no data for this scene: the slot is not filled
+                    continue
+
+        # the narration must be readable on screen: keep the label of the
+        # evidence visible next to the picture
+        if role in ("evidence",) and visual and "text" in recipe:
+            label = visual.get("entity") or (names[0] if names else "")
+            if label and not any(el.get("type") == "text" for el in elements):
+                elements.insert(
+                    0,
+                    _text_element(
+                        label,
+                        role="label",
+                        slot=0,
+                        font=body_font,
+                        size=label_size,
+                        english=english,
+                        accent=ACCENT,
+                    ),
                 )
 
         out_scenes.append(
@@ -228,6 +379,7 @@ def build_plan(
                 "id": s.get("id", i),
                 "duration": float(s.get("duration") or 6.0),
                 "narration": narration,
+                "role": role,
                 "needs": s.get("needs", []),
                 "assets_used": [a["path"] for a in assets[:3]],
                 "elements": elements,
@@ -266,6 +418,37 @@ def build_plan(
         return total
 
     total_frames = _assign_estimated_frames()
+
+    # ميزانية الرسم: النص **المرسوم على الشاشة** يجب أن يُرسم ضمن مدة المشهد.
+    # المعامل مقيس على خطة الإنتاج: ~0.95 كلمة مرسومة في الثانية (القياس:
+    # 106.92ث رسم طبيعي مقابل 79.875ث فيلم => 1.34× تسريع).
+    words_limit = text_budget(fam)
+    over_budget = 0
+    for sc in out_scenes:
+        drawn_words = sum(
+            len(str(el.get("text") or "").replace("\n", " ").split())
+            for el in sc.get("elements") or []
+            if el.get("type") == "text"
+        )
+        narration_words = len((sc.get("narration") or "").split())
+        duration = max(0.1, float(sc.get("duration") or 0.0))
+        capacity = duration * NATURAL_DRAWN_WORDS_PER_SECOND
+        excess = max(0, drawn_words - int(capacity))
+        narration_rate = narration_words / duration
+        sc["text_budget"] = {
+            "drawn_words": drawn_words,
+            "narration_words": narration_words,
+            "narration_words_per_second": round(narration_rate, 3),
+            "natural_words_per_second": NATURAL_DRAWN_WORDS_PER_SECOND,
+            "capacity_words": int(capacity),
+            "fits": excess == 0 and narration_rate <= MAX_NARRATION_WORDS_PER_SECOND,
+            "excess_words": excess,
+            "family_limit": words_limit,
+            "over_family_limit": drawn_words > words_limit,
+        }
+        if not sc["text_budget"]["fits"]:
+            over_budget += 1
+
     al = load_alignment(base) if project_dir else None
     if al and al.segments and al.sample_rate > 0:
         by_id = {int(seg.scene_id): seg for seg in al.segments}
@@ -330,6 +513,19 @@ def build_plan(
         "lang": graph.get("lang", "ar"),
         "canvas": list(CANVAS),
         "fps": frame_rate_json(rate),
+        "family": {
+            "name": fam.name,
+            "description": fam.description,
+            "words_per_scene": words_limit,
+            "allows_images": fam.allows_images,
+            "motion": {
+                "zoom": fam.motion.zoom,
+                "follow": fam.motion.follow,
+                "zoom_by_type": dict(fam.motion.zoom_by_type),
+                "hold_on_text": fam.motion.hold_on_text,
+                "lead_in": fam.motion.lead_in,
+            },
+        },
         "timebase": {
             "source": timing["source"],
             "method": timing.get("method", ""),
@@ -350,6 +546,7 @@ def build_plan(
             "estimated_duration": round(float(exact_duration), 1),
             "duration": round(float(exact_duration), 6),
             "frames": total_frames,
+            "scenes_over_text_budget": over_budget,
         },
     }
 
