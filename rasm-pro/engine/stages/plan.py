@@ -106,21 +106,35 @@ def _scene_text_chunks(
     narration: str,
     visual: dict | None,
     names: list[str],
+    capacity: int | None = None,
 ) -> list[str]:
-    """The text pieces a scene may show, in reading order (may be empty)."""
+    """The text pieces a scene may show, in reading order (may be empty).
+
+    ``capacity`` = how many words can be **drawn** inside this scene
+    (the measured budget: ~0.95 drawn words per second).  The on-screen
+    text never exceeds it, so a short scene gets a short caption instead of
+    an over-budget one — and a long scene is not limited to seven words.
+    """
+    cap = max(1, int(capacity)) if capacity else 7
     hook = (graph.get("hook") or narration).strip()
     if role == "hook":
-        title = _first_clause(hook, 5) or _first_clause(narration, 5)
-        # the subtitle continues the sentence instead of repeating the title:
-        # drawing the same five words twice wastes scene time and reads badly.
-        words = narration.split()
-        rest = " ".join(words[5:]) if len(words) > 5 else ""
-        sub = _first_clause(rest, 6) if rest else ""
+        title_words = max(2, min(5, cap - 2))
+        title = _first_clause(hook, title_words) or _first_clause(narration, title_words)
+        # the subtitle continues the sentence instead of repeating the title
+        spoken = narration.split()
+        used = len(title.split())
+        rest = " ".join(spoken[used:]) if len(spoken) > used else ""
+        sub_words = max(0, min(6, cap - used))
+        sub = _first_clause(rest, sub_words) if (rest and sub_words) else ""
         return [t for t in (title, sub if sub and sub != title else "") if t]
-    caption = _first_clause(narration, 7)
+    label = ""
     if role == "evidence" and visual:
         label = visual.get("entity") or (names[0] if names else "")
-        return [t for t in (label, caption) if t]
+    label_words = len(label.split()) if label else 0
+    caption_words = max(1, min(7, cap - label_words))
+    caption = _first_clause(narration, caption_words)
+    if role == "evidence" and visual and label:
+        return [label, caption]
     return [caption] if caption else []
 
 
@@ -207,23 +221,29 @@ def build_plan(
     caption_size = 140 if english else 150
     headline_size = 180 if english else 190
 
-    for i, s in enumerate(scenes, 1):
+    def _capacity_for(duration: float) -> int:
+        """How many words can be **drawn** inside a scene of this length.
+
+        Measured budget: 0.95 drawn words per second (106.92s of natural
+        drawing against a 79.875s film on the production plan).  The formula
+        is the same one the text budget uses, so the two always agree.
+        """
+        return max(1, int(float(duration) * NATURAL_DRAWN_WORDS_PER_SECOND))
+
+    def _scene_elements(
+        s: dict,
+        i: int,
+        role: str,
+        recipe: tuple[str, ...],
+        names: list[str],
+        assets: list[dict],
+        visual: dict | None,
+        capacity: int,
+    ) -> list[dict]:
+        """Builds the elements of one scene for a given drawing capacity."""
         narration = (s.get("narration") or "").strip()
         elements: list[dict] = []
-
-        names = _scene_entities(s, index)
-        assets: list[dict] = []
-        for n in names:
-            assets += index.get(n, [])
-        photo = next((a for a in assets if not a["vector"]), None)
-        vector = next((a for a in assets if a["vector"]), None)
-        visual = photo or vector
-        if not fam.allows_images:
-            visual = None
-
-        role = scene_role(i, len(scenes))
-        recipe = fam.recipe.get(role) or fam.recipe.get("explain", ())
-        text_chunks = _scene_text_chunks(role, graph, narration, visual, names)
+        text_chunks = _scene_text_chunks(role, graph, narration, visual, names, capacity)
         text_index = 0
         for kind in recipe:
             if kind == "text":
@@ -382,18 +402,49 @@ def build_plan(
                         font=body_font,
                         size=label_size,
                         english=english,
-                        accent=ACCENT,
+                        place={"rect": [1450, 150, 980, 190], "color": ACCENT, "weight": 500},
+                        wrap=3,
                     ),
                 )
 
+        return elements
+
+    context: list[tuple] = []
+    for i, s in enumerate(scenes, 1):
+        names = _scene_entities(s, index)
+        assets: list[dict] = []
+        for n in names:
+            assets += index.get(n, [])
+        photo = next((a for a in assets if not a["vector"]), None)
+        vector = next((a for a in assets if a["vector"]), None)
+        visual = photo or vector
+        if not fam.allows_images:
+            visual = None
+
+        role = scene_role(i, len(scenes))
+        recipe = fam.recipe.get(role) or fam.recipe.get("explain", ())
+        narration = (s.get("narration") or "").strip()
+        duration = float(s.get("duration") or 6.0)
+        elements = _scene_elements(
+            s, i, role, recipe, names, assets, visual, _capacity_for(duration)
+        )
+        context.append((s, i, role, recipe, names, assets, visual))
+        # "used" means **drawn**: an asset that merely matched the scene text
+        # but was not placed in any element is not used, and must not be
+        # credited or gated as if it were.
+        drawn_visual = (
+            visual
+            if visual and any(el.get("type") in ("image", "svg") for el in elements)
+            else None
+        )
         out_scenes.append(
             {
                 "id": s.get("id", i),
-                "duration": float(s.get("duration") or 6.0),
+                "duration": duration,
                 "narration": narration,
                 "role": role,
                 "needs": s.get("needs", []),
-                "assets_used": [a["path"] for a in assets[:3]],
+                "assets_used": [drawn_visual["path"]] if drawn_visual else [],
                 "elements": elements,
             }
         )
@@ -490,6 +541,15 @@ def build_plan(
     # تُحسب **بعد** تطبيق المحاذاة، لأن المدة التي ستُرسم فعلًا هي مدة الصوت
     # لا تقدير الكلمات/الثانية.  المعامل مقيس على خطة الإنتاج: ~0.95 كلمة
     # مرسومة في الثانية (106.92ث رسم طبيعي مقابل 79.875ث فيلم).
+    #
+    # ولأن المدة النهائية معروفة الآن، يُعاد بناء عناصر النص بسعة المشهد
+    # الحقيقية: مشهد قصير يحصل على تعليق أقصر بدل تعليق لا يُرسم في وقته.
+    for idx, sc in enumerate(out_scenes):
+        s, i, role, recipe, names, assets, visual = context[idx]
+        sc["elements"] = _scene_elements(
+            s, i, role, recipe, names, assets, visual, _capacity_for(sc["duration"])
+        )
+
     words_limit = text_budget(fam)
     over_budget = 0
     for sc in out_scenes:

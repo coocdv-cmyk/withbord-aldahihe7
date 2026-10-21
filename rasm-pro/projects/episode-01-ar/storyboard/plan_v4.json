@@ -1,0 +1,856 @@
+{
+  "project": "0ff053d8bd0d020c",
+  "lang": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "family": {
+    "name": "documentary",
+    "description": "صور وشواهد: شريط ممزق + صورة + عنوان + تعليق",
+    "words_per_scene": 16,
+    "allows_images": true,
+    "motion": {
+      "zoom": 2.8,
+      "follow": 0.06,
+      "zoom_by_type": {
+        "image": 2.4,
+        "svg": 2.4,
+        "torn_strip": 1.6,
+        "paper_card": 1.8
+      },
+      "hold_on_text": false,
+      "lead_in": 0.15
+    }
+  },
+  "timebase": {
+    "source": "narration",
+    "method": "vad-pauses-proportional-v1",
+    "rounding": "absolute-samples-to-frames",
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "sample_rate": 48000,
+    "total_samples": 6568224,
+    "start_frame": 0,
+    "end_frame": 3284,
+    "frames": 3284
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 17.070187,
+      "narration": "لماذا ننسى ما نتعلّمه؟ ثلاثة أشياء تقرّر ما يبقى في الذاكرة، وأحدها ليس الذكاء بل النوم نفسه. في هذا المشهد نكشف القاعدة، ثم ننتقل إلى خطوة عملية تنفعك اليوم.",
+      "role": "hook",
+      "needs": [
+        "flag"
+      ],
+      "assets_used": [
+        "assets/generated/sleep.svg"
+      ],
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            150,
+            300,
+            2240,
+            340
+          ],
+          "color": "#F3D57C",
+          "speed": 2.2,
+          "events": false,
+          "gap": 0.14
+        },
+        {
+          "type": "text",
+          "text": "لماذا ننسى ما نتعلّمه؟\nثلاثة…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            130,
+            220,
+            2300,
+            720
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "أشياء تقرّر ما يبقى في الذاكرة…",
+          "font": "cairo",
+          "size": 128,
+          "rect": [
+            190,
+            940,
+            2180,
+            340
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 0,
+      "end_frame": 410,
+      "duration_frames": 410,
+      "start_sample": 0,
+      "end_sample": 819369,
+      "duration_samples": 819369,
+      "text_budget": {
+        "drawn_words": 11,
+        "narration_words": 29,
+        "narration_words_per_second": 1.699,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 16,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-eb1841e74e80"
+      ]
+    },
+    {
+      "id": 2,
+      "duration": 14.610188,
+      "narration": "أولًا الانتباه. العقل لا يحفظ ما لا ينتبه إليه، فيضيع منك سطرٌ كامل تقرؤه بعينك ولا يدخل ذاكرتك. جرّب أن تقرأ فصلًا وأنت مشغول بملف آخر، ثم عد لتجده غائبًا.",
+      "role": "evidence",
+      "needs": [
+        "chart"
+      ],
+      "assets_used": [
+        "assets/generated/attention.svg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "الانتباه",
+          "font": "cairo",
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "الانتباه",
+          "font": "arefruqaa",
+          "size": 96,
+          "rect": [
+            1450,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "svg",
+          "asset": "assets/generated/attention.svg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "gap": 0.35,
+          "asset_id": "a-fff1f4c5b2c0"
+        },
+        {
+          "type": "text",
+          "text": "أولًا الانتباه. العقل لا\nيحفظ ما لا…",
+          "font": "cairo",
+          "size": 150,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 410,
+      "end_frame": 760,
+      "duration_frames": 350,
+      "start_sample": 819369,
+      "end_sample": 1520658,
+      "duration_samples": 701289,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 30,
+        "narration_words_per_second": 2.053,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-fff1f4c5b2c0"
+      ]
+    },
+    {
+      "id": 3,
+      "duration": 14.940563,
+      "narration": "المشهد الذي تمرّ به عينك الآن قد لا يلمس ذاكرتك ولو قرأته سبع مرات. الانتباه ليس فضيلة، بل شرط أن يدخل الشيء أصلًا قبل أن يُحفظ.",
+      "role": "explain",
+      "needs": [
+        "chart"
+      ],
+      "assets_used": [
+        "assets/generated/attention.svg"
+      ],
+      "elements": [
+        {
+          "type": "text",
+          "text": "المشهد الذي تمرّ به\nعينك الآن قد…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            724,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 760,
+      "end_frame": 1119,
+      "duration_frames": 359,
+      "start_sample": 1520658,
+      "end_sample": 2237805,
+      "duration_samples": 717147,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 26,
+        "narration_words_per_second": 1.74,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 14,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-fff1f4c5b2c0"
+      ]
+    },
+    {
+      "id": 4,
+      "duration": 11.793667,
+      "narration": "ثانيًا النوم. أثناء النوم ينتقل الأثر من الذاكرة القصيرة إلى الذاكرة الطويلة، كأن الدماغ يعيد ترتيب ما تعلّمته في اليوم.",
+      "role": "evidence",
+      "needs": [
+        "flag"
+      ],
+      "assets_used": [
+        "assets/generated/sleep.svg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "النوم",
+          "font": "cairo",
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "النوم",
+          "font": "arefruqaa",
+          "size": 96,
+          "rect": [
+            1450,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "svg",
+          "asset": "assets/generated/sleep.svg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "gap": 0.35,
+          "asset_id": "a-eb1841e74e80"
+        },
+        {
+          "type": "text",
+          "text": "ثانيًا النوم. أثناء النوم\nينتقل الأثر من…",
+          "font": "cairo",
+          "size": 150,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1119,
+      "end_frame": 1402,
+      "duration_frames": 283,
+      "start_sample": 2237805,
+      "end_sample": 2803901,
+      "duration_samples": 566096,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 20,
+        "narration_words_per_second": 1.696,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 11,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-eb1841e74e80"
+      ]
+    },
+    {
+      "id": 5,
+      "duration": 6.435104,
+      "narration": "الليلة التي تنام فيها قليلًا هي اللي تسرق منك ما تعلّمته اليوم.",
+      "role": "evidence",
+      "needs": [
+        "flag"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12
+        },
+        {
+          "type": "text",
+          "text": "الليلة التي تنام فيها\nقليلًا هي…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1402,
+      "end_frame": 1556,
+      "duration_frames": 154,
+      "start_sample": 2803901,
+      "end_sample": 3112786,
+      "duration_samples": 308885,
+      "text_budget": {
+        "drawn_words": 6,
+        "narration_words": 12,
+        "narration_words_per_second": 1.865,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 6,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 6,
+      "duration": 14.259167,
+      "narration": "ولذلك تفيدك أن تنام بعد المذاكرة لا قبلها. النوم ليس مكافأة نهاية اليوم، بل جزء من الحفظ نفسه، وأهمّ ما فيه يقع بعد ساعتين من الاستيقاظ.",
+      "role": "explain",
+      "needs": [
+        "symbol"
+      ],
+      "assets_used": [
+        "assets/generated/sleep.svg"
+      ],
+      "elements": [
+        {
+          "type": "text",
+          "text": "ولذلك تفيدك أن تنام\nبعد المذاكرة لا…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            724,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1556,
+      "end_frame": 1899,
+      "duration_frames": 343,
+      "start_sample": 3112786,
+      "end_sample": 3797226,
+      "duration_samples": 684440,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 26,
+        "narration_words_per_second": 1.823,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-eb1841e74e80"
+      ]
+    },
+    {
+      "id": 7,
+      "duration": 17.512917,
+      "narration": "ثالثًا التكرار، والتكرار المتباعد تحديدًا: مرة اليوم، ومرة بعد ثلاثة أيام، ومرة بعد أسبوع. هو مع التكرار ما يفصل المعلومة التي تُنسى عن المعلومة التي تبقى، والفارق بين الاثنين هو التوقيت.",
+      "role": "evidence",
+      "needs": [
+        "chart"
+      ],
+      "assets_used": [
+        "assets/generated/repetition.svg",
+        "assets/generated/timing.svg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "التكرار",
+          "font": "cairo",
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "التكرار",
+          "font": "arefruqaa",
+          "size": 96,
+          "rect": [
+            1450,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "svg",
+          "asset": "assets/generated/repetition.svg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "gap": 0.35,
+          "asset_id": "a-2ecc170eb38e"
+        },
+        {
+          "type": "text",
+          "text": "ثالثًا التكرار، والتكرار المتباعد\nتحديدًا: مرة اليوم…",
+          "font": "cairo",
+          "size": 150,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1899,
+      "end_frame": 2319,
+      "duration_frames": 420,
+      "start_sample": 3797226,
+      "end_sample": 4637846,
+      "duration_samples": 840620,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 31,
+        "narration_words_per_second": 1.77,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 16,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-2ecc170eb38e",
+        "a-6f6975a91ca6"
+      ]
+    },
+    {
+      "id": 8,
+      "duration": 15.211562,
+      "narration": "المشكلة أن التكرار المتلاصق في اليوم نفسه لا يفيد كثيرًا، فالعقل يحفظ الحضور لا المعلومة. حين تترك يومًا كاملًا بين المراجعتين، تترك له وقتًا يستعيد فيه الطريق.",
+      "role": "evidence",
+      "needs": [
+        "symbol"
+      ],
+      "assets_used": [
+        "assets/generated/repetition.svg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "التكرار",
+          "font": "cairo",
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "التكرار",
+          "font": "arefruqaa",
+          "size": 96,
+          "rect": [
+            1450,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "svg",
+          "asset": "assets/generated/repetition.svg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "gap": 0.35,
+          "asset_id": "a-2ecc170eb38e"
+        },
+        {
+          "type": "text",
+          "text": "المشكلة أن التكرار المتلاصق\nفي اليوم نفسه…",
+          "font": "cairo",
+          "size": 150,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 2319,
+      "end_frame": 2684,
+      "duration_frames": 365,
+      "start_sample": 4637846,
+      "end_sample": 5368001,
+      "duration_samples": 730155,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 27,
+        "narration_words_per_second": 1.775,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 14,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-2ecc170eb38e"
+      ]
+    },
+    {
+      "id": 9,
+      "duration": 13.5185,
+      "narration": "ولذلك تفيدك مراجعة في اليوم نفسه، وأخرى في الغد، وثالثة بعد أسبوع. التوقيت هو ما يصنع الأثر، وعدد المراجعات وحده لا يصنع شيئًا.",
+      "role": "explain",
+      "needs": [
+        "chart"
+      ],
+      "assets_used": [
+        "assets/generated/timing.svg"
+      ],
+      "elements": [
+        {
+          "type": "text",
+          "text": "ولذلك تفيدك مراجعة في\nاليوم نفسه، وأخرى…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            724,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 2684,
+      "end_frame": 3008,
+      "duration_frames": 324,
+      "start_sample": 5368001,
+      "end_sample": 6016889,
+      "duration_samples": 648888,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 23,
+        "narration_words_per_second": 1.701,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-6f6975a91ca6"
+      ]
+    },
+    {
+      "id": 10,
+      "duration": 11.486146,
+      "narration": "ابدأ اليوم بورقة واحدة، اكتب فكرة واحدة فيها، وراجعها ثلاث مرات متباعدة، وستفعل ما لا تفعله الفكرة الملقاة: ستتحول إلى عادة.",
+      "role": "close",
+      "needs": [
+        "chart",
+        "symbol"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            150,
+            300,
+            2240,
+            340
+          ],
+          "color": "#F3D57C",
+          "speed": 2.2,
+          "events": false,
+          "gap": 0.14
+        },
+        {
+          "type": "text",
+          "text": "ابدأ اليوم بورقة واحدة،\nاكتب فكرة واحدة…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            724,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 3008,
+      "end_frame": 3284,
+      "duration_frames": 276,
+      "start_sample": 6016889,
+      "end_sample": 6568224,
+      "duration_samples": 551335,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 21,
+        "narration_words_per_second": 1.828,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 10,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    }
+  ],
+  "audio": {
+    "file": "audio/narration-norm--16lufs.wav",
+    "sha256": "85fc57836732e03ae014023778e3268570ee35bdbd6bee4fe1a9dae815f034e0",
+    "duration_sec": 136.838,
+    "duration_exact": "68419/500",
+    "sample_rate": 48000,
+    "total_samples": 6568224,
+    "codec": "pcm_s16le"
+  },
+  "timing": {
+    "source": "narration",
+    "level": "SEGMENTED",
+    "method": "vad-pauses-proportional-v1",
+    "notes": [
+      "بنية الوقف مقيسة: 42 مقطع نطق مكتشف من الصوت فعليًا.",
+      "عدد المقاطع المقيسة (42) ≠ عدد المشاهد (10) ⇒ التوزيع تناسبي على زمن النطق المقيس، ثم يُحوَّل كل حد تراكمي إلى زمن التسجيل مع احتساب الوقفات التي تسبقه.",
+      "التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق)."
+    ],
+    "sample_rate": 48000,
+    "total_samples": 6568224,
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "alignment": "D:\\withbord inmation\\rasm-pro\\projects\\episode-01-ar\\audio\\alignment.json",
+    "rounding": "absolute-samples-to-frames"
+  },
+  "stats": {
+    "scenes": 10,
+    "elements": 30,
+    "estimated_duration": 136.8,
+    "duration": 136.838001,
+    "frames": 3284,
+    "scenes_over_text_budget": 0
+  }
+}

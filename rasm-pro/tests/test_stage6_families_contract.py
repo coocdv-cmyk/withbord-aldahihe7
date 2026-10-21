@@ -142,8 +142,43 @@ def test_a_scene_that_cannot_be_drawn_is_flagged_with_the_excess():
     plan = build_plan(graph, {}, fps=24, family="explainer")
     flagged = [s for s in plan["scenes"] if not s["text_budget"]["fits"]]
     assert flagged, "a 60-word scene in 8 s must be flagged"
-    assert flagged[0]["text_budget"]["excess_words"] > 0
+    budget = flagged[0]["text_budget"]
+    # The on-screen caption now adapts to the scene's drawing capacity, so the
+    # scene is flagged for the **narration density** (60 words in 8 s), not for
+    # an un-drawable caption: the drawn words do fit their capacity.
+    assert budget["narration_words_per_second"] > MAX_NARRATION_WORDS_PER_SECOND
+    assert budget["drawn_words"] <= budget["capacity_words"]
     assert plan["stats"]["scenes_over_text_budget"] >= 1
+
+
+def test_a_caption_that_cannot_be_drawn_is_reported_as_excess():
+    """A plan that *forces* a long caption must still report the excess."""
+    graph = _graph()
+    graph["scenes"][2]["narration"] = " ".join(["word"] * 60)
+    plan = build_plan(graph, {}, fps=24, family="explainer")
+    scene = plan["scenes"][2]
+    # force the old behaviour back on: the excess is computed from the drawn
+    # words, so a plan that draws more than the capacity reports it.
+    scene["elements"].append(
+        {
+            "type": "text",
+            "text": " ".join(["word"] * 30),
+            "font": "cairo",
+            "size": 120,
+            "rect": [130, 380, 2300, 700],
+            "mode": "skeleton",
+            "color": "#211E1A",
+        }
+    )
+    from engine.stages.plan import NATURAL_DRAWN_WORDS_PER_SECOND
+
+    capacity = int(scene["duration"] * NATURAL_DRAWN_WORDS_PER_SECOND)
+    drawn = sum(
+        len(str(el.get("text") or "").replace("\n", " ").split())
+        for el in scene["elements"]
+        if el.get("type") == "text"
+    )
+    assert drawn - capacity > 0
 
 
 def test_narration_that_is_too_fast_to_read_is_flagged():

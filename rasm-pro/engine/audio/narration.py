@@ -57,8 +57,14 @@ def import_narration(
     copy: bool = True,
     deep: bool = True,
     note: str = "",
+    origin: dict | None = None,
 ) -> dict:
-    """يستورد تعليقًا صوتيًا لمشروع ويعيد وصفه الكامل مع قياس جهارته."""
+    """يستورد تعليقًا صوتيًا لمشروع ويعيد وصفه الكامل مع قياس جهارته.
+
+    ``origin`` يصف **أصلية** الصوت عندما لا يكون ملفًا خارجيًا: مثلًا
+    ``{"kind": "generated", "generated_by": "engine.tts", ...}``.  بدونه
+    يُعتبر الملف نسخة من أصل خارجي كما كان.
+    """
     src = Path(src)
     if not src.exists():
         raise AudioError(f"ملف التعليق غير موجود: {src}")
@@ -87,16 +93,26 @@ def import_narration(
         log.warning("تعذّر قياس الجهارة: %s", exc)
 
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    manifest = {
-        "version": 2,
-        "imported_at": now,
-        "note": note,
-        "original": {
+    if origin:
+        source_block = {
+            "path": str(src.resolve()),
+            "name": src.name,
+            "sha256": digest,
+            "outside_project": bool(origin.get("outside_project", True)),
+            **{k: v for k, v in origin.items() if k != "outside_project"},
+        }
+    else:
+        source_block = {
             "path": str(src.resolve()),
             "name": src.name,
             "sha256": digest,
             "outside_project": True,
-        },
+        }
+    manifest = {
+        "version": 2,
+        "imported_at": now,
+        "note": note,
+        "original": source_block,
         "stored": {
             "path": dst.relative_to(Path(project_dir)).as_posix() if copy else str(dst.resolve()),
             "name": dst.name,

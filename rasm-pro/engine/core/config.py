@@ -19,9 +19,12 @@ DEFAULTS: dict[str, Any] = {
         "openai_model": "gpt-4o-mini",
     },
     "tts": {
-        "backend": "none",          # none | edge | azure | elevenlabs | local
-        "voice": "",
+        # backend: "none" | "edge" | "azure"   (انظر engine/audio/tts.py)
+        "backend": "none",
+        "voice": "",            # فارغ = صوت افتراضي حسب اللغة
         "rate": "+0%",
+        "pitch": "+0Hz",
+        "sample_rate": 48000,
     },
     "research": {
         "user_agent": "rasm-pro/0.1 (personal video engine; contact: local)",

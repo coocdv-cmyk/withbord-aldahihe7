@@ -1,29 +1,37 @@
 name: CI
 
-# Copy this file to `.github/workflows/ci.yml` to enable it.
+# This file replaces the inherited Django template, which failed on every
+# push: the repository has no `manage.py` and no root `requirements.txt`.
 #
-# Why it lives here instead of in .github/workflows/: changing a workflow file
-# needs a GitHub token with the `workflow` scope.  The local push token used
-# for this repository does not have it, so the workflow file is kept here as a
-# reviewed template and copied into place by someone who can write workflows
-# (GitHub web UI: Add file -> Create new file -> .github/workflows/ci.yml).
+# What it proves: the engine byte-compiles and the whole test suite passes on
+# a clean machine, with the dependencies declared in `rasm-pro/requirements.txt`
+# (so the published loudness numbers are reproducible).
 #
-# What it does: installs the engine dependencies, runs a compile check and
-# the full test suite.  ubuntu-latest already ships ffmpeg/ffprobe; without
-# them the affected tests skip explicitly instead of failing.
+# The suite covers the real contracts: scene fit, pause-aware alignment,
+# scene-range audio offset, the shared production contract, credits, plan
+# layout and direction, and the TTS contract.  Tests that need ffmpeg/ffprobe
+# skip explicitly when the binary is absent — they never fail silently.
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "master", "stage2-contract", "stage3-contract",
+                "stage4-contract", "stage5-contract", "stage6-contract" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+    name: test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true          # rasm-pro/library/manifest-icons.jsonl
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
@@ -37,3 +45,13 @@ jobs:
       - name: Tests
         working-directory: rasm-pro
         run: python -m pytest -q tests
+      - name: Test summary artifact
+        if: always()
+        working-directory: rasm-pro
+        run: python -m pytest -q tests --junitxml=pytest-report.xml || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pytest-report-${{ matrix.os }}
+          path: rasm-pro/pytest-report.xml
+          if-no-files-found: ignore

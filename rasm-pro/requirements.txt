@@ -9,3 +9,10 @@ shapely
 pyclipper
 opencv-python-headless
 scikit-image
+# ITU-R BS.1770-4 loudness + contour tracing: the engine falls back to a pure
+# numpy implementation without them, but the published loudness numbers are
+# only reproducible with scipy present.
+scipy
+# JSON Schema validation of project.json / plan.json (independent of the
+# engine's own validators).
+jsonschema

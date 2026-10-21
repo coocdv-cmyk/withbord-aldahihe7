@@ -162,6 +162,48 @@ def bench_scene_prep(tmp_cache: Path | None) -> dict:
             "cache_hit_rate": round(s["hit"] / total, 3) if total else None}
 
 
+def bench_render(project_id: str = "stage6-arabic-sample", size=(1280, 720)) -> dict:
+    """يقيس زمن الرندر **بالفعل** (لا رقم مكتوب).
+
+    الرقم القديم (90.9ث) كان **حرفيًّا مكتوبًا في الأداة** لا قياسًا؛ لذلك
+    هذا القسم لا يعمل إلا بطلب صريح: ``tools\\perf_phase31.py render <project>``.
+    """
+    from engine.render import Director
+
+    pd = core_paths.PROJECTS / project_id
+    plan_path = None
+    story = pd / "storyboard"
+    for name in ("plan_v3.json", "plan_v2.json", "plan.json"):
+        candidate = story / name
+        if candidate.exists():
+            plan_path = candidate
+            break
+    if plan_path is None:
+        return {"error": f"no plan found for {project_id}"}
+    plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    out = Path(tempfile.mkdtemp(prefix="rasm_perf_render_")) / "render.mp4"
+    director = Director(
+        plan,
+        canvas=tuple(plan.get("canvas") or [2560, 1440]),
+        out_size=size,
+        project_dir=pd,
+    )
+    t0 = time.time()
+    result = director.render(out)
+    elapsed = time.time() - t0
+    frames = int(result.get("frames") or 0)
+    return {
+        "project": project_id,
+        "plan": str(plan_path.relative_to(ROOT)),
+        "frames": frames,
+        "seconds_of_film": round(float(result.get("seconds") or 0.0), 3),
+        "render_seconds": round(elapsed, 3),
+        "fps_effective": round(frames / elapsed, 2) if elapsed else None,
+        "note": "measured in-process (Director only, without the SFX mux)",
+        "measured_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+    }
+
+
 def main() -> int:
     section = (sys.argv[1] if len(sys.argv) > 1 else "all").lower()
     perf_json = OUT / "perf.json"
@@ -201,9 +243,18 @@ def main() -> int:
 
     if section in ("all", "render"):
         print("== 4) الرندر الفعلي ==")
-        render = {"frames": 1956, "render_seconds": 90.9, "fps_effective": round(1956 / 90.9, 2)}
-        print("  ", render)
-        RESULT["render"] = render
+        if section == "all":
+            # the render takes minutes: it is measured only on request, never
+            # written from a literal.
+            print(
+                "  (skipped — قياس الرندر يحتاج وقتًا: "
+                "tools\\perf_phase31.py render <project>)"
+            )
+        else:
+            project_id = sys.argv[2] if len(sys.argv) > 2 else "stage6-arabic-sample"
+            render = bench_render(project_id)
+            print("  ", render)
+            RESULT["render"] = render
 
     perf_json.write_text(json.dumps(RESULT, ensure_ascii=False, indent=1), encoding="utf-8")
     print("✔", perf_json)

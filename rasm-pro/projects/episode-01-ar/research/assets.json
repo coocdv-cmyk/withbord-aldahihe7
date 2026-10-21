@@ -1,0 +1,62 @@
+[
+  {
+    "path": "assets/generated/attention.svg",
+    "sha256": "",
+    "kind": "diagram",
+    "mime": "image/svg+xml",
+    "source": "Generated locally for episode-01-ar",
+    "url": "",
+    "page_url": "",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "title": "A hand-drawn attention funnel diagram",
+    "author": "Rasm episode generator",
+    "attr": false,
+    "origin": { "kind": "generated" }
+  },
+  {
+    "path": "assets/generated/sleep.svg",
+    "sha256": "",
+    "kind": "diagram",
+    "mime": "image/svg+xml",
+    "source": "Generated locally for episode-01-ar",
+    "url": "",
+    "page_url": "",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "title": "A hand-drawn sleep and memory diagram",
+    "author": "Rasm episode generator",
+    "attr": false,
+    "origin": { "kind": "generated" }
+  },
+  {
+    "path": "assets/generated/repetition.svg",
+    "sha256": "",
+    "kind": "diagram",
+    "mime": "image/svg+xml",
+    "source": "Generated locally for episode-01-ar",
+    "url": "",
+    "page_url": "",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "title": "A hand-drawn spaced-repetition timeline",
+    "author": "Rasm episode generator",
+    "attr": false,
+    "origin": { "kind": "generated" }
+  },
+  {
+    "path": "assets/generated/timing.svg",
+    "sha256": "",
+    "kind": "diagram",
+    "mime": "image/svg+xml",
+    "source": "Generated locally for episode-01-ar",
+    "url": "",
+    "page_url": "",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "title": "A hand-drawn clock face",
+    "author": "Rasm episode generator",
+    "attr": false,
+    "origin": { "kind": "generated" }
+  }
+]

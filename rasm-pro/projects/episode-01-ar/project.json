@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "project_id": "episode-01-ar",
+  "title": "episode-01-ar",
+  "language": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "status": "planned",
+  "created_at": "2026-10-21T10:55:12Z",
+  "updated_at": "2026-10-21T11:00:04Z",
+  "paths": {
+    "script": "script/scriptgraph.json",
+    "script_text": "script/script.txt",
+    "research": "research/research.json",
+    "assets_index": "research/assets.json"
+  },
+  "storyboard": {
+    "active": "storyboard/plan_v5.json",
+    "sha256": "2de227a8affd1e87db92ba4df1c1dd2894aef8258611641ba63bbb8db2c7f101",
+    "format_version": "2.0"
+  },
+  "audio": {
+    "narration": null,
+    "alignment": null
+  },
+  "asset_policy": {
+    "generated_is_evidence": false,
+    "retrieved_requires_approval": true,
+    "requires_origin": true,
+    "requires_license": true,
+    "final_render_requires_approval": true
+  },
+  "assets": [
+    {
+      "path": "assets/generated/attention.svg",
+      "asset_id": "a-fff1f4c5b2c0",
+      "sha256": "fff1f4c5b2c0959d2b187bac67237c4caf35f068c8a8a3c8410d1d96d6f932f7",
+      "bytes": 401,
+      "kind": "diagram",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Generated locally for episode-01-ar",
+        "url": "",
+        "page_url": "",
+        "retrieved_at": null,
+        "title": "A hand-drawn attention funnel diagram",
+        "author": "Rasm episode generator"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T10:57:47Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T10:57:47Z",
+        "note": "generated CC0 asset for episode-01-ar; approved under the owner delegation of 2026-10-21",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/generated/repetition.svg",
+      "asset_id": "a-2ecc170eb38e",
+      "sha256": "2ecc170eb38ec70765ccbb369245dc6da39adc9dd3c3525ee1cd797bec121c7d",
+      "bytes": 571,
+      "kind": "diagram",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Generated locally for episode-01-ar",
+        "url": "",
+        "page_url": "",
+        "retrieved_at": null,
+        "title": "A hand-drawn spaced-repetition timeline",
+        "author": "Rasm episode generator"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T10:57:49Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T10:57:49Z",
+        "note": "generated CC0 asset for episode-01-ar; approved under the owner delegation of 2026-10-21",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/generated/sleep.svg",
+      "asset_id": "a-eb1841e74e80",
+      "sha256": "eb1841e74e8090f49e384ebda3f6995a7fc5edd57cc483041de63e87258f8cd7",
+      "bytes": 519,
+      "kind": "diagram",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Generated locally for episode-01-ar",
+        "url": "",
+        "page_url": "",
+        "retrieved_at": null,
+        "title": "A hand-drawn sleep and memory diagram",
+        "author": "Rasm episode generator"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T10:57:50Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T10:57:50Z",
+        "note": "generated CC0 asset for episode-01-ar; approved under the owner delegation of 2026-10-21",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/generated/timing.svg",
+      "asset_id": "a-6f6975a91ca6",
+      "sha256": "6f6975a91ca62c503111529ad008fbd375075fdc2cc792c7700e9db355b6b00b",
+      "bytes": 404,
+      "kind": "diagram",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Generated locally for episode-01-ar",
+        "url": "",
+        "page_url": "",
+        "retrieved_at": null,
+        "title": "A hand-drawn clock face",
+        "author": "Rasm episode generator"
+      },
+      "license": {
+        "name": "CC0",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T10:57:52Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T10:57:52Z",
+        "note": "generated CC0 asset for episode-01-ar; approved under the owner delegation of 2026-10-21",
+        "records": 1
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "narration-missing",
+      "kind": "audio",
+      "blocking": false,
+      "message": "لا يوجد تعليق صوتي معتمد؛ مدة الخطة تقديرية وليست مزامنة صوت."
+    },
+    {
+      "id": "assets-pending-approval",
+      "kind": "assets",
+      "blocking": false,
+      "message": "0 أصلًا بانتظار الاعتماد البشري (معتمد: 4 · مرفوض: 0) قبل الإنتاج.",
+      "counts": {
+        "pending": 0,
+        "approved": 4,
+        "rejected": 0,
+        "used_unapproved": 0
+      }
+    }
+  ],
+  "renders": [],
+  "render": {
+    "fps_source": "plan",
+    "width": 2560,
+    "height": 1440,
+    "default_out_size": [
+      1280,
+      720
+    ],
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "studio": {
+    "kind": "rasm-pro",
+    "project_id": "episode-01-ar"
+  },
+  "approval_log": {
+    "path": "research/approvals.jsonl",
+    "records": 4,
+    "sha256": "6c43937f78538e30c7efb03d1185467e1febb1ef949133375e4a0c3eaa475ffe"
+  }
+}

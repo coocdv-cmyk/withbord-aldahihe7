@@ -28,6 +28,16 @@ from .narration import (
 )
 from .probe import AudioError, ffprobe_path, probe_audio, sha256_file
 from .sfx import SfxLibrary, build_track, mux_into
+from .tts import (
+    TtsConfig,
+    TtsError,
+    assemble_narration,
+    default_voice,
+    scene_words,
+    split_script,
+    synthesize_narration,
+    synthesize_project,
+)
 
 __all__ = [
     "ALIGN_VERSION",
@@ -40,9 +50,13 @@ __all__ = [
     "SfxLibrary",
     "SpeechSegment",
     "TARGETS",
+    "TtsConfig",
+    "TtsError",
     "alignment_frames",
+    "assemble_narration",
     "baseline_align",
     "build_track",
+    "default_voice",
     "detect_speech",
     "evaluate_narration_gate",
     "ffprobe_path",
@@ -58,5 +72,9 @@ __all__ = [
     "probe_audio",
     "resolve_narration",
     "save_alignment",
+    "scene_words",
     "sha256_file",
+    "split_script",
+    "synthesize_narration",
+    "synthesize_project",
 ]

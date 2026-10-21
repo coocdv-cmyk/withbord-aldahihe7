@@ -1,0 +1,9 @@
+# Sample-tool dependencies (NOT engine dependencies).
+#
+# The engine itself needs none of these: `engine/audio/tts.py` imports
+# `edge_tts` lazily and refuses with an explicit message when it is missing.
+# The sample builders under `tools/` use it to synthesize the narration of a
+# demonstration project.
+#
+#   .venv\Scripts\python.exe -m pip install -r tools\requirements-sample.txt
+edge-tts>=7.0

@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-10-21T00:00:00+00:00",
+  "project": "episode-01-ar",
+  "entities": [
+    {
+      "name": "الانتباه",
+      "type": "concept",
+      "assets": [
+        {
+          "asset": {
+            "path": "assets/generated/attention.svg",
+            "mime": "image/svg+xml",
+            "title": "A hand-drawn attention funnel diagram",
+            "license": "CC0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "النوم",
+      "type": "concept",
+      "assets": [
+        {
+          "asset": {
+            "path": "assets/generated/sleep.svg",
+            "mime": "image/svg+xml",
+            "title": "A hand-drawn sleep and memory diagram",
+            "license": "CC0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "التكرار",
+      "type": "concept",
+      "assets": [
+        {
+          "asset": {
+            "path": "assets/generated/repetition.svg",
+            "mime": "image/svg+xml",
+            "title": "A hand-drawn spaced-repetition timeline",
+            "license": "CC0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "التوقيت",
+      "type": "concept",
+      "assets": [
+        {
+          "asset": {
+            "path": "assets/generated/timing.svg",
+            "mime": "image/svg+xml",
+            "title": "A hand-drawn clock face",
+            "license": "CC0"
+          }
+        }
+      ]
+    }
+  ]
+}

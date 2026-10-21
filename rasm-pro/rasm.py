@@ -314,6 +314,65 @@ def cmd_icons(args) -> int:
     return 0
 
 
+def _align_and_gate(pd, plan_for_audio, *, align: bool = False) -> int:
+    """Align the stored narration against the active plan and run the gate.
+
+    Shared by ``rasm audio`` and ``rasm tts`` so both paths report the same
+    numbers from the same code (the contract is one, not two).
+    """
+    from engine.audio import load_narration as load_nar
+    from engine.audio.align import measured_align, save_alignment
+    from engine.audio.gate import evaluate_narration_gate
+    from engine.audio.loudness import TARGETS, decode_samples
+    from engine.audio.narration import resolve_narration
+
+    graph = read_json(pd / "script" / "scriptgraph.json")
+    # The active plan is the narration contract once it exists; the script
+    # graph may have changed or been reordered since the plan was built.  The
+    # old code always aligned against the graph and then gated against a
+    # hard-coded plan_v2.json, which could describe different scenes.
+    align_scenes = (
+        (plan_for_audio or {}).get("scenes")
+        or (graph or {}).get("scenes")
+        or []
+    )
+
+    nm = load_nar(pd)
+    if align and nm and nm.get("total_samples") and align_scenes:
+        sr = int(nm["sample_rate"])
+        samples, rate = decode_samples(resolve_narration(pd, nm))
+        al = measured_align(
+            align_scenes, samples, rate, int(nm["total_samples"])
+        )
+        out = save_alignment(al, pd)
+        source = "الخطة النشطة" if plan_for_audio else "scriptgraph"
+        print(f"✔ محاذاة ({al.level}) مقابل {source}: {out}")
+        for seg in al.segments:
+            print(
+                f"   - مشهد {seg.scene_id}: "
+                f"[{seg.start_sample / sr:.2f} → {seg.end_sample / sr:.2f}]ث · ثقة {seg.confidence:.2f}"
+                + (" ⚠ " + ",".join(seg.flags) if seg.flags else "")
+            )
+        for note in al.notes:
+            print(f"  · {note}")
+    elif nm and nm.get("total_samples"):
+        print("• لا مشاهد في الخطة/الرسم للمحاذاة.")
+    else:
+        print("• لا يوجد تعليق صوتي — لا محاذاة.")
+
+    gate = evaluate_narration_gate(pd, plan_for_audio)
+    if gate.has_narration:
+        print(
+            f"  · بوابة الصوت: {gate.lufs} LUFS · مقيسة: {gate.measured} · "
+            f"مدة {gate.duration_sec}ث · هدف {TARGETS.get('video')} LUFS"
+        )
+    for w in gate.warnings:
+        print(f"  ⚠ {w['reason']}: {w['detail']}")
+    for b in gate.blocking:
+        print(f"  ✘ {b['reason']}: {b['detail']}")
+    return 0
+
+
 def cmd_audio(args) -> int:
     """Import / measure / align / normalize the narration of a project.
 
@@ -322,9 +381,7 @@ def cmd_audio(args) -> int:
     ``rasm audio <project> --align``       → re-run the measured alignment
     ``rasm audio <project> --normalize -16`` → explicit, logged normalization
     """
-    from engine.audio import baseline_align, import_narration, save_alignment
-    from engine.audio.gate import evaluate_narration_gate
-    from engine.audio.loudness import TARGETS
+    from engine.audio import import_narration
 
     pd = project_dir(args.project)
 
@@ -366,62 +423,115 @@ def cmd_audio(args) -> int:
         else:
             print("  ⚠ تعذّر قياس الجهارة")
 
-    graph = read_json(pd / "script" / "scriptgraph.json")
-    # The active plan is the narration contract once it exists; the script
-    # graph may have changed or been reordered since the plan was built.  The
-    # old code always aligned against the graph and then gated against a
-    # hard-coded plan_v2.json, which could describe different scenes.
-    plan_for_audio = None
     try:
         plan_for_audio = read_json(_resolve_plan_arg(pd))
     except (FileNotFoundError, ProjectError, TimebaseError):
         plan_for_audio = None
-    align_scenes = (
-        (plan_for_audio or {}).get("scenes")
-        or (graph or {}).get("scenes")
-        or []
+    return _align_and_gate(
+        pd,
+        plan_for_audio,
+        align=bool(getattr(args, "align", False) or getattr(args, "file", None)),
     )
 
-    if getattr(args, "align", False) or getattr(args, "file", None):
-        from engine.audio import load_narration as load_nar
-        from engine.audio.align import measured_align
-        from engine.audio.loudness import decode_samples
-        from engine.audio.narration import resolve_narration
 
-        nm = load_nar(pd)
-        if nm and nm.get("total_samples") and align_scenes:
-            sr = int(nm["sample_rate"])
-            samples, rate = decode_samples(resolve_narration(pd, nm))
-            al = measured_align(
-                align_scenes, samples, rate, int(nm["total_samples"])
-            )
-            out = save_alignment(al, pd)
-            source = "الخطة النشطة" if plan_for_audio else "scriptgraph"
-            print(f"✔ محاذاة ({al.level}) مقابل {source}: {out}")
-            for seg in al.segments:
-                print(
-                    f"   - مشهد {seg.scene_id}: "
-                    f"[{seg.start_sample / sr:.2f} → {seg.end_sample / sr:.2f}]ث · ثقة {seg.confidence:.2f}"
-                    + (" ⚠ " + ",".join(seg.flags) if seg.flags else "")
-                )
-            for note in al.notes:
-                print(f"  · {note}")
-        elif nm and nm.get("total_samples"):
-            print("• لا مشاهد في الخطة/الرسم للمحاذاة.")
-        else:
-            print("• لا يوجد تعليق صوتي — لا محاذاة.")
+def cmd_tts(args) -> int:
+    """Generate the narration of a project with a **declared** TTS provider.
 
-    gate = evaluate_narration_gate(pd, plan_for_audio)
-    if gate.has_narration:
+    ``rasm tts <project> --backend edge``            → generate from the plan scenes
+    ``rasm tts <project> --script script.txt``       → generate from a text file
+    The result is a normal narration file: it is imported, measured, aligned
+    and gated exactly like an imported recording.
+    """
+    from engine.audio.tts import (
+        TtsConfig,
+        TtsError,
+        scene_words,
+        split_script,
+        synthesize_project,
+    )
+
+    pd = project_dir(args.project)
+    graph = read_json(pd / "script" / "scriptgraph.json") or {}
+
+    scenes: list[str] = []
+    if getattr(args, "script", None):
+        src = Path(args.script)
+        if not src.exists():
+            print(f"✘ ملف السكريبت غير موجود: {src}", file=sys.stderr)
+            return 2
+        scenes = split_script(src.read_text(encoding="utf-8"))
+    else:
+        scenes = [
+            str(s.get("narration") or "").strip() for s in (graph.get("scenes") or [])
+        ]
+        scenes = [s for s in scenes if s]
+    if not scenes:
         print(
-            f"  · بوابة الصوت: {gate.lufs} LUFS · مقيسة: {gate.measured} · "
-            f"مدة {gate.duration_sec}ث · هدف {TARGETS.get('video')} LUFS"
+            "✘ لا مشاهد للتوليد: مرّر --script <file> أو ابنِ scriptgraph أولًا "
+            "(rasm understand).",
+            file=sys.stderr,
         )
-    for w in gate.warnings:
-        print(f"  ⚠ {w['reason']}: {w['detail']}")
-    for b in gate.blocking:
-        print(f"  ✘ {b['reason']}: {b['detail']}")
-    return 0
+        return 2
+
+    language = str(graph.get("lang") or getattr(args, "lang", None) or "ar")
+    cfg = TtsConfig.from_config(language=language)
+    for attr in ("backend", "voice", "rate", "pitch"):
+        value = getattr(args, attr, None)
+        if value:
+            setattr(cfg, attr, value)
+
+    print(
+        f"• مزوّد TTS: {cfg.backend} · صوت {cfg.resolved_voice()} · "
+        f"{len(scenes)} مشهد · {scene_words(scenes)} كلمة"
+    )
+    if getattr(args, "dry_run", False):
+        print("  (dry-run: لم يُولَّد أي صوت)")
+        return 0
+
+    pauses: object = 0.8
+    raw_pause = getattr(args, "pause", None)
+    if raw_pause is not None:
+        if isinstance(raw_pause, str) and "," in raw_pause:
+            pauses = [float(p) for p in raw_pause.split(",") if p.strip()]
+        else:
+            pauses = float(raw_pause)
+
+    try:
+        report = synthesize_project(
+            pd,
+            scenes,
+            cfg=cfg,
+            pauses=pauses,
+            lead_in=float(getattr(args, "lead_in", 0.35) or 0.0),
+        )
+    except TtsError as exc:
+        print(f"✘ {exc}", file=sys.stderr)
+        return 2
+    except Exception as exc:  # unexpected, still explicit
+        print(f"✘ فشل توليد السرد: {exc}", file=sys.stderr)
+        return 2
+
+    man = report.get("manifest") or {}
+    loud = man.get("loudness") or {}
+    print(f"✔ سرد مُولَّد: {report['stored']}")
+    print(
+        f"  {man.get('codec')} · {man.get('sample_rate')} هرتز · {man.get('channels')} قناة · "
+        f"عينات {man.get('total_samples')} · مدة {report['duration_sec']}ث"
+    )
+    print(f"  الأصل: مُولَّد بواسطة engine.tts ({cfg.backend}) · بصمة {man.get('sha256', '')[:16]}…")
+    if loud:
+        print(
+            f"  الجهارة: {loud.get('lufs_integrated')} LUFS · LRA {loud.get('lra')} · "
+            f"ذروة حقيقية {loud.get('true_peak_dbtp')} dBTP"
+        )
+    if not loud:
+        print("  ⚠ تعذّر قياس الجهارة — شغّل: rasm audio <project> --normalize -16")
+
+    try:
+        plan_for_audio = read_json(_resolve_plan_arg(pd))
+    except (FileNotFoundError, ProjectError, TimebaseError):
+        plan_for_audio = None
+    return _align_and_gate(pd, plan_for_audio, align=True)
 
 
 def cmd_plan(args) -> int:
@@ -1428,6 +1538,42 @@ def main() -> int:
         help="تطبيع صريح إلى هدف LUFS (مثل -16 للفيديو) — مسجَّل في audio/narration.json",
     )
     p8.set_defaults(func=cmd_audio)
+
+    p8t = sub.add_parser(
+        "tts",
+        help="توليد السرد داخل المحرك من مزوّد معلن (edge/azure) — ثم محاذاة وبوابة",
+    )
+    p8t.add_argument("project")
+    p8t.add_argument(
+        "--script",
+        default=None,
+        help="ملف نصّي للسكريبت (فقرة = مشهد) — بديل مشاهد الـscriptgraph",
+    )
+    p8t.add_argument(
+        "--backend",
+        default=None,
+        choices=["none", "edge", "azure"],
+        help="مزوّد التوليد (افتراضيًا من config.tts / RASM_TTS_BACKEND)",
+    )
+    p8t.add_argument("--voice", default=None, help="صوت المزوّد (افتراضيًا حسب اللغة)")
+    p8t.add_argument("--rate", default=None, help="معدّل السرعة مثل -4% أو +0%")
+    p8t.add_argument("--pitch", default=None, help="معدّل النغمة مثل +0Hz")
+    p8t.add_argument(
+        "--pause",
+        default=None,
+        help="صمت بين المشاهد بالثواني (رقم واحد أو قائمة 0.5,0.8,...)",
+    )
+    p8t.add_argument(
+        "--lead-in",
+        type=float,
+        default=0.35,
+        help="صمت قبل أول كلمة (ثوانٍ) — يمنع بدء الكلام على حافة الملف",
+    )
+    p8t.add_argument("--lang", default=None, help="لغة السرد عند غياب scriptgraph")
+    p8t.add_argument(
+        "--dry-run", action="store_true", help="يعرض المشاهد والكلمات بلا توليد"
+    )
+    p8t.set_defaults(func=cmd_tts)
 
     p7 = sub.add_parser("learn", help="تصحيح دائم يتعلمه المحرك (اسم/نوع/احتياجات)")
     p7.add_argument("kind", choices=["alias", "type", "needs"], help="alias: اسم شائع→مرجعي · type: تصحيح النوع · needs: احتياجات بصرية")

@@ -1,0 +1,10 @@
+# Intermediates of episode-01-ar — regenerable, not evidence.
+#
+# The narration is produced by `rasm tts` (needs the network for the edge
+# provider), and the SFX track is rebuilt by the render.  The deliverable, the
+# plan, the alignment, the approvals, the credits, the mix report and the
+# evidence frames are all kept in the repository.
+audio/tts/
+audio/narration-*.wav
+!audio/narration-norm--16lufs.wav
+render/*.sfx.wav

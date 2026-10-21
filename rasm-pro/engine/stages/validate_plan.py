@@ -10,6 +10,7 @@ from fractions import Fraction
 from pathlib import Path
 from typing import Any
 
+from ..core import arabic
 from ..core.plan_time import scene_frame_bounds
 from ..core.timebase import TimebaseError, coerce_frame_rate, map_boundaries_to_frames, SampleRate
 from ..strokes import find_font
@@ -209,6 +210,16 @@ def validate_plan(plan: Any, *, project_dir: str | Path | None = None,
                 rtl = el.get("rtl")
                 if rtl is not None and not isinstance(rtl, bool):
                     errors.append(f"{ewhere}: rtl must be boolean")
+                elif rtl is False and isinstance(text, str) and arabic.is_arabic(text):
+                    # A plan written by a language model can carry rtl=false on
+                    # Arabic text; the renderer then draws it left-to-right and
+                    # the words come out reversed.  ``rtl`` absent means "auto"
+                    # (the text pipeline decides from the first strong letter),
+                    # so only an explicit false is a defect.
+                    errors.append(
+                        f"{ewhere}: Arabic text with rtl=false — "
+                        "the words would be drawn left-to-right"
+                    )
                 weight = el.get("weight")
                 if weight is not None and (not _is_num(weight) or not (100 <= int(weight) <= 900)):
                     errors.append(f"{ewhere}: weight must be 100..900")

@@ -91,6 +91,10 @@ build-tools/
 *.log
 studio/data/server*.log
 studio/data/model*.log
+# ...but the render logs under qa/ ARE evidence: they are the measured proof
+# behind the stage reports, so they travel with the code.
+!rasm-pro/qa/**/*.log
+!rasm-pro/qa/*.log
 
 # rea (separate reverse-engineering tool, has its own repo)
 rea/

@@ -42,8 +42,14 @@ def _apply_memory(name: str, etype: str, needs: list[str]) -> tuple[str, list[st
         needs = ["object"]  # صورة عامة بدل بورتريه شخص
     return etype, list(dict.fromkeys(needs))[:6]
 
-SCENE_WORDS_TARGET = 16          # كلمات مثالية لكل مشهد
+SCENE_WORDS_TARGET = 20          # كلمات مثالية لكل مشهد
 WORDS_PER_SECOND = 2.45          # معدل إلقاء عربي تقديري
+# أقل عدد كلمات justifies قطعَ مشهد بعد علامة استفهام: سؤال من 4 كلمات
+# داخل فقرة هو بداية الجملة لا مشهد مستقل.
+MIN_SCENE_WORDS = 8
+# مشهد أقصر من هذا يُدمج في سابقه (مشهد من 3 كلمات لا يُرسم ولا يُقال).
+MIN_MERGE_WORDS = 12
+_PARAGRAPH_RE = re.compile(r"\n{2,}")
 
 # كلمات دالة على نوع الكيان والاحتياج البصري
 NEED_HINTS: dict[str, tuple[str, ...]] = {
@@ -69,19 +75,44 @@ def estimate_duration(text: str) -> float:
 
 
 def heuristic_scenes(text: str) -> list[dict]:
-    """تقسيم احتياطي: جُمل مجموعة إلى مشاهد بحدود كلمات."""
-    sentences = arabic.split_sentences(text)
+    """يقسّم النص إلى مشاهد **دون أن يعبر فقرة الكاتب أبدًا**.
+
+    الفقرة (سطر فارغ) هي نيّة الكاتب: لا يجوز أن يُدمج ما بعدها بما قبلها،
+    ولا أن يُقطع جملة في نصفها.  داخل الفقرة تُجمَّع الجمل حتى بلوغ
+    ``SCENE_WORDS_TARGET``، ويُقطع عند سؤال/تعجب فقط إذا اجتمع حوله عدد
+    كلمات كافٍ.  وأي ذيل قصير يُدمج في المشهد السابق بدل أن يُرسم مشهدًا
+    من ثلاث كلمات.
+    """
     scenes: list[dict] = []
     buf: list[str] = []
     wc = 0
-    for s in sentences:
-        buf.append(s)
-        wc += arabic.word_count(s)
-        if wc >= SCENE_WORDS_TARGET or s.endswith(("؟", "!", ":")):
+
+    def _flush() -> None:
+        nonlocal buf, wc
+        if buf:
             scenes.append({"narration": " ".join(buf).strip(), "words": wc})
             buf, wc = [], 0
-    if buf:
-        scenes.append({"narration": " ".join(buf).strip(), "words": wc})
+
+    for paragraph in _PARAGRAPH_RE.split(text or ""):
+        paragraph = paragraph.strip()
+        if not paragraph:
+            continue
+        for s in arabic.split_sentences(paragraph):
+            buf.append(s)
+            wc += arabic.word_count(s)
+            strong = s.endswith(("؟", "!", ":")) and wc >= MIN_SCENE_WORDS
+            if wc >= SCENE_WORDS_TARGET or strong:
+                _flush()
+        # a paragraph is a hard boundary: never merge across it
+        _flush()
+
+    # merge a too-short tail into the scene before it
+    if len(scenes) > 1 and scenes[-1]["words"] < MIN_MERGE_WORDS:
+        tail = scenes.pop()
+        scenes[-1]["narration"] = (
+            scenes[-1]["narration"] + " " + tail["narration"]
+        ).strip()
+        scenes[-1]["words"] += tail["words"]
     return scenes
 
 
