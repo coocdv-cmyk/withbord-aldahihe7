@@ -99,6 +99,13 @@ SFX_TYPES: dict[str, dict] = {
         "kind": "paper",
         "description": "وضع صورة أو خلفية — ورق أخف",
     },
+    "page_flip": {
+        "source": "page_turn.wav",
+        "role": "scene transition",
+        "rate": 1.2,
+        "kind": "paper",
+        "description": "قلب الصفحة بين المشاهد — من التسجيل الحقيقي نفسه",
+    },
 }
 
 # الربط الدلالي: نوع العنصر في الفيديو ← نوع الصوت.
@@ -118,7 +125,16 @@ PLACE_BINDING = {
     "texture": "page_soft",
     "background": "page_soft",
 }
+# the sound of turning to the next page: it marks the scene change the way a
+# sheet of paper does, and it is the same real recording as the paper sound.
+TRANSITION_TYPE = "page_flip"
 TAP_TYPE = "tick"
+
+# How far the sound track is pushed down while the narrator speaks.
+DUCK_DEPTH_DB = -9.0
+DUCK_THRESHOLD_DBFS = -38.0
+DUCK_ATTACK_S = 0.08
+DUCK_RELEASE_S = 0.35
 
 
 def load_calibration() -> dict:
@@ -316,8 +332,57 @@ def _bind_place(el_type: str | None) -> str:
     return PLACE_BINDING.get(str(el_type or ""), "page_soft")
 
 
+def _duck_envelope(narration_wav: str | Path, total: int) -> np.ndarray:
+    """A gain envelope that pushes the sound track down under the voice.
+
+    The envelope follows the **real** narration: where the narrator speaks,
+    the room sounds step back; where they stop, they come forward again.
+    Without a narration file the track is left untouched.
+    """
+    gain = np.ones(total, dtype=np.float32)
+    try:
+        from .loudness import decode_samples
+
+        samples, sr = decode_samples(Path(narration_wav))
+    except Exception:
+        return gain
+    if samples is None or len(samples) == 0 or sr <= 0:
+        return gain
+    arr = np.asarray(samples, dtype=np.float64)
+    if arr.ndim > 1:
+        # decode_samples returns [channels, n] — the envelope follows the mix
+        arr = arr.mean(axis=0)
+    if arr.size == 0:
+        return gain
+    window = max(1, int(0.02 * sr))
+    usable = (len(arr) // window) * window
+    if usable < window:
+        return gain
+    frames = arr[:usable].reshape(-1, window)
+    rms = np.sqrt(np.mean(frames.astype(np.float64) ** 2, axis=1) + 1e-12)
+    db = 20.0 * np.log10(rms)
+    loud = db > DUCK_THRESHOLD_DBFS
+    depth = 10.0 ** (DUCK_DEPTH_DB / 20.0)
+    # exponential smoothing with a real time constant (63% of the change in
+    # one attack/release time)
+    alpha_attack = 1.0 - math.exp(-1.0 / max(1.0, DUCK_ATTACK_S / 0.02))
+    alpha_release = 1.0 - math.exp(-1.0 / max(1.0, DUCK_RELEASE_S / 0.02))
+    state = 1.0
+    smoothed = np.zeros_like(loud, dtype=np.float32)
+    for index, flag in enumerate(loud):
+        target = depth if flag else 1.0
+        alpha = alpha_attack if target < state else alpha_release
+        state += (target - state) * alpha
+        smoothed[index] = state
+    envelope = np.repeat(smoothed, window)
+    if len(envelope) < total:
+        envelope = np.concatenate([envelope, np.ones(total - len(envelope), dtype=np.float32)])
+    return envelope[:total]
+
+
 def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "paper",
-                duration: float | None = None, which: str = "ink") -> dict:
+                duration: float | None = None, which: str = "ink",
+                narration: str | Path | None = None) -> dict:
     """يبني مسار WAV من أحداث الرسم + ربط دلالي + مستوى مقيس.
 
     تقرير الإخراج يذكر: عدد الأحداث حسب النوع، مستوى المسار المقيس، ذروته،
@@ -379,6 +444,9 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
             type_name = _bind_place(e.get("el_type"))
             ok = put(lib.paper(0.42, type_name=type_name, offset_db=offset_db, rng=rng), t)
             counts[type_name] = counts.get(type_name, 0) + (1 if ok else 0)
+        elif kind == "transition":
+            ok = put(lib.paper(0.34, type_name=TRANSITION_TYPE, offset_db=offset_db, rng=rng), t)
+            counts[TRANSITION_TYPE] = counts.get(TRANSITION_TYPE, 0) + (1 if ok else 0)
         elif kind == "complete":
             pass
 
@@ -397,6 +465,22 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
 
     peak = float(np.max(np.abs(buf))) if buf.size else 0.0
     limiter = 0
+    # the voice steps the room sounds down; without a narration nothing moves
+    duck = {"applied": False, "depth_db": 0.0, "ducked_fraction": 0.0}
+    if narration:
+        envelope = _duck_envelope(narration, buf.size)
+        if envelope is not None and envelope.size == buf.size:
+            buf = buf * envelope
+            # "clearly ducked" = at least 3 dB below the nominal level
+            ducked = float(np.mean(envelope < 10.0 ** (-3.0 / 20.0)))
+            reduction = float(np.mean(20.0 * np.log10(np.maximum(envelope, 1e-6))))
+            duck = {
+                "applied": ducked > 0.01,
+                "depth_db": DUCK_DEPTH_DB,
+                "ducked_fraction": round(ducked, 3),
+                "mean_reduction_db": round(reduction, 2),
+            }
+    peak = float(np.max(np.abs(buf))) if buf.size else 0.0
     if peak > TRACK_PEAK_CEILING:
         buf *= TRACK_PEAK_CEILING / peak
         limiter = 1
@@ -420,6 +504,7 @@ def build_track(sfx_json: str | Path, out_wav: str | Path, *, preset: str = "pap
         "types_available": len(SFX_TYPES),
         "dropped_events": dropped,
         "closed_open_strokes": open_closed,
+        "ducking": duck,
         "preset": preset,
         "preset_offset_db": offset_db,
         "sfx_mix_db": spec.get("sfx_mix_db"),

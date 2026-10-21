@@ -619,6 +619,7 @@ def finalize_production(
                     wav,
                     preset=prep.sfx_preset,
                     duration=float(result.get("seconds") or 0.0),
+                    narration=prep.audio_file,
                 )
                 mux = mux_into(
                     out,

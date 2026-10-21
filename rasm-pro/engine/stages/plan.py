@@ -35,6 +35,7 @@ MAX_NARRATION_WORDS_PER_SECOND = 3.2
 SAFE = 130
 INK = "#211E1A"
 ACCENT = "#8C2F1F"
+MUTED = "#6B5B4A"      # سطر التفاصيل: أهدأ من الأسود
 
 
 def _first_clause(text: str, words: int = 8) -> str:
@@ -72,6 +73,27 @@ def _measure_font(font_name: str, size: int):
         font = None
     _WIDTH_CACHE[key] = font
     return font
+
+
+def _text_width(text: str, font_name: str, size: int) -> float:
+    """The natural width of a (wrapped) text line, in canvas units."""
+    font = _measure_font(font_name, size)
+    if font is None:
+        return float(len(text or "")) * float(size) * 0.5
+    width = 0.0
+    for line in str(text or "").split("\n"):
+        try:
+            width = max(width, float(font.getlength(line)))
+        except Exception:
+            width = max(width, len(line) * float(size) * 0.5)
+    return width
+
+
+def _band_for(text: str, *, font_name: str, size: int, base: list[float], pad: int = 26) -> list[float]:
+    """A highlight band that follows the **measured** width of its text."""
+    x, y, w, h = [float(v) for v in base]
+    width = _text_width(text, font_name, size)
+    return [x, y, min(float(CANVAS[0]) - x, max(w, width + pad * 2)), h]
 
 
 def _wrap_to_width(text: str, *, font_name: str, size: int, width: float) -> str:
@@ -201,12 +223,18 @@ def _scene_text_chunks(
     if role == "hook":
         title_words = max(2, min(5, cap - 2))
         title = _first_clause(hook, title_words) or _first_clause(narration, title_words)
-        # the subtitle continues the sentence instead of repeating the title
+        # The subtitle continues the sentence instead of repeating the title.
         spoken = narration.split()
         used = len(title.split())
         rest = " ".join(spoken[used:]) if len(spoken) > used else ""
         sub_words = max(0, min(6, cap - used))
         sub = _first_clause(rest, sub_words) if (rest and sub_words) else ""
+        if (not sub or len(sub.replace("…", "").split()) < 2) and title.endswith("…"):
+            # the title was cut and the rest of the sentence is too thin:
+            # take the **next sentence** instead of a fragment
+            sentences = arabic.split_sentences(narration)
+            if len(sentences) > 1:
+                sub = _first_clause(sentences[1], max(2, min(6, cap - title_words)))
         return [t for t in (title, sub if sub and sub != title else "") if t]
     label = ""
     if role == "evidence" and visual:
@@ -219,6 +247,23 @@ def _scene_text_chunks(
     caption = _first_clause(narration, caption_words)
     if role == "evidence" and visual and label:
         return [label, caption]
+    if role == "explain" and caption:
+        # a statement + a quieter detail line: the second line is the **next
+        # sentence**, so the board carries a hierarchy instead of one lonely
+        # sentence.  The detail only appears when the scene's own time can
+        # carry it.
+        sentences = arabic.split_sentences(narration)
+        head = sentences[0].strip() if sentences else caption
+        head_words = head.split()
+        if len(head_words) > cap:
+            head = " ".join(head_words[:cap]) + "…"
+        room = max(0, cap - len(head.split()))
+        detail = ""
+        if len(sentences) > 1 and room >= 3:
+            detail = " ".join(sentences[1].split()[: min(6, room)]).strip(" .،,")
+        if detail and len(detail.split()) >= 2:
+            return [head, detail]
+        return [head] if head else []
     return [caption] if caption else []
 
 
@@ -253,6 +298,9 @@ def _text_slot(
         return {"rect": list(lay["label"]), "color": ACCENT, "weight": 500}, label_size, 3
     if role == "evidence" and slot == 2:
         return {"rect": list(lay["caption"]), "color": INK, "weight": 500}, caption_size, 4
+    if role == "explain" and slot == 2:
+        # the detail line under the statement: smaller, quieter
+        return {"rect": list(lay["detail"]), "color": MUTED, "weight": 500}, max(60, headline_size // 2), 8
     return {"rect": list(lay["statement"]), "color": INK, "weight": 600}, headline_size, 4
 
 
@@ -307,20 +355,23 @@ LAYOUTS: dict[str, dict[str, dict[str, list[float]]]] = {
         },
     },
     "explain": {
-        # a: a wide statement with a double rule under it
+        # a: a big statement, a smaller detail line under it, a rule below
         "a": {
-            "statement": [130, 380, 2300, 700],
-            "rule": [130, 724, 2300, 380],
+            "statement": [200, 470, 2160, 520],
+            "detail": [200, 1030, 2160, 220],
+            "rule": [200, 1250, 2160, 180],
         },
         # b: a narrower statement with a flourish
         "b": {
-            "statement": [260, 420, 2040, 640],
+            "statement": [300, 500, 1960, 500],
+            "detail": [300, 1040, 1960, 210],
             "rule": [190, 950, 2180, 340],
         },
         # c: a low statement with the rule at the foot of the page
         "c": {
-            "statement": [130, 520, 2300, 560],
-            "rule": [130, 1100, 2300, 260],
+            "statement": [200, 540, 2160, 480],
+            "detail": [200, 1060, 2160, 200],
+            "rule": [200, 1260, 2160, 160],
         },
     },
     "close": {
@@ -472,11 +523,21 @@ def build_plan(
                     )
                 )
             elif kind == "highlight":
-                # شريط تظليل خلف النص (اللون الفاتح) — يُرسم قبل النص
+                # The band follows the **measured** width of the text it sits
+                # behind: a fixed band left the last words of a long title
+                # outside the highlight.
+                title_chunk = text_chunks[0] if text_chunks else ""
+                title_font_name = title_font if text_index == 0 else body_font
+                band = _band_for(
+                    title_chunk,
+                    font_name=title_font_name,
+                    size=title_size if role == "hook" else headline_size,
+                    base=list(lay.get("band") or [150, 300, 2240, 340]),
+                )
                 elements.append(
                     {
                         "type": "highlight",
-                        "rect": list(lay.get("band") or [150, 300, 2240, 340]),
+                        "rect": band,
                         "color": "#F3D57C",
                         "speed": 2.2,
                         "events": False,

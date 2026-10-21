@@ -684,6 +684,24 @@ class Director:
             scene_project_start = self.fps_rate.time_of_frames(scene_base_frame)
             scene_output_base = frames_total
             scene_output_start = self.fps_rate.time_of_frames(scene_output_base)
+            if idx > 1:
+                # the sound of turning the page: it marks the scene change
+                self.sfx_events.append(
+                    {
+                        "frame": scene_base_frame,
+                        "sample": int(round(float(scene_project_start) * sample_rate)),
+                        "t": round(float(scene_project_start), 6),
+                        "output_frame": int(scene_output_base),
+                        "output_t": round(float(scene_output_start), 6),
+                        "kind": "transition",
+                        "x": 0.0,
+                        "y": 0.0,
+                        "stroke": "",
+                        "scene": scene.get("id"),
+                        "el": None,
+                        "el_type": "scene",
+                    }
+                )
             for f in range(frames):
                 local_time = self.fps_rate.time_of_frames(f)
                 t = float(local_time)

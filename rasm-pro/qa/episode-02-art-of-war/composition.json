@@ -1,0 +1,151 @@
+{
+  "scenes": [
+    {
+      "id": 1,
+      "role": "hook",
+      "layout": "c",
+      "elements": 3,
+      "ink_area": 1669260,
+      "findings": []
+    },
+    {
+      "id": 2,
+      "role": "evidence",
+      "layout": "a",
+      "elements": 4,
+      "ink_area": 1997002,
+      "findings": []
+    },
+    {
+      "id": 3,
+      "role": "explain",
+      "layout": "b",
+      "elements": 2,
+      "ink_area": 989403,
+      "findings": []
+    },
+    {
+      "id": 4,
+      "role": "evidence",
+      "layout": "c",
+      "elements": 4,
+      "ink_area": 2348503,
+      "findings": []
+    },
+    {
+      "id": 5,
+      "role": "explain",
+      "layout": "a",
+      "elements": 2,
+      "ink_area": 1190527,
+      "findings": []
+    },
+    {
+      "id": 6,
+      "role": "explain",
+      "layout": "b",
+      "elements": 2,
+      "ink_area": 1066807,
+      "findings": []
+    },
+    {
+      "id": 7,
+      "role": "evidence",
+      "layout": "c",
+      "elements": 4,
+      "ink_area": 2372742,
+      "findings": []
+    },
+    {
+      "id": 8,
+      "role": "evidence",
+      "layout": "a",
+      "elements": 4,
+      "ink_area": 2268859,
+      "findings": []
+    },
+    {
+      "id": 9,
+      "role": "evidence",
+      "layout": "c",
+      "elements": 4,
+      "ink_area": 2311944,
+      "findings": []
+    },
+    {
+      "id": 10,
+      "role": "evidence",
+      "layout": "b",
+      "elements": 4,
+      "ink_area": 2273949,
+      "findings": []
+    },
+    {
+      "id": 11,
+      "role": "evidence",
+      "layout": "a",
+      "elements": 4,
+      "ink_area": 2261703,
+      "findings": []
+    },
+    {
+      "id": 12,
+      "role": "explain",
+      "layout": "b",
+      "elements": 2,
+      "ink_area": 1430611,
+      "findings": []
+    },
+    {
+      "id": 13,
+      "role": "evidence",
+      "layout": "a",
+      "elements": 4,
+      "ink_area": 2305609,
+      "findings": []
+    },
+    {
+      "id": 14,
+      "role": "explain",
+      "layout": "b",
+      "elements": 2,
+      "ink_area": 989091,
+      "findings": []
+    },
+    {
+      "id": 15,
+      "role": "explain",
+      "layout": "a",
+      "elements": 2,
+      "ink_area": 1305365,
+      "findings": []
+    },
+    {
+      "id": 16,
+      "role": "evidence",
+      "layout": "b",
+      "elements": 4,
+      "ink_area": 2112846,
+      "findings": []
+    },
+    {
+      "id": 17,
+      "role": "evidence",
+      "layout": "c",
+      "elements": 4,
+      "ink_area": 2422432,
+      "findings": []
+    },
+    {
+      "id": 18,
+      "role": "close",
+      "layout": "a",
+      "elements": 3,
+      "ink_area": 2029206,
+      "findings": []
+    }
+  ],
+  "blocking": [],
+  "warnings": [],
+  "ok": true
+}

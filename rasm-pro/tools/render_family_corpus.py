@@ -34,20 +34,20 @@ SAMPLES = {
         "lang": "ar",
         "hook": "الحرب العالمية الأولى",
         "scenes": [
-            {"id": 1, "narration": "في صيف 1914 اشتعلت الحرب العالمية الأولى.", "duration": 6.0, "needs": []},
-            {"id": 2, "narration": "معركة السوم 1916: خنادق ومدافعون وفرسان.", "duration": 6.0, "needs": []},
-            {"id": 3, "narration": "دخلت الولايات المتحدة الحرب في 1917.", "duration": 6.0, "needs": []},
-            {"id": 4, "narration": "معاهدة فرساي 1919 رسمت خريطة العالم الحديث.", "duration": 6.0, "needs": []},
+            {"id": 1, "narration": "في صيف 1914 اشتعلت الحرب العالمية الأولى.", "duration": 12.0, "needs": []},
+            {"id": 2, "narration": "معركة السوم 1916: خنادق ومدافعون وفرسان.", "duration": 12.0, "needs": []},
+            {"id": 3, "narration": "دخلت الولايات المتحدة الحرب في 1917.", "duration": 12.0, "needs": []},
+            {"id": 4, "narration": "معاهدة فرساي 1919 رسمت خريطة العالم الحديث.", "duration": 12.0, "needs": []},
         ],
     },
     "en": {
         "lang": "en",
         "hook": "The First World War",
         "scenes": [
-            {"id": 1, "narration": "In the summer of 1914 the world went to war.", "duration": 6.0, "needs": []},
-            {"id": 2, "narration": "The Somme in 1916: trenches, gunners and horses.", "duration": 6.0, "needs": []},
-            {"id": 3, "narration": "The United States entered the war in 1917.", "duration": 6.0, "needs": []},
-            {"id": 4, "narration": "The Treaty of Versailles redrew the modern map.", "duration": 6.0, "needs": []},
+            {"id": 1, "narration": "In the summer of 1914 the world went to war.", "duration": 12.0, "needs": []},
+            {"id": 2, "narration": "The Somme in 1916: trenches, gunners and horses.", "duration": 12.0, "needs": []},
+            {"id": 3, "narration": "The United States entered the war in 1917.", "duration": 12.0, "needs": []},
+            {"id": 4, "narration": "The Treaty of Versailles redrew the modern map.", "duration": 12.0, "needs": []},
         ],
     },
 }

@@ -1,0 +1,170 @@
+{
+  "scenes": [
+    {
+      "id": 1,
+      "role": "hook",
+      "layout": null,
+      "elements": 3,
+      "ink_area": 1605720,
+      "findings": []
+    },
+    {
+      "id": 2,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 1997002,
+      "findings": []
+    },
+    {
+      "id": 3,
+      "role": "explain",
+      "layout": null,
+      "elements": 2,
+      "ink_area": 1244041,
+      "findings": []
+    },
+    {
+      "id": 4,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 2074982,
+      "findings": []
+    },
+    {
+      "id": 5,
+      "role": "evidence",
+      "layout": null,
+      "elements": 2,
+      "ink_area": 1273227,
+      "findings": []
+    },
+    {
+      "id": 6,
+      "role": "explain",
+      "layout": null,
+      "elements": 2,
+      "ink_area": 1342433,
+      "findings": []
+    },
+    {
+      "id": 7,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 2244850,
+      "findings": []
+    },
+    {
+      "id": 8,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 2268859,
+      "findings": [
+        {
+          "kind": "repeated-scene",
+          "detail": "evidence||torn_strip|text|image|text"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "role": "explain",
+      "layout": null,
+      "elements": 2,
+      "ink_area": 1248513,
+      "findings": []
+    },
+    {
+      "id": 10,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 2325510,
+      "findings": []
+    },
+    {
+      "id": 11,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 2261703,
+      "findings": [
+        {
+          "kind": "repeated-scene",
+          "detail": "evidence||torn_strip|text|image|text"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "role": "explain",
+      "layout": null,
+      "elements": 2,
+      "ink_area": 1764967,
+      "findings": []
+    },
+    {
+      "id": 13,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 2305609,
+      "findings": []
+    },
+    {
+      "id": 14,
+      "role": "evidence",
+      "layout": null,
+      "elements": 2,
+      "ink_area": 1326344,
+      "findings": []
+    },
+    {
+      "id": 15,
+      "role": "explain",
+      "layout": null,
+      "elements": 2,
+      "ink_area": 1305365,
+      "findings": []
+    },
+    {
+      "id": 16,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 2112846,
+      "findings": []
+    },
+    {
+      "id": 17,
+      "role": "evidence",
+      "layout": null,
+      "elements": 4,
+      "ink_area": 2252060,
+      "findings": []
+    },
+    {
+      "id": 18,
+      "role": "close",
+      "layout": null,
+      "elements": 3,
+      "ink_area": 2029206,
+      "findings": []
+    }
+  ],
+  "blocking": [],
+  "warnings": [
+    {
+      "kind": "repeated-scene",
+      "detail": "evidence||torn_strip|text|image|text"
+    },
+    {
+      "kind": "repeated-scene",
+      "detail": "evidence||torn_strip|text|image|text"
+    }
+  ],
+  "ok": true
+}

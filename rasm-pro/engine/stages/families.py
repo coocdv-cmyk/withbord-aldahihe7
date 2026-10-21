@@ -190,8 +190,9 @@ DOCUMENTARY = Family(
     recipe={
         "hook": ("highlight", "text", "text"),
         "evidence": ("torn_strip", "text", "image", "text"),
-        "explain": ("text", "underline"),
-        "close": ("highlight", "text", "underline", "text"),
+        # a statement + a quieter detail line + a rule under them
+        "explain": ("text", "text", "underline"),
+        "close": ("highlight", "text", "underline"),
     },
 )
 
