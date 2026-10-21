@@ -36,12 +36,31 @@ __all__ = [
     "text_budget",
 ]
 
-# The role of a scene inside an episode, decided by its position and content.
+# The role of a scene inside an episode, decided by its content.
 SCENE_ROLES = ("hook", "evidence", "explain", "close")
+
+# Words that mark a scene as a question, a claim, or a closing call.
+QUESTION_WORDS = ("?", "who", "what", "why", "how", "when", "where", "which")
+CONCLUSION_WORDS = (
+    "start",
+    "begin",
+    "write",
+    "remember",
+    "try",
+    "now",
+    "today",
+    "finally",
+    "remember this",
+    "so start",
+)
 
 
 def scene_role(index: int, total: int) -> str:
-    """The role of scene ``index`` (1-based) inside an episode of ``total``."""
+    """The role of scene ``index`` (1-based) inside an episode of ``total``.
+
+    Kept for compatibility: the *position* based fallback.  New plans use
+    :func:`resolve_roles`, which decides from the content.
+    """
     if index == 1:
         return "hook"
     if index == total:
@@ -49,6 +68,74 @@ def scene_role(index: int, total: int) -> str:
     if index % 3 == 0:
         return "explain"
     return "evidence"
+
+
+def _is_question(text: str) -> bool:
+    low = " ".join((text or "").lower().split())
+    if not low:
+        return False
+    if low.endswith("?") or "?" in low:
+        return True
+    first = low.split()[0] if low.split() else ""
+    return first in QUESTION_WORDS
+
+
+def _is_conclusion(text: str) -> bool:
+    low = " ".join((text or "").lower().split())
+    if not low:
+        return False
+    return any(w in low for w in CONCLUSION_WORDS)
+
+
+def resolve_roles(
+    scenes: list[dict],
+    *,
+    has_visual: list[bool] | None = None,
+) -> list[str]:
+    """Decide the role of every scene from **its content**, not its number.
+
+    The old rule (first = hook, every third = explain, last = close) meant
+    that a scene with a real source could land on ``explain`` — a role with
+    no image slot — and the author had to reorder the script by hand to make
+    the pictures fit.  Now:
+
+    * an explicit ``role`` on the scene always wins;
+    * the first scene is a ``hook`` when it asks something, else it opens
+      the episode (still a hook: it is the first thing the viewer sees);
+    * a scene that carries a **source picture** is ``evidence``;
+    * the last scene is a ``close`` when it calls for action, else ``explain``;
+    * everything else is ``explain``.
+
+    The result is a list of roles, one per scene.
+    """
+    total = len(scenes)
+    roles: list[str] = []
+    for index, scene in enumerate(scenes):
+        explicit = str((scene or {}).get("role") or "").strip().lower()
+        if explicit in SCENE_ROLES:
+            roles.append(explicit)
+            continue
+        text = str((scene or {}).get("narration") or "")
+        visual = bool(has_visual[index]) if has_visual and index < len(has_visual) else False
+        if index == 0:
+            roles.append("hook")
+            continue
+        if index == total - 1:
+            # a call to action ends the episode; a picture in the last scene
+            # is evidence (it must be drawn); anything else is a closing card
+            if _is_conclusion(text) or not visual:
+                roles.append("close")
+            else:
+                roles.append("evidence")
+            continue
+        if visual:
+            roles.append("evidence")
+            continue
+        if _is_question(text) and index <= 1:
+            roles.append("hook")
+            continue
+        roles.append("explain")
+    return roles
 
 
 @dataclass(frozen=True)

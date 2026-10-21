@@ -21,7 +21,7 @@ from ..core.timebase import (
     map_boundaries_to_frames,
 )
 from ..core.util import write_json
-from .families import get_family, scene_role, text_budget
+from .families import get_family, resolve_roles, scene_role, text_budget
 
 CANVAS = (2560, 1440)
 
@@ -233,25 +233,132 @@ def _text_slot(
     caption_size: int,
     headline_size: int,
     has_visual: bool = False,
+    variant: str = "a",
 ) -> tuple[dict, int, int]:
-    """Where a text element goes and how big it is (per role and slot)."""
-    if role == "hook" and slot == 1:
-        return {"rect": [SAFE, 220, CANVAS[0] - 2 * SAFE, 720], "color": INK, "weight": 650}, title_size, 4
-    if role == "hook" and slot == 2:
+    """Where a text element goes and how big it is (per role, slot, variant)."""
+    lay = _layout(role, variant)
+    if role == "hook":
+        if slot == 1:
+            return {"rect": list(lay["title"]), "color": INK, "weight": 650}, title_size, 4
         return (
-            {"rect": [SAFE + 60, 940, CANVAS[0] - 2 * SAFE - 120, 340], "color": ACCENT, "weight": 500},
+            {"rect": list(lay["sub"]), "color": ACCENT, "weight": 500},
             sub_size,
             6,
         )
     if role == "label":
-        return {"rect": [1450, 150, 980, 190], "color": ACCENT, "weight": 500}, label_size, 3
+        return {"rect": list(lay["label"]), "color": ACCENT, "weight": 500}, label_size, 3
     if role == "evidence" and has_visual and slot == 1:
         # the entity label belongs on the torn strip, not as a giant headline
         # on top of the image.  The caption is the second text slot.
-        return {"rect": [1450, 140, 980, 170], "color": ACCENT, "weight": 500}, label_size, 3
+        return {"rect": list(lay["label"]), "color": ACCENT, "weight": 500}, label_size, 3
     if role == "evidence" and slot == 2:
-        return {"rect": [1520, 400, 920, 740], "color": INK, "weight": 500}, caption_size, 4
-    return {"rect": [SAFE, 380, CANVAS[0] - 2 * SAFE, 700], "color": INK, "weight": 600}, headline_size, 4
+        return {"rect": list(lay["caption"]), "color": INK, "weight": 500}, caption_size, 4
+    return {"rect": list(lay["statement"]), "color": INK, "weight": 600}, headline_size, 4
+
+
+# --------------------------------------------------------------------------
+# Layouts: every role has more than one arrangement
+# --------------------------------------------------------------------------
+# A single fixed arrangement per role made a long episode look like the same
+# frame repeated.  Each role now has several **layouts**, and two consecutive
+# scenes never get the same one.
+LAYOUTS: dict[str, dict[str, dict[str, list[float]]]] = {
+    "hook": {
+        # a: the title high, the subtitle under it
+        "a": {
+            "title": [130, 220, 2300, 720],
+            "sub": [190, 940, 2180, 340],
+            "band": [150, 300, 2240, 340],
+        },
+        # b: a lower, wider title with the subtitle tucked under it
+        "b": {
+            "title": [230, 520, 2100, 700],
+            "sub": [300, 1060, 1960, 320],
+            "band": [220, 600, 2120, 420],
+        },
+        # c: a compact title with a narrow subtitle (a chapter card)
+        "c": {
+            "title": [130, 240, 2300, 620],
+            "sub": [520, 900, 1520, 300],
+            "band": [150, 280, 2240, 300],
+        },
+    },
+    "evidence": {
+        # a: the picture on the left, the caption on the right
+        "a": {
+            "image": [110, 330, 1400, 950],
+            "strip": [1420, 130, 1030, 250],
+            "label": [1450, 140, 980, 170],
+            "caption": [1520, 400, 920, 740],
+        },
+        # b: the picture on the right, the caption on the left
+        "b": {
+            "image": [1050, 330, 1400, 950],
+            "strip": [130, 130, 1030, 250],
+            "label": [160, 140, 980, 170],
+            "caption": [130, 400, 880, 740],
+        },
+        # c: a full-width picture with the caption underneath it
+        "c": {
+            "image": [130, 300, 2300, 820],
+            "strip": [1660, 1160, 780, 220],
+            "label": [1690, 1170, 720, 160],
+            "caption": [130, 1180, 1440, 260],
+        },
+    },
+    "explain": {
+        # a: a wide statement with a double rule under it
+        "a": {
+            "statement": [130, 380, 2300, 700],
+            "rule": [130, 724, 2300, 380],
+        },
+        # b: a narrower statement with a flourish
+        "b": {
+            "statement": [260, 420, 2040, 640],
+            "rule": [190, 950, 2180, 340],
+        },
+        # c: a low statement with the rule at the foot of the page
+        "c": {
+            "statement": [130, 520, 2300, 560],
+            "rule": [130, 1100, 2300, 260],
+        },
+    },
+    "close": {
+        "a": {
+            "statement": [130, 380, 2300, 700],
+            "band": [150, 300, 2240, 340],
+            "rule": [130, 724, 2300, 380],
+        },
+        "b": {
+            "statement": [300, 420, 1960, 600],
+            "band": [260, 380, 2040, 320],
+            "rule": [260, 1000, 2040, 240],
+        },
+    },
+}
+
+VARIANTS: dict[str, tuple[str, ...]] = {
+    role: tuple(sorted(variants)) for role, variants in LAYOUTS.items()
+}
+
+
+def _layout(role: str, variant: str) -> dict[str, list[float]]:
+    """The geometry of one layout (with a safe fallback)."""
+    layouts = LAYOUTS.get(role) or LAYOUTS["explain"]
+    return layouts.get(variant) or next(iter(layouts.values()))
+
+
+def _variant_for(role: str, index: int, text: str, previous: str | None) -> str:
+    """Which layout a scene uses: deterministic, and never the same twice."""
+    variants = VARIANTS.get(role) or ("a",)
+    if len(variants) == 1:
+        return variants[0]
+    seed = (index * 31 + sum(ord(c) for c in (text or ""))) % len(variants)
+    variant = variants[seed]
+    if previous and variant == previous:
+        position = variants.index(variant)
+        variant = variants[(position + 1) % len(variants)]
+    return variant
 
 
 def _text_element(
@@ -326,10 +433,12 @@ def build_plan(
         assets: list[dict],
         visual: dict | None,
         capacity: int,
+        variant: str = "a",
     ) -> list[dict]:
         """Builds the elements of one scene for a given drawing capacity."""
         narration = (s.get("narration") or "").strip()
         elements: list[dict] = []
+        lay = _layout(role, variant)
         text_chunks = _scene_text_chunks(role, graph, narration, visual, names, capacity)
         text_index = 0
         for kind in recipe:
@@ -348,6 +457,7 @@ def build_plan(
                     caption_size=caption_size,
                     headline_size=headline_size,
                     has_visual=bool(visual),
+                    variant=variant,
                 )
                 elements.append(
                     _text_element(
@@ -366,7 +476,7 @@ def build_plan(
                 elements.append(
                     {
                         "type": "highlight",
-                        "rect": [150, 300, 2240, 340],
+                        "rect": list(lay.get("band") or [150, 300, 2240, 340]),
                         "color": "#F3D57C",
                         "speed": 2.2,
                         "events": False,
@@ -374,12 +484,12 @@ def build_plan(
                     }
                 )
             elif kind == "underline":
-                # في مشهد الافتتاحية يُرسَم التسطير تحت العنوان الفرعي،
-                # وإلا criss-cross على ذيل الخط العربي.
                 # the underline template draws at rect.y + rect.h + offset;
-                # the non-hook text block ends at y=1080, so this keeps the
-                # stroke below the words instead of striking through them.
-                rect = [130, 1290, 2300, 260] if role == "hook" else [130, 724, 2300, 380]
+                # the rule rect of the layout keeps the stroke below the words
+                # instead of striking through them.
+                rect = list(lay.get("rule") or [130, 724, 2300, 380])
+                if role == "hook":
+                    rect = [130, 1290, 2300, 260]
                 elements.append(
                     {
                         "type": "underline",
@@ -405,7 +515,7 @@ def build_plan(
                 elements.append(
                     {
                         "type": "torn_strip",
-                        "rect": [1420, 130, 1030, 250],
+                        "rect": list(lay.get("strip") or [1420, 130, 1030, 250]),
                         "seed": 21,
                         "tilt": -0.6,
                         "gap": 0.12,
@@ -415,7 +525,7 @@ def build_plan(
             elif kind in ("image", "svg"):
                 if not visual:
                     continue
-                visual_rect = [SAFE - 20, 330, 1400, 950]
+                visual_rect = list(lay.get("image") or [110, 330, 1400, 950])
                 if visual["vector"]:
                     elements.append(
                         {
@@ -497,6 +607,8 @@ def build_plan(
         return elements
 
     context: list[tuple] = []
+    # --- pass 1: what does each scene have? (names, assets, a picture) ---
+    prepared: list[dict] = []
     for i, s in enumerate(scenes, 1):
         names = _scene_entities(s, index)
         assets: list[dict] = []
@@ -507,15 +619,29 @@ def build_plan(
         visual = photo or vector
         if not fam.allows_images:
             visual = None
+        prepared.append({"i": i, "s": s, "names": names, "assets": assets, "visual": visual})
 
-        role = scene_role(i, len(scenes))
+    # --- pass 2: the role of every scene comes from its **content** ---
+    roles = resolve_roles(
+        [p["s"] for p in prepared],
+        has_visual=[bool(p["visual"]) for p in prepared],
+    )
+
+    # --- pass 3: build the elements ---
+    previous_variant: str | None = None
+    for pos, p in enumerate(prepared):
+        i, s = p["i"], p["s"]
+        names, assets, visual = p["names"], p["assets"], p["visual"]
+        role = roles[pos]
         recipe = fam.recipe.get(role) or fam.recipe.get("explain", ())
         narration = (s.get("narration") or "").strip()
         duration = float(s.get("duration") or 6.0)
+        variant = _variant_for(role, i, narration, previous_variant)
+        previous_variant = variant
         elements = _scene_elements(
-            s, i, role, recipe, names, assets, visual, _capacity_for(duration)
+            s, i, role, recipe, names, assets, visual, _capacity_for(duration), variant
         )
-        context.append((s, i, role, recipe, names, assets, visual))
+        context.append((s, i, role, recipe, names, assets, visual, variant))
         # "used" means **drawn**: an asset that merely matched the scene text
         # but was not placed in any element is not used, and must not be
         # credited or gated as if it were.
@@ -530,6 +656,7 @@ def build_plan(
                 "duration": duration,
                 "narration": narration,
                 "role": role,
+                "layout": variant,
                 "needs": s.get("needs", []),
                 "assets_used": [drawn_visual["path"]] if drawn_visual else [],
                 "elements": elements,
@@ -632,9 +759,9 @@ def build_plan(
     # ولأن المدة النهائية معروفة الآن، يُعاد بناء عناصر النص بسعة المشهد
     # الحقيقية: مشهد قصير يحصل على تعليق أقصر بدل تعليق لا يُرسم في وقته.
     for idx, sc in enumerate(out_scenes):
-        s, i, role, recipe, names, assets, visual = context[idx]
+        s, i, role, recipe, names, assets, visual, variant = context[idx]
         sc["elements"] = _scene_elements(
-            s, i, role, recipe, names, assets, visual, _capacity_for(sc["duration"])
+            s, i, role, recipe, names, assets, visual, _capacity_for(sc["duration"]), variant
         )
 
     words_limit = text_budget(fam)

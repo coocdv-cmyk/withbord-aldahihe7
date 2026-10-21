@@ -116,7 +116,10 @@ def test_cli_approval_workflow(project: Path):
     plan = json.loads((project / "storyboard" / "plan.json").read_text(encoding="utf-8"))
     plan["scenes"][0]["assets_used"] = [str(project / "assets" / "a.jpg")]
     plan["scenes"][0]["elements"].append(
-        {"type": "image", "asset": str(project / "assets" / "a.jpg"), "rect": [0, 0, 800, 600]}
+        # the picture must not sit under the text: the plan validator now
+        # refuses a composition whose elements overlap (the gate under test
+        # here is the **approval** gate, not the composition one)
+        {"type": "image", "asset": str(project / "assets" / "a.jpg"), "rect": [900, 200, 600, 450]}
     )
     (project / "storyboard" / "plan.json").write_text(json.dumps(plan), encoding="utf-8")
     _run("project", "migrate", PROJECT_ID, "--apply", "--force")

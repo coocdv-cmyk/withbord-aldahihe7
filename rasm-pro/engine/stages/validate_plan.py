@@ -308,10 +308,42 @@ def validate_plan(plan: Any, *, project_dir: str | Path | None = None,
                 if isinstance(e, dict) and e.get("type") == "text" and e.get("rtl") is True:
                     warnings.append(f"scene {scene.get('id', si)}: English text has rtl=true")
 
+    # composition: the geometry that is actually **drawn** — overlapping
+    # elements, text shrunk below reading size, an empty scene.  A plan that
+    # fails here is refused before anything is rendered.
+    composition: dict = {"ok": True, "blocking": [], "warnings": []}
+    try:
+        from ..render.validate_composition import validate_composition
+
+        composition = validate_composition(plan)
+        for finding in composition.get("blocking") or []:
+            errors.append(
+                "scene {}: composition {} — {}".format(
+                    finding.get("scene"),
+                    finding.get("kind"),
+                    finding.get("area") or finding.get("effective_size") or "",
+                ).rstrip(" —")
+            )
+        for finding in composition.get("warnings") or []:
+            warnings.append(
+                "scene {}: composition {} — {}".format(
+                    finding.get("scene"),
+                    finding.get("kind"),
+                    finding.get("detail") or finding.get("excess_words") or "",
+                ).rstrip(" —")
+            )
+    except Exception as exc:  # the check must never break the validator
+        warnings.append(f"composition check unavailable: {exc}")
+
     return {
         "ok": not errors,
         "errors": errors,
         "warnings": warnings,
+        "composition": {
+            "ok": composition.get("ok", True),
+            "blocking": len(composition.get("blocking") or []),
+            "warnings": len(composition.get("warnings") or []),
+        },
         "stats": {
             "scenes": len(scenes),
             "elements": total_elements,
