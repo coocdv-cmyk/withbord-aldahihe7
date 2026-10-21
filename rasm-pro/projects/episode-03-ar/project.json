@@ -1,0 +1,592 @@
+{
+  "schema_version": "1.0",
+  "project_id": "episode-03-ar",
+  "title": "episode-03-ar",
+  "language": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "status": "planned",
+  "created_at": "2026-10-21T16:22:44Z",
+  "updated_at": "2026-10-21T17:23:43Z",
+  "paths": {
+    "script": "script/scriptgraph.json",
+    "script_text": null,
+    "research": "research/research.json",
+    "assets_index": "research/assets.json"
+  },
+  "storyboard": {
+    "active": "storyboard/plan_v9.json",
+    "sha256": "31e7a5442a0bfa1bd59f45efc04951f46d9ebf5566d505b30a0511cf3b493838",
+    "format_version": "2.0"
+  },
+  "audio": {
+    "narration": "audio/narration-norm--16lufs.wav",
+    "alignment": "audio/alignment.json",
+    "sha256": "78509df1b147f7df124983d285cb88f92e054baf05a00db8784cb375dca50d79",
+    "codec": "pcm_s16le",
+    "sample_rate": 48000,
+    "channels": 1,
+    "total_samples": 4265376,
+    "duration_exact": "44431/500",
+    "duration_sec": 88.862,
+    "loudness": {
+      "lufs_integrated": -16.01,
+      "lra": 11.05,
+      "true_peak_dbtp": -0.28,
+      "rms_dbfs": -17.67,
+      "sample_rate": 48000,
+      "channels": 1,
+      "total_samples": 4265376,
+      "duration_sec": 88.862,
+      "method": "ITU-R BS.1770-4"
+    },
+    "normalization": {
+      "applied_at": "2026-10-21T16:21:40+00:00",
+      "target_lufs": -16.0,
+      "gain_db": 3.63,
+      "before": {
+        "lufs_integrated": -19.63,
+        "lra": 11.05,
+        "true_peak_dbtp": -3.91,
+        "rms_dbfs": -21.3,
+        "sample_rate": 48000,
+        "channels": 1,
+        "total_samples": 4265376,
+        "duration_sec": 88.862,
+        "method": "ITU-R BS.1770-4"
+      },
+      "after": {
+        "lufs_integrated": -16.01,
+        "lra": 11.05,
+        "true_peak_dbtp": -0.28,
+        "rms_dbfs": -17.67,
+        "sample_rate": 48000,
+        "channels": 1,
+        "total_samples": 4265376,
+        "duration_sec": 88.862,
+        "method": "ITU-R BS.1770-4"
+      },
+      "file": "audio/narration-norm--16lufs.wav",
+      "sha256": "78509df1b147f7df124983d285cb88f92e054baf05a00db8784cb375dca50d79",
+      "source_sha256": "4046440384c46aa71a8031aae381cd8612cd78a04e149f31be3c5b877a0d9d01"
+    },
+    "alignment_sha256": "d2726c71e50701cc292f352afb4ebcc942c3b65a136865ef381a64a2ec6b24ce",
+    "alignment_level": "SEGMENTED",
+    "alignment_method": "vad-pauses-proportional-v1"
+  },
+  "asset_policy": {
+    "generated_is_evidence": false,
+    "retrieved_requires_approval": true,
+    "requires_origin": true,
+    "requires_license": true,
+    "final_render_requires_approval": true
+  },
+  "assets": [
+    {
+      "path": "assets/concept-البحر-الأحمر/305b3c17a143.jpg",
+      "asset_id": "a-305b3c17a143",
+      "sha256": "305b3c17a143dd8a69547b3eb9c1fe5a6b842859ab8a6aeca26fae2ebca03005",
+      "bytes": 227744,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/%D8%B5%D8%AF%D9%81%D8%A9_%D9%85%D9%86_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1_%D8%B0%D9%8A_%D8%AE%D9%84%D9%81%D9%8A%D8%A9_%D8%A8%D8%AC%D8%A8%D8%A7%D9%84_%D9%85%D8%AF%D9%8A%D9%86_%D9%88%D8%AE%D9%84%D9%8A%D8%AC_%D8%A7%D9%84%D8%B9%D9%82%D8%A8%D8%A9.jpg/1920px-%D8%B5%D8%AF%D9%81%D8%A9_%D9%85%D9%86_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1_%D8%B0%D9%8A_%D8%AE%D9%84%D9%81%D9%8A%D8%A9_%D8%A8%D8%AC%D8%A8%D8%A7%D9%84_%D9%85%D8%AF%D9%8A%D9%86_%D9%88%D8%AE%D9%84%D9%8A%D8%AC_%D8%A7%D9%84%D8%B9%D9%82%D8%A8%D8%A9.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:%D8%B5%D8%AF%D9%81%D8%A9_%D9%85%D9%86_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1_%D8%B0%D9%8A_%D8%AE%D9%84%D9%81%D9%8A%D8%A9_%D8%A8%D8%AC%D8%A8%D8%A7%D9%84_%D9%85%D8%AF%D9%8A%D9%86_%D9%88%D8%AE%D9%84%D9%8A%D8%AC_%D8%A7%D9%84%D8%B9%D9%82%D8%A8%D8%A9.jpg",
+        "retrieved_at": "2026-10-21T15:57:07+00:00",
+        "title": "File:صدفة من البحر الأحمر ذي خلفية بجبال مدين وخليج العقبة.jpg",
+        "author": "Esma3ilMostafa"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/concept-البحر-الأحمر/3a2b683be142.jpg",
+      "asset_id": "a-3a2b683be142",
+      "sha256": "3a2b683be142addbee04f13582f434df64f3b671b6c23cc38285ecd32fe8cce9",
+      "bytes": 971999,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/%D8%A8%D8%AF%D9%88%D9%86_%D8%AA%D8%B9%D9%84%D9%8A%D9%82_-_%D9%85%D8%B1%D8%B3%D9%89_%D8%B9%D9%84%D9%85_-_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1_-_panoramio.jpg/1920px-%D8%A8%D8%AF%D9%88%D9%86_%D8%AA%D8%B9%D9%84%D9%8A%D9%82_-_%D9%85%D8%B1%D8%B3%D9%89_%D8%B9%D9%84%D9%85_-_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:%D8%A8%D8%AF%D9%88%D9%86_%D8%AA%D8%B9%D9%84%D9%8A%D9%82_-_%D9%85%D8%B1%D8%B3%D9%89_%D8%B9%D9%84%D9%85_-_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1_-_panoramio.jpg",
+        "retrieved_at": "2026-10-21T15:57:04+00:00",
+        "title": "File:بدون تعليق - مرسى علم - البحر الأحمر - panoramio.jpg",
+        "author": "youssef_alam"
+      },
+      "license": {
+        "name": "CC BY 3.0",
+        "url": "https://creativecommons.org/licenses/by/3.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/concept-البحر-الأحمر/b75a5e116701.jpg",
+      "asset_id": "a-b75a5e116701",
+      "sha256": "b75a5e116701fcb5671b5834981f7410266a7623b1cf250fc8fa8f7c2aa6baae",
+      "bytes": 817383,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/%D8%B3%D8%B1%D8%B7%D8%A7%D9%86_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_-_%D9%85%D8%AD%D9%85%D9%8A%D8%A7%D8%AA_%D8%AC%D9%86%D9%88%D8%A8_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A7%D8%AD%D9%85%D8%B1.jpg/1920px-%D8%B3%D8%B1%D8%B7%D8%A7%D9%86_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_-_%D9%85%D8%AD%D9%85%D9%8A%D8%A7%D8%AA_%D8%AC%D9%86%D9%88%D8%A8_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A7%D8%AD%D9%85%D8%B1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:%D8%B3%D8%B1%D8%B7%D8%A7%D9%86_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_-_%D9%85%D8%AD%D9%85%D9%8A%D8%A7%D8%AA_%D8%AC%D9%86%D9%88%D8%A8_%D8%A7%D9%84%D8%A8%D8%AD%D8%B1_%D8%A7%D9%84%D8%A7%D8%AD%D9%85%D8%B1.jpg",
+        "retrieved_at": "2026-10-21T15:57:06+00:00",
+        "title": "File:سرطان البحر - محميات جنوب البحر الاحمر.jpg",
+        "author": "Heshamsamir"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/concept-البحر-المتوسط/1fa74297b7ef.tif",
+      "asset_id": "a-1fa74297b7ef",
+      "sha256": "1fa74297b7ef62213bc8fc2078fb7e4c79cf25487a1d406449ae41b52e4b3db1",
+      "bytes": 654974,
+      "kind": "map",
+      "mime": "image/tiff",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/1657_map_of_the_Mediterranean_Sea%2C_Eastern_Part%2C_by_Jan_Jansson.tif/lossy-page1-1920px-1657_map_of_the_Mediterranean_Sea%2C_Eastern_Part%2C_by_Jan_Jansson.tif.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:1657_map_of_the_Mediterranean_Sea,_Eastern_Part,_by_Jan_Jansson.tif",
+        "retrieved_at": "2026-10-21T15:58:05+00:00",
+        "title": "File:1657 map of the Mediterranean Sea, Eastern Part, by Jan Jansson.tif",
+        "author": "Jan Janssonius"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/concept-البحر-المتوسط/241acf399034.tif",
+      "asset_id": "a-241acf399034",
+      "sha256": "241acf399034a422d85ef95909522587d704588a5b912f72ae719a11a14f4a0b",
+      "bytes": 815563,
+      "kind": "map",
+      "mime": "image/tiff",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/1669_map_of_the_Mediterranean_Sea%2C_Eastern_part%2C_by_Pieter_Goos.tif/lossy-page1-1920px-1669_map_of_the_Mediterranean_Sea%2C_Eastern_part%2C_by_Pieter_Goos.tif.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:1669_map_of_the_Mediterranean_Sea,_Eastern_part,_by_Pieter_Goos.tif",
+        "retrieved_at": "2026-10-21T15:58:05+00:00",
+        "title": "File:1669 map of the Mediterranean Sea, Eastern part, by Pieter Goos.tif",
+        "author": "Pieter Goos"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/concept-البحر-المتوسط/8fc04ba210de.svg",
+      "asset_id": "a-8fc04ba210de",
+      "sha256": "8fc04ba210de9080d600815736823521eaeade3119a8ea6590f57d8d940a1e40",
+      "bytes": 1144018,
+      "kind": "map",
+      "mime": "image/svg+xml",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Mediterranean_Sea_political_map-es.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Mediterranean_Sea_political_map-es.svg",
+        "retrieved_at": "2026-10-21T15:58:04+00:00",
+        "title": "Mediterranean Sea political map-es.svg",
+        "author": "Mediterranean_Sea_political_map-en.svg : Eric Gaba ( Sting - fr:Sting ) derivative work: Edoarado ( talk )"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/concept-قناة-السويس/2a81198ec7a9.jpg",
+      "asset_id": "a-2a81198ec7a9",
+      "sha256": "2a81198ec7a9ec916b8e5063e85a8cee9d566365bf56e2dde90dc4648b2117e1",
+      "bytes": 212112,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Suez_Canal_%28HY%29.jpg/1920px-Suez_Canal_%28HY%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Suez_Canal_(HY).jpg",
+        "retrieved_at": "2026-10-21T16:00:00+00:00",
+        "title": "File:Suez Canal (HY).jpg",
+        "author": "Maria Hayrapetyan"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T16:30:43Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T16:30:43Z",
+        "note": "reviewed by the editor; the picture serves the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/concept-قناة-السويس/6286fdaa6cee.jpg",
+      "asset_id": "a-6286fdaa6cee",
+      "sha256": "6286fdaa6ceebab53a25cbb58bd7cd70022b3e941a2b26b069d5e916064fe12b",
+      "bytes": 569214,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/The_Suez_Canal._Map%2C_and_Notes_of_the_World%E2%80%99s_most_important_waterway._Third_Edition.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:The_Suez_Canal._Map,_and_Notes_of_the_World%E2%80%99s_most_important_waterway._Third_Edition.jpg",
+        "retrieved_at": "2026-10-21T16:00:02+00:00",
+        "title": "File:The Suez Canal. Map, and Notes of the World’s most important waterway. Third Edition.jpg",
+        "author": "Oriental Commercial Bureau & Rosenberg, August"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/concept-قناة-السويس/cd11123e67db.jpg",
+      "asset_id": "a-cd11123e67db",
+      "sha256": "cd11123e67db40b23c66ff21154877584c9b223f120b7b6a271e2e86b99bafcf",
+      "bytes": 851049,
+      "kind": "map",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Suez_Canal_Bridge_%282008%29_07.jpg/1920px-Suez_Canal_Bridge_%282008%29_07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Suez_Canal_Bridge_(2008)_07.jpg",
+        "retrieved_at": "2026-10-21T16:00:00+00:00",
+        "title": "File:Suez Canal Bridge (2008) 07.jpg",
+        "author": "Godot13"
+      },
+      "license": {
+        "name": "CC BY-SA 4.0",
+        "url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attribution_required": true
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/org-شركة-قناة-السويس/125adc066eaa.png",
+      "asset_id": "a-125adc066eaa",
+      "sha256": "125adc066eaa1b85b6f4fae4101dda02634acf96cced6694dc3dad70dd13e451",
+      "bytes": 867539,
+      "kind": "document",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Suez_Canal_001.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Suez_Canal_001.png",
+        "retrieved_at": "2026-10-21T15:55:03+00:00",
+        "title": "File:Suez Canal 001.png",
+        "author": "Qafilah Magazine"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T16:30:45Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T16:30:45Z",
+        "note": "reviewed by the editor; the picture serves the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/org-شركة-قناة-السويس/287320c47106.png",
+      "asset_id": "a-287320c47106",
+      "sha256": "287320c47106605957e47c30f4b49b51feb911a2dc133fb142b407203e397f94",
+      "bytes": 933104,
+      "kind": "document",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/ISMAILIA_-_Office_of_the_Suez_Canal_Co.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:ISMAILIA_-_Office_of_the_Suez_Canal_Co.png",
+        "retrieved_at": "2026-10-21T15:55:02+00:00",
+        "title": "File:ISMAILIA - Office of the Suez Canal Co.png",
+        "author": "The Cairo Postcard Trust"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/org-شركة-قناة-السويس/d0410e14af86.png",
+      "asset_id": "a-d0410e14af86",
+      "sha256": "d0410e14af8686ae9372eb8188878ec037d7b2df8c965515e13d2ee78a69d7fd",
+      "bytes": 879859,
+      "kind": "document",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Suez_Canal_003.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Suez_Canal_003.png",
+        "retrieved_at": "2026-10-21T15:55:08+00:00",
+        "title": "File:Suez Canal 003.png",
+        "author": "Qafilah Magazine"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/person-إسماعيل-باشا/2e8a0ffb4525.png",
+      "asset_id": "a-2e8a0ffb4525",
+      "sha256": "2e8a0ffb4525a2d289b5c1320f32e65fca2af05fa6b98986ca70de6d024053f3",
+      "bytes": 312444,
+      "kind": "portrait",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Isma%27il_Pasha_paint.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Isma%27il_Pasha_paint.png",
+        "retrieved_at": "2026-10-21T15:52:04+00:00",
+        "title": "File:Isma'il Pasha paint.png",
+        "author": "Unknown author"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": "owner-delegated",
+      "approved_at": "2026-10-21T16:30:46Z",
+      "status": "retrieved",
+      "approval": {
+        "decision": "approved",
+        "reviewer": "owner-delegated",
+        "reviewed_at": "2026-10-21T16:30:46Z",
+        "note": "reviewed by the editor; the picture serves the scene",
+        "records": 1
+      }
+    },
+    {
+      "path": "assets/person-إسماعيل-باشا/3275b3791c61.jpg",
+      "asset_id": "a-3275b3791c61",
+      "sha256": "3275b3791c6120f39aa7bff49a0aeb04de798d6242d44e1475853e5b6c0b4201",
+      "bytes": 125169,
+      "kind": "portrait",
+      "mime": "image/jpeg",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Isma%27il_Pasha.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Isma%27il_Pasha.jpg",
+        "retrieved_at": "2026-10-21T15:52:02+00:00",
+        "title": "File:Isma'il Pasha.jpg",
+        "author": "Unknown author Unknown author"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    },
+    {
+      "path": "assets/person-إسماعيل-باشا/358ffe982ad1.png",
+      "asset_id": "a-358ffe982ad1",
+      "sha256": "358ffe982ad10beb2b59f39b0e9958129d164f45510241862cc9b4343d2b8581",
+      "bytes": 5546062,
+      "kind": "portrait",
+      "mime": "image/png",
+      "origin": {
+        "kind": "Wikimedia Commons",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Khedive_Isma%27il_Pasha.png/1920px-Khedive_Isma%27il_Pasha.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "page_url": "https://commons.wikimedia.org/wiki/File:Khedive_Isma%27il_Pasha.png",
+        "retrieved_at": "2026-10-21T15:52:04+00:00",
+        "title": "File:Khedive Isma'il Pasha.png",
+        "author": "Gustave Le Gray"
+      },
+      "license": {
+        "name": "Public domain",
+        "url": "",
+        "attribution_required": false
+      },
+      "approved_by": null,
+      "approved_at": null,
+      "status": "retrieved",
+      "approval": {
+        "decision": "pending",
+        "reviewer": "",
+        "reviewed_at": "",
+        "note": "",
+        "records": 0
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "assets-pending-approval",
+      "kind": "assets",
+      "blocking": false,
+      "message": "12 أصلًا بانتظار الاعتماد البشري (معتمد: 3 · مرفوض: 0) قبل الإنتاج.",
+      "counts": {
+        "pending": 12,
+        "approved": 3,
+        "rejected": 0,
+        "used_unapproved": 0
+      }
+    }
+  ],
+  "renders": [],
+  "render": {
+    "fps_source": "plan",
+    "width": 2560,
+    "height": 1440,
+    "default_out_size": [
+      1280,
+      720
+    ],
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "studio": {
+    "kind": "rasm-pro",
+    "project_id": "episode-03-ar"
+  },
+  "approval_log": {
+    "path": "research/approvals.jsonl",
+    "records": 3,
+    "sha256": "bc59f9765e0349c6a887f074819d2c483f8e73242669e67dbd1a26eb40481dab"
+  }
+}

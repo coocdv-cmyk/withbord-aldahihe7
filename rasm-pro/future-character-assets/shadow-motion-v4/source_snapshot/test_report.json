@@ -1,0 +1,8 @@
+{
+  "frames": 721,
+  "max_bone_length_error": 1.7053025658242404e-13,
+  "clamped_arm_frames": 39,
+  "max_wrist_px_per_frame_30fps": 41.02,
+  "max_foot_drift": 0,
+  "deterministic": true
+}

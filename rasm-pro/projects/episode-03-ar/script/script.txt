@@ -1,0 +1,23 @@
+# episode-03-ar — on-screen script (with a generated voice)
+
+A documentary episode in Arabic about the Suez Canal. The voice is generated
+by the engine (`rasm tts --backend edge --voice ar-EG-ShakirNeural`); the
+pictures are licensed Wikimedia Commons sources, credited in
+`research/CREDITS.md`.
+
+---
+
+1.  قناة السويس: مئة عام غيّرت خريطة العالم. مضيقٌ واحد بين قارتين.
+2.  مضيقٌ واحد يصل بين بحرين. قناة السويس تربط المتوسط بالأحمر.
+3.  قبل 1869 كانت السفن إلى الهند تدور حول أفريقيا. أسبوعان إضافيان في كل رحلة.
+4.  فُتحت في 17 نوفمبر 1869. إسماعيل باشا هو من افتتحها.
+5.  سنة فتحها: أربعة عشر ألف سفينة فقط. ثم تضاعف الرقم كل بضع سنوات.
+6.  شركة القناة: فرنسيون وبريطانيون. امتلكوا القناة سبعين سنة.
+7.  استردّت مصر القناة في 1956. أقامت شركة قناة السويس ودفعت تعويضًا.
+8.  مصر على الخريطة: قناة تربط آسيا بأوروبا. أقصر طريق بين الشرق والغرب.
+9.  من سبعة عشر بالمئة من تجارة العالم إلى اثني عشر بالمئة. المسار اليوم يسير شمالًا.
+10. قناة واحدة تكفي لتغيّر خريطة العالم. وتحسب في كل سفينة تعبرها.
+
+Runtime: ~88 s · 10 scenes · 3 licensed pictures drawn · 15 researched
+(12 of them not used by the plan — they stay out of the credits, which is the
+"used AND approved" contract at work).

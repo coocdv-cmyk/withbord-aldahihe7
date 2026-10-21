@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "Every gesture: 3D fixed-length bones, finger joints, grounded ankles, authoring limits",
+      "passed": true
+    },
+    {
+      "name": "All 11 expressions settle as specified; neutral is not smiling",
+      "passed": true
+    },
+    {
+      "name": "Frame counts, deterministic replay, 30/60 fps alignment",
+      "passed": true
+    },
+    {
+      "name": "Subsecond cues have positive smooth envelopes and zero outside bounds",
+      "passed": true
+    },
+    {
+      "name": "Explicit visemes override text; terminal shape closes; invalid timelines rejected",
+      "passed": true
+    },
+    {
+      "name": "Audio silence stays still; stereo energy is measured without cancellation",
+      "passed": true
+    },
+    {
+      "name": "Media master clock: low frame rate, pause, backwards seek, long jump",
+      "passed": true
+    },
+    {
+      "name": "Canvas renderer executes full, closeup, transparent and debug modes",
+      "passed": true
+    },
+    {
+      "name": "Browser event mocks: manual selection with audio, context and URL cleanup",
+      "passed": true
+    }
+  ],
+  "frames_checked": 7211,
+  "max_3d_bone_length_error": 1.1457501614131615e-13,
+  "max_ankle_drift": 0,
+  "max_wrist_px_per_frame_30fps": 21.027394271841427,
+  "max_projected_wrist_acceleration_px_s2": 3383.6461933952037,
+  "source_snapshot_same_demo_max_wrist_step_px": 31.288717936134443,
+  "notes": [
+    "Geometry checks do not establish human realism.",
+    "Pixel speed comparison depends on gesture size and is not a quality score.",
+    "Browser event logic was tested with mocks; the real browser/audio-device path needs user playback."
+  ]
+}

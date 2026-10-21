@@ -1,0 +1,20 @@
+# episode-04-en — on-screen script (silent)
+
+A text-only explainer in English: how to read a book in a week. There is no
+voice track at all — the writing on the board carries the whole argument, and
+the only sound is the pen and the paper.
+
+---
+
+1.  Seven days, one book, a plan you can keep.
+2.  Day one: read the first hour out loud. Your voice catches what your eyes skim.
+3.  Day two: write three questions. A question you cannot answer is worth keeping.
+4.  Day three: reread only the pages you marked.
+5.  Day four: argue with the author. Write the disagreement in one sentence.
+6.  Day five: teach one idea to someone. If you cannot, you have not read it.
+7.  Day six: write the whole book in one sentence.
+8.  Day seven: keep the book or leave it. Both answers are honest.
+
+Runtime: ~109 s · 8 scenes · family `explainer` (text + rule, no pictures) ·
+0 sources (a text-only episode is a legitimate case: `approvals import` says
+so instead of failing).

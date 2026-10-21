@@ -1,0 +1,180 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shadow v3 Pro — محرك الشخصية التفاعلي</title>
+<style>
+:root{--bg:#f4f0e6;--fg:#222;--card:#fff;--bd:#d9d2c0;--acc:#c87d28}@media(prefers-color-scheme:dark){:root{--bg:#16181c;--fg:#eee;--card:#22262c;--bd:#363c45;--acc:#e09b45}}
+body{margin:0;background:var(--bg);color:var(--fg);font:14.5px system-ui,"Segoe UI",Tahoma,sans-serif;padding:12px}
+canvas{width:100%;max-width:960px;display:block;margin:0 auto 10px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.15);background:repeating-conic-gradient(#ccc 0 25%,#eee 0 50%) 0/20px 20px}
+.bar{max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 14px}
+button,select,input[type=file]{font:inherit;padding:6px 11px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--fg);cursor:pointer}
+button:hover{border-color:var(--acc)}
+label{display:flex;gap:5px;align-items:center;font-weight:500}
+small{opacity:.8;margin-right:auto;font-weight:600;color:var(--acc)}
+</style></head><body>
+<canvas id="c" width="1280" height="720"></canvas>
+<div class="bar">
+ <button id="play">⏸ إيقاف</button>
+ <label>الوضع <select id="mode"><option value="demo">عرض تلقائي (سكربت الدحيح)</option><option value="manual">تحكم يدوي / صوت حي</option></select></label>
+ <label>إيماءة <select id="g"></select></label>
+ <label>تعبير <select id="e"></select></label>
+ <label>حماس <input id="amt" type="range" min="0.2" max="1.25" step=".05" value="1"></label>
+ <label><input id="st_mode" type="checkbox" checked>ستايل الدحيح</label>
+ <label><input id="sk" type="checkbox">المفاصل</label>
+ <label><input id="bg" type="checkbox" checked>الخلفية</label>
+ <button id="png">📸 PNG شفاف</button>
+ <label>🎵 ملف صوت <input id="aud" type="file" accept="audio/*"></label>
+ <button id="mic">🎙️ مايك مباشر</button>
+ <small id="st"></small>
+</div>
+<script src="example_script.js"></script><script src="rig.js"></script><script src="draw.js"></script>
+<script>
+const R=ShadowRig,cv=document.getElementById('c'),ctx=cv.getContext('2d'),$=id=>document.getElementById(id);
+Object.keys(R.GESTURES).forEach(k=>$('g').add(new Option(k,k)));
+Object.keys(R.EXPRESSIONS).forEach(k=>$('e').add(new Option(k,k)));
+
+const P=R.createPerformer();
+let script=window.EXAMPLE_SCRIPT,compiled=R.compile(script),playing=true,clock=0,bi=0,last=performance.now(),last_t=0;
+let audio=null,an=null,buf=null,micStream=null;
+
+// Real-time Audio Prosody & Body Language State Machine
+const prosody={
+  avgE:0, fastE:0, silenceT:0, phraseT:0, lastBeat:-9,
+  gesture:'idle', expr:'neutral', cueStart:0, cueDur:3.2,
+  highGestures:['emphasize','mind_blown','point_r','point_l','count_fingers','welcome'],
+  midGestures:['chest_explain','explain_r','explain_l','compare','question','heart'],
+  pickNext(energy,centroid){
+    this.cueStart=clock;
+    if(energy>0.26){
+      const pool=this.highGestures;
+      this.gesture=pool[Math.floor(Math.random()*pool.length)];
+      this.expr=centroid>0.38?'excited':(Math.random()>.5?'surprised':'serious');
+      this.cueDur=1.8+Math.random()*1.2;
+    }else{
+      const pool=this.midGestures;
+      this.gesture=pool[Math.floor(Math.random()*pool.length)];
+      this.expr=centroid>0.34?'curious':(Math.random()>.4?'pleased':'thinking');
+      this.cueDur=2.2+Math.random()*1.4;
+    }
+    $('g').value=this.gesture; $('e').value=this.expr;
+  }
+};
+
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'⏸ إيقاف':'▶ تشغيل';if(audio)playing?audio.play():audio.pause()};
+$('png').onclick=()=>{const t=document.createElement('canvas');t.width=1280;t.height=720;ShadowDraw.draw(t.getContext('2d'),P.pose(),{bg:false,studio:$('st_mode').checked});const a=document.createElement('a');a.href=t.toDataURL('image/png');a.download='shadow-v3.png';a.click()};
+
+function setupAnalyser(sourceNode,AC){
+  an=AC.createAnalyser();an.fftSize=1024;an.smoothingTimeConstant=0.55;
+  sourceNode.connect(an);buf=new Uint8Array(an.frequencyBinCount);
+}
+
+$('aud').onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  if(audio)audio.pause();
+  audio=new Audio(URL.createObjectURL(f));
+  const AC=new(window.AudioContext||window.webkitAudioContext)(),s=AC.createMediaElementSource(audio);
+  setupAnalyser(s,AC);an.connect(AC.destination);
+  audio.play();$('mode').value='manual';
+};
+
+$('mic').onclick=async()=>{
+  try{
+    if(micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null;an=null;$('mic').textContent='🎙️ مايك مباشر';return;}
+    micStream=await navigator.mediaDevices.getUserMedia({audio:true});
+    const AC=new(window.AudioContext||window.webkitAudioContext)(),s=AC.createMediaStreamSource(micStream);
+    setupAnalyser(s,AC);$('mode').value='manual';$('mic').textContent='⏹ إيقاف المايك';
+  }catch(err){alert('تعذر الوصول للميكروفون: '+err.message);}
+};
+
+function analyzeLiveAudio(dt){
+  an.getByteFrequencyData(buf);
+  let e=0,c=0,s=0,low=0,high=0;
+  for(let i=2;i<160;i++){
+    const v=buf[i]/255; e+=v*v; c+=v*i; s+=v;
+    if(i<25)low+=v; else if(i<95)high+=v;
+  }
+  e=Math.sqrt(e/158);
+  const cen=s>0?c/s/160:0;
+
+  // Frame-rate independent exponential smoothing
+  const kSlow=1-Math.exp(-dt*3.5), kFast=1-Math.exp(-dt*18);
+  prosody.avgE+=(e-prosody.avgE)*kSlow;
+  prosody.fastE+=(e-prosody.fastE)*kFast;
+
+  const isSpeaking=prosody.fastE>0.045;
+  if(isSpeaking){
+    const wasSilent=prosody.silenceT>0.28;
+    prosody.silenceT=0;
+    prosody.phraseT+=dt;
+    // Trigger new gesture on phrase start or when current cue finishes
+    if(wasSilent || (clock-prosody.cueStart)>prosody.cueDur){
+      prosody.pickNext(prosody.fastE,cen);
+    }
+    // Syllable / emphasis beat detection
+    if(prosody.fastE-prosody.avgE>0.065 && clock-prosody.lastBeat>0.24){
+      const strength=Math.min(1.15,(prosody.fastE-prosody.avgE)*6.5);
+      P.beat(strength);
+      prosody.lastBeat=clock;
+      // Switch to emphatic gesture on huge vocal peak
+      if(strength>0.85 && clock-prosody.cueStart>0.9){
+        prosody.pickNext(0.35,cen);
+      }
+    }
+  }else{
+    prosody.silenceT+=dt;
+    prosody.phraseT=0;
+    // Return smoothly to relaxed or thoughtful pose during pauses
+    if(prosody.silenceT>0.42 && prosody.gesture!=='idle' && prosody.gesture!=='think'){
+      prosody.gesture=prosody.silenceT>1.6?'idle':'think';
+      prosody.expr='pleased';
+      prosody.cueStart=clock;
+      prosody.cueDur=4.0;
+      $('g').value=prosody.gesture; $('e').value=prosody.expr;
+    }
+  }
+
+  // Articulated mouth shape from live formants (low vs high frequency ratio)
+  const open=Math.min(1,Math.max(0,(prosody.fastE-0.035)*3.4));
+  const wide=Math.min(1,Math.max(0.2,0.30+cen*1.65));
+  const round=Math.min(1,Math.max(0,(low/(high+0.01)-0.45)*0.55)*Math.min(1,open*1.6));
+  return [open,wide,round];
+}
+
+function inputNow(dt){
+  if($('mode').value==='demo'&&compiled){
+    const t=clock%compiled.duration;
+    if(t<last_t)bi=0;
+    last_t=t;
+    while(bi<compiled.beats.length&&compiled.beats[bi].t<=t)P.beat(compiled.beats[bi++].s);
+    const inp=R.inputAt(compiled,t);
+    $('g').value=inp.gesture; $('e').value=inp.expr;
+    return Object.assign(inp,{intensity:+$('amt').value});
+  }
+  const liveActive=an&&((audio&&!audio.paused)||micStream);
+  const m=liveActive?analyzeLiveAudio(dt):null;
+  return {
+    gesture:$('g').value,
+    expr:$('e').value,
+    cueT:liveActive?(clock-prosody.cueStart):0.5,
+    cueDur:liveActive?prosody.cueDur:1e9,
+    intensity:+$('amt').value,
+    mouth:m||R.VISEMES.X
+  };
+}
+
+function frame(now){
+  const dt=Math.min(0.05,(now-last)/1000);last=now;
+  if(playing){
+    clock+=dt;
+    const inp=inputNow(dt);
+    const n=Math.ceil(dt*120);
+    for(let i=0;i<n;i++)P.step(dt/n,inp);
+  }
+  ShadowDraw.draw(ctx,P.pose(),{
+    bg:$('bg').checked,
+    skeleton:$('sk').checked,
+    studio:$('st_mode').checked
+  });
+  $('st').textContent=micStream?'🎙️ تفاعل حي مع المايك':(audio&&!audio.paused?'🎵 تفاعل ذكي مع الصوت':'🎬 وضع العرض التلقائي');
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script></body></html>

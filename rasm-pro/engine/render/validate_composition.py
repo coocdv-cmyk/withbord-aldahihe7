@@ -59,7 +59,10 @@ def text_geometry(element: dict) -> tuple[tuple[float, float, float, float], flo
         return None
     rx, ry, rw, rh = _rect(element)
     sw, sh = float(doc.width or 1), float(doc.height or 1)
+    # text is never enlarged to fill its box: the planned size is the design
     scale = min(rw / sw, rh / sh) if sw and sh else 1.0
+    if scale > 1.0:
+        scale = 1.0
     ox = rx + (rw - sw * scale) / 2.0
     oy = ry + (rh - sh * scale) / 2.0
     xs = [ox + p[0] * scale for st in doc.strokes for p in st.points]

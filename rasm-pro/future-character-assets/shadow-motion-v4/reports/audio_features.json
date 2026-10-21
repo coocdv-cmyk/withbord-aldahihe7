@@ -1,0 +1,10 @@
+{
+  "source_fixture": "D:/withbord inmation/rasm-pro/future-character-assets/validation-v2/audio/narration.wav",
+  "voice": "Existing Microsoft Zira Desktop female system TTS fixture; not a human performer or final brand voice",
+  "duration": 23.20095238095238,
+  "method": "RMS activity only; no phoneme alignment",
+  "analysis_hop": 0.02,
+  "detected_emphasis_events": 30,
+  "max_energy": 0.9629794267921727,
+  "note": "Existing local voice fixture copied only for synchronization testing. No voice model was trained or changed."
+}

@@ -1,24 +1,30 @@
 {
-  "out": "D:\\withbord inmation\\rasm-pro\\projects\\episode-02-art-of-war\\render\\episode.sfx.wav",
+  "out": "projects\\episode-02-art-of-war\\render\\episode.sfx.wav",
   "duration": 246.5,
   "requested_duration": 246.0,
-  "events": 3175,
+  "events": 3253,
   "counts_by_type": {
-    "page": 11,
-    "scratch": 1550,
-    "scratch_soft": 12,
-    "tick": 5
+    "page": 10,
+    "page_flip": 17,
+    "scratch": 1574,
+    "scratch_soft": 14,
+    "tick": 13
   },
-  "types_used": 4,
-  "types_available": 6,
+  "types_used": 5,
+  "types_available": 7,
   "dropped_events": 0,
   "closed_open_strokes": 0,
+  "ducking": {
+    "applied": false,
+    "depth_db": 0.0,
+    "ducked_fraction": 0.0
+  },
   "preset": "paper",
   "preset_offset_db": 0.0,
   "sfx_mix_db": -9.1,
   "library_target_rms_dbfs": -30.0,
-  "track_rms_dbfs": -32.31,
-  "track_peak_dbfs": -7.32,
+  "track_rms_dbfs": -32.51,
+  "track_peak_dbfs": -7.78,
   "limiter_engaged": false,
   "missing_recordings": [],
   "synthetic_fallback": false,
@@ -33,6 +39,11 @@
       "file": "page_turn.wav",
       "role": "soft placement",
       "description": "وضع صورة أو خلفية — ورق أخف"
+    },
+    {
+      "file": "page_turn.wav",
+      "role": "scene transition",
+      "description": "قلب الصفحة بين المشاهد — من التسجيل الحقيقي نفسه"
     },
     {
       "file": "pen_felt.wav",
@@ -56,7 +67,7 @@
     }
   ],
   "mux": {
-    "out": "D:\\withbord inmation\\rasm-pro\\projects\\episode-02-art-of-war\\render\\episode.mp4",
+    "out": "projects\\episode-02-art-of-war\\render\\episode.mp4",
     "mode": "sfx-only",
     "sfx_weight": 0.35,
     "narration": null,

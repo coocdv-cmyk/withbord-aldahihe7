@@ -1,0 +1,71 @@
+{
+  "scenes": [
+    {
+      "id": 1,
+      "role": "hook",
+      "layout": "c",
+      "elements": 3,
+      "ink_area": 1174802,
+      "findings": []
+    },
+    {
+      "id": 2,
+      "role": "explain",
+      "layout": "a",
+      "elements": 3,
+      "ink_area": 1201100,
+      "findings": []
+    },
+    {
+      "id": 3,
+      "role": "explain",
+      "layout": "b",
+      "elements": 3,
+      "ink_area": 1556640,
+      "findings": []
+    },
+    {
+      "id": 4,
+      "role": "explain",
+      "layout": "c",
+      "elements": 2,
+      "ink_area": 1125080,
+      "findings": []
+    },
+    {
+      "id": 5,
+      "role": "explain",
+      "layout": "a",
+      "elements": 3,
+      "ink_area": 1276232,
+      "findings": []
+    },
+    {
+      "id": 6,
+      "role": "explain",
+      "layout": "b",
+      "elements": 3,
+      "ink_area": 1474181,
+      "findings": []
+    },
+    {
+      "id": 7,
+      "role": "explain",
+      "layout": "c",
+      "elements": 2,
+      "ink_area": 1114746,
+      "findings": []
+    },
+    {
+      "id": 8,
+      "role": "close",
+      "layout": "a",
+      "elements": 3,
+      "ink_area": 3021248,
+      "findings": []
+    }
+  ],
+  "blocking": [],
+  "warnings": [],
+  "ok": true
+}

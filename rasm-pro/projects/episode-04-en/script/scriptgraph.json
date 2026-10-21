@@ -1,0 +1,25 @@
+{
+  "lang": "en",
+  "hook": "Seven days, one book",
+  "source": "original script written for this episode",
+  "tone": "explainer",
+  "audience": "general",
+  "entities": [],
+  "claims": [],
+  "timeline": [],
+  "scenes": [
+    { "id": 1, "duration": 13.0, "narration": "Seven days, one book, a plan you can keep." },
+    { "id": 2, "duration": 14.0, "narration": "Day one: read the first hour out loud. Your voice catches what your eyes skim." },
+    { "id": 3, "duration": 14.0, "narration": "Day two: write three questions. A question you cannot answer is worth keeping." },
+    { "id": 4, "duration": 13.0, "narration": "Day three: reread only the pages you marked." },
+    { "id": 5, "duration": 14.0, "narration": "Day four: argue with the author. Write the disagreement in one sentence." },
+    { "id": 6, "duration": 14.0, "narration": "Day five: teach one idea to someone. If you cannot, you have not read it." },
+    { "id": 7, "duration": 13.0, "narration": "Day six: write the whole book in one sentence." },
+    { "id": 8, "duration": 14.0, "narration": "Day seven: keep the book or leave it. Both answers are honest." }
+  ],
+  "stats": {
+    "words": 108,
+    "sentences": 8,
+    "engine": "hand-built (silent episode, text only)"
+  }
+}

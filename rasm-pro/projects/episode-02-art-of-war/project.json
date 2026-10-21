@@ -13,7 +13,7 @@
   },
   "status": "planned",
   "created_at": "2026-10-21T12:05:35Z",
-  "updated_at": "2026-10-21T12:40:56Z",
+  "updated_at": "2026-10-21T17:23:04Z",
   "paths": {
     "script": "script/scriptgraph.json",
     "script_text": "script/script.txt",
@@ -21,8 +21,8 @@
     "assets_index": "research/assets.json"
   },
   "storyboard": {
-    "active": "storyboard/plan_v6.json",
-    "sha256": "6788e0d03c66787c0a896e4b1be44737d2bc356843b260bf3e68c7f46cc720c3",
+    "active": "storyboard/plan_v10.json",
+    "sha256": "fe5e513221697efffcf36aa36816ca34f8147f16bcb3b18ee5363a37dbfe8fc2",
     "format_version": "2.0"
   },
   "audio": {

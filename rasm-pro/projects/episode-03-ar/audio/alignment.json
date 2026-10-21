@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "level": "SEGMENTED",
+  "method": "vad-pauses-proportional-v1",
+  "sample_rate": 48000,
+  "total_samples": 4230816,
+  "notes": [
+    "بنية الوقف مقيسة: 24 مقطع نطق مكتشف من الصوت فعليًا.",
+    "عدد المقاطع المقيسة (24) ≠ عدد المشاهد (10) ⇒ التوزيع تناسبي على زمن النطق المقيس، ثم يُحوَّل كل حد تراكمي إلى زمن التسجيل مع احتساب الوقفات التي تسبقه.",
+    "التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق)."
+  ],
+  "segments": [
+    {
+      "scene_id": 1,
+      "text": "قناة السويس: مئة عام غيّرت خريطة العالم. مضيقٌ واحد بين قارتين.",
+      "start_sample": 0,
+      "end_sample": 366254,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 2,
+      "text": "مضيقٌ واحد يصل بين بحرين. قناة السويس تربط المتوسط بالأحمر.",
+      "start_sample": 366254,
+      "end_sample": 845205,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 3,
+      "text": "قبل 1869 كانت السفن إلى الهند تدور حول أفريقيا. أسبوعان إضافيان في كل رحلة.",
+      "start_sample": 845205,
+      "end_sample": 1205535,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 4,
+      "text": "فُتحت في 17 نوفمبر 1869. إسماعيل باشا هو من افتتحها.",
+      "start_sample": 1205535,
+      "end_sample": 1517055,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 5,
+      "text": "سنة فتحها: أربعة عشر ألف سفينة فقط. ثم تضاعف الرقم كل بضع سنوات.",
+      "start_sample": 1517055,
+      "end_sample": 2025017,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 6,
+      "text": "شركة القناة: فرنسيون وبريطانيون. امتلكوا القناة سبعين سنة.",
+      "start_sample": 2025017,
+      "end_sample": 2434838,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 7,
+      "text": "استردّت مصر القناة في 1956. أقامت شركة قناة السويس ودفعت تعويضًا.",
+      "start_sample": 2434838,
+      "end_sample": 2836038,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 8,
+      "text": "مصر على الخريطة: قناة تربط آسيا بأوروبا. أقصر طريق بين الشرق والغرب.",
+      "start_sample": 2836038,
+      "end_sample": 3305407,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 9,
+      "text": "من سبعة عشر بالمئة من تجارة العالم إلى اثني عشر بالمئة. المسار اليوم يسير شمالًا.",
+      "start_sample": 3305407,
+      "end_sample": 3785746,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    },
+    {
+      "scene_id": 10,
+      "text": "قناة واحدة تكفي لتغيّر خريطة العالم. وتحسب في كل سفينة تعبرها.",
+      "start_sample": 3785746,
+      "end_sample": 4230816,
+      "confidence": 0.55,
+      "flags": [
+        "pause-detected",
+        "proportional-mapping"
+      ]
+    }
+  ]
+}

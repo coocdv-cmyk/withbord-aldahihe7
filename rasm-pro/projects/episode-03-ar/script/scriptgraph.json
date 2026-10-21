@@ -1,0 +1,40 @@
+{
+  "lang": "ar",
+  "hook": "قناة السويس",
+  "source": "original script written for this episode; the facts are documented in research/evidence and the images are licensed sources",
+  "tone": "documentary",
+  "audience": "general",
+  "entities": [
+    { "name": "قناة السويس", "type": "concept", "needs": ["map"], "why": "the canal itself: a strait that joins two seas" },
+    { "name": "إسماعيل باشا", "type": "person", "needs": ["portrait"], "why": "the Khedive who opened it" },
+    { "name": "شركة قناة السويس", "type": "org", "needs": ["document"], "why": "the company that ran it until 1956" },
+    { "name": "مصر", "type": "country", "needs": ["map"], "why": "the country that took the canal back" },
+    { "name": "البحر المتوسط", "type": "concept", "needs": ["map"], "why": "the northern end" },
+    { "name": "البحر الأحمر", "type": "concept", "needs": ["map"], "why": "the southern end" }
+  ],
+  "claims": [
+    { "text": "The canal opened on 17 November 1869.", "scene": 4 },
+    { "text": "Egypt nationalized the canal company in 1956.", "scene": 7 }
+  ],
+  "timeline": [
+    { "when": "1869", "what": "the canal opens" },
+    { "when": "1956", "what": "Egypt takes the canal back" }
+  ],
+  "scenes": [
+    { "id": 1, "duration": 13.0, "narration": "قناة السويس: مئة عام غيّرت خريطة العالم. مضيقٌ واحد بين قارتين." },
+    { "id": 2, "duration": 14.0, "narration": "مضيقٌ واحد يصل بين بحرين. قناة السويس تربط المتوسط بالأحمر." },
+    { "id": 3, "duration": 14.0, "narration": "قبل 1869 كانت السفن إلى الهند تدور حول أفريقيا. أسبوعان إضافيان في كل رحلة." },
+    { "id": 4, "duration": 13.0, "narration": "فُتحت في 17 نوفمبر 1869. إسماعيل باشا هو من افتتحها." },
+    { "id": 5, "duration": 14.0, "narration": "سنة فتحها: أربعة عشر ألف سفينة فقط. ثم تضاعف الرقم كل بضع سنوات." },
+    { "id": 6, "duration": 14.0, "narration": "شركة القناة: فرنسيون وبريطانيون. امتلكوا القناة سبعين سنة." },
+    { "id": 7, "duration": 14.0, "narration": "استردّت مصر القناة في 1956. أقامت شركة قناة السويس ودفعت تعويضًا." },
+    { "id": 8, "duration": 14.0, "narration": "مصر على الخريطة: قناة تربط آسيا بأوروبا. أقصر طريق بين الشرق والغرب." },
+    { "id": 9, "duration": 14.0, "narration": "من سبعة عشر بالمئة من تجارة العالم إلى اثني عشر بالمئة. المسار اليوم يسير شمالًا." },
+    { "id": 10, "duration": 14.0, "narration": "قناة واحدة تكفي لتغيّر خريطة العالم. وتحسب في كل سفينة تعبرها." }
+  ],
+  "stats": {
+    "words": 195,
+    "sentences": 20,
+    "engine": "hand-built (documentary episode with a generated voice)"
+  }
+}

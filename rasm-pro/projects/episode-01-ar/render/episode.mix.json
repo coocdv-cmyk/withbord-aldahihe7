@@ -1,24 +1,31 @@
 {
-  "out": "D:\\withbord inmation\\rasm-pro\\projects\\episode-01-ar\\render\\episode.sfx.wav",
+  "out": "projects\\episode-01-ar\\render\\episode.sfx.wav",
   "duration": 137.333,
   "requested_duration": 136.833,
-  "events": 1804,
+  "events": 2382,
   "counts_by_type": {
-    "page": 5,
-    "scratch": 807,
-    "scratch_soft": 8,
-    "tick": 146
+    "page": 7,
+    "page_flip": 9,
+    "scratch": 1053,
+    "scratch_soft": 4,
+    "tick": 225
   },
-  "types_used": 4,
-  "types_available": 6,
+  "types_used": 5,
+  "types_available": 7,
   "dropped_events": 0,
   "closed_open_strokes": 0,
+  "ducking": {
+    "applied": true,
+    "depth_db": -9.0,
+    "ducked_fraction": 0.751,
+    "mean_reduction_db": -6.39
+  },
   "preset": "paper",
   "preset_offset_db": 0.0,
   "sfx_mix_db": -9.1,
   "library_target_rms_dbfs": -30.0,
-  "track_rms_dbfs": -32.04,
-  "track_peak_dbfs": -5.46,
+  "track_rms_dbfs": -37.29,
+  "track_peak_dbfs": -10.42,
   "limiter_engaged": false,
   "missing_recordings": [],
   "synthetic_fallback": false,
@@ -33,6 +40,11 @@
       "file": "page_turn.wav",
       "role": "soft placement",
       "description": "وضع صورة أو خلفية — ورق أخف"
+    },
+    {
+      "file": "page_turn.wav",
+      "role": "scene transition",
+      "description": "قلب الصفحة بين المشاهد — من التسجيل الحقيقي نفسه"
     },
     {
       "file": "pen_felt.wav",
@@ -56,7 +68,7 @@
     }
   ],
   "mux": {
-    "out": "D:\\withbord inmation\\rasm-pro\\projects\\episode-01-ar\\render\\episode.mp4",
+    "out": "projects\\episode-01-ar\\render\\episode.mp4",
     "mode": "narration+sfx",
     "sfx_weight": 0.35,
     "narration": null,

@@ -1,0 +1,636 @@
+{
+  "project": "",
+  "lang": "en",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "family": {
+    "name": "explainer",
+    "description": "نصّي: عنوان كبير + تسطير/تظليل — يُرسم أسرع وأسهل قراءة",
+    "words_per_scene": 12,
+    "allows_images": false,
+    "motion": {
+      "zoom": 1.9,
+      "follow": 0.08,
+      "zoom_by_type": {
+        "text": 1.6,
+        "underline": 1.4,
+        "highlight": 1.4
+      },
+      "hold_on_text": true,
+      "lead_in": 0.1
+    }
+  },
+  "timebase": {
+    "source": "estimated",
+    "method": "words-per-second",
+    "rounding": "absolute-boundaries",
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "sample_rate": null,
+    "total_samples": null,
+    "start_frame": 0,
+    "end_frame": 2616,
+    "frames": 2616
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 13.0,
+      "narration": "Seven days, one book, a plan you can keep.",
+      "role": "hook",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            1290,
+            2300,
+            120
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "Seven days, one\nbook",
+          "font": "inter",
+          "size": 220,
+          "rect": [
+            130,
+            240,
+            2300,
+            560
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 650,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "a plan you can keep",
+          "font": "inter",
+          "size": 112,
+          "rect": [
+            520,
+            840,
+            1520,
+            280
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 0,
+      "end_frame": 312,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 9,
+        "narration_words": 9,
+        "narration_words_per_second": 0.692,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 2,
+      "duration": 14.0,
+      "narration": "Day one: read the first hour out loud. Your voice catches what your eyes skim.",
+      "role": "explain",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Day one: read the first\nhour…",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            200,
+            470,
+            2160,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1240,
+            2160,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "out loud. Your voice catches what…",
+          "font": "inter",
+          "size": 90,
+          "rect": [
+            200,
+            1030,
+            2160,
+            220
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#6B5B4A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 312,
+      "end_frame": 648,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 12,
+        "narration_words": 15,
+        "narration_words_per_second": 1.071,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 3,
+      "duration": 14.0,
+      "narration": "Day two: write three questions. A question you cannot answer is worth keeping.",
+      "role": "explain",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Day two: write three\nquestions. A…",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            300,
+            500,
+            1960,
+            500
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            190,
+            950,
+            2180,
+            340
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "question you cannot answer is worth…",
+          "font": "inter",
+          "size": 90,
+          "rect": [
+            300,
+            1040,
+            1960,
+            210
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#6B5B4A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 648,
+      "end_frame": 984,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 12,
+        "narration_words": 13,
+        "narration_words_per_second": 0.929,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 4,
+      "duration": 13.0,
+      "narration": "Day three: reread only the pages you marked.",
+      "role": "explain",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Day three: reread only\nthe pages…",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            200,
+            540,
+            2160,
+            480
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1260,
+            2160,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "you marked",
+          "font": "inter",
+          "size": 90,
+          "rect": [
+            200,
+            1060,
+            2160,
+            200
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#6B5B4A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 984,
+      "end_frame": 1296,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 8,
+        "narration_words_per_second": 0.615,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 5,
+      "duration": 14.0,
+      "narration": "Day four: argue with the author. Write the disagreement in one sentence.",
+      "role": "explain",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Day four: argue with the\nauthor…",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            200,
+            470,
+            2160,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1240,
+            2160,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "Write the disagreement in one sentence",
+          "font": "inter",
+          "size": 90,
+          "rect": [
+            200,
+            1030,
+            2160,
+            220
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#6B5B4A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1296,
+      "end_frame": 1632,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 12,
+        "narration_words": 12,
+        "narration_words_per_second": 0.857,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 6,
+      "duration": 14.0,
+      "narration": "Day five: teach one idea to someone. If you cannot, you have not read it.",
+      "role": "explain",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Day five: teach one\nidea to…",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            300,
+            500,
+            1960,
+            500
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            190,
+            950,
+            2180,
+            340
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "someone. If you cannot, you have…",
+          "font": "inter",
+          "size": 90,
+          "rect": [
+            300,
+            1040,
+            1960,
+            210
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#6B5B4A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1632,
+      "end_frame": 1968,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 12,
+        "narration_words": 15,
+        "narration_words_per_second": 1.071,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 7,
+      "duration": 13.0,
+      "narration": "Day six: write the whole book in one sentence.",
+      "role": "explain",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Day six: write the whole\nbook…",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            200,
+            540,
+            2160,
+            480
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1260,
+            2160,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "in one sentence",
+          "font": "inter",
+          "size": 90,
+          "rect": [
+            200,
+            1060,
+            2160,
+            200
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#6B5B4A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1968,
+      "end_frame": 2280,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 9,
+        "narration_words": 9,
+        "narration_words_per_second": 0.692,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 8,
+      "duration": 14.0,
+      "narration": "Day seven: keep the book or leave it. Both answers are honest.",
+      "role": "close",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Day seven: keep the book\nor leave it. Both answers\nare honest",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            724,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "flourish",
+          "rect": [
+            190,
+            950,
+            2180,
+            340
+          ],
+          "color": "#8C2F1F",
+          "gap": 0.2
+        }
+      ],
+      "start_frame": 2280,
+      "end_frame": 2616,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 12,
+        "narration_words": 12,
+        "narration_words_per_second": 0.857,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    }
+  ],
+  "audio": null,
+  "timing": {
+    "source": "estimated",
+    "method": "words-per-second"
+  },
+  "stats": {
+    "scenes": 8,
+    "elements": 24,
+    "estimated_duration": 109.0,
+    "duration": 109.0,
+    "frames": 2616,
+    "scenes_over_text_budget": 0
+  }
+}

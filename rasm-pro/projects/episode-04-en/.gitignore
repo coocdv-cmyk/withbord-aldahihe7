@@ -1,0 +1,8 @@
+# Intermediates: regenerable by the engine, not evidence.
+#
+# This episode is silent: it has no narration and no SFX track of its own
+# beyond the mix the render rebuilds.  The deliverable, the plan, the credits
+# and the evidence frames are kept in the repository.
+audio/tts/
+audio/narration-*.wav
+render/*.sfx.wav

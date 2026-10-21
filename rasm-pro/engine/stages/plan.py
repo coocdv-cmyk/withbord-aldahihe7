@@ -89,6 +89,50 @@ def _text_width(text: str, font_name: str, size: int) -> float:
     return width
 
 
+def _natural_size(lines: list[str], font_name: str, size: int) -> tuple[float, float]:
+    """The natural size of a wrapped text (width, height) in canvas units."""
+    font = _measure_font(font_name, size)
+    width = 0.0
+    for line in lines:
+        try:
+            width = max(width, float(font.getlength(line)) if font else len(line) * size * 0.5)
+        except Exception:
+            width = max(width, len(line) * float(size) * 0.5)
+    return width, len(lines) * float(size) * 1.42
+
+
+def _fit_text(
+    text: str,
+    *,
+    font_name: str,
+    size: int,
+    box_w: float,
+    box_h: float,
+    min_size: float = 78.0,
+) -> str:
+    """Wraps the text and **shortens** it until it can be read at its size.
+
+    The renderer scales a text down when it does not fit its box — and a text
+    scaled below the reading floor is unreadable.  So the plan drops words (and
+    marks the cut) instead of drawing a caption nobody can read.
+    """
+    words = str(text or "").split()
+    if not words:
+        return ""
+    while True:
+        body = _wrap_to_width(" ".join(words), font_name=font_name, size=size, width=box_w)
+        lines = body.split("\n")
+        nat_w, nat_h = _natural_size(lines, font_name, size)
+        scale = 1.0
+        if nat_w > 0 and nat_h > 0:
+            scale = min(1.0, box_w / nat_w, box_h / nat_h)
+        if size * scale >= min_size or len(words) <= 2:
+            if words != str(text or "").split():
+                body = body.rstrip() + "…"
+            return body
+        words = words[:-1]
+
+
 def _band_for(text: str, *, font_name: str, size: int, base: list[float], pad: int = 26) -> list[float]:
     """A highlight band that follows the **measured** width of its text."""
     x, y, w, h = [float(v) for v in base]
@@ -248,19 +292,21 @@ def _scene_text_chunks(
     if role == "evidence" and visual and label:
         return [label, caption]
     if role == "explain" and caption:
-        # a statement + a quieter detail line: the second line is the **next
-        # sentence**, so the board carries a hierarchy instead of one lonely
-        # sentence.  The detail only appears when the scene's own time can
-        # carry it.
+        # a statement + a quieter detail line: the board carries a hierarchy.
+        # The statement is the first **sentence** (cut with an ellipsis if the
+        # scene is too short for it) and the detail is the next one.
         sentences = arabic.split_sentences(narration)
-        head = sentences[0].strip() if sentences else caption
-        head_words = head.split()
-        if len(head_words) > cap:
-            head = " ".join(head_words[:cap]) + "…"
-        room = max(0, cap - len(head.split()))
+        head_words = max(2, min(6, cap))
+        head = " ".join((sentences[0] if sentences else caption).split()[:head_words]).rstrip(" .,،:;")
+        if sentences and len(sentences[0].split()) > head_words:
+            head = head + "…"
+        room = max(0, cap - head_words)
         detail = ""
         if len(sentences) > 1 and room >= 3:
-            detail = " ".join(sentences[1].split()[: min(6, room)]).strip(" .،,")
+            take = min(6, room)
+            detail = " ".join(sentences[1].split()[:take]).rstrip(" .,،:;")
+            if len(sentences[1].split()) > take:
+                detail = detail + "…"
         if detail and len(detail.split()) >= 2:
             return [head, detail]
         return [head] if head else []
@@ -314,20 +360,20 @@ LAYOUTS: dict[str, dict[str, dict[str, list[float]]]] = {
     "hook": {
         # a: the title high, the subtitle under it
         "a": {
-            "title": [130, 220, 2300, 720],
+            "title": [130, 220, 2300, 700],
             "sub": [190, 940, 2180, 340],
             "band": [150, 300, 2240, 340],
         },
         # b: a lower, wider title with the subtitle tucked under it
         "b": {
-            "title": [230, 520, 2100, 700],
-            "sub": [300, 1060, 1960, 320],
-            "band": [220, 600, 2120, 420],
+            "title": [230, 520, 2100, 500],
+            "sub": [300, 1080, 1960, 300],
+            "band": [220, 600, 2120, 360],
         },
         # c: a compact title with a narrow subtitle (a chapter card)
         "c": {
-            "title": [130, 240, 2300, 620],
-            "sub": [520, 900, 1520, 300],
+            "title": [130, 240, 2300, 560],
+            "sub": [520, 840, 1520, 280],
             "band": [150, 280, 2240, 300],
         },
     },
@@ -359,7 +405,7 @@ LAYOUTS: dict[str, dict[str, dict[str, list[float]]]] = {
         "a": {
             "statement": [200, 470, 2160, 520],
             "detail": [200, 1030, 2160, 220],
-            "rule": [200, 1250, 2160, 180],
+            "rule": [200, 1240, 2160, 160],
         },
         # b: a narrower statement with a flourish
         "b": {
@@ -425,8 +471,15 @@ def _text_element(
 ) -> dict:
     """A text element placed for its role (title / subtitle / label / caption)."""
     rect = list(place["rect"])
-    # the text is wrapped by **measured width** so it never runs out of its box
-    body = _wrap_to_width(text, font_name=font, size=size, width=float(rect[2]))
+    # the text is wrapped by **measured width** so it never runs out of its box,
+    # and shortened when it would be drawn too small to read
+    body = _fit_text(
+        text,
+        font_name=font,
+        size=size,
+        box_w=float(rect[2]),
+        box_h=float(rect[3]),
+    )
     return {
         "type": "text",
         "text": body or _wrap(text, wrap),
@@ -550,7 +603,9 @@ def build_plan(
                 # instead of striking through them.
                 rect = list(lay.get("rule") or [130, 724, 2300, 380])
                 if role == "hook":
-                    rect = [130, 1290, 2300, 260]
+                    # the hook's rule sits at the foot of the page (and inside
+                    # the canvas: the explainer family draws it first)
+                    rect = [130, 1290, 2300, 120]
                 elements.append(
                     {
                         "type": "underline",

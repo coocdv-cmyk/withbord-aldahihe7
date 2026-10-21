@@ -61,3 +61,43 @@ def test_the_plan_wraps_by_measurement_not_by_word_count():
         xs = [p[0] for st in doc.strokes for p in st.points]
         width = max(xs) - min(xs)
         assert width <= element["rect"][2] * 1.05, (element["text"], width, element["rect"])
+
+
+def test_a_text_that_would_be_drawn_too_small_is_shortened():
+    """A caption that does not fit is cut — never drawn unreadably small."""
+    plan = build_plan(
+        {
+            "lang": "en",
+            "hook": "A very long hook sentence that cannot fit in a short scene",
+            "scenes": [
+                {"id": 1, "duration": 4.0, "narration": "A very long hook sentence that cannot fit"},
+                {"id": 2, "duration": 6.0, "narration": "A long caption that needs far too many words"},
+                {"id": 3, "duration": 6.0, "narration": "A long caption that needs far too many words"},
+            ],
+        },
+        {},
+    )
+    from engine.render.validate_composition import MIN_EFFECTIVE_SIZE, text_geometry
+
+    for scene in plan["scenes"]:
+        for element in scene["elements"]:
+            if element.get("type") != "text":
+                continue
+            geometry = text_geometry(element)
+            assert geometry, element
+            _, scale = geometry
+            effective = float(element.get("size") or 120) * scale
+            assert effective >= MIN_EFFECTIVE_SIZE * 0.95, (element.get("text"), effective)
+
+
+def test_a_short_text_is_never_enlarged_above_its_designed_size():
+    """The renderer used to *enlarge* a short sentence until it overflowed."""
+    from engine.render.director import clip_strokes
+    from engine.strokes import text_to_strokes, find_font
+
+    doc = text_to_strokes("Hi", find_font("cairo"), 120, mode="skeleton", rtl=False)
+    strokes = clip_strokes(doc, (0, 0, 2400, 1200), allow_upscale=False)
+    xs = [p[0] for st in strokes for p in st.points]
+    ys = [p[1] for st in strokes for p in st.points]
+    assert (max(xs) - min(xs)) <= doc.width * 1.02
+    assert (max(ys) - min(ys)) <= doc.height * 1.02

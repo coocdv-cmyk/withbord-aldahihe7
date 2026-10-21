@@ -1,0 +1,12 @@
+{
+  "source_files_checked": 8,
+  "downloads_differences": [],
+  "snapshot_differences": [],
+  "engine_python_differences": [
+    "engine\\audio\\align.py",
+    "engine\\audio\\narration.py",
+    "engine\\audio\\__init__.py",
+    "engine\\core\\project.py"
+  ],
+  "note": "This task wrote only inside shadow-motion-v4. Engine differences may be concurrent work; no files are reverted."
+}

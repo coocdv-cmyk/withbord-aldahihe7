@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "videos": [
+    {
+      "file": "audio_response.mp4",
+      "video_codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "fps": "30/1",
+      "frames": 696,
+      "video_duration": 23.2,
+      "audio_codec": "aac",
+      "audio_duration": 23.200952,
+      "full_decode_passed": true,
+      "decoder_stderr": "",
+      "av_duration_difference": 0.0009520000000016182,
+      "passed": true
+    },
+    {
+      "file": "before_after.mp4",
+      "video_codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "fps": "30/1",
+      "frames": 900,
+      "video_duration": 30.0,
+      "audio_codec": null,
+      "audio_duration": null,
+      "full_decode_passed": true,
+      "decoder_stderr": "",
+      "av_duration_difference": null,
+      "passed": true
+    },
+    {
+      "file": "motion_after.mp4",
+      "video_codec": "h264",
+      "width": 1280,
+      "height": 720,
+      "fps": "30/1",
+      "frames": 900,
+      "video_duration": 30.0,
+      "audio_codec": null,
+      "audio_duration": null,
+      "full_decode_passed": true,
+      "decoder_stderr": "",
+      "av_duration_difference": null,
+      "passed": true
+    }
+  ],
+  "isolation": {
+    "source_files_checked": 8,
+    "downloads_differences": [],
+    "snapshot_differences": [],
+    "engine_python_differences": [
+      "engine\\audio\\align.py",
+      "engine\\audio\\narration.py",
+      "engine\\audio\\__init__.py",
+      "engine\\core\\project.py"
+    ],
+    "note": "This task wrote only inside shadow-motion-v4. Engine differences may be concurrent work; no files are reverted."
+  }
+}

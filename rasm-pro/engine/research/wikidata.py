@@ -6,7 +6,7 @@ from urllib.parse import quote
 
 from ..core import arabic
 from ..core.util import strip_html
-from .http import HttpClient
+from .http import HttpClient, RateLimited
 
 WD_API = "https://www.wikidata.org/w/api.php"
 SPARQL = "https://query.wikidata.org/sparql"
@@ -58,6 +58,8 @@ class Wikidata:
                 for h in self.search_entity(label, lang, limit=limit):
                     if h["qid"] and h["qid"] not in seen:
                         seen[h["qid"]] = h
+            except RateLimited:
+                raise
             except Exception:
                 continue
         return list(seen.values())
@@ -102,6 +104,8 @@ class Wikidata:
                 WD_API,
                 {"action": "wbgetentities", "sites": f"{lang}wiki", "titles": title, "props": "info", "format": "json"},
             )
+        except RateLimited:
+            raise
         except Exception:
             return None
         for qid, ent in (data.get("entities") or {}).items():

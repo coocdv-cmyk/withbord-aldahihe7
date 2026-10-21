@@ -1,0 +1,19 @@
+{
+ "duration": 24,
+ "cues": [
+  {"t":0.6,"dur":3.4,"gesture":"welcome","expr":"pleased"},
+  {"t":4.4,"dur":3.4,"gesture":"explain_r","expr":"curious"},
+  {"t":8.2,"dur":3.4,"gesture":"point_l","expr":"serious"},
+  {"t":12.0,"dur":3.4,"gesture":"compare","expr":"thinking"},
+  {"t":15.8,"dur":3.0,"gesture":"emphasize","expr":"serious"},
+  {"t":19.2,"dur":3.4,"gesture":"question","expr":"curious"}
+ ],
+ "speech": [
+  {"t":0.8,"dur":3.0,"text":"أهلاً بيكم في حلقة جديدة"},
+  {"t":4.6,"dur":3.0,"text":"النهارده هنشرح الفكرة ببساطة"},
+  {"t":8.4,"dur":3.0,"text":"بصوا هنا على الدليل"},
+  {"t":12.2,"dur":3.0,"text":"عندنا احتمالين نقارن بينهم"},
+  {"t":16.0,"dur":2.6,"text":"النقطة دي هي الأهم"},
+  {"t":19.4,"dur":3.0,"text":"طيب إنتو شايفين إيه"}
+ ]
+}

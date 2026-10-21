@@ -1084,12 +1084,14 @@ def cmd_approvals_import(args) -> int:
         return 2
     index = pd / "research" / "assets.json"
     if not index.exists():
+        # an episode may legitimately have no sources at all (a text-only
+        # explainer).  That is not an error — there is simply nothing to
+        # import.
         print(
-            "✘ لا يوجد research/assets.json — شغّل: rasm evidence "
-            f"{pd.name} --download",
-            file=sys.stderr,
+            f"• لا يوجد research/assets.json في {pd.name} — لا أصول لاستيرادها "
+            "(حالة مشروعية: حلقة نصّية بلا مصادر)"
         )
-        return 2
+        return 0
     fresh = build_asset_entries(pd, index)
     existing = {
         str(a.get("path")): a for a in (manifest.get("assets") or []) if isinstance(a, dict)

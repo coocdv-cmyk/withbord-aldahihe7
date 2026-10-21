@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shadow Motion — مختبر حركة مستقل</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101923;color:#e7edf5;font:16px/1.6 system-ui}header,main{max-width:1280px;margin:auto;padding:18px}h1{font-size:25px;margin:0}p{color:#b6c4d5;margin:6px 0 14px}.screen{border:1px solid #3f4e60;border-radius:14px;overflow:hidden;background:repeating-conic-gradient(#27313b 0% 25%,#303c48 0% 50%) 0/24px 24px}canvas{width:100%;display:block;aspect-ratio:16/9}.controls{padding:15px;background:#1a2837;border-radius:12px;margin-top:14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}button,select,input::file-selector-button{background:#32485f;color:white;border:1px solid #536c85;border-radius:6px;padding:8px;font:inherit;cursor:pointer}button:hover{background:#45617c}label{display:inline-flex;align-items:center;gap:8px}input[type=range]{width:150px}small{color:#b6c4d5}audio{width:100%;margin-top:12px}#status{min-height:26px;color:#efc27c}details{margin-top:16px}code{direction:ltr;display:inline-block}a{color:#a8d5ff}
+</style>
+<header><h1>Shadow Motion · حركة وإلقاء</h1><p>شخصية إجرائية مستقلة. حركة هادئة، مفاصل مترابطة، وإيماءات تختارها حسب معنى الشرح.</p></header>
+<main>
+<div class="screen"><canvas id="view" width="1280" height="720"></canvas></div>
+<div class="controls">
+ <button id="play">إيقاف</button><button id="restart">من البداية</button>
+ <label>الوضع <select id="mode"><option value="demo">عرض الحركات</option><option value="manual">تحكم يدوي</option><option value="script">توقيت السكريبت مع الصوت</option></select></label>
+ <label>الحركة <select id="gesture"></select></label><label>التعبير <select id="expression"></select></label>
+ <label>قوة الحركة <input id="intensity" type="range" min="0" max="1.15" step=".05" value=".9"></label>
+ <button id="trigger">أدِّ الحركة</button>
+</div>
+<div class="controls">
+ <label><input id="studio" type="checkbox">إكسسوارات الشخصية</label>
+ <label><input id="closeup" type="checkbox" checked>لقطة قريبة</label>
+ <label><input id="skeleton" type="checkbox">المفاصل</label>
+ <label><input id="transparent" type="checkbox">خلفية شفافة</label>
+ <label><input id="eyesOnly" type="checkbox">بدون فم</label>
+ <label><input id="assist" type="checkbox">إيماءات بسيطة مع الصوت</label>
+ <button id="png">حفظ لقطة PNG</button>
+</div>
+<div class="controls">
+ <label>ملف صوت <input id="audioFile" type="file" accept="audio/*"></label>
+ <label>توقيت الحركات JSON <input id="scriptFile" type="file" accept=".json,application/json"></label>
+ <button id="clearAudio">إزالة الصوت</button>
+</div>
+<audio id="audio" controls></audio><div id="status" role="status">العرض بدون صوت. اختيار الحركة يحوّل إلى التحكم اليدوي.</div>
+<details><summary>طريقة الاستخدام وحدود النموذج</summary>
+<p>ارفع تسجيلك، ثم اختر الحركة واضغط «أدِّ الحركة». في وضع السكريبت، أحداث <code>cues</code> تحدد معنى الإيماءة، و<code>visemes</code> تضبط الفم إذا كانت متوافقة مع التسجيل. بدونها تتحرك فتحة الفم مع شدة الكلام فقط؛ هذا ليس تعرفًا على مخارج الحروف. الصوت لا يحدد مشاعر المتكلم.</p>
+<p>العرض ثلاثي الإحداثيات بإسقاط مسطح، وليس محاكاة بشرية كاملة أو التقاط حركة. الأصابع لها أطوال ثابتة؛ قد تظهر أقصر عندما تلتف بعيدًا عن الكاميرا. الخلفية والفم والإكسسوارات اختيارية. لا تُطلب صلاحية الميكروفون ولا توجد خدمة سحابية.</p>
+<p>التفاصيل: <a href="README_AR.md">دليل النسخة والفحص</a> · <a href="example_script.json">مثال توقيت JSON</a></p>
+</details>
+</main>
+<script src="rig.js"></script><script src="draw.js"></script><script src="audio.js"></script><script src="example_script.js"></script><script src="app.js"></script>
+</html>

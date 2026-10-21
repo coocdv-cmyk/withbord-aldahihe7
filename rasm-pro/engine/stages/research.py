@@ -19,7 +19,7 @@ from ..core.log import get_logger
 from ..core.util import write_json
 from ..memory.lexicon import Lexicon, is_generic_collective, looks_like_work
 from ..research.commons import Commons
-from ..research.http import HttpClient
+from ..research.http import HttpClient, RateLimited
 from ..research.local_library import search_icons
 from ..research.rights import classify_license
 from ..research.store import AssetStore
@@ -364,7 +364,17 @@ def research_script(graph: dict, project_dir, *, cfg=None, max_entities: int = 1
 
     for ent in entities:
         log.info("كيان: %s (%s)", ent.get("name"), ent.get("type"))
-        resolved = resolve_entity(ent, wd=wd, wiki=wiki, cfg=cfg, script_dates=script_dates)
+        try:
+            resolved = resolve_entity(ent, wd=wd, wiki=wiki, cfg=cfg, script_dates=script_dates)
+        except RateLimited as exc:
+            # The source asked us to slow down.  Saying "no assets found" here
+            # would be a lie: we did not look.
+            log.warning("توقّف البحث عن %s: المصدر طلب الإبطاء (%s)", ent.get("name"), exc)
+            result["skipped"].append(
+                {"entity": ent.get("name"), "need": "*", "title": "", "why": "rate-limited"}
+            )
+            result["totals"]["rate_limited"] = int(result["totals"].get("rate_limited", 0)) + 1
+            continue
         ent_out = {
             "name": ent.get("name"),
             "type": ent.get("type"),

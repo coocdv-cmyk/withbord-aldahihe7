@@ -49,6 +49,18 @@ def find_plan(project_dir: Path, explicit: str | None = None) -> Path | None:
     if explicit:
         path = Path(explicit)
         return path if path.exists() else None
+    # the **active** plan of the project wins over any numbered sibling
+    manifest = project_dir / "project.json"
+    if manifest.exists():
+        try:
+            data = read_json(manifest) or {}
+            active = str((data.get("storyboard") or {}).get("active") or "")
+            if active:
+                candidate = project_dir / active
+                if candidate.exists():
+                    return candidate
+        except Exception:
+            pass
     for name in PLAN_NAMES:
         candidate = project_dir / "storyboard" / name
         if candidate.exists():

@@ -1,0 +1,42 @@
+{
+  "renderer": "@napi-rs/canvas executing draw.js directly",
+  "source_sha256": {
+    "rig.js": "7330c18119170af4044f4ea13a4f9c8d9633069a5901d73ff11f5264e15ddd4c",
+    "draw.js": "06fb9882292051d58f93c1c054b227af945382d245aa47f00cb7c13302f5576d",
+    "audio.js": "b791fb57a265b4d7ca95690ba2115118af1a8262ec4992cfab418782a42beb3f",
+    "app.js": "6f6e53a60bf658e0cf95dd99125cbe989e8a2d948a6140a800b44898ba672873",
+    "example_script.json": "8b7e38a13307b42a69015e4fe5ed4c97ec6adb5b39c851da29fa06ab1aec7003",
+    "example_script.js": "baaf6b6236072e58b5882a05a2bd8a97b20c2bdce31b22618bfce3f22afd76b8"
+  },
+  "resolution": "1280x720",
+  "fps": 30,
+  "videos": [
+    {
+      "name": "before_after.mp4",
+      "duration": 30,
+      "submitted_frames": 900,
+      "render_seconds": 52.54,
+      "bytes": 1335519
+    },
+    {
+      "name": "motion_after.mp4",
+      "duration": 30,
+      "submitted_frames": 900,
+      "render_seconds": 28.099,
+      "bytes": 935609
+    },
+    {
+      "name": "audio_response.mp4",
+      "duration": 23.20095238095238,
+      "submitted_frames": 697,
+      "render_seconds": 21.364,
+      "bytes": 963178
+    }
+  ],
+  "notes": [
+    "No generated raster character or frame library. All geometry is procedural.",
+    "MP4 background is baked; character_transparent.png is RGBA.",
+    "Render times are measurements of this machine and these short demonstrations only.",
+    "submitted_frames counts Canvas frames. FFmpeg may trim the final partial audio frame; media_validation.json contains encoded frame counts."
+  ]
+}

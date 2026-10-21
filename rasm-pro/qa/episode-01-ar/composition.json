@@ -1,0 +1,208 @@
+{
+  "scenes": [
+    {
+      "id": 1,
+      "role": "hook",
+      "layout": "b",
+      "elements": 3,
+      "ink_area": 1583835,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "لماذا ننسى ما\nنتعلّمه؟ ثلاثة…",
+          "scale": 0.746,
+          "effective_size": 193.9,
+          "scene": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "role": "evidence",
+      "layout": "a",
+      "elements": 4,
+      "ink_area": 1875556,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "أولًا\nالانتباه.\nالعقل لا\nيحفظ ما لا\nينتب",
+          "scale": 0.585,
+          "effective_size": 87.7,
+          "scene": 2
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "role": "evidence",
+      "layout": "b",
+      "elements": 4,
+      "ink_area": 1932372,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "المشهد\nالذي تمرّ به\nعينك الآن\nقد لا\nيلمس",
+          "scale": 0.6,
+          "effective_size": 90.0,
+          "scene": 3
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "role": "evidence",
+      "layout": "a",
+      "elements": 4,
+      "ink_area": 1858081,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "ثانيًا النوم.\nأثناء النوم\nينتقل\nالأثر من",
+          "scale": 0.6,
+          "effective_size": 90.0,
+          "scene": 4
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "role": "explain",
+      "layout": "b",
+      "elements": 2,
+      "ink_area": 1215943,
+      "findings": []
+    },
+    {
+      "id": 6,
+      "role": "evidence",
+      "layout": "a",
+      "elements": 4,
+      "ink_area": 1913289,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "ولذلك\nتفيدك أن\nتنام بعد\nالمذاكرة لا\nقبله",
+          "scale": 0.599,
+          "effective_size": 89.8,
+          "scene": 6
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "role": "evidence",
+      "layout": "b",
+      "elements": 4,
+      "ink_area": 1929387,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "ثالثًا\nالتكرار،\nوالتكرار\nالمتباعد\nتحديدً",
+          "scale": 0.575,
+          "effective_size": 86.3,
+          "scene": 7
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "role": "evidence",
+      "layout": "c",
+      "elements": 4,
+      "ink_area": 2248031,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "المشكلة أن التكرار\nالمتلاصق في…",
+          "scale": 0.623,
+          "effective_size": 93.5,
+          "scene": 8
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "role": "evidence",
+      "layout": "a",
+      "elements": 4,
+      "ink_area": 1916389,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "ولذلك\nتفيدك\nمراجعة في\nاليوم\nنفسه،\nوأخرى ",
+          "scale": 0.594,
+          "effective_size": 89.0,
+          "scene": 9
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "role": "close",
+      "layout": "b",
+      "elements": 3,
+      "ink_area": 1804581,
+      "findings": []
+    }
+  ],
+  "blocking": [],
+  "warnings": [
+    {
+      "kind": "text-shrunk",
+      "element": "لماذا ننسى ما\nنتعلّمه؟ ثلاثة…",
+      "scale": 0.746,
+      "effective_size": 193.9,
+      "scene": 1
+    },
+    {
+      "kind": "text-shrunk",
+      "element": "أولًا\nالانتباه.\nالعقل لا\nيحفظ ما لا\nينتب",
+      "scale": 0.585,
+      "effective_size": 87.7,
+      "scene": 2
+    },
+    {
+      "kind": "text-shrunk",
+      "element": "المشهد\nالذي تمرّ به\nعينك الآن\nقد لا\nيلمس",
+      "scale": 0.6,
+      "effective_size": 90.0,
+      "scene": 3
+    },
+    {
+      "kind": "text-shrunk",
+      "element": "ثانيًا النوم.\nأثناء النوم\nينتقل\nالأثر من",
+      "scale": 0.6,
+      "effective_size": 90.0,
+      "scene": 4
+    },
+    {
+      "kind": "text-shrunk",
+      "element": "ولذلك\nتفيدك أن\nتنام بعد\nالمذاكرة لا\nقبله",
+      "scale": 0.599,
+      "effective_size": 89.8,
+      "scene": 6
+    },
+    {
+      "kind": "text-shrunk",
+      "element": "ثالثًا\nالتكرار،\nوالتكرار\nالمتباعد\nتحديدً",
+      "scale": 0.575,
+      "effective_size": 86.3,
+      "scene": 7
+    },
+    {
+      "kind": "text-shrunk",
+      "element": "المشكلة أن التكرار\nالمتلاصق في…",
+      "scale": 0.623,
+      "effective_size": 93.5,
+      "scene": 8
+    },
+    {
+      "kind": "text-shrunk",
+      "element": "ولذلك\nتفيدك\nمراجعة في\nاليوم\nنفسه،\nوأخرى ",
+      "scale": 0.594,
+      "effective_size": 89.0,
+      "scene": 9
+    }
+  ],
+  "ok": true
+}

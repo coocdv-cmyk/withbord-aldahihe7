@@ -1,0 +1,1455 @@
+{
+  "project": "",
+  "lang": "en",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "family": {
+    "name": "documentary",
+    "description": "صور وشواهد: شريط ممزق + صورة + عنوان + تعليق",
+    "words_per_scene": 16,
+    "allows_images": true,
+    "motion": {
+      "zoom": 2.8,
+      "follow": 0.06,
+      "zoom_by_type": {
+        "image": 2.4,
+        "svg": 2.4,
+        "torn_strip": 1.6,
+        "paper_card": 1.8
+      },
+      "hold_on_text": false,
+      "lead_in": 0.15
+    }
+  },
+  "timebase": {
+    "source": "estimated",
+    "method": "words-per-second",
+    "rounding": "absolute-boundaries",
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "sample_rate": null,
+    "total_samples": null,
+    "start_frame": 0,
+    "end_frame": 5904,
+    "frames": 5904
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 13.0,
+      "narration": "The Art of War: a book Europe learned from Japan",
+      "role": "hook",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            150.0,
+            280.0,
+            2240.0,
+            300.0
+          ],
+          "color": "#F3D57C",
+          "speed": 2.2,
+          "events": false,
+          "gap": 0.14
+        },
+        {
+          "type": "text",
+          "text": "The Art of War",
+          "font": "inter",
+          "size": 220,
+          "rect": [
+            130,
+            240,
+            2300,
+            620
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 650,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "a book Europe learned from\nJapan",
+          "font": "inter",
+          "size": 112,
+          "rect": [
+            520,
+            900,
+            1520,
+            300
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 0,
+      "end_frame": 312,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 10,
+        "narration_words": 10,
+        "narration_words_per_second": 0.769,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 2,
+      "duration": 14.0,
+      "narration": "The Warring States period",
+      "role": "evidence",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [
+        "assets/concept-Warring-States-period/66f175424b48.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "Warring States period",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "Warring States period",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            1450,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/concept-Warring-States-period/66f175424b48.jpg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-66f175424b48"
+        },
+        {
+          "type": "text",
+          "text": "The Warring\nStates period",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 312,
+      "end_frame": 648,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 4,
+        "narration_words_per_second": 0.286,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-66f175424b48"
+      ]
+    },
+    {
+      "id": 3,
+      "duration": 14.0,
+      "narration": "Two thousand years of silence",
+      "role": "explain",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Two thousand years\nof silence",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            300,
+            500,
+            1960,
+            500
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            190,
+            950,
+            2180,
+            340
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 648,
+      "end_frame": 984,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 5,
+        "narration_words": 5,
+        "narration_words_per_second": 0.357,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 4,
+      "duration": 14.0,
+      "narration": "Sun Tzu left no biography",
+      "role": "evidence",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [
+        "assets/person-Sun-Tzu/edd7982e00d8.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1660,
+            1160,
+            780,
+            220
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "Sun Tzu",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "Sun Tzu",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            1690,
+            1170,
+            720,
+            160
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/person-Sun-Tzu/edd7982e00d8.jpg",
+          "rect": [
+            130,
+            300,
+            2300,
+            820
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-edd7982e00d8"
+        },
+        {
+          "type": "text",
+          "text": "Sun Tzu left no\nbiography",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            130,
+            1180,
+            1440,
+            260
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 984,
+      "end_frame": 1320,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 5,
+        "narration_words_per_second": 0.357,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-edd7982e00d8"
+      ]
+    },
+    {
+      "id": 5,
+      "duration": 12.0,
+      "narration": "Thirteen chapters, each one line",
+      "role": "explain",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "Thirteen chapters, each\none line",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            200,
+            470,
+            2160,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1250,
+            2160,
+            180
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1320,
+      "end_frame": 1608,
+      "duration_frames": 288,
+      "text_budget": {
+        "drawn_words": 5,
+        "narration_words": 5,
+        "narration_words_per_second": 0.417,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 11,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 6,
+      "duration": 13.0,
+      "narration": "The text vanished for centuries",
+      "role": "explain",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "The text vanished for\ncenturies",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            300,
+            500,
+            1960,
+            500
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            190,
+            950,
+            2180,
+            340
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1608,
+      "end_frame": 1920,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 5,
+        "narration_words": 5,
+        "narration_words_per_second": 0.385,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 7,
+      "duration": 15.0,
+      "narration": "The Art of War, dug up in 1972",
+      "role": "evidence",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [
+        "assets/concept-The-Art-of-War/6ab0f5270349.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1660,
+            1160,
+            780,
+            220
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "The Art of War",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "The Art of War",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            1690,
+            1170,
+            720,
+            160
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/concept-The-Art-of-War/6ab0f5270349.jpg",
+          "rect": [
+            130,
+            300,
+            2300,
+            820
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-6ab0f5270349"
+        },
+        {
+          "type": "text",
+          "text": "The Art of War, dug\nup in 1972",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            130,
+            1180,
+            1440,
+            260
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 1920,
+      "end_frame": 2280,
+      "duration_frames": 360,
+      "text_budget": {
+        "drawn_words": 12,
+        "narration_words": 8,
+        "narration_words_per_second": 0.533,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 14,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-6ab0f5270349"
+      ]
+    },
+    {
+      "id": 8,
+      "duration": 14.0,
+      "narration": "Printed in Japan, read in Europe",
+      "role": "evidence",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [
+        "assets/country-Japan/e62a093ad734.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "Japan",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "Japan",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            1450,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/country-Japan/e62a093ad734.jpg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-e62a093ad734"
+        },
+        {
+          "type": "text",
+          "text": "Printed in\nJapan, read\nin Europe",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 2280,
+      "end_frame": 2616,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 6,
+        "narration_words_per_second": 0.429,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-e62a093ad734"
+      ]
+    },
+    {
+      "id": 9,
+      "duration": 13.0,
+      "narration": "The Art of War, English 1961",
+      "role": "evidence",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [
+        "assets/concept-The-Art-of-War/6ab0f5270349.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1660,
+            1160,
+            780,
+            220
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "The Art of War",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "The Art of War",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            1690,
+            1170,
+            720,
+            160
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/concept-The-Art-of-War/6ab0f5270349.jpg",
+          "rect": [
+            130,
+            300,
+            2300,
+            820
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-6ab0f5270349"
+        },
+        {
+          "type": "text",
+          "text": "The Art of War,\nEnglish 1961",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            130,
+            1180,
+            1440,
+            260
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 2616,
+      "end_frame": 2928,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 10,
+        "narration_words": 6,
+        "narration_words_per_second": 0.462,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-6ab0f5270349"
+      ]
+    },
+    {
+      "id": 10,
+      "duration": 14.0,
+      "narration": "Clausewitz read that translation",
+      "role": "evidence",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [
+        "assets/person-Clausewitz/57f71cdd5325.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            130,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "Clausewitz",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "Clausewitz",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            160,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/person-Clausewitz/57f71cdd5325.jpg",
+          "rect": [
+            1050,
+            330,
+            1400,
+            950
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-57f71cdd5325"
+        },
+        {
+          "type": "text",
+          "text": "Clausewitz\nread that\ntranslation",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            130,
+            400,
+            880,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 2928,
+      "end_frame": 3264,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 5,
+        "narration_words": 4,
+        "narration_words_per_second": 0.286,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-57f71cdd5325"
+      ]
+    },
+    {
+      "id": 11,
+      "duration": 14.0,
+      "narration": "Mao Zedong studied the same text",
+      "role": "evidence",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [
+        "assets/person-Mao-Zedong/5978d8ab2389.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "Mao Zedong",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "Mao Zedong",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            1450,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/person-Mao-Zedong/5978d8ab2389.jpg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-5978d8ab2389"
+        },
+        {
+          "type": "text",
+          "text": "Mao Zedong\nstudied the\nsame text",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 3264,
+      "end_frame": 3600,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 6,
+        "narration_words_per_second": 0.429,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-5978d8ab2389"
+      ]
+    },
+    {
+      "id": 12,
+      "duration": 13.0,
+      "narration": "A theory is not a guarantee",
+      "role": "explain",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "A theory is not a\nguarantee",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            300,
+            500,
+            1960,
+            500
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            190,
+            950,
+            2180,
+            340
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 3600,
+      "end_frame": 3912,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 6,
+        "narration_words": 6,
+        "narration_words_per_second": 0.462,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 13,
+      "duration": 15.0,
+      "narration": "Qi Jiguang's drilled infantry",
+      "role": "evidence",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [
+        "assets/person-Qi-Jiguang/82f78c76868a.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1420,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "Qi Jiguang",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "Qi Jiguang",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            1450,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/person-Qi-Jiguang/82f78c76868a.jpg",
+          "rect": [
+            110,
+            330,
+            1400,
+            950
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-82f78c76868a"
+        },
+        {
+          "type": "text",
+          "text": "Qi Jiguang's\ndrilled\ninfantry",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            1520,
+            400,
+            920,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 3912,
+      "end_frame": 4272,
+      "duration_frames": 360,
+      "text_budget": {
+        "drawn_words": 6,
+        "narration_words": 4,
+        "narration_words_per_second": 0.267,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 14,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-82f78c76868a"
+      ]
+    },
+    {
+      "id": 14,
+      "duration": 13.0,
+      "narration": "The Chinese book that worked",
+      "role": "explain",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "The Chinese book that\nworked",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            300,
+            500,
+            1960,
+            500
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            190,
+            950,
+            2180,
+            340
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 4272,
+      "end_frame": 4584,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 5,
+        "narration_words": 5,
+        "narration_words_per_second": 0.385,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 15,
+      "duration": 13.0,
+      "narration": "The West learned it in translation",
+      "role": "explain",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "The West learned it in\ntranslation",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            200,
+            470,
+            2160,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1250,
+            2160,
+            180
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 4584,
+      "end_frame": 4896,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 6,
+        "narration_words": 6,
+        "narration_words_per_second": 0.462,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 16,
+      "duration": 15.0,
+      "narration": "Seven Military Classics, 1084",
+      "role": "evidence",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [
+        "assets/concept-Seven-Military-Classics/047658eacc46.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            130,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "Seven Military Classics",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "Seven Military Classics",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            160,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "assets/concept-Seven-Military-Classics/047658eacc46.jpg",
+          "rect": [
+            1050,
+            330,
+            1400,
+            950
+          ],
+          "trace_size": 950,
+          "gap": 0.35,
+          "asset_id": "a-047658eacc46"
+        },
+        {
+          "type": "text",
+          "text": "Seven\nMilitary\nClassics,\n1084",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            130,
+            400,
+            880,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 4896,
+      "end_frame": 5256,
+      "duration_frames": 360,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 4,
+        "narration_words_per_second": 0.267,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 14,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-047658eacc46"
+      ]
+    },
+    {
+      "id": 17,
+      "duration": 13.0,
+      "narration": "Ukraine, 2022: defend everywhere",
+      "role": "evidence",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [
+        "assets/country-Ukraine/f2eb1d1b1318.svg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            1660,
+            1160,
+            780,
+            220
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "Ukraine",
+          "font": "inter",
+          "size": 86
+        },
+        {
+          "type": "text",
+          "text": "Ukraine",
+          "font": "inter",
+          "size": 86,
+          "rect": [
+            1690,
+            1170,
+            720,
+            160
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "svg",
+          "asset": "assets/country-Ukraine/f2eb1d1b1318.svg",
+          "rect": [
+            130,
+            300,
+            2300,
+            820
+          ],
+          "gap": 0.35,
+          "asset_id": "a-f2eb1d1b1318"
+        },
+        {
+          "type": "text",
+          "text": "Ukraine, 2022:\ndefend everywhere",
+          "font": "inter",
+          "size": 140,
+          "rect": [
+            130,
+            1180,
+            1440,
+            260
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 500,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 5256,
+      "end_frame": 5568,
+      "duration_frames": 312,
+      "text_budget": {
+        "drawn_words": 5,
+        "narration_words": 4,
+        "narration_words_per_second": 0.308,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 12,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      },
+      "asset_ids": [
+        "a-f2eb1d1b1318"
+      ]
+    },
+    {
+      "id": 18,
+      "duration": 14.0,
+      "narration": "Not a myth. A product of its age.",
+      "role": "close",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            150.0,
+            300.0,
+            2410.0,
+            340.0
+          ],
+          "color": "#F3D57C",
+          "speed": 2.2,
+          "events": false,
+          "gap": 0.14
+        },
+        {
+          "type": "text",
+          "text": "Not a myth. A product of\nits age",
+          "font": "inter",
+          "size": 180,
+          "rect": [
+            130,
+            380,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": false,
+          "weight": 600,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            724,
+            2300,
+            380
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 5568,
+      "end_frame": 5904,
+      "duration_frames": 336,
+      "text_budget": {
+        "drawn_words": 8,
+        "narration_words": 8,
+        "narration_words_per_second": 0.571,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 13,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    }
+  ],
+  "audio": null,
+  "timing": {
+    "source": "estimated",
+    "method": "words-per-second"
+  },
+  "stats": {
+    "scenes": 18,
+    "elements": 58,
+    "estimated_duration": 246.0,
+    "duration": 246.0,
+    "frames": 5904,
+    "scenes_over_text_budget": 0
+  }
+}

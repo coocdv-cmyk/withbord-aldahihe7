@@ -1,0 +1,118 @@
+{
+  "scenes": [
+    {
+      "id": 1,
+      "role": "hook",
+      "layout": "a",
+      "elements": 3,
+      "ink_area": 1183219,
+      "findings": []
+    },
+    {
+      "id": 2,
+      "role": "evidence",
+      "layout": "b",
+      "elements": 4,
+      "ink_area": 1989316,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "مضيقٌ واحد\nيصل بين\nبحرين.\nقناة\nالسويس…",
+          "scale": 0.715,
+          "effective_size": 107.2,
+          "scene": 2
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "role": "explain",
+      "layout": "c",
+      "elements": 2,
+      "ink_area": 1006997,
+      "findings": []
+    },
+    {
+      "id": 4,
+      "role": "evidence",
+      "layout": "b",
+      "elements": 4,
+      "ink_area": 1944492,
+      "findings": []
+    },
+    {
+      "id": 5,
+      "role": "explain",
+      "layout": "c",
+      "elements": 3,
+      "ink_area": 1011325,
+      "findings": []
+    },
+    {
+      "id": 6,
+      "role": "explain",
+      "layout": "b",
+      "elements": 2,
+      "ink_area": 1294840,
+      "findings": []
+    },
+    {
+      "id": 7,
+      "role": "evidence",
+      "layout": "c",
+      "elements": 4,
+      "ink_area": 2215084,
+      "findings": [
+        {
+          "kind": "text-shrunk",
+          "element": "استردّت مصر\nالقناة في…",
+          "scale": 0.676,
+          "effective_size": 101.4,
+          "scene": 7
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "role": "explain",
+      "layout": "a",
+      "elements": 3,
+      "ink_area": 986129,
+      "findings": []
+    },
+    {
+      "id": 9,
+      "role": "explain",
+      "layout": "b",
+      "elements": 3,
+      "ink_area": 1320535,
+      "findings": []
+    },
+    {
+      "id": 10,
+      "role": "close",
+      "layout": "a",
+      "elements": 3,
+      "ink_area": 2561501,
+      "findings": []
+    }
+  ],
+  "blocking": [],
+  "warnings": [
+    {
+      "kind": "text-shrunk",
+      "element": "مضيقٌ واحد\nيصل بين\nبحرين.\nقناة\nالسويس…",
+      "scale": 0.715,
+      "effective_size": 107.2,
+      "scene": 2
+    },
+    {
+      "kind": "text-shrunk",
+      "element": "استردّت مصر\nالقناة في…",
+      "scale": 0.676,
+      "effective_size": 101.4,
+      "scene": 7
+    }
+  ],
+  "ok": true
+}

@@ -72,11 +72,19 @@ def _rgb(color, default=INK) -> tuple[int, int, int]:
         return default
 
 
-def clip_strokes(doc: StrokeDoc, rect) -> list[Stroke]:
-    """يُحجّم مسارات مستند لتناسب مستطيلًا على اللوحة (مع حفظ النسبة والتوسيط)."""
+def clip_strokes(doc: StrokeDoc, rect, *, allow_upscale: bool = True) -> list[Stroke]:
+    """يُحجّم مسارات مستند لتناسب مستطيلًا على اللوحة (مع حفظ النسبة والتوسيط).
+
+    ``allow_upscale=False`` for text: a short sentence must not be
+    **enlarged** to fill its box — the size in the plan is the design and the
+    box is only a maximum.  Upscaling text made it overflow the box sideways
+    and collide with the next element.
+    """
     x, y, w, h = [float(v) for v in rect]
     sw, sh = float(doc.width or 1), float(doc.height or 1)
     s = min(w / sw, h / sh)
+    if not allow_upscale:
+        s = min(s, 1.0)
     ox = x + (w - sw * s) / 2.0
     oy = y + (h - sh * s) / 2.0
     out: list[Stroke] = []
@@ -385,7 +393,7 @@ class Director:
                         else "ملف SVG بلا مسارات قابلة للرسم",
                     )
                     continue
-                strokes = clip_strokes(doc, rect)
+                strokes = clip_strokes(doc, rect, allow_upscale=(etype != "text"))
                 words = None
                 try:
                     words = (doc.stats or {}).get("words")
