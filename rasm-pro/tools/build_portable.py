@@ -17,6 +17,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+# the Windows console is cp1252: the tick marks below would crash the build
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 DEFAULT_OUT = ROOT / "build" / "portable"

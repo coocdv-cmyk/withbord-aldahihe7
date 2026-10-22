@@ -302,3 +302,60 @@ def validate_studio_render(result, size, expect_audio=False):
         expect_duration_sec=result.get("duration_sec_exact"),
         tolerance_frames=1,
     )
+
+def production_status_studio(project_id: str) -> dict:
+    """The production state of a project, for the Studio panel.
+
+    Shows **why** a render would be refused: the approval state of every
+    asset, the family and the text budget of the active plan, and whether a
+    resumable render is waiting for a scene.
+    """
+    _require()
+    pd = rasm_paths.project_dir(project_id)
+    plan = None
+    plan_path = None
+    try:
+        plan, plan_path, _man = load_active_plan_studio(project_id)
+    except Exception:
+        plan = None
+    approvals = asset_approvals_studio(project_id)
+    scenes = []
+    over = 0
+    family = None
+    if isinstance(plan, dict):
+        family = ((plan.get("family") or {}).get("name"))
+        for scene in plan.get("scenes") or []:
+            budget = scene.get("text_budget") or {}
+            if budget.get("fits") is False:
+                over += 1
+            scenes.append(
+                {
+                    "id": scene.get("id"),
+                    "role": scene.get("role"),
+                    "layout": scene.get("layout"),
+                    "seconds": round(float(scene.get("duration") or 0.0), 2),
+                    "drawn_words": budget.get("drawn_words"),
+                    "capacity_words": budget.get("capacity_words"),
+                    "fits": budget.get("fits"),
+                }
+            )
+    parts = {}
+    try:
+        from engine.render.parts import load_state
+
+        state = load_state(pd / "render" / "episode.mp4")
+        parts = {
+            "fingerprint": str(state.get("plan_fingerprint") or "")[:12],
+            "scenes_done": len(state.get("parts") or {}),
+        }
+    except Exception:
+        parts = {}
+    return {
+        "project_id": project_id,
+        "plan": str(plan_path) if plan_path else None,
+        "family": family,
+        "scenes": scenes,
+        "scenes_over_budget": over,
+        "approvals": approvals,
+        "parts": parts,
+    }

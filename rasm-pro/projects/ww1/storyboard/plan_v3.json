@@ -1,0 +1,469 @@
+{
+  "project": "266148524df9ad38",
+  "lang": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "family": {
+    "name": "documentary",
+    "description": "صور وشواهد: شريط ممزق + صورة + عنوان + تعليق",
+    "words_per_scene": 16,
+    "allows_images": true,
+    "motion": {
+      "zoom": 2.8,
+      "follow": 0.06,
+      "zoom_by_type": {
+        "image": 2.4,
+        "svg": 2.4,
+        "torn_strip": 1.6,
+        "paper_card": 1.8
+      },
+      "hold_on_text": false,
+      "lead_in": 0.15
+    }
+  },
+  "timebase": {
+    "source": "estimated",
+    "method": "words-per-second",
+    "rounding": "absolute-boundaries",
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "sample_rate": null,
+    "total_samples": null,
+    "start_frame": 0,
+    "end_frame": 1038,
+    "frames": 1038
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 10.2,
+      "narration": "في صيف عام 1914، اشتعلت الحرب العالمية الأولى بعد اغتيال الأرشيدوق فرانز فرديناند في سراييفو. كانت الإمبراطورية الألمانية والنمسا والمجر في مواجهة بريطانيا وفرنسا وروسيا.",
+      "role": "hook",
+      "layout": "a",
+      "needs": [
+        "portrait",
+        "event"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            150.0,
+            300.0,
+            2221.0,
+            340.0
+          ],
+          "color": "#F3D57C",
+          "speed": 2.2,
+          "events": false,
+          "gap": 0.14
+        },
+        {
+          "type": "text",
+          "text": "في صيف عام 1914…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            130,
+            220,
+            2300,
+            700
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "اشتعلت الحرب العالمية الأولى\nبعد…",
+          "font": "cairo",
+          "size": 128,
+          "rect": [
+            190,
+            940,
+            2180,
+            340
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 0,
+      "end_frame": 245,
+      "duration_frames": 245,
+      "text_budget": {
+        "drawn_words": 9,
+        "narration_words": 25,
+        "narration_words_per_second": 2.451,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 9,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 2,
+      "duration": 7.76,
+      "narration": "حفر الجنود الخنادق على الجبهة الغربية في معركة السوم وفردان. استخدمت ألمانيا الغواصات لإغراق السفن التجارية في المحيط الأطلسي.",
+      "role": "evidence",
+      "layout": "b",
+      "needs": [
+        "event"
+      ],
+      "assets_used": [
+        "assets/event-معركة-السوم/c75888b731eb.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            130,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "معركة السوم",
+          "font": "cairo",
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "معركة السوم",
+          "font": "arefruqaa",
+          "size": 96,
+          "rect": [
+            160,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معركة-السوم\\c75888b731eb.jpg",
+          "rect": [
+            1050,
+            330,
+            1400,
+            950
+          ],
+          "trace_size": 950,
+          "gap": 0.35
+        },
+        {
+          "type": "text",
+          "text": "حفر الجنود\nالخنادق\nعلى\nالجبهة…",
+          "font": "cairo",
+          "size": 150,
+          "rect": [
+            130,
+            400,
+            880,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 245,
+      "end_frame": 431,
+      "duration_frames": 186,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 19,
+        "narration_words_per_second": 2.448,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 7,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 3,
+      "duration": 8.98,
+      "narration": "في عام 1917، دخلت الولايات المتحدة الحرب إلى جانب الحلفاء بعد رسالة زيمرمان. سقطت الدولة العثمانية بعد الحرب وتفككت الإمبراطوريات الأربع الكبرى.",
+      "role": "explain",
+      "layout": "c",
+      "needs": [
+        "portrait",
+        "event",
+        "map",
+        "flag",
+        "chart",
+        "document",
+        "object"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "في عام 1917، دخلت\nالولايات المتحدة…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            200,
+            540,
+            1600,
+            480
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "point",
+          "rect": [
+            1880,
+            480,
+            460,
+            700
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1260,
+            1600,
+            140
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 431,
+      "end_frame": 647,
+      "duration_frames": 216,
+      "text_budget": {
+        "drawn_words": 6,
+        "narration_words": 22,
+        "narration_words_per_second": 2.45,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 8,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 4,
+      "duration": 8.16,
+      "narration": "وقّعت ألمانيا معاهدة فرساي في يونيو 1919، وفرضت عليها تعويضات ضخمة. كانت خسائر الحرب البشرية نحو سبعة عشر مليون قتيل.",
+      "role": "evidence",
+      "layout": "b",
+      "needs": [
+        "event",
+        "chart",
+        "document"
+      ],
+      "assets_used": [
+        "assets/event-معاهدة-فرساي/6aee608a669e.jpg"
+      ],
+      "elements": [
+        {
+          "type": "torn_strip",
+          "rect": [
+            130,
+            130,
+            1030,
+            250
+          ],
+          "seed": 21,
+          "tilt": -0.6,
+          "gap": 0.12,
+          "text": "معاهدة فرساي",
+          "font": "cairo",
+          "size": 96
+        },
+        {
+          "type": "text",
+          "text": "معاهدة فرساي",
+          "font": "arefruqaa",
+          "size": 96,
+          "rect": [
+            160,
+            140,
+            980,
+            170
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        },
+        {
+          "type": "image",
+          "asset": "D:\\withbord inmation\\rasm-pro\\projects\\ww1\\assets\\event-معاهدة-فرساي\\6aee608a669e.jpg",
+          "rect": [
+            1050,
+            330,
+            1400,
+            950
+          ],
+          "trace_size": 950,
+          "gap": 0.35
+        },
+        {
+          "type": "text",
+          "text": "وقّعت\nألمانيا\nمعاهدة\nفرساي\nفي…",
+          "font": "cairo",
+          "size": 150,
+          "rect": [
+            130,
+            400,
+            880,
+            740
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 647,
+      "end_frame": 842,
+      "duration_frames": 195,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 20,
+        "narration_words_per_second": 2.451,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 7,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 5,
+      "duration": 8.16,
+      "narration": "رسمت هذه الحرب خريطة الشرق الأوسط من جديد، وأسست عصبة الأمم. هكذا انتهى عصر الإمبراطوريات وبدأ القرن العشرون بوجه جديد.",
+      "role": "close",
+      "layout": "a",
+      "needs": [
+        "portrait",
+        "event",
+        "map"
+      ],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "highlight",
+          "rect": [
+            200.0,
+            400.0,
+            1600.0,
+            340.0
+          ],
+          "color": "#F3D57C",
+          "speed": 2.2,
+          "events": false,
+          "gap": 0.14
+        },
+        {
+          "type": "text",
+          "text": "رسمت هذه الحرب\nخريطة الشرق\nالأوسط من…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            200,
+            470,
+            1600,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "cheer",
+          "rect": [
+            1880,
+            430,
+            480,
+            760
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1240,
+            1600,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 842,
+      "end_frame": 1038,
+      "duration_frames": 196,
+      "text_budget": {
+        "drawn_words": 7,
+        "narration_words": 20,
+        "narration_words_per_second": 2.451,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 7,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 16,
+        "over_family_limit": false
+      }
+    }
+  ],
+  "audio": null,
+  "timing": {
+    "source": "estimated",
+    "method": "words-per-second"
+  },
+  "stats": {
+    "scenes": 5,
+    "elements": 18,
+    "estimated_duration": 43.3,
+    "duration": 43.26,
+    "frames": 1038,
+    "scenes_over_text_budget": 0
+  }
+}

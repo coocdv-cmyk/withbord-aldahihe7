@@ -116,3 +116,41 @@ $('online').onclick=safe(async()=>{const query=$('online-query').value.trim();if
 $('generate').onclick=safe(async()=>{setBusy(true);try{const job=await api('/api/generate',{prompt:$('gen-prompt').value,style:$('gen-style').value,steps:+$('gen-steps').value,guidance:+$('gen-guidance').value,seed:+$('gen-seed').value});const result=await pollJob(job.id);$('gen-status').textContent=result.message;$('gen-preview').src='/library/'+result.asset+'.png';$('gen-preview').hidden=false;$('gen-add').hidden=false;$('gen-add').onclick=safe(()=>addAsset(result.asset));await assets()}finally{setBusy(false)}});
 async function init(){const status=await api('/api/status');token=status.token;$('ready').textContent=`محلي · ${status.illustrations} رسومات · ${status.assets-status.illustrations} رموز`;$('model-status').textContent=status.model.ready?'النموذج المحلي جاهز':'المخطط السريع جاهز؛ النموذج غير مشغّل';setBusy(false);await assets()}
 setBusy(true);safe(init)();
+/* ---- the rasm engine panel: why a render would be refused, and the resume ---- */
+function prodStatus(data){
+  const box=$('prod-status');box.replaceChildren();
+  const head=el('div',undefined,'scene-head');
+  head.append(el('b',data.family?('?????: '+data.family):'??? ???'));
+  head.append(el('small',data.plan||'??? ??? ????'));
+  box.append(head);
+  const rows=(data.approvals&&(data.approvals.rows||data.approvals.assets))||data.approvals||[];
+  const list=Array.isArray(rows)?rows:[];
+  if(list.length){
+    const ul=el('div');
+    list.forEach(r=>ul.append(el('p',`${r.state||'?'} ? ${r.path||''}${r.in_plan?' ? ??????':''}`)));
+    box.append(el('p','??????????:'),ul);
+  }
+  if(data.scenes&&data.scenes.length){
+    const ul=el('div');
+    data.scenes.forEach(s=>ul.append(el('p',`???? ${s.id} ? ${s.role||''} ? ${s.seconds||0}? ? ????? ${s.drawn_words??'?'} / ??? ${s.capacity_words??'?'} ${s.fits===false?'?':''}`)));
+    box.append(el('p',`??????? ????: ${data.scenes_over_budget||0} ???? ???? ?????????`),ul);
+  }
+  if(data.parts&&data.parts.scenes_done){
+    box.append(el('p',`???? ???? ?????????: ${data.parts.scenes_done} ???? ????`));
+  }
+}
+$('prod-check').onclick=safe(async()=>{
+  const pid=$('prod-project').value.trim();
+  if(!pid)throw Error('???? ????? ????? ????');
+  const res=await api('/api/rasm/status',{project_id:pid});
+  prodStatus(res.status);
+  toast('???? ??????? ??????');
+});
+$('prod-render').onclick=safe(async()=>{
+  const pid=$('prod-project').value.trim();
+  if(!pid)throw Error('???? ????? ????? ????');
+  const res=await api('/api/rasm/render',{project_id:pid,mode:'final',size:[1280,720]});
+  toast(res.ok?'????? ??????? ???????':'???? ???????');
+  const box=$('prod-status');box.replaceChildren();
+  box.append(el('p',res.ok?('? ????? ??????: '+res.path):('? '+(res.error||'????'))));
+});

@@ -2,6 +2,7 @@
 import argparse
 import io
 import json
+import re
 import mimetypes
 import secrets
 import threading
@@ -285,21 +286,21 @@ class Handler(BaseHTTPRequestHandler):
                 import rasm_bridge
                 script=str(data.get('script','')).strip()
                 pid=str(data.get('project_id') or data.get('id',''))
-                if not pid.isalnum() or len(pid)>80:
+                if not re.match(r'^[A-Za-z0-9_-]{1,80}$', pid):
                     raise ValueError('Invalid project id')
                 res=rasm_bridge.understand_script(script,pid,offline=bool(data.get('offline',True)))
                 return self.send({'ok':True,'project_id':pid,'scenes':res['graph'].get('stats',{}).get('scenes',0)})
             if path=='/api/rasm/research':
                 import rasm_bridge
                 pid=str(data.get('project_id') or data.get('id',''))
-                if not pid.isalnum() or len(pid)>80:
+                if not re.match(r'^[A-Za-z0-9_-]{1,80}$', pid):
                     raise ValueError('Invalid project id')
                 res=rasm_bridge.research_project(pid,max_entities=int(data.get('max_entities',14)),download=bool(data.get('download',False)))
                 return self.send({'ok':True,'project_id':pid,'totals':res.get('totals',{})})
             if path=='/api/rasm/narration/import':
                 import base64,uuid,rasm_bridge
                 pid=str(data.get('project_id') or data.get('id',''))
-                if not pid.isalnum() or len(pid)>80:
+                if not re.match(r'^[A-Za-z0-9_-]{1,80}$', pid):
                     raise ValueError('Invalid project id')
                 name=str(data.get('name','narration.wav'))[:120]
                 raw=base64.b64decode(str(data.get('data','')),validate=True)
@@ -316,7 +317,7 @@ class Handler(BaseHTTPRequestHandler):
             if path=='/api/rasm/plan':
                 import rasm_bridge
                 pid=str(data.get('project_id') or data.get('id',''))
-                if not pid.isalnum() or len(pid)>80:
+                if not re.match(r'^[A-Za-z0-9_-]{1,80}$', pid):
                     raise ValueError('Invalid project id')
                 plan=rasm_bridge.build_plan_studio(pid,max_scenes=data.get('max_scenes'),fps=data.get('fps'))
                 proj=rasm_bridge.rasm_to_studio_project(plan,pid)
@@ -324,14 +325,20 @@ class Handler(BaseHTTPRequestHandler):
             if path=='/api/rasm/approvals':
                 import rasm_bridge
                 pid=str(data.get('project_id') or data.get('id',''))
-                if not pid.isalnum() or len(pid)>80:
+                if not re.match(r'^[A-Za-z0-9_-]{1,80}$', pid):
                     raise ValueError('Invalid project id')
                 state=rasm_bridge.asset_approvals_studio(pid)
                 return self.send({'ok':True,'project_id':pid,'approvals':state})
+            if path=='/api/rasm/status':
+                import rasm_bridge
+                pid=str(data.get('project_id') or data.get('id',''))
+                if not re.match(r'^[A-Za-z0-9_-]{1,80}$', pid):
+                    raise ValueError('Invalid project id')
+                return self.send({'ok':True,'status':rasm_bridge.production_status_studio(pid)})
             if path=='/api/rasm/render':
                 import uuid,rasm_bridge
                 pid=str(data.get('project_id') or data.get('id',''))
-                if not pid.isalnum() or len(pid)>80:
+                if not re.match(r'^[A-Za-z0-9_-]{1,80}$', pid):
                     raise ValueError('Invalid project id')
                 run=OUTPUT/uuid.uuid4().hex; run.mkdir()
                 out=run/'video.mp4'
