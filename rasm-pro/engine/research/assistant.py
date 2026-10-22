@@ -53,7 +53,20 @@ def load_assistant_config(cfg=None) -> AssistantConfig:
     research_cfg = cfg.get("research", "assistant", default={}) or {}
     base_url = os.environ.get("RASM_RESEARCH_LLM_BASE_URL") or research_cfg.get("base_url") or cfg.get("llm", "local_base_url", default="http://127.0.0.1:11435/v1")
     model = os.environ.get("RASM_RESEARCH_LLM_MODEL") or research_cfg.get("model") or cfg.get("llm", "local_model", default="qwen3:4b")
-    api_key = os.environ.get("RASM_RESEARCH_LLM_API_KEY") or research_cfg.get("api_key") or cfg.get("llm", "api_key", default="")
+    api_key = (
+        os.environ.get("RASM_RESEARCH_LLM_API_KEY")
+        or research_cfg.get("api_key")
+        or cfg.get("llm", "api_key", default="")
+    )
+    if not api_key:
+        # the local llama-server writes its key to a file; without it every
+        # request answers 401 and the model looks broken
+        try:
+            from ..providers.llm import local_api_key
+
+            api_key = local_api_key()
+        except Exception:
+            api_key = ""
     model_path_raw = os.environ.get("RASM_RESEARCH_LLM_MODEL_PATH") or research_cfg.get("model_path") or cfg.get("llm", "model_path", default="")
     if not model_path_raw and DEFAULT_MODEL_PATH.exists():
         model_path_raw = str(DEFAULT_MODEL_PATH)

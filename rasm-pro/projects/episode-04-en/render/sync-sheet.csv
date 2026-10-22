@@ -1,0 +1,9 @@
+scene,role,start_sec,end_sec,words,source,text
+1,hook,0.000,13.000,9,"Seven days, one book, a plan you can keep.",plan
+2,explain,13.000,27.000,15,"Day one: read the first hour out loud. Your voice catches what your eyes skim.",plan
+3,explain,27.000,41.000,13,"Day two: write three questions. A question you cannot answer is worth keeping.",plan
+4,explain,41.000,54.000,8,"Day three: reread only the pages you marked.",plan
+5,explain,54.000,68.000,12,"Day four: argue with the author. Write the disagreement in one sentence.",plan
+6,explain,68.000,82.000,15,"Day five: teach one idea to someone. If you cannot, you have not read it.",plan
+7,explain,82.000,95.000,9,"Day six: write the whole book in one sentence.",plan
+8,close,95.000,109.000,12,"Day seven: keep the book or leave it. Both answers are honest.",plan

@@ -6,6 +6,7 @@ import argparse
 import json
 import shutil
 import sys
+from argparse import Namespace
 from datetime import datetime
 from pathlib import Path
 
@@ -534,6 +535,180 @@ def cmd_tts(args) -> int:
     return _align_and_gate(pd, plan_for_audio, align=True)
 
 
+def _manifest_args(project: str):
+    return Namespace(project=project, plan=None, title=None, language=None,
+                     force=False, dry_run=False)
+
+
+def _approvals_args(project: str):
+    return Namespace(project=project, asset=None, by="", note="", used_only=False,
+                     json=False, mode="final", dry_run=False)
+
+
+def _tts_args(project: str):
+    return Namespace(project=project, script=None, backend=None, voice=None, rate=None,
+                     pitch=None, pause=None, lead_in=0.35, lang=None, dry_run=False)
+
+
+def _render_args(project: str, out=None, *, preview: bool = False):
+    return Namespace(project=project, out=out, size="1280x720", fps=None, crf=19,
+                     scenes=None, max_seconds=None, plan=None, skip_validate=False,
+                     preview=preview, audio=None, sfx=True, sfx_preset="paper",
+                     silent=True)
+
+
+def cmd_build(args) -> int:
+    """One command: script (or idea) -> research -> plan -> credits -> video.
+
+    The human gate is never skipped: when the plan uses sources that nobody
+    approved, the build stops and prints exactly what needs a decision.  With
+    ``--preview`` it renders a preview instead (unapproved assets are allowed
+    with a warning) ? and says so.
+    """
+    from engine.stages.captions import build_srt, build_sync_csv
+
+    pd = project_dir(args.project)
+    script_path = getattr(args, "script", None)
+    topic = getattr(args, "topic", None)
+    language = getattr(args, "lang", None) or "ar"
+    family = getattr(args, "family", None) or "documentary"
+
+    # 1) the script: a file, or a draft written by the local model
+    if script_path:
+        text = Path(script_path).read_text(encoding="utf-8")
+    elif topic:
+        from engine.stages.script_writer import script_to_graph, write_script
+
+        print(f"\u00b7 writing a draft for: {topic}")
+        result = write_script(topic, scenes=int(getattr(args, "scenes", 10) or 10), language=language)
+        print(f"  mode: {result.get('mode')} ({result.get('reason') or 'ok'})")
+        graph = script_to_graph(result)
+        (pd / "script").mkdir(parents=True, exist_ok=True)
+        (pd / "script" / "scriptgraph.json").write_text(
+            json.dumps(graph, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        (pd / "script" / "script.txt").write_text(
+            "\n\n".join(s["narration"] for s in graph["scenes"]), encoding="utf-8"
+        )
+        print(f"  \u2714 {len(graph['scenes'])} scenes")
+    else:
+        print("\u2718 give a --script file or a --topic", file=sys.stderr)
+        return 2
+
+    # 2) understand (the splitter turns the raw script into scenes)
+    if script_path:
+        from engine.stages.understanding import analyze_script, save_graph
+
+        graph = analyze_script(text, force_offline=bool(getattr(args, "offline", False)))
+        save_graph(graph, pd)
+        print(f"\u00b7 {len(graph.get('scenes') or [])} scenes ({graph.get('engine')})")
+
+    # 3) research: best effort, the network may be slow or rate limited
+    if getattr(args, "research", True):
+        from engine.stages.research import research_script
+
+        try:
+            research = research_script(graph, pd, cfg=None, max_entities=8, download=True)
+            print(f"\u00b7 research: {len(research.get('entities') or [])} entities")
+        except Exception as exc:
+            print(f"  \u26a0 research skipped: {exc}")
+
+    # 4) plan
+    from engine.stages.plan import build_plan as build_plan_fn
+    from engine.stages.validate_plan import validate_plan
+    from engine.core.util import read_json as _read
+
+    research = _read(pd / "research" / "research.json", default={}) or {}
+    plan = build_plan_fn(graph, research, project_dir=pd, fps=None, family=family)
+    report = validate_plan(plan, project_dir=pd)
+    if not report.get("ok"):
+        for error in report.get("errors", [])[:8]:
+            print(f"  \u2718 {error}", file=sys.stderr)
+        return 2
+    from engine.stages.plan import save_plan
+
+    out_plan = save_plan(plan, pd)
+    print(f"\u00b7 plan: {out_plan.name} \u00b7 {len(plan.get('scenes') or [])} scenes")
+
+    # 5) the manifest + the asset register
+    try:
+        cmd_project_init(_manifest_args(args.project))
+    except SystemExit:
+        pass
+    try:
+        cmd_approvals_import(_approvals_args(args.project))
+    except SystemExit:
+        pass
+    try:
+        cmd_approvals_credits(_approvals_args(args.project))
+    except SystemExit:
+        pass
+
+    # 6) the preview narration (optional, for listening only)
+    if getattr(args, "tts", False):
+        try:
+            cmd_tts(_tts_args(args.project))
+        except SystemExit:
+            pass
+
+    # 7) the render
+    render_args = _render_args(args.project, getattr(args, "out", None), preview=bool(getattr(args, "preview", False)))
+    code = cmd_render(render_args)
+    if code != 0:
+        return code
+
+    # 8) the sync sheet for the human voice
+    try:
+        plan_data = _read(out_plan) or {}
+        alignment = None
+        try:
+            from engine.audio.align import load_alignment
+
+            alignment = load_alignment(pd)
+        except Exception:
+            alignment = None
+        (pd / "render").mkdir(parents=True, exist_ok=True)
+        (pd / "render" / "captions.srt").write_text(
+            build_srt(plan_data, alignment.to_dict() if alignment else None), encoding="utf-8"
+        )
+        (pd / "render" / "sync-sheet.csv").write_text(
+            build_sync_csv(plan_data, alignment.to_dict() if alignment else None), encoding="utf-8"
+        )
+        print(f"\u00b7 sync sheet: {pd / 'render' / 'sync-sheet.csv'}")
+    except Exception as exc:
+        print(f"  \u26a0 sync sheet skipped: {exc}")
+    return 0
+
+
+def cmd_captions(args) -> int:
+    """SRT + a sync sheet: so a human recording can be laid over the video."""
+    from engine.audio.align import load_alignment
+    from engine.stages.captions import build_srt, build_sync_csv
+
+    pd = project_dir(args.project)
+    try:
+        plan = read_json(_resolve_plan_arg(pd))
+    except (FileNotFoundError, ProjectError, TimebaseError) as exc:
+        print(f"\u2718 {exc}", file=sys.stderr)
+        return 2
+    if not isinstance(plan, dict) or not plan.get("scenes"):
+        print("\u2718 no plan with scenes", file=sys.stderr)
+        return 2
+    alignment = load_alignment(pd)
+    srt = build_srt(plan, alignment.to_dict() if alignment else None)
+    csv = build_sync_csv(plan, alignment.to_dict() if alignment else None)
+    out_dir = pd / "render"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    srt_path = out_dir / "captions.srt"
+    csv_path = out_dir / "sync-sheet.csv"
+    srt_path.write_text(srt, encoding="utf-8")
+    csv_path.write_text(csv, encoding="utf-8")
+    print(f"\u2714 {srt_path}")
+    print(f"\u2714 {csv_path}")
+    print(f"  scenes: {len(plan.get('scenes') or [])} \u00b7 source: {'alignment' if alignment else 'plan'}")
+    return 0
+
+
 def cmd_plan(args) -> int:
     pd = project_dir(args.project)
     graph = read_json(pd / "script" / "scriptgraph.json")
@@ -720,6 +895,7 @@ def cmd_render(args) -> int:
             sfx=getattr(args, "sfx", True),
             sfx_preset=getattr(args, "sfx_preset", "paper"),
             crf=args.crf,
+            silent=bool(getattr(args, "silent", False)),
         )
     except Exception as exc:
         print(f"✘ تعذّر فحص الإنتاج: {exc}", file=sys.stderr)
@@ -1518,6 +1694,8 @@ def main() -> int:
     p6.add_argument("--no-sfx", dest="sfx", action="store_false", help="تعطيل مؤثرات القلم (مفعّلة افتراضيًا)")
     p6.add_argument("--sfx-preset", choices=["paper", "subtle", "bold"], default="paper", help="شدة المؤثرات")
     p6.add_argument("--audio", help="ملف تعليق صوتي (وإلا يُستخدم صوت المشروع تلقائيًا)")
+    p6.add_argument("--silent", action="store_true",
+                    help="delivery without a voice track: the picture carries the argument and the human voice is laid over it in the edit")
     p6.add_argument("--skip-validate", action="store_true", help="تجاوز فحص الخطة (للملفات القديمة فقط)")
     p6.add_argument(
         "--preview",
@@ -1576,6 +1754,30 @@ def main() -> int:
         "--dry-run", action="store_true", help="يعرض المشاهد والكلمات بلا توليد"
     )
     p8t.set_defaults(func=cmd_tts)
+
+    pbuild = sub.add_parser(
+        "build",
+        help="?? ????? ????: ?????? ?? ???? -> ??? -> ??? -> ???????? -> ????? (??? ??? ?????????)",
+    )
+    pbuild.add_argument("project")
+    pbuild.add_argument("--script", default=None, help="??? ?????? ??? (??????? ??? ?????)")
+    pbuild.add_argument("--topic", default=None, help="???? ????? ???? ??????? ?????? ????????")
+    pbuild.add_argument("--scenes", type=int, default=10, help="??? ??????? ??? ????? ?????? ?? ????")
+    pbuild.add_argument("--lang", default=None, help="??? ???????? ????????")
+    pbuild.add_argument("--family", default=None, choices=["documentary", "explainer", "dense"])
+    pbuild.add_argument("--out", default=None, help="???? ??????? ??????")
+    pbuild.add_argument("--tts", action="store_true", help="????? ????? ???????? (???????? ???)")
+    pbuild.add_argument("--no-research", dest="research", action="store_false")
+    pbuild.add_argument("--offline", action="store_true", help="??? ?????")
+    pbuild.add_argument("--preview", action="store_true", help="?????? (???? ????? ??? ??????)")
+    pbuild.set_defaults(func=cmd_build)
+
+    pcap = sub.add_parser(
+        "captions",
+        help="SRT + \u0648\u0631\u0642\u0629 \u0645\u0632\u0627\u0645\u0646\u0629 \u0644\u062a\u0633\u062c\u0644 \u0635\u0648\u062a\u064a \u0639\u0644\u0649 \u0627\u0644\u0641\u064a\u062f\u0648 \u0627\u0644\u0645\u0648\u0633\u064a\u0642 \u0639\u0644\u0649 \u0627\u0644\u0641\u064a\u062f\u0648",
+    )
+    pcap.add_argument("project")
+    pcap.set_defaults(func=cmd_captions)
 
     p7 = sub.add_parser("learn", help="تصحيح دائم يتعلمه المحرك (اسم/نوع/احتياجات)")
     p7.add_argument("kind", choices=["alias", "type", "needs"], help="alias: اسم شائع→مرجعي · type: تصحيح النوع · needs: احتياجات بصرية")

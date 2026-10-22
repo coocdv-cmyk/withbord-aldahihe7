@@ -1,0 +1,598 @@
+{
+  "project": "",
+  "lang": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "family": {
+    "name": "explainer",
+    "description": "نصّي: عنوان كبير + تسطير/تظليل — يُرسم أسرع وأسهل قراءة",
+    "words_per_scene": 12,
+    "allows_images": false,
+    "motion": {
+      "zoom": 1.9,
+      "follow": 0.08,
+      "zoom_by_type": {
+        "text": 1.6,
+        "underline": 1.4,
+        "highlight": 1.4
+      },
+      "hold_on_text": true,
+      "lead_in": 0.1
+    }
+  },
+  "timebase": {
+    "source": "estimated",
+    "method": "words-per-second",
+    "rounding": "absolute-boundaries",
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "sample_rate": null,
+    "total_samples": null,
+    "start_frame": 0,
+    "end_frame": 768,
+    "frames": 768
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 4.0,
+      "narration": "هل تشعر أن النوم سيء رغم أنك تتعب؟",
+      "role": "hook",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            1290,
+            2300,
+            120
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "هل تشعر…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            230,
+            520,
+            2100,
+            500
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "أن…",
+          "font": "cairo",
+          "size": 128,
+          "rect": [
+            300,
+            1080,
+            1960,
+            300
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 0,
+      "end_frame": 96,
+      "duration_frames": 96,
+      "text_budget": {
+        "drawn_words": 3,
+        "narration_words": 8,
+        "narration_words_per_second": 2.0,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 3,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 2,
+      "duration": 4.0,
+      "narration": "أعد ترتيب بيئة النوم لتناسب الراحة.",
+      "role": "explain",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "أعد ترتيب بيئة…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            200,
+            540,
+            1600,
+            480
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "point",
+          "rect": [
+            1880,
+            480,
+            460,
+            700
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1260,
+            1600,
+            140
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 96,
+      "end_frame": 192,
+      "duration_frames": 96,
+      "text_budget": {
+        "drawn_words": 3,
+        "narration_words": 6,
+        "narration_words_per_second": 1.5,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 3,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 3,
+      "duration": 4.0,
+      "narration": "ابقَ في نفس المكان لساعتين قبل النوم.",
+      "role": "explain",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "ابقَ في نفس…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            200,
+            470,
+            1600,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "point",
+          "rect": [
+            1880,
+            430,
+            480,
+            760
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1240,
+            1600,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 192,
+      "end_frame": 288,
+      "duration_frames": 96,
+      "text_budget": {
+        "drawn_words": 3,
+        "narration_words": 7,
+        "narration_words_per_second": 1.75,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 3,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 4,
+      "duration": 4.0,
+      "narration": "امنح جسمك وقتًا للهدوء قبل النوم.",
+      "role": "explain",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "امنح جسمك وقتًا…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            820,
+            470,
+            1540,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "point",
+          "rect": [
+            200,
+            430,
+            480,
+            760
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            820,
+            1240,
+            1540,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 288,
+      "end_frame": 384,
+      "duration_frames": 96,
+      "text_budget": {
+        "drawn_words": 3,
+        "narration_words": 6,
+        "narration_words_per_second": 1.5,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 3,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 5,
+      "duration": 4.0,
+      "narration": "تجنب الشاشات قبل النوم بساعتين.",
+      "role": "explain",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "تجنب الشاشات\nقبل…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            200,
+            540,
+            1600,
+            480
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "point",
+          "rect": [
+            1880,
+            480,
+            460,
+            700
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1260,
+            1600,
+            140
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 384,
+      "end_frame": 480,
+      "duration_frames": 96,
+      "text_budget": {
+        "drawn_words": 3,
+        "narration_words": 5,
+        "narration_words_per_second": 1.25,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 3,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 6,
+      "duration": 4.0,
+      "narration": "أعد ترتيب نمط النوم ليناسب جسدها.",
+      "role": "explain",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "أعد ترتيب نمط…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            200,
+            470,
+            1600,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "point",
+          "rect": [
+            1880,
+            430,
+            480,
+            760
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1240,
+            1600,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 480,
+      "end_frame": 576,
+      "duration_frames": 96,
+      "text_budget": {
+        "drawn_words": 3,
+        "narration_words": 6,
+        "narration_words_per_second": 1.5,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 3,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 7,
+      "duration": 4.0,
+      "narration": "نوم 7-8 ساعات يُحسّن الذاكرة والتركيز.",
+      "role": "explain",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "نوم 7-8 ساعات…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            820,
+            470,
+            1540,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "point",
+          "rect": [
+            200,
+            430,
+            480,
+            760
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            820,
+            1240,
+            1540,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 576,
+      "end_frame": 672,
+      "duration_frames": 96,
+      "text_budget": {
+        "drawn_words": 3,
+        "narration_words": 6,
+        "narration_words_per_second": 1.5,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 3,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 8,
+      "duration": 4.0,
+      "narration": "أعد ترتيب عاداتك: مكان، وقت، هدوء، شاشات، نوم.",
+      "role": "close",
+      "layout": "a",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "أعد ترتيب\nعاداتك:…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            200,
+            470,
+            1600,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "cheer",
+          "rect": [
+            1880,
+            430,
+            480,
+            760
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1240,
+            1600,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 672,
+      "end_frame": 768,
+      "duration_frames": 96,
+      "text_budget": {
+        "drawn_words": 3,
+        "narration_words": 8,
+        "narration_words_per_second": 2.0,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 3,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    }
+  ],
+  "audio": null,
+  "timing": {
+    "source": "estimated",
+    "method": "words-per-second"
+  },
+  "stats": {
+    "scenes": 8,
+    "elements": 24,
+    "estimated_duration": 32.0,
+    "duration": 32.0,
+    "frames": 768,
+    "scenes_over_text_budget": 0
+  }
+}

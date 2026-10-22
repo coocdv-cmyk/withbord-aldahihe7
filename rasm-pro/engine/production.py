@@ -19,6 +19,8 @@ these functions, so the two paths cannot drift apart again.
 """
 from __future__ import annotations
 
+import json
+
 from dataclasses import dataclass, field
 from fractions import Fraction
 from pathlib import Path
@@ -33,6 +35,7 @@ from .audio.sfx import build_track, library_status, mux_into
 from .core.assets import ApprovalError, evaluate_gate
 from .core.log import get_logger
 from .core.project import read_manifest
+from .core.timebase import frame_rate_json
 from .core.util import write_json
 from .render import Director
 from .render.director import RenderPreflightError
@@ -174,8 +177,11 @@ class ProductionPreflight:
     size: tuple[int, int] = (1280, 720)
     scene_range: tuple[int, int] | None = None
     max_seconds: float | None = None
+    resumable: bool = True
+    narration_for_mux: Path | None = None
     sfx_enabled: bool = True
     sfx_preset: str = "paper"
+    silent: bool = False
     audio_file: Path | None = None
     audio: dict = field(default_factory=dict)
     alignment: dict = field(default_factory=dict)
@@ -262,8 +268,16 @@ def prepare_production(
     sfx_preset: str = "paper",
     crf: int = 19,
     target_lufs: float | None = TARGETS["video"],
+    silent: bool = False,
+    resumable: bool = True,
 ) -> ProductionPreflight:
-    """Run every production check before creating an output file."""
+    """Run every production check before creating an output file.
+
+    ``silent=True`` delivers the episode **without a voice track** (the effects
+    only): the picture carries the argument, and the human voice is laid over
+    it in the edit.  The narration is then not part of the contract at all —
+    no narration gate, no alignment gate, and the mix is the effects alone.
+    """
     pd = Path(project_dir).resolve()
     mode = str(mode or "final").strip().lower()
     if mode not in ("final", "preview"):
@@ -271,6 +285,8 @@ def prepare_production(
     prep = ProductionPreflight(
         mode=mode,
         ok=True,
+        silent=bool(silent),
+        resumable=bool(resumable),
         project_dir=pd,
         plan=plan,
         plan_path=Path(plan_path).resolve() if plan_path else None,
@@ -336,7 +352,11 @@ def prepare_production(
     plan_audio = plan.get("audio") or {}
     declared_audio = bool(plan_audio.get("file")) if isinstance(plan_audio, dict) else False
     candidate: Path | None = None
-    if audio:
+    if silent:
+        # a silent deliverable: the picture carries the argument and the human
+        # voice is laid over it in the edit — no narration is part of the deal.
+        candidate = None
+    elif audio:
         candidate = Path(audio)
         if not candidate.is_absolute():
             candidate = pd / candidate
@@ -447,7 +467,7 @@ def prepare_production(
                         source="audio",
                     )
 
-        if narration is not None:
+        if narration is not None and not silent:
             try:
                 gate = evaluate_narration_gate(
                     pd, plan, mode=mode, target_lufs=target_lufs
@@ -469,7 +489,7 @@ def prepare_production(
                     source="narration-gate",
                 )
 
-    if narration is not None or declared_audio:
+    if (narration is not None or declared_audio) and not silent:
         al_report, al_blocking, al_warnings = _alignment_report(
             pd,
             plan,
@@ -614,18 +634,20 @@ def finalize_production(
         if sfx_json and Path(sfx_json).exists():
             try:
                 wav = Path(str(out)).with_suffix(".sfx.wav")
+    # the mix: the effects alone in a silent deliverable, under the voice when
+    # there is one (the ducking follows the real narration)
                 info = build_track(
                     sfx_json,
                     wav,
                     preset=prep.sfx_preset,
                     duration=float(result.get("seconds") or 0.0),
-                    narration=prep.audio_file,
+                    narration=None if prep.silent else prep.audio_file,
                 )
                 mux = mux_into(
                     out,
                     wav,
                     out,
-                    narration=None,
+                    narration=prep.narration_for_mux,
                     duration=float(result.get("seconds") or 0.0),
                 )
                 report.mix = {**info, "mux": mux, "mode": mux.get("mode")}
@@ -716,25 +738,84 @@ def render_prepared(
     *,
     on_progress=None,
 ) -> dict:
-    """Render a prepared production and finalize its audio/verification."""
+    """Render a prepared production and finalize its audio/verification.
+
+    The render is **resumable** by default: every scene is written as a part
+    on disk, so a crash costs one scene instead of the whole episode, and a
+    re-run continues where it stopped.  The parts are joined by a stream copy
+    (no re-encode), and the voice and the effects are muxed once at the end.
+    """
     if prep.mode == "final":
         _raise_if_refused(prep)
     if prep.director is None:
         raise ProductionError(prep.to_dict())
     out = Path(out_path)
     out.parent.mkdir(parents=True, exist_ok=True)
-    result = prep.director.render(
-        out,
-        audio=prep.audio_file,
-        max_seconds=prep.max_seconds,
-        scene_range=prep.scene_range,
-        on_progress=on_progress,
-        strict=prep.mode == "final",
-        preflight_report=prep.director_preflight,
-    )
+
+    # the narration is cut to the exported range before it is muxed, so the
+    # voice and the picture start together in a scene-range export too
+    narration_for_mux: Path | None = None
+    if prep.audio_file and prep.scene_range:
+        try:
+            narration_for_mux = _cut_narration(
+                prep.director, prep.audio_file, out, prep.scene_range, prep.max_seconds
+            )
+        except Exception as exc:
+            log.warning("could not cut the narration for the range (%s)", exc)
+            narration_for_mux = None
+    elif prep.audio_file:
+        narration_for_mux = prep.audio_file
+
+    if prep.resumable:
+        from .core.util import sha256_text
+        from .render.parts import render_resumable
+        from .render.video import require_ffmpeg
+
+        bounds = prep.director.scene_bounds(
+            scene_range=prep.scene_range, max_seconds=prep.max_seconds
+        )
+        fingerprint = sha256_text(json.dumps(prep.plan, sort_keys=True, default=str))
+        result = render_resumable(
+            prep.director,
+            out,
+            plan_fingerprint=fingerprint,
+            scene_bounds=bounds,
+            ffmpeg=require_ffmpeg(),
+            on_progress=on_progress,
+        )
+        result["resumable"] = True
+        # the pen events of every part are merged into one file next to the
+        # joined video ? that is what the sound layer reads
+        result["sfx"] = str(out.with_suffix(".sfx.json"))
+        # the film duration (not the wall time) is what the contract checks,
+        # in the same form the direct render reports it
+        frames = int(result.get("frames") or 0)
+        if prep.director is not None:
+            exact = prep.director.fps_rate.time_of_frames(frames)
+        else:
+            exact = frames / 24.0
+        result["duration_sec_exact"] = str(exact)
+        result["seconds"] = round(float(exact), 6)
+        result["render_seconds"] = result.get("seconds_wall") or result.get("seconds")
+        result.setdefault("fps", frame_rate_json(prep.director.fps_rate) if prep.director else None)
+        result.setdefault("audio_start_sec", 0.0)
+        result.setdefault("output_start_frame", 0)
+        result.setdefault("drift_frames", 0)
+    else:
+        result = prep.director.render(
+            out,
+            audio=prep.audio_file,
+            max_seconds=prep.max_seconds,
+            scene_range=prep.scene_range,
+            strict=prep.mode == "final",
+            preflight_report=prep.director_preflight,
+        )
+        result["resumable"] = False
+        narration_for_mux = None  # the writer already muxed it
     result["plan_path"] = str(prep.plan_path) if prep.plan_path else None
     result["audio"] = str(prep.audio_file) if prep.audio_file else None
     result["mode"] = prep.mode
+    prep.narration_for_mux = narration_for_mux
     final = finalize_production(prep, result, out)
     result["production"] = final.to_dict()
     result["ok"] = final.ok
@@ -742,6 +823,33 @@ def render_prepared(
         raise ProductionError({"blocking": final.blocking, "warnings": final.warnings})
     return result
 
+
+def _cut_narration(
+    director: Any,
+    audio_file: Path,
+    out: Path,
+    scene_range: tuple[int, int],
+    max_seconds: float | None,
+) -> Path:
+    """Cuts the narration so it starts with the first scene of the range."""
+    import subprocess
+
+    from .render.video import require_ffmpeg
+
+    bounds = director.scene_bounds(scene_range=scene_range, max_seconds=max_seconds)
+    start = float(bounds[0]["start_frame"]) / float(director.fps)
+    length = sum(int(b["frames"]) for b in bounds) / float(director.fps)
+    target = out.with_name(out.stem + ".narration-range.wav")
+    cmd = [
+        require_ffmpeg(), "-y", "-v", "error",
+        "-ss", f"{start:.6f}", "-i", str(audio_file),
+        "-t", f"{length:.6f}", "-ac", "2", "-ar", "48000",
+        "-c:a", "pcm_s16le", str(target),
+    ]
+    proc = subprocess.run(cmd, capture_output=True, text=True)
+    if proc.returncode != 0:
+        raise RuntimeError(proc.stderr[-200:])
+    return target
 
 def render_production(
     project_dir: str | Path,
@@ -760,6 +868,7 @@ def render_production(
     sfx_preset: str = "paper",
     crf: int = 19,
     target_lufs: float | None = TARGETS["video"],
+    resumable: bool = True,
     on_progress=None,
 ) -> dict:
     """Prepare + render + finalize in one call (the shared production path)."""
@@ -778,6 +887,7 @@ def render_production(
         sfx_preset=sfx_preset,
         crf=crf,
         target_lufs=target_lufs,
+        resumable=resumable,
     )
     if prep.mode == "final":
         _raise_if_refused(prep)

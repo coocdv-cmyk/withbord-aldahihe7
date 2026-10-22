@@ -18,6 +18,10 @@ from ..strokes import find_font
 ELEMENT_TYPES = {
     "text", "svg", "image", "highlight", "underline", "flourish", "arrow",
     "timeline", "bars", "paper_card", "torn_strip", "texture", "background",
+    "figure",
+}
+FIGURE_POSES = {
+    "idle", "point", "wave", "think", "focus", "read", "cheer", "like",
 }
 FONT_MODES = {"skeleton", "outline"}
 CARD_STYLES = {"photo", "band", "plain"}
@@ -223,6 +227,10 @@ def validate_plan(plan: Any, *, project_dir: str | Path | None = None,
                 weight = el.get("weight")
                 if weight is not None and (not _is_num(weight) or not (100 <= int(weight) <= 900)):
                     errors.append(f"{ewhere}: weight must be 100..900")
+            elif etype == "figure":
+                pose = str(el.get("pose") or "idle")
+                if pose not in FIGURE_POSES:
+                    errors.append(f"{ewhere}: unknown pose {pose!r}")
             elif etype in ("svg", "image"):
                 if check_assets and not _resolve_asset(el.get("asset"), pd):
                     errors.append(f"{ewhere}: asset not found: {el.get('asset')!r}")

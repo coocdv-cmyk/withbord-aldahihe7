@@ -75,46 +75,15 @@ def estimate_duration(text: str) -> float:
 
 
 def heuristic_scenes(text: str) -> list[dict]:
-    """يقسّم النص إلى مشاهد **دون أن يعبر فقرة الكاتب أبدًا**.
+    """Splits the text into scenes: ONE IDEA per scene, long enough to draw.
 
-    الفقرة (سطر فارغ) هي نيّة الكاتب: لا يجوز أن يُدمج ما بعدها بما قبلها،
-    ولا أن يُقطع جملة في نصفها.  داخل الفقرة تُجمَّع الجمل حتى بلوغ
-    ``SCENE_WORDS_TARGET``، ويُقطع عند سؤال/تعجب فقط إذا اجتمع حوله عدد
-    كلمات كافٍ.  وأي ذيل قصير يُدمج في المشهد السابق بدل أن يُرسم مشهدًا
-    من ثلاث كلمات.
+    The implementation lives in :mod:`engine.stages.scene_split` (measured
+    rules: the paragraph is a hard boundary, a minimum and a maximum length,
+    and a split at a strong discourse marker).
     """
-    scenes: list[dict] = []
-    buf: list[str] = []
-    wc = 0
+    from .scene_split import split_scenes
 
-    def _flush() -> None:
-        nonlocal buf, wc
-        if buf:
-            scenes.append({"narration": " ".join(buf).strip(), "words": wc})
-            buf, wc = [], 0
-
-    for paragraph in _PARAGRAPH_RE.split(text or ""):
-        paragraph = paragraph.strip()
-        if not paragraph:
-            continue
-        for s in arabic.split_sentences(paragraph):
-            buf.append(s)
-            wc += arabic.word_count(s)
-            strong = s.endswith(("؟", "!", ":")) and wc >= MIN_SCENE_WORDS
-            if wc >= SCENE_WORDS_TARGET or strong:
-                _flush()
-        # a paragraph is a hard boundary: never merge across it
-        _flush()
-
-    # merge a too-short tail into the scene before it
-    if len(scenes) > 1 and scenes[-1]["words"] < MIN_MERGE_WORDS:
-        tail = scenes.pop()
-        scenes[-1]["narration"] = (
-            scenes[-1]["narration"] + " " + tail["narration"]
-        ).strip()
-        scenes[-1]["words"] += tail["words"]
-    return scenes
-
+    return [s.to_dict() for s in split_scenes(text)]
 
 def infer_needs(text: str) -> list[str]:
     needs: list[str] = []

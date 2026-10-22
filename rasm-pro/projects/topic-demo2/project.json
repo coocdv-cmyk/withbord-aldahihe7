@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "project_id": "topic-demo2",
+  "title": "topic-demo2",
+  "language": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "status": "planned",
+  "created_at": "2026-10-22T07:51:03Z",
+  "updated_at": "2026-10-22T07:51:03Z",
+  "paths": {
+    "script": "script/scriptgraph.json",
+    "script_text": "script/script.txt",
+    "research": null,
+    "assets_index": null
+  },
+  "storyboard": {
+    "active": "storyboard/plan.json",
+    "sha256": "f71a345e8daf9087002a5ddf39415d5cb5b6d3a62579127754724e40936cb22d",
+    "format_version": "2.0"
+  },
+  "audio": {
+    "narration": null,
+    "alignment": null
+  },
+  "asset_policy": {
+    "generated_is_evidence": false,
+    "retrieved_requires_approval": true,
+    "requires_origin": true,
+    "requires_license": true,
+    "final_render_requires_approval": true
+  },
+  "assets": [],
+  "unresolved": [
+    {
+      "id": "narration-missing",
+      "kind": "audio",
+      "blocking": false,
+      "message": "لا يوجد تعليق صوتي معتمد؛ مدة الخطة تقديرية وليست مزامنة صوت."
+    }
+  ],
+  "renders": [],
+  "render": {
+    "fps_source": "plan",
+    "width": 2560,
+    "height": 1440,
+    "default_out_size": [
+      1280,
+      720
+    ],
+    "video_codec": "h264",
+    "audio_codec": "aac"
+  },
+  "studio": {
+    "kind": "rasm-pro",
+    "project_id": "topic-demo2"
+  }
+}

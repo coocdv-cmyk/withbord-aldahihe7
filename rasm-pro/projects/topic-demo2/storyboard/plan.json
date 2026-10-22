@@ -1,0 +1,263 @@
+{
+  "project": "",
+  "lang": "ar",
+  "canvas": [
+    2560,
+    1440
+  ],
+  "fps": {
+    "num": 24,
+    "den": 1
+  },
+  "family": {
+    "name": "explainer",
+    "description": "نصّي: عنوان كبير + تسطير/تظليل — يُرسم أسرع وأسهل قراءة",
+    "words_per_scene": 12,
+    "allows_images": false,
+    "motion": {
+      "zoom": 1.9,
+      "follow": 0.08,
+      "zoom_by_type": {
+        "text": 1.6,
+        "underline": 1.4,
+        "highlight": 1.4
+      },
+      "hold_on_text": true,
+      "lead_in": 0.1
+    }
+  },
+  "timebase": {
+    "source": "estimated",
+    "method": "words-per-second",
+    "rounding": "absolute-boundaries",
+    "fps": {
+      "num": 24,
+      "den": 1
+    },
+    "sample_rate": null,
+    "total_samples": null,
+    "start_frame": 0,
+    "end_frame": 411,
+    "frames": 411
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "duration": 4.9,
+      "narration": "هل تشعر أن النوم يُضيع طاقتك؟ أعد ترتيب بيئة النوم قبل النوم",
+      "role": "hook",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "underline",
+          "rect": [
+            130,
+            1290,
+            2300,
+            120
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "هل تشعر…",
+          "font": "arefruqaa",
+          "size": 260,
+          "rect": [
+            230,
+            520,
+            2100,
+            500
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "text",
+          "text": "أن النوم…",
+          "font": "cairo",
+          "size": 128,
+          "rect": [
+            300,
+            1080,
+            1960,
+            300
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#8C2F1F",
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 0,
+      "end_frame": 118,
+      "duration_frames": 118,
+      "text_budget": {
+        "drawn_words": 4,
+        "narration_words": 12,
+        "narration_words_per_second": 2.449,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 4,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 2,
+      "duration": 6.53,
+      "narration": "أوقف الشاشات قبل ساعة من النوم أعد ترتيب جسمك قبل النوم أعد تدريب عقلك على النوم",
+      "role": "explain",
+      "layout": "c",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "أوقف الشاشات قبل\nساعة من النوم…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            200,
+            540,
+            1600,
+            480
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "point",
+          "rect": [
+            1880,
+            480,
+            460,
+            700
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            200,
+            1260,
+            1600,
+            140
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 118,
+      "end_frame": 274,
+      "duration_frames": 156,
+      "text_budget": {
+        "drawn_words": 6,
+        "narration_words": 16,
+        "narration_words_per_second": 2.45,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 6,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    },
+    {
+      "id": 3,
+      "duration": 5.71,
+      "narration": "أعد تجربة النوم بساعتين يوميًا أعد تقييم نومك أسبوعيًا أعد النوم بساعتين، وابقَ مراقبًا",
+      "role": "close",
+      "layout": "b",
+      "needs": [],
+      "assets_used": [],
+      "elements": [
+        {
+          "type": "text",
+          "text": "أعد تجربة النوم\nبساعتين\nيوميًا…",
+          "font": "arefruqaa",
+          "size": 190,
+          "rect": [
+            820,
+            470,
+            1540,
+            520
+          ],
+          "mode": "skeleton",
+          "rtl": true,
+          "color": "#211E1A",
+          "gap": 0.3
+        },
+        {
+          "type": "figure",
+          "pose": "cheer",
+          "rect": [
+            200,
+            430,
+            480,
+            760
+          ],
+          "color": "#211E1A",
+          "gap": 0.45
+        },
+        {
+          "type": "underline",
+          "rect": [
+            820,
+            1240,
+            1540,
+            160
+          ],
+          "double": true,
+          "color": "#8C2F1F",
+          "brush": 6.5,
+          "offset": 16,
+          "gap": 0.3
+        }
+      ],
+      "start_frame": 274,
+      "end_frame": 411,
+      "duration_frames": 137,
+      "text_budget": {
+        "drawn_words": 5,
+        "narration_words": 14,
+        "narration_words_per_second": 2.452,
+        "natural_words_per_second": 0.95,
+        "capacity_words": 5,
+        "fits": true,
+        "excess_words": 0,
+        "family_limit": 12,
+        "over_family_limit": false
+      }
+    }
+  ],
+  "audio": null,
+  "timing": {
+    "source": "estimated",
+    "method": "words-per-second"
+  },
+  "stats": {
+    "scenes": 3,
+    "elements": 9,
+    "estimated_duration": 17.1,
+    "duration": 17.14,
+    "frames": 411,
+    "scenes_over_text_budget": 0
+  }
+}

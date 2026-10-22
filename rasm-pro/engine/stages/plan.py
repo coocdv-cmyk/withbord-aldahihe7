@@ -39,11 +39,21 @@ MUTED = "#6B5B4A"      # سطر التفاصيل: أهدأ من الأسود
 
 
 def _first_clause(text: str, words: int = 8) -> str:
+    """أول ``words`` كلمة من الجملة — مع قطعٍ **عند حدود الجملة** لا داخلها.
+
+    الت都应该 أن تُقرأ جملةٌ كاملة على الشاشة: فإذا اقتضى القطع، فليكن عند
+    أقرب فاصلة (أو نقطتين) قبل الحدّ، لا في منتصف العبارة.
+    """
     parts = (text or "").strip().split()
-    out = " ".join(parts[:words]).strip(" ،,.…")
-    if not out:
+    if not parts:
         return ""
-    return out + ("…" if len(parts) > words else "")
+    if len(parts) <= words:
+        return " ".join(parts).strip(" ،,.…")
+    head = parts[:words]
+    for index in range(len(head) - 1, 0, -1):
+        if head[index - 1].endswith((",", "،", ";", "؛", ":", "،")):
+            return " ".join(head[:index]).strip(" ،,.…") + "…"
+    return " ".join(head).strip(" ،,.…") + "…"
 
 
 def _wrap(text: str, per_line: int) -> str:
@@ -134,10 +144,15 @@ def _fit_text(
 
 
 def _band_for(text: str, *, font_name: str, size: int, base: list[float], pad: int = 26) -> list[float]:
-    """A highlight band that follows the **measured** width of its text."""
+    """A highlight band that follows the **measured** width of its text.
+
+    The band never grows past the width the layout gives it: a long title must
+    not push the band over the character standing next to it.
+    """
     x, y, w, h = [float(v) for v in base]
     width = _text_width(text, font_name, size)
-    return [x, y, min(float(CANVAS[0]) - x, max(w, width + pad * 2)), h]
+    target = min(float(w), max(width + pad * 2, w * 0.35))
+    return [x, y, target, h]
 
 
 def _wrap_to_width(text: str, *, font_name: str, size: int, width: float) -> str:
@@ -313,6 +328,28 @@ def _scene_text_chunks(
     return [caption] if caption else []
 
 
+FIGURE_POSES = ("think", "focus", "point", "read", "like", "cheer", "idle")
+
+# words that decide how the character reacts to the line
+FIGURE_RULES: tuple[tuple[tuple[str, ...], str], ...] = (
+    (("?", "؟", "هل", "لماذا", "كيف", "why", "how", "what"), "think"),
+    (("لأن", "لذلك", "إذًا", "إذن", "السبب", "السببية", "because", "therefore"), "focus"),
+    (("اقرأ", "اكتب", "اكتب ملاحظة", "دوّن", "write", "read", "note"), "read"),
+    (("أعجب", "يعجب", "قوة", "قوية", "قوي", "مذهل", "amazing", "powerful"), "like"),
+)
+
+
+def _figure_pose(narration: str, role: str) -> str:
+    """الوضعية التي يتفاعل بها الشخصية مع معنى الجملة."""
+    low = " ".join(str(narration or "").lower().split())
+    if role == "close":
+        return "cheer"
+    for markers, pose in FIGURE_RULES:
+        if any(marker in low for marker in markers):
+            return pose
+    return "point"
+
+
 def _text_slot(
     role: str,
     slot: int,
@@ -401,35 +438,41 @@ LAYOUTS: dict[str, dict[str, dict[str, list[float]]]] = {
         },
     },
     "explain": {
-        # a: a big statement, a smaller detail line under it, a rule below
+        # a: a big statement, a quieter detail line, a rule under them, and a
+        #    character on the right that reacts to the idea
         "a": {
-            "statement": [200, 470, 2160, 520],
-            "detail": [200, 1030, 2160, 220],
-            "rule": [200, 1240, 2160, 160],
+            "statement": [200, 470, 1600, 520],
+            "detail": [200, 1030, 1600, 220],
+            "rule": [200, 1240, 1600, 160],
+            "figure": [1880, 430, 480, 760],
         },
-        # b: a narrower statement with a flourish
+        # b: the character on the left, the text on the right
         "b": {
-            "statement": [300, 500, 1960, 500],
-            "detail": [300, 1040, 1960, 210],
-            "rule": [190, 950, 2180, 340],
+            "statement": [820, 470, 1540, 520],
+            "detail": [820, 1030, 1540, 220],
+            "rule": [820, 1240, 1540, 160],
+            "figure": [200, 430, 480, 760],
         },
         # c: a low statement with the rule at the foot of the page
         "c": {
-            "statement": [200, 540, 2160, 480],
-            "detail": [200, 1060, 2160, 200],
-            "rule": [200, 1260, 2160, 160],
+            "statement": [200, 540, 1600, 480],
+            "detail": [200, 1060, 1600, 200],
+            "rule": [200, 1260, 1600, 140],
+            "figure": [1880, 480, 460, 700],
         },
     },
     "close": {
         "a": {
-            "statement": [130, 380, 2300, 700],
-            "band": [150, 300, 2240, 340],
-            "rule": [130, 724, 2300, 380],
+            "statement": [200, 470, 1600, 520],
+            "band": [200, 400, 1600, 340],
+            "rule": [200, 1240, 1600, 160],
+            "figure": [1880, 430, 480, 760],
         },
         "b": {
-            "statement": [300, 420, 1960, 600],
-            "band": [260, 380, 2040, 320],
-            "rule": [260, 1000, 2040, 240],
+            "statement": [820, 470, 1540, 520],
+            "band": [820, 400, 1540, 320],
+            "rule": [820, 1240, 1540, 160],
+            "figure": [200, 430, 480, 760],
         },
     },
 }
@@ -624,6 +667,18 @@ def build_plan(
                         "rect": [190, 950, 2180, 340],
                         "color": "#8C2F1F",
                         "gap": 0.2,
+                    }
+                )
+            elif kind == "figure":
+                # a character drawn with the pen; its pose follows the meaning
+                figure_rect = list(lay.get("figure") or [1880, 430, 480, 760])
+                elements.append(
+                    {
+                        "type": "figure",
+                        "pose": _figure_pose(narration, role),
+                        "rect": figure_rect,
+                        "color": INK,
+                        "gap": 0.45,
                     }
                 )
             elif kind == "torn_strip":

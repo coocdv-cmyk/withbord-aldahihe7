@@ -1,0 +1,30 @@
+{
+  "plan_fingerprint": "cdca83dbfdce6f3f6985e13cf7a9cb494a6e73ba37761cad38a6045167d33ff0",
+  "parts": {
+    "1": {
+      "frames": 167,
+      "bytes": 3523036,
+      "sha256": "2e76b587958dc954a67f70e7f4bcbafe807d3b50bf5236ddb8c2df7a52ed2318"
+    },
+    "2": {
+      "frames": 205,
+      "bytes": 3948237,
+      "sha256": "8c872273de8788e37e3390f242228c09651e4434864fbc735f156ce193f71143"
+    },
+    "3": {
+      "frames": 235,
+      "bytes": 7212793,
+      "sha256": "a8e280c24f309ec31a9a0a1269d1d11c8773604286a479a6132255944737f792"
+    },
+    "4": {
+      "frames": 216,
+      "bytes": 6145352,
+      "sha256": "a3836010602b4600fa44287dfd797c65592e3c82194074db56ed5c30ad0c8dd3"
+    },
+    "5": {
+      "frames": 196,
+      "bytes": 4578031,
+      "sha256": "ab7af5a4b88cb9de3fe6e5e08b3039b1433c6d6ed54d194d389c8a56ebc4f63d"
+    }
+  }
+}

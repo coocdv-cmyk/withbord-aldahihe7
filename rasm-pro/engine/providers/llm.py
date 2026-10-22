@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import os
+from pathlib import Path
 from typing import Any
 
 import requests
@@ -51,6 +53,30 @@ def _extract_json(text: str) -> dict | None:
     return None
 
 
+def local_api_key() -> str:
+    """The key the local llama-server expects (``--api-key-file``).
+
+    The server writes it to ``studio/data/model-key.txt``; without it every
+    request answers **401** and the local model looks broken.  The environment
+    variable wins, then the key file.
+    """
+    key = os.environ.get("RASM_LLM_API_KEY") or os.environ.get("RASM_RESEARCH_LLM_API_KEY") or ""
+    if key:
+        return key.strip()
+    here = Path(__file__).resolve()
+    for candidate in (
+        here.parents[3] / "studio" / "data" / "model-key.txt",
+        here.parents[2] / "data" / "model-key.txt",
+        here.parents[2] / "studio" / "data" / "model-key.txt",
+    ):
+        try:
+            if candidate.exists():
+                return candidate.read_text(encoding="utf-8").strip()
+        except Exception:
+            continue
+    return ""
+
+
 class LLM:
     """عميل LLM موحّد: local (llama.cpp/ollama) أو openai-compatible أو offline."""
 
@@ -81,10 +107,24 @@ class LLM:
     def _local_alive(self) -> bool:
         base = self.cfg.get("llm", "local_base_url", default="http://127.0.0.1:11435/v1")
         try:
-            r = requests.get(f"{base.rstrip('/')}/models", timeout=2)
+            r = requests.get(f"{base.rstrip('/')}/models", timeout=2, headers=self._local_headers())
+            # a 401 means the server is there but wants the key: that is alive,
+            # not "no server".  Treating 401 as dead is what made the local
+            # model look unusable.
             return r.status_code < 500
         except Exception:
             return False
+
+    def _local_key(self) -> str:
+        """The key the local server expects (llama-server --api-key-file)."""
+        return local_api_key()
+
+    def _local_headers(self) -> dict:
+        headers = {"Content-Type": "application/json"}
+        key = self._local_key()
+        if key:
+            headers["Authorization"] = f"Bearer {key}"
+        return headers
 
     @property
     def available(self) -> bool:
@@ -100,7 +140,7 @@ class LLM:
         if backend == "local":
             base = self.cfg.get("llm", "local_base_url", default="http://127.0.0.1:11435/v1")
             model = self.cfg.get("llm", "local_model", default="qwen3")
-            headers = {"Content-Type": "application/json"}
+            headers = self._local_headers()
         else:
             base = self.cfg.openai_base
             model = self.cfg.model

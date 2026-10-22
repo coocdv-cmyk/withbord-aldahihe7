@@ -112,6 +112,7 @@ SFX_TYPES: dict[str, dict] = {
 STROKE_BINDING = {
     "text": "scratch",
     "svg": "scratch",
+    "figure": "scratch",
     "highlight": "scratch_soft",
     "underline": "scratch_soft",
     "flourish": "scratch_fast",

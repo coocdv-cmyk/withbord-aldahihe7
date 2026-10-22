@@ -369,6 +369,55 @@ class Director:
                 dur = max(1.5, float(el.get("reveal_time", 6.0)))
                 items.append({"kind": "reveal", "obj": reveal, "start": t, "dur": dur, "bbox": strokes_bbox(strokes), "el": el, "gap": gap})
                 t += dur + gap
+            elif etype == "figure":
+                # a character drawn with the pen (no external asset)
+                from .figures import UNIT_H, UNIT_W, figure_strokes
+
+                pose = str(el.get("pose") or "idle")
+                x, y, w, h = [float(v) for v in rect]
+                scale = min(w / UNIT_W, h / UNIT_H)
+                ox = x + (w - UNIT_W * scale) / 2.0
+                oy = y + (h - UNIT_H * scale) / 2.0
+                raw = figure_strokes(pose, brush=float(el.get("brush") or 9.0), color=el.get("color"))
+                moved = []
+                for st in raw:
+                    pts = [[ox + p[0] * scale, oy + p[1] * scale] for p in st.points]
+                    moved.append(
+                        Stroke(
+                            points=pts,
+                            lengths=[v * scale for v in st.lengths],
+                            brush=max(0.7, st.brush * scale),
+                            kind=st.kind,
+                            color=st.color,
+                            brush_profile=(
+                                [max(0.7, v * scale) for v in st.brush_profile]
+                                if st.brush_profile
+                                else None
+                            ),
+                            jumps=st.jumps,
+                            meta=st.meta,
+                        )
+                    )
+                if not moved:
+                    report_issue("element-empty", f"لا مسارات لشخصية الوضع {pose!r}")
+                    continue
+                tl = HandTimeline(moved)
+                dur = max(MIN_DRAW_SEC, tl.wall_for_speed(self.speed))
+                items.append(
+                    {
+                        "kind": "stroke",
+                        "obj": tl,
+                        "start": t,
+                        "dur": dur,
+                        "bbox": strokes_bbox(moved),
+                        "el": el,
+                        "gap": gap,
+                        "nat": tl.natural,
+                        "events": True,
+                        "_prev": 0.0,
+                    }
+                )
+                t += dur + gap
             elif etype in ("text", "svg"):
                 if etype == "svg":
                     raw_path = el.get("asset")
