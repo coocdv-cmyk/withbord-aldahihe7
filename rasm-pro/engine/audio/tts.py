@@ -43,7 +43,7 @@ DEFAULT_VOICES = {
     "ar": "ar-EG-ShakirNeural",
     "en": "en-US-AriaNeural",
 }
-BACKENDS = ("none", "edge", "azure")
+BACKENDS = ("none", "edge", "azure", "piper")
 
 
 class TtsError(RuntimeError):
@@ -66,6 +66,8 @@ class TtsConfig:
     api_key: str = ""
     region: str = ""
     language: str = "ar"
+    model_path: str = ""
+    binary: str = ""
 
     @classmethod
     def from_config(cls, config=None, *, language: str = "ar") -> "TtsConfig":
@@ -95,6 +97,8 @@ class TtsConfig:
             or cfg.get("tts", "region", default="")
             or ""
         )
+        model_path = os.environ.get("RASM_TTS_MODEL") or cfg.get("tts", "model", default="") or ""
+        binary = os.environ.get("RASM_TTS_BINARY") or cfg.get("tts", "binary", default="") or ""
         return cls(
             backend=backend,
             voice=str(voice),
@@ -104,6 +108,8 @@ class TtsConfig:
             api_key=str(api_key),
             region=str(region),
             language=str(language or "ar"),
+            model_path=str(model_path),
+            binary=str(binary),
         )
 
     def resolved_voice(self) -> str:
@@ -239,6 +245,117 @@ def _escape_ssml(text: str) -> str:
     )
 
 
+# --------------------------------------------------------------------------
+# المزوّد المحلي: Piper (بلا إنترنت، بلا اشتراك)
+# --------------------------------------------------------------------------
+def runtime_root() -> Path:
+    """جذر الأدوات المحلية: ``<repo>/rasm-pro/runtime``."""
+    return Path(__file__).resolve().parents[2] / "runtime"
+
+
+def discover_piper_binary(root: Path | None = None) -> Path | None:
+    """يبحث عن ``piper.exe`` في مجلد الأدوات المحلي."""
+    base = Path(root) if root else runtime_root()
+    for path in (
+        base / "piper" / "piper" / "piper.exe",
+        base / "piper" / "piper.exe",
+        base / "piper" / "bin" / "piper.exe",
+    ):
+        if path.exists():
+            return path
+    return None
+
+
+def discover_piper_model(language: str = "ar", root: Path | None = None) -> Path | None:
+    """يبحث عن نموذج صوتي محلي لـ Piper يطابق اللغة.
+
+    الأولوية لنموذج اللغة المطلوبة (``ar_*`` / ``en_*``)، ثم أي نموذج آخر —
+    مع declare صريح في التقرير عند الاختلاف.
+    """
+    base = Path(root) if root else runtime_root()
+    models_dir = base / "tts-models"
+    if not models_dir.exists():
+        return None
+    prefix = str(language or "ar").split("-")[0].lower()
+    exact = sorted(models_dir.glob(f"{prefix}_*.onnx"))
+    if exact:
+        return exact[0]
+    any_model = sorted(models_dir.glob("*.onnx"))
+    return any_model[0] if any_model else None
+
+
+def piper_status(language: str = "ar", root: Path | None = None) -> dict:
+    """تقرير جاهزية المزوّد المحلي (للفحص والواجهة)."""
+    binary = discover_piper_binary(root)
+    model = discover_piper_model(language, root)
+    return {
+        "backend": "piper" if binary and model else "none",
+        "binary": str(binary) if binary else None,
+        "model": str(model) if model else None,
+        "model_bytes": model.stat().st_size if model else 0,
+        "available": bool(binary and model),
+        "language": str(language or "ar"),
+    }
+
+
+def _rate_to_length_scale(rate: str) -> float:
+    """يحوّل ``+10%`` / ``-4%`` إلى ``length_scale`` بنمط Piper.
+
+    Piper: ``length_scale`` أكبر = أبطأ. ``+10%`` (أسرع 10٪) ⇒ ``1/1.10``.
+    """
+    text = str(rate or "+0%").strip()
+    try:
+        percent = float(text.rstrip("%").strip())
+    except ValueError:
+        return 1.0
+    factor = 1.0 + percent / 100.0
+    if factor <= 0.1:
+        factor = 0.1
+    return round(1.0 / factor, 4)
+
+
+def _synth_piper(text: str, out_wav: Path, cfg: TtsConfig) -> Path:
+    """Piper محلي: نموذج ONNX + التنفيذ الثنائي — بلا إنترنت وبلا سحابة.
+
+    النص يمرّ عبر ``stdin`` بترميز UTF-8 (PowerShell/Ansi يفسد العربية)،
+    والمخرج (22050Hz) يُعاد تشكيله إلى معدل المحرّك (48kHz).
+    """
+    binary = Path(cfg.binary) if cfg.binary else discover_piper_binary()
+    if not binary or not binary.exists():
+        raise TtsError(
+            "مزوّد Piper المحلي غير مثبَّت: ضع التنفيذ في runtime/piper/piper/piper.exe "
+            "(راجع tools/setup_local_tts.py)."
+        )
+    model = Path(cfg.model_path) if cfg.model_path else discover_piper_model(cfg.language)
+    if not model or not model.exists():
+        raise TtsError(
+            "لا نموذج صوتي محلي: ضع نموذج Piper في runtime/tts-models "
+            "(مثل ar_JO-kareem-medium.onnx) أو مرّر --model."
+        )
+
+    out_wav.parent.mkdir(parents=True, exist_ok=True)
+    raw = out_wav.with_name(out_wav.stem + ".piper.wav")
+    cmd = [
+        str(binary),
+        "--model", str(model),
+        "--output_file", str(raw),
+        "--length_scale", str(_rate_to_length_scale(cfg.rate)),
+    ]
+    try:
+        proc = subprocess.run(
+            cmd,
+            input=str(text).encode("utf-8"),
+            capture_output=True,
+            timeout=600,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise TtsError("انتهت مهلة Piper (600ث) أثناء توليد المشهد.") from exc
+    if proc.returncode != 0 or not raw.exists() or raw.stat().st_size <= 44:
+        detail = (proc.stderr or b"").decode("utf-8", "replace")[-300:]
+        raise TtsError(f"فشل Piper في توليد المشهد (رمز {proc.returncode}): {detail}")
+    return _to_wav(raw, out_wav, sample_rate=cfg.sample_rate)
+
+
 def synthesize_scene(
     text: str,
     out_wav: Path,
@@ -253,13 +370,16 @@ def synthesize_scene(
     if backend == "none":
         raise TtsError(
             "لا مزوّد TTS مفعَّل. اختر واحدًا: "
-            "rasm tts <project> --backend edge   (أو azure بعد ضبط المفتاح والمنطقة)"
+            "rasm tts <project> --backend piper  (محلي بلا إنترنت) "
+            "أو --backend edge (يحتاج إنترنت) أو --backend azure (مفتاح + منطقة)"
         )
     if backend not in BACKENDS:
         raise TtsError(f"مزوّد TTS غير معروف: {backend!r} — المتاح: {', '.join(BACKENDS)}")
     out_wav.parent.mkdir(parents=True, exist_ok=True)
     tmp = work_dir or out_wav.parent
     tmp.mkdir(parents=True, exist_ok=True)
+    if backend == "piper":
+        return _synth_piper(text, out_wav, cfg)
     mp3 = tmp / (out_wav.stem + ".mp3")
     if backend == "edge":
         _synth_edge(text, mp3, cfg)
@@ -370,7 +490,14 @@ def synthesize_narration(
     report["scenes"] = len(scenes)
     report["words"] = scene_words(scenes)
     report["backend"] = cfg.backend
-    report["voice"] = cfg.resolved_voice()
+    if cfg.backend == "piper":
+        model = Path(cfg.model_path) if cfg.model_path else discover_piper_model(cfg.language)
+        report["voice"] = model.name if model else "piper"
+        report["model"] = str(model) if model else None
+        report["local"] = True
+    else:
+        report["voice"] = cfg.resolved_voice()
+        report["local"] = False
     report["rate"] = cfg.rate
     report["pitch"] = cfg.pitch
     return report
@@ -420,6 +547,7 @@ def synthesize_project(
         "pitch": cfg.pitch,
         "scenes": report["scenes"],
         "words": report["words"],
+        "local": bool(report.get("local")),
         "outside_project": False,
     }
     manifest = register_generated_narration(
@@ -427,4 +555,24 @@ def synthesize_project(
     )
     report["manifest"] = manifest
     report["stored"] = manifest.get("path")
+
+    # التطبيع الصريح: السرد المُولَّد يُقاس ثم يُعاد إلى هدف التسليم
+    # (‎-16 LUFS للفيديو).  القياس قبل التعديل وبعده مسجَّل في الوصف.
+    try:
+        from .loudness import TARGETS
+        from .narration import normalize_narration
+
+        target = float(TARGETS.get("video", -16.0))
+        measured = float((manifest.get("loudness") or {}).get("lufs_integrated") or 0.0)
+        if measured and abs(measured - target) > 0.5:
+            norm = normalize_narration(pd, target)
+            report["normalization"] = {
+                "target_lufs": target,
+                "gain_db": norm.get("gain_db"),
+                "before": (norm.get("before") or {}).get("lufs_integrated"),
+                "after": (norm.get("after") or {}).get("lufs_integrated"),
+            }
+            report["stored"] = norm.get("file") or report["stored"]
+    except Exception as exc:  # التطبيع لا يُسقط التوليد — يُصرَّح به
+        report["normalization_error"] = str(exc)
     return report

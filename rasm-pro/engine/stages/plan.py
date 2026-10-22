@@ -241,9 +241,45 @@ def _index_assets(research: dict, rejected: set[str] | None = None) -> dict[str,
                     "title": rec.get("title"),
                     "license": rec.get("license"),
                     "entity": e.get("name"),
+                    "entity_type": rec.get("entity_type"),
+                    "mime": mime,
                 }
             )
     return index
+
+
+def _apply_rejection_rules(index: dict[str, list[dict]], project_dir: Path | None) -> dict:
+    """يحذف الأصول التي تحجبها قواعد الرفض المتعلَّمة من قراراتك.
+
+    القاعدة: العنوان الذي يحمل رمزًا مميِّزًا لأصلٍ رفضته أنت (قطار، سفينة،
+    خريطة تضاريس…) **لا يدخل الخطة** — حتى لو جاء من بحث جديد.  هذا ما يوقف
+    تكرار الرفض اليدوي في كل حلقة.
+    """
+    report = {"rules": 0, "blocked": []}
+    if not project_dir:
+        return report
+    try:
+        from ..memory.rejections import filter_assets, rules_for
+
+        rules = rules_for(project_dir)
+    except Exception:
+        return report
+    if not rules:
+        return report
+    report["rules"] = len(rules)
+    for name, assets in list(index.items()):
+        allowed, blocked = filter_assets(assets, rules)
+        index[name] = allowed
+        for item in blocked:
+            report["blocked"].append(
+                {
+                    "entity": name,
+                    "path": item.get("path"),
+                    "title": item.get("title"),
+                    "reason": item.get("blocked_reason"),
+                }
+            )
+    return report
 
 
 def _abs_path(path: str, base: Path) -> str:
@@ -537,6 +573,80 @@ def _text_element(
     }
 
 
+def _relevance_gate(project_dir: Path | None, enabled: bool | None = None):
+    """بوابة الملاءمة — تُفتح افتراضيًّا إلا إذا عُطِّلت صراحةً.
+
+    المنطق: البحث يجد **بالاسم**، فقد يُرجع صورة لا تمثّل المشهد (سفينة حديثة
+    لقائد من القرن السادس عشر). الأصل الذي تحكم البوابة «غير ذي صلة» **لا
+    يدخل الخطة**؛ والأصل «يحتاج عينًا» يدخل ويُعلَّم (البوابة البشرية
+    ما زالت الفيصل).
+    """
+    if enabled is None:
+        try:
+            from ..core.config import load_config
+
+            enabled = bool(load_config().get("research", "relevance_gate", default=True))
+        except Exception:
+            enabled = True
+    if not enabled:
+        return None
+    try:
+        from ..research.relevance import RelevanceGate
+
+        return RelevanceGate()
+    except Exception:
+        return None
+
+
+def _pick_visual(
+    assets: list[dict],
+    scene_text: str,
+    gate,
+    *,
+    names: list[str],
+) -> tuple[dict | None, list[dict]]:
+    """اختيار صورة المشهد: أول أصل **غير مرفوض بالملاءمة**.
+
+    يعيد (الأصل المختار، سجل الأحكام) — والسجل يُكتب في الخطة ليقرأه
+    المحرّر: أي أصل رُفض بسببه، وأيّها «يحتاج عينًا».
+    """
+    if not assets:
+        return None, []
+    notes: list[dict] = []
+    ordered = [a for a in assets if not a["vector"]] + [a for a in assets if a["vector"]]
+    for asset in ordered:
+        if gate is None:
+            return asset, notes
+        context = {
+            "name": str(asset.get("entity") or (names[0] if names else "")),
+            "type": str(asset.get("entity_type") or ""),
+            "need": str(asset.get("need") or ""),
+            "scene": scene_text,
+        }
+        verdict = gate.judge(
+            {
+                "id": asset.get("path"),
+                "title": asset.get("title"),
+                "mime": asset.get("mime"),
+                "type": asset.get("need"),
+            },
+            context,
+        )
+        notes.append(
+            {
+                "path": asset.get("path"),
+                "title": asset.get("title"),
+                "verdict": verdict.verdict,
+                "score": verdict.score,
+                "reason": verdict.reason,
+            }
+        )
+        if verdict.verdict == "irrelevant":
+            continue
+        return asset, notes
+    return None, notes
+
+
 def build_plan(
     graph: dict,
     research: dict,
@@ -545,12 +655,15 @@ def build_plan(
     max_scenes: int | None = None,
     fps: FrameRate | int | float | str | dict | None = None,
     family: str | None = None,
+    relevance: bool | None = None,
 ) -> dict:
     base = Path(project_dir) if project_dir else Path(".")
     # قاعدة زمن واحدة: المشروع يحدد المعدل، والافتراضي 24 (لا 30 ثابتة).
     rate = coerce_frame_rate(fps) if fps is not None else FrameRate(24)
     fam = get_family(family)
     index = _index_assets(research, _rejected_asset_paths(base))
+    rejection_report = _apply_rejection_rules(index, base)
+    gate = _relevance_gate(base, relevance)
     scenes = list(graph.get("scenes", []))[: (max_scenes or 10_000)]
     out_scenes: list[dict] = []
     english = str(graph.get("lang") or "ar").lower().startswith("en")
@@ -778,6 +891,7 @@ def build_plan(
         return elements
 
     context: list[tuple] = []
+    relevance_notes: list[dict] = []
     # --- pass 1: what does each scene have? (names, assets, a picture) ---
     prepared: list[dict] = []
     for i, s in enumerate(scenes, 1):
@@ -785,9 +899,11 @@ def build_plan(
         assets: list[dict] = []
         for n in names:
             assets += index.get(n, [])
-        photo = next((a for a in assets if not a["vector"]), None)
-        vector = next((a for a in assets if a["vector"]), None)
-        visual = photo or vector
+        visual, notes = _pick_visual(
+            assets, str(s.get("narration") or ""), gate, names=names
+        )
+        for note in notes:
+            relevance_notes.append({"scene": s.get("id", i), **note})
         if not fam.allows_images:
             visual = None
         prepared.append({"i": i, "s": s, "names": names, "assets": assets, "visual": visual})
@@ -998,6 +1114,17 @@ def build_plan(
         "scenes": out_scenes,
         "audio": audio_info,
         "timing": timing,
+        "relevance": {
+            "gate": bool(gate),
+            "judged": len(relevance_notes),
+            "rejected": sum(1 for r in relevance_notes if r.get("verdict") == "irrelevant"),
+            "needs_human": sum(1 for r in relevance_notes if r.get("verdict") == "uncertain"),
+            "items": relevance_notes[:80],
+        },
+        "rejections": {
+            "rules": rejection_report.get("rules", 0),
+            "blocked": rejection_report.get("blocked", [])[:40],
+        },
         "stats": {
             "scenes": len(out_scenes),
             "elements": sum(len(s["elements"]) for s in out_scenes),

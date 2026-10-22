@@ -433,6 +433,241 @@ def measured_align(
     )
 
 
+# --------------------------------------------------------------------------
+# المستوىWORD — توقيت الكلمة من تفريغ صوتي مقيس
+# --------------------------------------------------------------------------
+@dataclass
+class WordTiming:
+    """كلمة بتوقيتها المقيس (ثوانٍ) واحتمالها من النموذج."""
+
+    text: str
+    start_sec: float
+    end_sec: float
+    prob: float = 0.0
+
+
+def _tokens(text: str) -> list[str]:
+    """تطبيع النص إلى رموز قابلة للمطابقة (بلا تشكيل ولا وقفيات)."""
+    out: list[str] = []
+    for word in arabic.words(text or ""):
+        token = arabic.normalize(word).lower().strip()
+        if token:
+            out.append(token)
+    return out
+
+
+def word_align(
+    scenes: Sequence[dict],
+    words: Sequence[WordTiming],
+    *,
+    sample_rate: int,
+    total_samples: int,
+    min_match_ratio: float = 0.45,
+) -> Alignment:
+    """يوزّع المشاهد على **كلمات مفرغة من الصوت نفسه** (المستوى ``WORD``).
+
+    الفكرة: التفريغ يعطي لكل كلمة زمنها المقيس. نطابق رموز المشاهد (نص
+    السرد) مع رموز التفريغ تسلسليًّا، ثم نبني حدود المشاهد من الكلمات
+    المتطابقة فعلًا. المشهد الذي لا تُطابق كلماته يُعلَّم صراحةً
+    (``unmatched``) ولا يُدّعى أنه مضبوط.
+
+    المخرجات **متّصلة** كما يفرض عقد الإنتاج: تبدأ من العيّنة صفر وتنتهي عند
+    نهاية الصوت، بلا فجوة ولا تداخل.
+    """
+    import difflib
+
+    if total_samples <= 0:
+        raise AlignmentError(f"مدة الصوت غير صالحة: {total_samples} عينة")
+    if sample_rate <= 0:
+        raise AlignmentError(f"معدل العينات غير صالح: {sample_rate}")
+    texts = [str(s.get("narration") or "").strip() for s in scenes]
+    if not texts or any(not t for t in texts):
+        raise AlignmentError("كل مشهد يجب أن يحمل نصًا غير فارغ للمحاذاة")
+    ids = [int(s.get("id") or i + 1) for i, s in enumerate(scenes)]
+
+    notes: list[str] = []
+    if not words:
+        notes.append("لا كلمات مفرغة — تعذّرت المحاذاة على مستوى الكلمة.")
+        return Alignment(
+            level=LEVEL_NONE,
+            method="asr-word-timed-v1",
+            sample_rate=sample_rate,
+            total_samples=total_samples,
+            segments=[],
+            notes=notes,
+        )
+
+    # --- 1) مطابقة الرموز تسلسليًّا -------------------------------------
+    scene_tokens: list[str] = []
+    token_scene: list[int] = []
+    scene_token_counts: list[int] = []
+    for index, text in enumerate(texts):
+        toks = _tokens(text)
+        scene_token_counts.append(len(toks))
+        for token in toks:
+            scene_tokens.append(token)
+            token_scene.append(index)
+
+    asr_tokens: list[str] = []
+    asr_times: list[tuple[float, float, float]] = []
+    for word in words:
+        token = _tokens(word.text)
+        if not token:
+            continue
+        asr_tokens.append(token[0])
+        asr_times.append((float(word.start_sec), float(word.end_sec), float(word.prob or 0.0)))
+
+    matched: dict[int, list[int]] = {}
+    if scene_tokens and asr_tokens:
+        matcher = difflib.SequenceMatcher(None, scene_tokens, asr_tokens, autojunk=False)
+        for a, b, size in matcher.get_matching_blocks():
+            for offset in range(size):
+                scene_index = token_scene[a + offset]
+                matched.setdefault(scene_index, []).append(b + offset)
+
+    # --- 2) مدى كل مشهد من كلماته المطابقة ------------------------------
+    span_start: list[float | None] = []
+    span_end: list[float | None] = []
+    span_probs: list[list[float]] = []
+    for index in range(len(scenes)):
+        hits = matched.get(index, [])
+        if hits:
+            span_start.append(asr_times[hits[0]][0])
+            span_end.append(asr_times[hits[-1]][1])
+            span_probs.append([asr_times[h][2] for h in hits])
+        else:
+            span_start.append(None)
+            span_end.append(None)
+            span_probs.append([])
+
+    # --- 3) الحدود بين المشاهد ------------------------------------------
+    count = len(scenes)
+    interior: list[float] = []
+    known: dict[int, float] = {}
+    for index in range(count - 1):
+        left = span_end[index]
+        right = span_start[index + 1]
+        if left is not None and right is not None:
+            value = (left + right) / 2.0
+            if right < left:
+                # ترتيب معكوس (خطأ في المطابقة): نأخذ الحدّ الأبعد عن البداية
+                value = max(left, right)
+        elif left is not None:
+            value = left
+        elif right is not None:
+            value = right
+        else:
+            value = None
+        if value is not None:
+            known[index] = value
+        interior.append(value if value is not None else 0.0)
+
+    # الحدود المجهولة تُشتق خطيًا من أقرب حدّ معروف (لا تخمين صامت)
+    for index in range(count - 1):
+        if index in known:
+            continue
+        prev = next((i for i in range(index - 1, -1, -1) if i in known), None)
+        nxt = next((i for i in range(index + 1, count - 1) if i in known), None)
+        if prev is not None and nxt is not None:
+            span = nxt - prev
+            ratio = (index - prev) / span if span else 0.0
+            interior[index] = known[prev] + (known[nxt] - known[prev]) * ratio
+        elif prev is not None:
+            interior[index] = known[prev]
+        elif nxt is not None:
+            interior[index] = known[nxt]
+
+    # --- 4) تحويل إلى عيّنات + رتابة صارمة + تغطية كاملة -----------------
+    total_sec = total_samples / float(sample_rate)
+    bounds: list[float] = [0.0]
+    for value in interior:
+        bounds.append(max(0.0, min(total_sec, float(value))))
+    bounds.append(float(total_sec))
+
+    # الحدود بالعيّنات: **صارمة التزايد** (كل مشهد له عيّنة واحدة على الأقل)
+    # حتى يمرّ فحص «التغطية المتصلة» في عقد الإنتاج بلا رفض.
+    sample_bounds: list[int] = [0]
+    for value in bounds[1:]:
+        sample_bounds.append(int(round(value * sample_rate)))
+    sample_bounds[-1] = int(total_samples)
+    for i in range(1, len(sample_bounds)):
+        if sample_bounds[i] <= sample_bounds[i - 1]:
+            sample_bounds[i] = sample_bounds[i - 1] + 1
+    overflow = sample_bounds[-1] - int(total_samples)
+    if overflow > 0:
+        # نضغط من النهاية مع الحفاظ على التزايد الصارم
+        for i in range(len(sample_bounds) - 1, 0, -1):
+            sample_bounds[i] = min(sample_bounds[i], int(total_samples) - (len(sample_bounds) - 1 - i))
+            if sample_bounds[i] > sample_bounds[i - 1]:
+                break
+        sample_bounds[0] = 0
+        sample_bounds[-1] = int(total_samples)
+        for i in range(1, len(sample_bounds)):
+            if sample_bounds[i] <= sample_bounds[i - 1]:
+                sample_bounds[i] = sample_bounds[i - 1]
+
+    segs: list[Segment] = []
+    matched_scenes = 0
+    total_scene_tokens = 0
+    matched_tokens = 0
+    for index, text in enumerate(texts):
+        start = sample_bounds[index]
+        end = sample_bounds[index + 1]
+        hits = matched.get(index, [])
+        count_tokens = scene_token_counts[index]
+        ratio = (len(hits) / count_tokens) if count_tokens else 0.0
+        total_scene_tokens += count_tokens
+        matched_tokens += len(hits)
+        flags: list[str] = []
+        if hits:
+            matched_scenes += 1
+            flags.append("asr-word-timed")
+            confidence = 0.75 if ratio >= min_match_ratio else 0.6
+            if ratio < min_match_ratio:
+                flags.append("partial-match")
+        else:
+            confidence = 0.3
+            flags.append("unmatched")
+        probs = span_probs[index]
+        if probs:
+            mean_prob = sum(probs) / len(probs)
+            if mean_prob < 0.5:
+                confidence = min(confidence, 0.55)
+                flags.append("low-confidence")
+        if end <= start:
+            confidence = min(confidence, 0.2)
+            flags.append("zero-length")
+        segs.append(
+            Segment(
+                scene_id=ids[index],
+                text=text,
+                start_sample=start,
+                end_sample=end,
+                confidence=round(confidence, 3),
+                flags=flags,
+            )
+        )
+
+    coverage = (matched_tokens / total_scene_tokens) if total_scene_tokens else 0.0
+    notes.append(
+        f"توقيت الكلمة من تفريغ صوتي مقيس: {len(asr_tokens)} كلمة مفرغة · "
+        f"{matched_scenes}/{count} مشهد طابق بالكلمات · تغطية الرموز {coverage:.0%}."
+    )
+    if matched_scenes < count:
+        notes.append(
+            "⚠ مشاهد بلا مطابقة كلامية — حدودها **مقدّرة** من جيرانها (لا تُدّعى دقتها)."
+        )
+    notes.append("التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق).")
+    return Alignment(
+        level=LEVEL_WORD,
+        method="asr-word-timed-v1",
+        sample_rate=sample_rate,
+        total_samples=total_samples,
+        segments=segs,
+        notes=notes,
+    )
+
+
 def save_alignment(al: Alignment, project_dir: str | Path) -> Path:
     d = Path(project_dir) / "audio"
     d.mkdir(parents=True, exist_ok=True)

@@ -1,12 +1,11 @@
 {
   "version": 1,
-  "level": "SEGMENTED",
-  "method": "vad-pauses-proportional-v1",
+  "level": "WORD",
+  "method": "asr-word-timed-v1",
   "sample_rate": 48000,
   "total_samples": 6568224,
   "notes": [
-    "بنية الوقف مقيسة: 42 مقطع نطق مكتشف من الصوت فعليًا.",
-    "عدد المقاطع المقيسة (42) ≠ عدد المشاهد (10) ⇒ التوزيع تناسبي على زمن النطق المقيس، ثم يُحوَّل كل حد تراكمي إلى زمن التسجيل مع احتساب الوقفات التي تسبقه.",
+    "توقيت الكلمة من تفريغ صوتي مقيس: 242 كلمة مفرغة · 10/10 مشهد طابق بالكلمات · تغطية الرموز 48%.",
     "التوقيت مرجعه عدد عينات الصوت الفعلي (بلا انزلاق)."
   ],
   "segments": [
@@ -14,110 +13,102 @@
       "scene_id": 1,
       "text": "لماذا ننسى ما نتعلّمه؟ ثلاثة أشياء تقرّر ما يبقى في الذاكرة، وأحدها ليس الذكاء بل النوم نفسه. في هذا المشهد نكشف القاعدة، ثم ننتقل إلى خطوة عملية تنفعك اليوم.",
       "start_sample": 0,
-      "end_sample": 819369,
-      "confidence": 0.55,
+      "end_sample": 812160,
+      "confidence": 0.75,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed"
       ]
     },
     {
       "scene_id": 2,
       "text": "أولًا الانتباه. العقل لا يحفظ ما لا ينتبه إليه، فيضيع منك سطرٌ كامل تقرؤه بعينك ولا يدخل ذاكرتك. جرّب أن تقرأ فصلًا وأنت مشغول بملف آخر، ثم عد لتجده غائبًا.",
-      "start_sample": 819369,
-      "end_sample": 1520658,
-      "confidence": 0.55,
+      "start_sample": 812160,
+      "end_sample": 1584720,
+      "confidence": 0.6,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed",
+        "partial-match"
       ]
     },
     {
       "scene_id": 3,
       "text": "المشهد الذي تمرّ به عينك الآن قد لا يلمس ذاكرتك ولو قرأته سبع مرات. الانتباه ليس فضيلة، بل شرط أن يدخل الشيء أصلًا قبل أن يُحفظ.",
-      "start_sample": 1520658,
-      "end_sample": 2237805,
-      "confidence": 0.55,
+      "start_sample": 1584720,
+      "end_sample": 2210880,
+      "confidence": 0.75,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed"
       ]
     },
     {
       "scene_id": 4,
       "text": "ثانيًا النوم. أثناء النوم ينتقل الأثر من الذاكرة القصيرة إلى الذاكرة الطويلة، كأن الدماغ يعيد ترتيب ما تعلّمته في اليوم.",
-      "start_sample": 2237805,
-      "end_sample": 2803901,
-      "confidence": 0.55,
+      "start_sample": 2210880,
+      "end_sample": 2724480,
+      "confidence": 0.75,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed"
       ]
     },
     {
       "scene_id": 5,
       "text": "الليلة التي تنام فيها قليلًا هي اللي تسرق منك ما تعلّمته اليوم.",
-      "start_sample": 2803901,
-      "end_sample": 3112786,
-      "confidence": 0.55,
+      "start_sample": 2724480,
+      "end_sample": 3004800,
+      "confidence": 0.75,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed"
       ]
     },
     {
       "scene_id": 6,
       "text": "ولذلك تفيدك أن تنام بعد المذاكرة لا قبلها. النوم ليس مكافأة نهاية اليوم، بل جزء من الحفظ نفسه، وأهمّ ما فيه يقع بعد ساعتين من الاستيقاظ.",
-      "start_sample": 3112786,
-      "end_sample": 3797226,
-      "confidence": 0.55,
+      "start_sample": 3004800,
+      "end_sample": 3726000,
+      "confidence": 0.75,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed"
       ]
     },
     {
       "scene_id": 7,
       "text": "ثالثًا التكرار، والتكرار المتباعد تحديدًا: مرة اليوم، ومرة بعد ثلاثة أيام، ومرة بعد أسبوع. هو مع التكرار ما يفصل المعلومة التي تُنسى عن المعلومة التي تبقى، والفارق بين الاثنين هو التوقيت.",
-      "start_sample": 3797226,
-      "end_sample": 4637846,
-      "confidence": 0.55,
+      "start_sample": 3726000,
+      "end_sample": 4502880,
+      "confidence": 0.6,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed",
+        "partial-match"
       ]
     },
     {
       "scene_id": 8,
       "text": "المشكلة أن التكرار المتلاصق في اليوم نفسه لا يفيد كثيرًا، فالعقل يحفظ الحضور لا المعلومة. حين تترك يومًا كاملًا بين المراجعتين، تترك له وقتًا يستعيد فيه الطريق.",
-      "start_sample": 4637846,
-      "end_sample": 5368001,
-      "confidence": 0.55,
+      "start_sample": 4502880,
+      "end_sample": 5251200,
+      "confidence": 0.75,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed"
       ]
     },
     {
       "scene_id": 9,
       "text": "ولذلك تفيدك مراجعة في اليوم نفسه، وأخرى في الغد، وثالثة بعد أسبوع. التوقيت هو ما يصنع الأثر، وعدد المراجعات وحده لا يصنع شيئًا.",
-      "start_sample": 5368001,
-      "end_sample": 6016889,
-      "confidence": 0.55,
+      "start_sample": 5251200,
+      "end_sample": 5958000,
+      "confidence": 0.75,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed"
       ]
     },
     {
       "scene_id": 10,
       "text": "ابدأ اليوم بورقة واحدة، اكتب فكرة واحدة فيها، وراجعها ثلاث مرات متباعدة، وستفعل ما لا تفعله الفكرة الملقاة: ستتحول إلى عادة.",
-      "start_sample": 6016889,
+      "start_sample": 5958000,
       "end_sample": 6568224,
-      "confidence": 0.55,
+      "confidence": 0.75,
       "flags": [
-        "pause-detected",
-        "proportional-mapping"
+        "asr-word-timed"
       ]
     }
   ]

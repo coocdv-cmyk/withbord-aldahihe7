@@ -116,6 +116,11 @@ desktop.ini
 # Restore drills (cloned repo + venv + test renders)
 restore-tests/
 
+# local speech tooling scratch (ASR 16k copies, whisper json, TTS scene wavs)
+rasm-pro/projects/*/audio/_asr/
+rasm-pro/projects/*/audio/tts/_scenes/
+rasm-pro/runtime/
+
 # Generated images (test/elements)
 test/*.png
 test/*.gif

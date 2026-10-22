@@ -315,14 +315,53 @@ def cmd_icons(args) -> int:
     return 0
 
 
-def _align_and_gate(pd, plan_for_audio, *, align: bool = False) -> int:
+def _asr_transcript(pd, *, language: str = "ar", force: bool = False):
+    """يضمن وجود تفريغ صوتي مطابق للسرد الحالي — ويعيده (أو None)."""
+    from engine.audio import load_narration as load_nar
+    from engine.audio.asr import (
+        AsrError,
+        asr_status,
+        load_transcript,
+        save_transcript,
+        transcribe,
+    )
+    from engine.audio.narration import resolve_narration
+
+    status = asr_status()
+    if not status.get("available"):
+        return None, status
+    nm = load_nar(pd)
+    if not nm or not nm.get("total_samples"):
+        return None, status
+    sha = str(nm.get("sha256") or "")
+    payload = load_transcript(pd)
+    if payload and not force and str(payload.get("audio_sha256") or "") == sha:
+        return payload, status
+    src = resolve_narration(pd, nm)
+    try:
+        transcript = transcribe(
+            src,
+            language=language,
+            audio_sha256=sha,
+        )
+    except AsrError as exc:
+        print(f"  ⚠ تعذّر التفريغ: {exc}")
+        return None, status
+    save_transcript(transcript, pd)
+    return transcript.to_dict(), status
+
+
+def _align_and_gate(pd, plan_for_audio, *, align: bool = False, asr: bool = False) -> int:
     """Align the stored narration against the active plan and run the gate.
 
     Shared by ``rasm audio`` and ``rasm tts`` so both paths report the same
     numbers from the same code (the contract is one, not two).
+
+    ``asr=True`` raises the level from ``SEGMENTED`` (pause-measured, guessed
+    distribution) to ``WORD`` (word timing measured from the recording itself).
     """
     from engine.audio import load_narration as load_nar
-    from engine.audio.align import measured_align, save_alignment
+    from engine.audio.align import measured_align, save_alignment, word_align
     from engine.audio.gate import evaluate_narration_gate
     from engine.audio.loudness import TARGETS, decode_samples
     from engine.audio.narration import resolve_narration
@@ -341,10 +380,34 @@ def _align_and_gate(pd, plan_for_audio, *, align: bool = False) -> int:
     nm = load_nar(pd)
     if align and nm and nm.get("total_samples") and align_scenes:
         sr = int(nm["sample_rate"])
-        samples, rate = decode_samples(resolve_narration(pd, nm))
-        al = measured_align(
-            align_scenes, samples, rate, int(nm["total_samples"])
-        )
+        al = None
+        if asr:
+            from engine.audio.asr import transcript_words
+
+            payload, status = _asr_transcript(
+                pd, language=str((plan_for_audio or {}).get("language") or "ar")
+            )
+            if payload and payload.get("words"):
+                al = word_align(
+                    align_scenes,
+                    transcript_words(payload),
+                    sample_rate=sr,
+                    total_samples=int(nm["total_samples"]),
+                )
+                print(
+                    f"  · تفريغ صوتي محلي: {len(payload.get('words') or [])} كلمة "
+                    f"· {status.get('model', '')}"
+                )
+            else:
+                print(
+                    "  ⚠ لا تفريغ محلي متاح "
+                    f"({status.get('backend')}) — تُحفظ المحاذاة المقيسة (SEGMENTED)."
+                )
+        if al is None:
+            samples, rate = decode_samples(resolve_narration(pd, nm))
+            al = measured_align(
+                align_scenes, samples, rate, int(nm["total_samples"])
+            )
         out = save_alignment(al, pd)
         source = "الخطة النشطة" if plan_for_audio else "scriptgraph"
         print(f"✔ محاذاة ({al.level}) مقابل {source}: {out}")
@@ -432,7 +495,78 @@ def cmd_audio(args) -> int:
         pd,
         plan_for_audio,
         align=bool(getattr(args, "align", False) or getattr(args, "file", None)),
+        asr=bool(getattr(args, "asr", False)),
     )
+
+
+def cmd_asr(args) -> int:
+    """تفريغ صوتي محلي للسجل: توقيت لكل كلمة من التسجيل نفسه.
+
+    ``rasm asr <project>``            → تفريغ + محاذاة على مستوى الكلمة
+    ``rasm asr <project> --status``   → فحص الأدوات المحلية فقط
+    """
+    from engine.audio.asr import AsrError, asr_status, transcript_words
+    from engine.audio.align import save_alignment, word_align
+    from engine.audio import load_narration as load_nar
+    from engine.audio.narration import resolve_narration
+
+    pd = project_dir(args.project)
+    status = asr_status()
+    if getattr(args, "status", False):
+        print(f"· التنفيذ: {status.get('binary') or '—'}")
+        print(f"· النموذج: {status.get('model') or '—'}")
+        print(f"· جاهز: {'نعم' if status.get('available') else 'لا'}")
+        return 0 if status.get("available") else 2
+    if not status.get("available"):
+        print(
+            "✘ التفريغ المحلي غير متاح: "
+            f"التنفيذ={status.get('binary') or '—'} · النموذج={status.get('model') or '—'}",
+            file=sys.stderr,
+        )
+        return 2
+
+    nm = load_nar(pd)
+    if not nm or not nm.get("total_samples"):
+        print("✘ لا يوجد سرد مسجَّل في المشروع (rasm audio <project> --file ...)", file=sys.stderr)
+        return 2
+
+    try:
+        plan = read_json(_resolve_plan_arg(pd))
+    except (FileNotFoundError, ProjectError, TimebaseError):
+        plan = None
+    graph = read_json(pd / "script" / "scriptgraph.json") or {}
+    scenes = (plan or {}).get("scenes") or []
+    if not scenes:
+        scenes = graph.get("scenes") or []
+    if not scenes:
+        print("✘ لا مشاهد — لا محاذاة إلى الكلمات.", file=sys.stderr)
+        return 2
+
+    language = str((plan or {}).get("language") or graph.get("lang") or "ar")
+    payload, _ = _asr_transcript(pd, language=language, force=bool(getattr(args, "force", False)))
+    if not payload or not payload.get("words"):
+        print("✘ لم يُنتج التفريغ أي كلمة.", file=sys.stderr)
+        return 2
+    words = transcript_words(payload)
+    al = word_align(
+        scenes,
+        words,
+        sample_rate=int(nm["sample_rate"]),
+        total_samples=int(nm["total_samples"]),
+    )
+    out = save_alignment(al, pd)
+    print(f"✔ تفريغ: {len(words)} كلمة · {payload.get('segments')} مقطع · حفظ في audio/transcript.json")
+    print(f"✔ محاذاة ({al.level}): {out}")
+    for seg in al.segments:
+        print(
+            f"   - مشهد {seg.scene_id}: "
+            f"[{seg.start_sample / int(nm['sample_rate']):.2f} → "
+            f"{seg.end_sample / int(nm['sample_rate']):.2f}]ث · ثقة {seg.confidence:.2f}"
+            + (" ⚠ " + ",".join(seg.flags) if seg.flags else "")
+        )
+    for note in al.notes:
+        print(f"  · {note}")
+    return 0
 
 
 def cmd_tts(args) -> int:
@@ -460,7 +594,7 @@ def cmd_tts(args) -> int:
         if not src.exists():
             print(f"✘ ملف السكريبت غير موجود: {src}", file=sys.stderr)
             return 2
-        scenes = split_script(src.read_text(encoding="utf-8"))
+        scenes = split_script(src.read_text(encoding="utf-8-sig"))
     else:
         scenes = [
             str(s.get("narration") or "").strip() for s in (graph.get("scenes") or [])
@@ -476,13 +610,20 @@ def cmd_tts(args) -> int:
 
     language = str(graph.get("lang") or getattr(args, "lang", None) or "ar")
     cfg = TtsConfig.from_config(language=language)
-    for attr in ("backend", "voice", "rate", "pitch"):
+    for attr in ("backend", "voice", "rate", "pitch", "model", "binary"):
         value = getattr(args, attr, None)
         if value:
             setattr(cfg, attr, value)
 
+    if cfg.backend == "piper":
+        from engine.audio.tts import discover_piper_model
+
+        model = Path(cfg.model_path) if cfg.model_path else discover_piper_model(cfg.language)
+        voice_label = model.name if model else "piper"
+    else:
+        voice_label = cfg.resolved_voice()
     print(
-        f"• مزوّد TTS: {cfg.backend} · صوت {cfg.resolved_voice()} · "
+        f"• مزوّد TTS: {cfg.backend} · صوت {voice_label} · "
         f"{len(scenes)} مشهد · {scene_words(scenes)} كلمة"
     )
     if getattr(args, "dry_run", False):
@@ -513,6 +654,13 @@ def cmd_tts(args) -> int:
         return 2
 
     man = report.get("manifest") or {}
+    # بعد التNormalization يتغيّر الملف المخزَّن — نقرأ الوصف من القرص
+    try:
+        from engine.audio import load_narration as _load_nar
+
+        man = _load_nar(pd) or man
+    except Exception:
+        pass
     loud = man.get("loudness") or {}
     print(f"✔ سرد مُولَّد: {report['stored']}")
     print(
@@ -527,12 +675,18 @@ def cmd_tts(args) -> int:
         )
     if not loud:
         print("  ⚠ تعذّر قياس الجهارة — شغّل: rasm audio <project> --normalize -16")
+    norm = report.get("normalization")
+    if norm:
+        print(
+            f"  · التطبيع الصريح: {norm.get('before')} → {norm.get('after')} LUFS "
+            f"(كسب {float(norm.get('gain_db') or 0.0):+.2f} dB · هدف {norm.get('target_lufs')})"
+        )
 
     try:
         plan_for_audio = read_json(_resolve_plan_arg(pd))
     except (FileNotFoundError, ProjectError, TimebaseError):
         plan_for_audio = None
-    return _align_and_gate(pd, plan_for_audio, align=True)
+    return _align_and_gate(pd, plan_for_audio, align=True, asr=bool(getattr(args, "asr", False)))
 
 
 def _manifest_args(project: str):
@@ -545,9 +699,10 @@ def _approvals_args(project: str):
                      json=False, mode="final", dry_run=False)
 
 
-def _tts_args(project: str):
-    return Namespace(project=project, script=None, backend=None, voice=None, rate=None,
-                     pitch=None, pause=None, lead_in=0.35, lang=None, dry_run=False)
+def _tts_args(project: str, backend=None, model=None, binary=None, asr: bool = False):
+    return Namespace(project=project, script=None, backend=backend, voice=None, rate=None,
+                     pitch=None, pause=None, lead_in=0.35, lang=None, dry_run=False,
+                     model=model, binary=binary, asr=asr)
 
 
 def _render_args(project: str, out=None, *, preview: bool = False):
@@ -575,7 +730,7 @@ def cmd_build(args) -> int:
 
     # 1) the script: a file, or a draft written by the local model
     if script_path:
-        text = Path(script_path).read_text(encoding="utf-8")
+        text = Path(script_path).read_text(encoding="utf-8-sig")
     elif topic:
         from engine.stages.script_writer import script_to_graph, write_script
 
@@ -645,9 +800,11 @@ def cmd_build(args) -> int:
         pass
 
     # 6) the preview narration (optional, for listening only)
-    if getattr(args, "tts", False):
+    if getattr(args, "tts", None):
         try:
-            cmd_tts(_tts_args(args.project))
+            cmd_tts(_tts_args(args.project, backend=str(getattr(args, "tts")),
+                               model=getattr(args, "tts_model", None),
+                               asr=bool(getattr(args, "asr", False))))
         except SystemExit:
             pass
 
@@ -1443,6 +1600,11 @@ def cmd_approvals_credits(args) -> int:
 
 
 def cmd_learn(args) -> int:
+    if args.kind == "rules":
+        return _cmd_learn_rules(args)
+    if not args.key or args.value is None:
+        print("✘ المفتاح والقيمة مطلوبان (أو استخدم: rasm learn rules --project <name>)", file=sys.stderr)
+        return 2
     from engine.memory import Lexicon, add_correction
 
     kind, key, value = args.kind, args.key, args.value
@@ -1456,6 +1618,28 @@ def cmd_learn(args) -> int:
         print(f"  أي بحث قادم لـ«{key}» سيستخدم «{lex.alias(key)}» — بلا إعادة تدريب.")
     elif kind == "type":
         print(f"  النوع القادم لـ«{key}» = {lex.type_fix(key)}")
+    return 0
+
+
+def _cmd_learn_rules(args) -> int:
+    """قواعد الحجب المتعلَّمة من قرارات الرفض — عرضها واعتمادها."""
+    from engine.memory.rejections import learn_rules, rules_for, save_rules
+
+    pd = project_dir(args.project or "demo")
+    rules = learn_rules(pd)
+    if getattr(args, "save", False):
+        path = save_rules(pd, rules)
+        print(f"✔ {len(rules)} قاعدة محفوظة: {path}")
+    else:
+        rules = rules_for(pd)
+    if not rules:
+        print("· لا توجد قواعد بعد (لا رفضات مسجَّلة، أو رموزها مشتركة مع أصول معتمدة).")
+        return 0
+    print(f"· {len(rules)} قاعدة حاجب مستعلَمة من قرارات الرفض:")
+    for rule in rules:
+        scope = " / ".join(x for x in (rule.entity_type, rule.need) if x) or "عام"
+        reason = (rule.reason or "")[:90]
+        print(f"   - «{rule.token}» [{scope}] {reason}")
     return 0
 
 
@@ -1717,7 +1901,21 @@ def main() -> int:
         metavar="LUFS",
         help="تطبيع صريح إلى هدف LUFS (مثل -16 للفيديو) — مسجَّل في audio/narration.json",
     )
+    p8.add_argument(
+        "--asr",
+        action="store_true",
+        help="محاذاة على مستوى الكلمة (تفريغ صوتي محلي بـ whisper.cpp)",
+    )
     p8.set_defaults(func=cmd_audio)
+
+    pasr = sub.add_parser(
+        "asr",
+        help="تفريغ صوتي محلي: توقيت لكل كلمة من تسجيل السرد",
+    )
+    pasr.add_argument("project")
+    pasr.add_argument("--status", action="store_true", help="فحص الأدوات المحلية فقط")
+    pasr.add_argument("--force", action="store_true", help="إعادة التفريغ حتى لو كان محفوظًا")
+    pasr.set_defaults(func=cmd_asr)
 
     p8t = sub.add_parser(
         "tts",
@@ -1732,12 +1930,27 @@ def main() -> int:
     p8t.add_argument(
         "--backend",
         default=None,
-        choices=["none", "edge", "azure"],
-        help="مزوّد التوليد (افتراضيًا من config.tts / RASM_TTS_BACKEND)",
+        choices=["none", "edge", "azure", "piper"],
+        help="مزوّد التوليد: piper محلي بلا إنترنت · edge سحابي · azure بمفتاح",
     )
     p8t.add_argument("--voice", default=None, help="صوت المزوّد (افتراضيًا حسب اللغة)")
     p8t.add_argument("--rate", default=None, help="معدّل السرعة مثل -4% أو +0%")
     p8t.add_argument("--pitch", default=None, help="معدّل النغمة مثل +0Hz")
+    p8t.add_argument(
+        "--model",
+        default=None,
+        help="نموذج Piper المحلي (onnx) — الافتراضي: runtime/tts-models",
+    )
+    p8t.add_argument(
+        "--binary",
+        default=None,
+        help="مسار تنفيذ Piper (piper.exe) — الافتراضي: runtime/piper",
+    )
+    p8t.add_argument(
+        "--asr",
+        action="store_true",
+        help="محاذاة على مستوى الكلمة بعد التوليد (تفريغ محلي)",
+    )
     p8t.add_argument(
         "--pause",
         default=None,
@@ -1766,7 +1979,23 @@ def main() -> int:
     pbuild.add_argument("--lang", default=None, help="??? ???????? ????????")
     pbuild.add_argument("--family", default=None, choices=["documentary", "explainer", "dense"])
     pbuild.add_argument("--out", default=None, help="???? ??????? ??????")
-    pbuild.add_argument("--tts", action="store_true", help="????? ????? ???????? (???????? ???)")
+    pbuild.add_argument(
+        "--tts",
+        nargs="?",
+        const="edge",
+        default=None,
+        help="سرد تجريبي: --tts piper (محلي بلا إنترنت) أو --tts edge",
+    )
+    pbuild.add_argument(
+        "--tts-model",
+        default=None,
+        help="نموذج Piper المحلي (onnx) عند --tts piper",
+    )
+    pbuild.add_argument(
+        "--asr",
+        action="store_true",
+        help="محاذاة على مستوى الكلمة بعد توليد/استيراد السرد",
+    )
     pbuild.add_argument("--no-research", dest="research", action="store_false")
     pbuild.add_argument("--offline", action="store_true", help="??? ?????")
     pbuild.add_argument("--preview", action="store_true", help="?????? (???? ????? ??? ??????)")
@@ -1780,10 +2009,12 @@ def main() -> int:
     pcap.set_defaults(func=cmd_captions)
 
     p7 = sub.add_parser("learn", help="تصحيح دائم يتعلمه المحرك (اسم/نوع/احتياجات)")
-    p7.add_argument("kind", choices=["alias", "type", "needs"], help="alias: اسم شائع→مرجعي · type: تصحيح النوع · needs: احتياجات بصرية")
-    p7.add_argument("key", help="الاسم كما يظهر في السكريبت")
-    p7.add_argument("value", help="القيمة الجديدة (للاحتياجات: فصل بفواصل)")
+    p7.add_argument("kind", choices=["alias", "type", "needs", "rules"], help="alias: اسم شائع→مرجعي · type: تصحيح النوع · needs: احتياجات بصرية · rules: قواعد الحجب من الرفضات")
+    p7.add_argument("key", nargs="?", help="الاسم كما يظهر في السكريبت")
+    p7.add_argument("value", nargs="?", help="القيمة الجديدة (للاحتياجات: فصل بفواصل)")
     p7.add_argument("--note", default="", help="سبب التصحيح (للتوثيق)")
+    p7.add_argument("--project", default=None, help="مشروع rulings (لـ rules)")
+    p7.add_argument("--save", action="store_true", help="احفظ القواعد المستعلَمة (rules)")
     p7.set_defaults(func=cmd_learn)
 
     p9 = sub.add_parser("assets", help="توليد ومراجعة أصول ورقية/كولاج بالاستايل المقفول")
